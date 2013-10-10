@@ -22,7 +22,6 @@ import is.parsers.RuvScheduleParser;
 import is.rules.Helpers;
 import is.tvpal.R;
 
-
 public class DisplayRuvActivity extends ListActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener, SwipeGestureFilter.SimpleGestureListener
 {
     public static final String EXTRA_TITLE = "is.activites.TITLE";

@@ -20,7 +20,6 @@ public class Stod2ScheduleParser extends DefaultHandler
     private List<EventDataContract> events;
     private String tmpValue;
     private EventDataContract eventTmp;
-    private String desc;
 
     public Stod2ScheduleParser(String baseUrl)
     {

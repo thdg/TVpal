@@ -20,7 +20,7 @@ public class RuvScheduleParser extends DefaultHandler
     private String baseURL;
     private List<EventDataContract> events;
     private String tmpValue;
-    private EventDataContract eventTmp;    private String desc;
+    private EventDataContract eventTmp;
 
     public RuvScheduleParser(String baseUrl)
     {
