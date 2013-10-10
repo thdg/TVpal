@@ -11,16 +11,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
 import is.datacontracts.EventDataContract;
-import is.parsers.SkjarinnScheduleParser;
 import is.handlers.SwipeGestureFilter;
+import is.parsers.SkjarinnScheduleParser;
 import is.rules.Helpers;
 import is.tvpal.R;
 
@@ -28,6 +28,8 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
 {
     public static final String EXTRA_TITLE = "is.activites.TITLE";
     public static final String EXTRA_DESCRIPTION = "is.activites.DESCRIPTION";
+    public static final String EXTRA_START = "is.activites.START";
+    public static final String EXTRA_DURATION = "is.activites.DURATION";
 
     private ArrayAdapter<EventDataContract> _schedulesAdapter;
     private ProgressDialog _waitingDialog;
@@ -63,6 +65,8 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
         Intent intent = new Intent(this, DetailedEventActivity.class);
         intent.putExtra(EXTRA_TITLE, selectedEvent.getTitle());
         intent.putExtra(EXTRA_DESCRIPTION, selectedEvent.getDescription());
+        intent.putExtra(EXTRA_START, selectedEvent.getStartTime());
+        intent.putExtra(EXTRA_DURATION, selectedEvent.getDuration());
 
         startActivity(intent);
     }
