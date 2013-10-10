@@ -11,29 +11,13 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp" >
 
-        <Button
-            android:id="@+id/btnGetRuvSchedules"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ruv"
-            android:textSize="20sp"
-            android:onClick="getSchedulesRuv_clickEvent"/>
 
-        <Button
-            android:id="@+id/btnGetStod2Schedules"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btnGetRuvSchedules"
-            android:text="@string/stod"
-            android:onClick="getSchedulesStod2_clickEvent" />
-
-        <Button
-            android:id="@+id/btnGetSkjarinnSchedules"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btnGetStod2Schedules"
-            android:text="@string/skjarinn"
-            android:onClick="getSchedulesSkjarinn_clickEvent" />
+            android:id="@+id/WelcomeText"
+            android:text="@string/welcome_text"
+            android:textSize="20sp"/>
 
 
     </RelativeLayout>
