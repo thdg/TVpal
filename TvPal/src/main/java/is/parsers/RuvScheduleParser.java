@@ -20,7 +20,7 @@ public class RuvScheduleParser extends DefaultHandler
     private String baseURL;
     private List<EventDataContract> events;
     private String tmpValue;
-    private EventDataContract eventTmp;    private String desc;
+    private EventDataContract eventTmp;
 
     public RuvScheduleParser(String baseUrl)
     {
@@ -65,6 +65,7 @@ public class RuvScheduleParser extends DefaultHandler
         {
             eventTmp = new EventDataContract();
             eventTmp.setStartTime(attributes.getValue("start-time"));
+            eventTmp.setEventDate(attributes.getValue("start-time"));
         }
 
         if(elementName.equalsIgnoreCase("episode"))

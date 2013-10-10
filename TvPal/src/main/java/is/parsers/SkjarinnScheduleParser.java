@@ -23,8 +23,6 @@ public class SkjarinnScheduleParser extends DefaultHandler
     private List<EventDataContract> events;
     private String tmpValue;
     private EventDataContract eventTmp;
-    private String eventDate;
-    private String todayDate;
 
     public SkjarinnScheduleParser(String baseUrl)
     {
@@ -34,8 +32,6 @@ public class SkjarinnScheduleParser extends DefaultHandler
 
     public List<EventDataContract> GetSchedules()
     {
-        todayDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-
         parseDocument();
 
         return this.events;
@@ -71,7 +67,7 @@ public class SkjarinnScheduleParser extends DefaultHandler
         {
             eventTmp = new EventDataContract();
             eventTmp.setStartTime(String.format("%s:00",attributes.getValue("start-time")));
-            eventDate = GetDateFormat(attributes.getValue("start-time"));
+            eventTmp.setEventDate(String.format("%s:00", attributes.getValue("start-time")));
             eventTmp.setDuration(attributes.getValue("duration"));
         }
 
@@ -86,8 +82,7 @@ public class SkjarinnScheduleParser extends DefaultHandler
     public void endElement(String s, String s1, String element) throws SAXException
     {
         if (element.equals("event")) {
-            if(todayDate.equalsIgnoreCase(eventDate))
-                events.add(eventTmp);
+            events.add(eventTmp);
         }
         if (element.equalsIgnoreCase("title")){
             eventTmp.setTitle(tmpValue);
@@ -105,20 +100,5 @@ public class SkjarinnScheduleParser extends DefaultHandler
     public void characters(char[] ac, int i, int j) throws SAXException
     {
         tmpValue = new String(ac, i, j);
-    }
-
-    private String GetDateFormat(String eventDate)
-    {
-        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-
-        Date date = null;
-        try {
-            date = dt.parse(eventDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
-        return dt1.format(date);
     }
 }

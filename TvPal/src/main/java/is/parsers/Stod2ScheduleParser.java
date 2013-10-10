@@ -20,7 +20,6 @@ public class Stod2ScheduleParser extends DefaultHandler
     private List<EventDataContract> events;
     private String tmpValue;
     private EventDataContract eventTmp;
-    private String desc;
 
     public Stod2ScheduleParser(String baseUrl)
     {
@@ -66,6 +65,7 @@ public class Stod2ScheduleParser extends DefaultHandler
             eventTmp = new EventDataContract();
             eventTmp.setStartTime(attributes.getValue("starttime"));
             eventTmp.setDuration(attributes.getValue("duration"));
+            eventTmp.setEventDate(attributes.getValue("starttime"));
         }
 
         if(elementName.equalsIgnoreCase("series"))

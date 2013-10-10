@@ -3,6 +3,7 @@ package is.datacontracts;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Arnar on 28.9.2013.
@@ -17,6 +18,7 @@ public class EventDataContract
     private String subtitles;
     private String description;
     private String duration;
+    private String eventDate;
 
     public String getTitle() { return this.title; }
     public void setTitle(String title) { this.title = title; }
@@ -42,9 +44,12 @@ public class EventDataContract
     public String getDuration() { return this.duration; }
     public void setDuration(String duration) { this.duration= duration; }
 
+    public String getEventDate() { return this.eventDate; }
+    public void setEventDate(String eventDate) { this.eventDate = setCorrectEventDateFormat(eventDate); }
+
     public String setCorrectDateFormat(String startTime)
     {
-        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
         Date date = null;
         try {
@@ -54,6 +59,21 @@ public class EventDataContract
         }
 
         SimpleDateFormat dt1 = new SimpleDateFormat("HH:mm");
+        return dt1.format(date);
+    }
+
+    public String setCorrectEventDateFormat(String eventDate)
+    {
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Date date = null;
+        try {
+            date = dt.parse(eventDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
         return dt1.format(date);
     }
 
