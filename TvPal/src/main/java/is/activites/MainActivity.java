@@ -91,9 +91,11 @@ public class MainActivity extends Activity
             case 1:
                 intent = new Intent(this, DisplayStod2Activity.class);
                 break;
-            default:
+            case 5:
                 intent = new Intent(this, DisplaySkjarinnActivity.class);
                 break;
+            default:
+                intent = new Intent(this, MainActivity.class);
         }
         startActivity(intent);
 
