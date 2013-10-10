@@ -13,5 +13,13 @@
     <string name="stod2BaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-3-dagurinn</string>
     <string name="stod">Stöð 2</string>
     <string name="skjarinn">Skjárinn</string>
+    <string name="drawer_open">Opna tjald</string>
+    <string name="drawer_close">Loka tjaldi</string>
+
+    <string-array name="channels_array">
+        <item>Rúv</item>
+        <item>Stöð 2</item>
+        <item>Skjár einn</item>
+    </string-array>
 
 </resources>
