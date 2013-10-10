@@ -19,6 +19,9 @@
     <string-array name="channels_array">
         <item>Rúv</item>
         <item>Stöð 2</item>
+        <item>Stöð 2 Sport</item>
+        <item>Stöð 2 Bíó</item>
+        <item>Stöð 3</item>
         <item>Skjár einn</item>
     </string-array>
 

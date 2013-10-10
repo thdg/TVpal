@@ -9,6 +9,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -34,9 +35,6 @@ public class MainActivity extends Activity
         setContentView(R.layout.activity_main);
 
         Initialize();
-        if (savedInstanceState == null) {
-            //selectItem(0);
-        }
     }
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -54,7 +52,7 @@ public class MainActivity extends Activity
         // set up the drawer's list view with items and click listener
         _DrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, _ChannelTitles));
-        //_DrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        _DrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -80,6 +78,42 @@ public class MainActivity extends Activity
             }
         };
         _DrawerLayout.setDrawerListener(_DrawerToggle);
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+
+    private void selectItem(int position) {
+        String channel = _ChannelTitles[position];
+        Intent intent;
+        switch (position)
+        {
+            case 0:
+                intent = new Intent(this, DisplayRuvActivity.class);
+                break;
+            case 1:
+                intent = new Intent(this, DisplayStod2Activity.class);
+                break;
+            default:
+                intent = new Intent(this, DisplaySkjarinnActivity.class);
+                break;
+        }
+        startActivity(intent);
+
+        // update selected item and title, then close the drawer
+        _DrawerList.setItemChecked(position, true);
+        setTitle(channel);
+        _DrawerLayout.closeDrawer(_DrawerList);
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        _Title = title;
+        getActionBar().setTitle(_Title);
     }
 
     public void getSchedulesRuv_clickEvent(View view)
