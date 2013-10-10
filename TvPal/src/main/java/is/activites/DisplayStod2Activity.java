@@ -19,8 +19,8 @@ import is.tvpal.R;
 
 public class DisplayStod2Activity extends ListActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener
 {
-    public static final String EXTRA_TITLE = "online.activites.TITLE";
-    public static final String EXTRA_DESCRIPTION = "online.activites.DESCRIPTION";
+    public static final String EXTRA_TITLE = "is.activites.TITLE";
+    public static final String EXTRA_DESCRIPTION = "is.activites.DESCRIPTION";
 
     private ArrayAdapter<EventDataContract> _schedulesAdapter;
     private ProgressDialog _waitingDialog;
