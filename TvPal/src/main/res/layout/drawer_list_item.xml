@@ -8,4 +8,6 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:textColor="#fff"
+    android:background="#eee"
+    android:minHeight="40dp"
 />

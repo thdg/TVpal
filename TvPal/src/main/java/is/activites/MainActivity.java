@@ -24,9 +24,6 @@ public class MainActivity extends Activity
     private DrawerLayout _DrawerLayout;
     private ListView _DrawerList;
     private ActionBarDrawerToggle _DrawerToggle;
-
-    private CharSequence _DrawerTitle;
-    private CharSequence _Title;
     private String[] _ChannelTitles;
 
     @Override
@@ -42,7 +39,6 @@ public class MainActivity extends Activity
     {
         _connectivityListener = new ConnectionListener();
 
-        _Title = _DrawerTitle = getTitle();
         _ChannelTitles = getResources().getStringArray(R.array.channels_array);
         _DrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         _DrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -54,10 +50,6 @@ public class MainActivity extends Activity
                 R.layout.drawer_list_item, _ChannelTitles));
         _DrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        // enable ActionBar app icon to behave as action to toggle nav drawer
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
-
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
         _DrawerToggle = new ActionBarDrawerToggle(
@@ -68,16 +60,18 @@ public class MainActivity extends Activity
                 R.string.drawer_close  /* "close drawer" description for accessibility */
         ) {
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(_Title);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(_DrawerTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
         _DrawerLayout.setDrawerListener(_DrawerToggle);
+
+        // enable ActionBar app icon to behave as action to toggle nav drawer
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -88,7 +82,6 @@ public class MainActivity extends Activity
     }
 
     private void selectItem(int position) {
-        String channel = _ChannelTitles[position];
         Intent intent;
         switch (position)
         {
@@ -106,14 +99,7 @@ public class MainActivity extends Activity
 
         // update selected item and title, then close the drawer
         _DrawerList.setItemChecked(position, true);
-        setTitle(channel);
         _DrawerLayout.closeDrawer(_DrawerList);
-    }
-
-    @Override
-    public void setTitle(CharSequence title) {
-        _Title = title;
-        getActionBar().setTitle(_Title);
     }
 
     public void getSchedulesRuv_clickEvent(View view)
