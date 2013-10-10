@@ -19,6 +19,8 @@ import is.tvpal.R;
 
 public class MainActivity extends Activity
 {
+    public static final String EXTRA_STOD2 = "is.activites.STOD2";
+
     private ConnectionListener _connectivityListener;
 
     private DrawerLayout _DrawerLayout;
@@ -81,83 +83,47 @@ public class MainActivity extends Activity
         }
     }
 
-    private void selectItem(int position) {
-        Intent intent;
-        switch (position)
-        {
-            case 0:
-                intent = new Intent(this, DisplayRuvActivity.class);
-                break;
-            case 1:
-                intent = new Intent(this, DisplayStod2Activity.class);
-                break;
-            case 5:
-                intent = new Intent(this, DisplaySkjarinnActivity.class);
-                break;
-            default:
-                intent = new Intent(this, MainActivity.class);
-        }
-        startActivity(intent);
-
-        // update selected item and title, then close the drawer
-        _DrawerList.setItemChecked(position, true);
-        _DrawerLayout.closeDrawer(_DrawerList);
-    }
-
-    public void getSchedulesRuv_clickEvent(View view)
+    private void selectItem(int position)
     {
         try
         {
             boolean networkAvailable = _connectivityListener.isNetworkAvailable(this);
 
-            if (networkAvailable)
+            if(networkAvailable)
             {
-                Intent intent = new Intent(this, DisplayRuvActivity.class);
+                Intent intent;
+                switch (position)
+                {
+                    case 0:
+                        intent = new Intent(this, DisplayRuvActivity.class);
+                        break;
+                    case 1:
+                        intent = new Intent(this, DisplayStod2Activity.class);
+                        intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BaseUrl));
+                        break;
+                    case 2:
+                        intent = new Intent(this, DisplayStod2Activity.class);
+                        intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2SportBaseUrl));
+                        break;
+                    case 3:
+                        intent = new Intent(this, DisplayStod2Activity.class);
+                        intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BioBaseUrl));
+                        break;
+                    case 4:
+                        intent = new Intent(this, DisplayStod2Activity.class);
+                        intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod3BaseUrl));
+                        break;
+                    case 5:
+                        intent = new Intent(this, DisplaySkjarinnActivity.class);
+                        break;
+                    default:
+                        intent = new Intent(this, MainActivity.class);
+                }
                 startActivity(intent);
-            }
-            else
-            {
-                Helpers.showNetworkAlertDialog(this);
-            }
-        }
-        catch (Exception ex)
-        {
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
 
-    public void getSchedulesStod2_clickEvent(View view)
-    {
-        try
-        {
-            boolean networkAvailable = _connectivityListener.isNetworkAvailable(this);
-
-            if (networkAvailable)
-            {
-                Intent intent = new Intent(this, DisplayStod2Activity.class);
-                startActivity(intent);
-            }
-            else
-            {
-                Helpers.showNetworkAlertDialog(this);
-            }
-        }
-        catch (Exception ex)
-        {
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void getSchedulesSkjarinn_clickEvent(View view)
-    {
-        try
-        {
-            boolean networkAvailable = _connectivityListener.isNetworkAvailable(this);
-
-            if (networkAvailable)
-            {
-                Intent intent = new Intent(this, DisplaySkjarinnActivity.class);
-                startActivity(intent);
+                // update selected item and title, then close the drawer
+                _DrawerList.setItemChecked(position, true);
+                _DrawerLayout.closeDrawer(_DrawerList);
             }
             else
             {

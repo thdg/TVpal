@@ -44,7 +44,9 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
     {
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-        new DownloadStod2Schedules(this).execute(getResources().getString(R.string.stod2BaseUrl));
+        Intent intent = getIntent();
+
+        new DownloadStod2Schedules(this).execute(intent.getStringExtra(MainActivity.EXTRA_STOD2));
 
         ListView lv = getListView();
         lv.setOnItemClickListener(this);

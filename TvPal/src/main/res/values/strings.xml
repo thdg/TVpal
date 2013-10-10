@@ -11,10 +11,14 @@
     <string name="ruv">Rúv</string>
     <string name="ruvBaseUrl">http://muninn.ruv.is/files/xml/ruv/</string>
     <string name="stod2BaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-2-dagskra-vikunnar</string>
+    <string name="stod2SportBaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-2-Sport-dagskra-vikunnar</string>
+    <string name="stod3BaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-3-dagskra-vikunnar</string>
+    <string name="stod2BioBaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-2-Bio-dagskra-vikunnar</string>
     <string name="stod">Stöð 2</string>
     <string name="skjarinn">Skjárinn</string>
     <string name="drawer_open">Opna tjald</string>
     <string name="drawer_close">Loka tjaldi</string>
+    <string name="welcome_text">Velkomin/nn. Slide-ið til hægri til að sjá lista yfir sjónvarpsstöðvar.</string>
 
     <string-array name="channels_array">
         <item>Rúv</item>
