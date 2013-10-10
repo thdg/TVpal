@@ -11,7 +11,6 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import is.datacontracts.EventDataContract;
 
-
 /**
  * Created by Arnar on 28.9.2013.
  */
@@ -21,8 +20,7 @@ public class RuvScheduleParser extends DefaultHandler
     private String baseURL;
     private List<EventDataContract> events;
     private String tmpValue;
-    private EventDataContract eventTmp;
-    private String desc;
+    private EventDataContract eventTmp;    private String desc;
 
     public RuvScheduleParser(String baseUrl)
     {
