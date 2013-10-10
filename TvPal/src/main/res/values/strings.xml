@@ -3,6 +3,15 @@
 
     <string name="app_name">TvPal</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_display_stod2">Stöð 2</string>
+    <string name="title_activity_display_ruv">Rúv</string>
+    <string name="title_activity_display_skjarinn">Skjárinn</string>
+    <string name="title_activity_detailed_event">Event</string>
+
+    <string name="ruv">Rúv</string>
+    <string name="ruvBaseUrl">http://muninn.ruv.is/files/xml/ruv/2013-09-28/</string>
+    <string name="stod2BaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-3-dagurinn</string>
+    <string name="stod">Stöð 2</string>
+    <string name="skjarinn">Skjárinn</string>
 
 </resources>

@@ -4,6 +4,9 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-sdk
         android:minSdkVersion="7"
         android:targetSdkVersion="16" />
@@ -14,13 +17,29 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="is.tvpal.MainActivity"
+            android:name="is.activites.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="is.activites.DisplayStod2Activity"
+            android:label="@string/title_activity_display_stod2" >
+        </activity>
+        <activity
+            android:name="is.activites.DisplayRuvActivity"
+            android:label="@string/title_activity_display_ruv" >
+        </activity>
+        <activity
+            android:name="is.activites.DisplaySkjarinnActivity"
+            android:label="@string/title_activity_display_skjarinn" >
+        </activity>
+        <activity
+            android:name="is.activites.DetailedEventActivity"
+            android:label="@string/title_activity_detailed_event" >
         </activity>
     </application>
 
