@@ -1,7 +1,9 @@
 package is.activites;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -37,6 +39,7 @@ public class MainActivity extends Activity
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     private void Initialize()
     {
         _connectivityListener = new ConnectionListener();
