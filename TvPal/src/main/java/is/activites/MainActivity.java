@@ -12,7 +12,6 @@ import is.tvpal.R;
 public class MainActivity extends Activity
 {
     private ConnectionListener _connectivityListener;
-    private String i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
