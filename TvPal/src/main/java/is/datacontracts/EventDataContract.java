@@ -3,6 +3,7 @@ package is.datacontracts;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Arnar on 28.9.2013.
@@ -48,7 +49,7 @@ public class EventDataContract
 
     public String setCorrectDateFormat(String startTime)
     {
-        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
         Date date = null;
         try {
@@ -63,7 +64,7 @@ public class EventDataContract
 
     public String setCorrectEventDateFormat(String eventDate)
     {
-        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         Date date = null;
         try {

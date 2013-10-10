@@ -6,24 +6,32 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import is.datacontracts.EventDataContract;
 import is.parsers.Stod2ScheduleParser;
+import is.rules.Helpers;
 import is.tvpal.R;
+import is.handlers.SwipeGestureFilter;
 
-public class DisplayStod2Activity extends ListActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener
+public class DisplayStod2Activity extends ListActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener, SwipeGestureFilter.SimpleGestureListener
 {
     public static final String EXTRA_TITLE = "is.activites.TITLE";
     public static final String EXTRA_DESCRIPTION = "is.activites.DESCRIPTION";
 
+    private List<EventDataContract> _events;
     private ArrayAdapter<EventDataContract> _schedulesAdapter;
+    private SwipeGestureFilter _detector;
     private ProgressDialog _waitingDialog;
+    private String _workingDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,27 +42,97 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
 
     private void Initialize()
     {
+        _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+
         new DownloadStod2Schedules(this).execute(getResources().getString(R.string.stod2BaseUrl));
 
         ListView lv = getListView();
         lv.setOnItemClickListener(this);
+
+        _detector = new SwipeGestureFilter(this,this);
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
-        String program = ((TextView) view).getText().toString();
         EventDataContract selectedEvent = _schedulesAdapter.getItem(position);
 
         Intent intent = new Intent(this, DetailedEventActivity.class);
         intent.putExtra(EXTRA_TITLE, selectedEvent.getTitle());
         intent.putExtra(EXTRA_DESCRIPTION, selectedEvent.getDescription());
         startActivity(intent);
-
-        setTitle(program);
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
     public void onNothingSelected(AdapterView<?> parent) {}
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent me)
+    {
+        // Call onTouchEvent of SwipeGestureFilter class
+        this._detector.onTouchEvent(me);
+        return super.dispatchTouchEvent(me);
+    }
+
+    @Override
+    public void onSwipe(int direction)
+    {
+        switch (direction)
+        {
+            case SwipeGestureFilter.SWIPE_RIGHT :
+                SwipeRightEvent();
+                break;
+
+            case SwipeGestureFilter.SWIPE_LEFT :
+                SwipeLeftEvent();
+                break;
+        }
+    }
+
+    private void SwipeRightEvent()
+    {
+        _workingDate = Helpers.MinusOneDayToDate(_workingDate);
+
+        _schedulesAdapter = new ArrayAdapter<EventDataContract>(this, R.layout.row);
+
+        for (EventDataContract e : _events)
+        {
+            if (e.getEventDate().equalsIgnoreCase(_workingDate))
+                _schedulesAdapter.add(e);
+        }
+
+        if(_schedulesAdapter.getCount() == 0)
+        {
+            Toast.makeText(this, "Schedule not available: " + _workingDate, Toast.LENGTH_SHORT).show();
+            _workingDate = Helpers.AddOneDayToDate(_workingDate); //Add one day, so we don't go over the limit
+            return;
+        }
+
+        setListAdapter(_schedulesAdapter);
+        Toast.makeText(this, _workingDate, Toast.LENGTH_SHORT).show();
+    }
+
+    private void SwipeLeftEvent()
+    {
+        _workingDate = Helpers.AddOneDayToDate(_workingDate);
+
+        _schedulesAdapter = new ArrayAdapter<EventDataContract>(this, R.layout.row);
+
+        for (EventDataContract e : _events)
+        {
+            if (e.getEventDate().equalsIgnoreCase(_workingDate))
+                _schedulesAdapter.add(e);
+        }
+
+        if(_schedulesAdapter.getCount() == 0)
+        {
+            Toast.makeText(this, "Schedule not available: " + _workingDate, Toast.LENGTH_SHORT).show();
+            _workingDate = Helpers.MinusOneDayToDate(_workingDate); //Minus one day, so we don't go over the limit
+            return;
+        }
+
+        setListAdapter(_schedulesAdapter);
+        Toast.makeText(this, _workingDate, Toast.LENGTH_SHORT).show();
+    }
 
     private class DownloadStod2Schedules extends AsyncTask<String, Void, String>
     {
@@ -99,13 +177,14 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
             try
             {
                 Stod2ScheduleParser parser = new Stod2ScheduleParser(myurl);
-                List<EventDataContract> events = parser.GetSchedules();
+                _events = parser.GetSchedules();
 
                 _schedulesAdapter = new ArrayAdapter<EventDataContract>(ctx, R.layout.row);
 
-                for (EventDataContract e : events)
+                for (EventDataContract e : _events)
                 {
-                    _schedulesAdapter.add(e);
+                    if (e.getEventDate().equalsIgnoreCase(_workingDate))
+                        _schedulesAdapter.add(e);
                 }
             }
             catch (Exception ex)
