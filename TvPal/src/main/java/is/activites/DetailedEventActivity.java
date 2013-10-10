@@ -23,14 +23,23 @@ public class DetailedEventActivity extends Activity {
 
         String title       = intent.getStringExtra(DisplayRuvActivity.EXTRA_TITLE);
         String description = intent.getStringExtra(DisplayRuvActivity.EXTRA_DESCRIPTION);
+        String start       = intent.getStringExtra(DisplayRuvActivity.EXTRA_START);
+        String duration    = intent.getStringExtra(DisplayRuvActivity.EXTRA_DURATION);
 
         setTitle(title);
 
         TextView eventDescription = (TextView) findViewById(R.id.title);
         eventDescription.setText(title);
 
-        TextView eventCategory = (TextView) findViewById(R.id.eventDescription);
+        TextView eventCategory = (TextView) findViewById(R.id.event_description);
         eventCategory.setText(description);
+
+        TextView eventStart = (TextView) findViewById(R.id.event_starting);
+        eventStart.setText(start);
+
+        TextView eventDuration = (TextView) findViewById(R.id.event_duration);
+        eventDuration.setText(duration);
+
     }
 
 }

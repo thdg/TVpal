@@ -26,6 +26,8 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
 {
     public static final String EXTRA_TITLE = "is.activites.TITLE";
     public static final String EXTRA_DESCRIPTION = "is.activites.DESCRIPTION";
+    public static final String EXTRA_START = "is.activites.START";
+    public static final String EXTRA_DURATION = "is.activites.DURATION";
 
     private List<EventDataContract> _events;
     private ArrayAdapter<EventDataContract> _schedulesAdapter;
@@ -62,6 +64,8 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
         Intent intent = new Intent(this, DetailedEventActivity.class);
         intent.putExtra(EXTRA_DESCRIPTION, selectedEvent.getDescription());
         intent.putExtra(EXTRA_TITLE, selectedEvent.getTitle());
+        intent.putExtra(EXTRA_START, selectedEvent.getStartTime());
+        intent.putExtra(EXTRA_DURATION, selectedEvent.getDuration());
 
         startActivity(intent);
     }
