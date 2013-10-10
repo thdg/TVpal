@@ -88,7 +88,7 @@ public class SwipeGestureFilter extends SimpleOnGestureListener
     }
 
     //MainActivity implements this method
-    static interface SimpleGestureListener
+    public static interface SimpleGestureListener
     {
         void onSwipe(int direction);
     }
