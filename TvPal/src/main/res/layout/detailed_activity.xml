@@ -1,28 +1,52 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="17dp" >
+    android:orientation="vertical"
+    android:padding="20dp" >
 
     <TextView
         android:id="@+id/title"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:textSize="30sp" />
+        android:layout_width="match_parent"
+        android:textSize="30sp"
+        android:text="Titill"
+    />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="14dp">
+
+        <TextView
+            android:id="@+id/event_starting"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:text="08:00"
+        />
+
+        <TextView
+            android:id="@+id/event_duration"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:gravity="right"
+            android:text="45 min"
+            />
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/description"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_below="@+id/title"
-        android:paddingTop="20sp"
-        android:text="Description:"
-        android:textSize="30sp" />
+        android:id="@+id/event_description"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="10"
+        android:paddingTop="14dp"
+        android:textSize="16sp"
+        android:text="Ný kvikmynd um blablabla"
+    />
 
-    <TextView
-        android:id="@+id/eventDescription"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_below="@+id/description"
-        android:textSize="18sp" />
-
-</RelativeLayout>
+</LinearLayout>

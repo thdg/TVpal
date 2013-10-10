@@ -3,16 +3,19 @@ package is.activites;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import is.rules.ConnectionListener;
 import is.rules.Helpers;
 import is.tvpal.R;
@@ -45,19 +48,18 @@ public class MainActivity extends Activity
         _DrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         _DrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        // set a custom shadow that overlays the main content when the drawer opens
         _DrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // set up the drawer's list view with items and click listener
-        _DrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, _ChannelTitles));
+        _DrawerList.setAdapter(
+                new ArrayAdapter<String>(this,R.layout.drawer_list_item, _ChannelTitles)
+        );
         _DrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
         _DrawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                _DrawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+                this,
+                _DrawerLayout,
+                R.drawable.ic_drawer,
                 R.string.drawer_open,  /* "open drawer" description for accessibility */
                 R.string.drawer_close  /* "close drawer" description for accessibility */
         ) {
@@ -74,6 +76,26 @@ public class MainActivity extends Activity
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        _DrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        _DrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Pass the event to ActionBarDrawerToggle, if it returns
+        // true, then it has handled the app icon touch event
+        return super.onOptionsItemSelected(item) || _DrawerToggle.onOptionsItemSelected(item);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -119,11 +141,11 @@ public class MainActivity extends Activity
                     default:
                         intent = new Intent(this, MainActivity.class);
                 }
-                startActivity(intent);
 
-                // update selected item and title, then close the drawer
                 _DrawerList.setItemChecked(position, true);
                 _DrawerLayout.closeDrawer(_DrawerList);
+
+                startActivity(intent);
             }
             else
             {
