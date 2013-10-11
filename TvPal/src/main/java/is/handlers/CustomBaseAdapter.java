@@ -81,7 +81,7 @@ public class CustomBaseAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return schedule.size();
+        return (schedule == null) ? 0 : schedule.size();
     }
 
     @Override
