@@ -66,6 +66,7 @@ public class RuvScheduleParser extends DefaultHandler
             eventTmp = new EventDataContract();
             eventTmp.setStartTime(attributes.getValue("start-time"));
             eventTmp.setEventDate(attributes.getValue("start-time"));
+            eventTmp.setDuration(attributes.getValue("duration"));
         }
 
         if(elementName.equalsIgnoreCase("episode"))

@@ -9,14 +9,15 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import is.datacontracts.EventDataContract;
+import is.handlers.CustomBaseAdapter;
 import is.handlers.SwipeGestureFilter;
 import is.parsers.RuvScheduleParser;
 import is.rules.Helpers;
@@ -30,10 +31,11 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
     public static final String EXTRA_DURATION = "is.activites.DURATION";
 
     private List<EventDataContract> _events;
-    private ArrayAdapter<EventDataContract> _schedulesAdapter;
     private ProgressDialog _waitingDialog;
     private SwipeGestureFilter _detector;
     private String _workingDate;
+    private List<EventDataContract> _todaySchedule;
+    private CustomBaseAdapter _adapterView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
 
     private void Initialize()
     {
+        _todaySchedule = new ArrayList<EventDataContract>();
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
         String ruvBaseUrl = getResources().getString(R.string.ruvBaseUrl);
@@ -59,7 +62,7 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
-        EventDataContract selectedEvent = _schedulesAdapter.getItem(position);
+        EventDataContract selectedEvent = _adapterView.getItem(position);
 
         Intent intent = new Intent(this, DetailedEventActivity.class);
         intent.putExtra(EXTRA_DESCRIPTION, selectedEvent.getDescription());
@@ -100,22 +103,23 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
     {
         _workingDate = Helpers.MinusOneDayToDate(_workingDate);
 
-        _schedulesAdapter = new ArrayAdapter<EventDataContract>(this, R.layout.row);
+        _todaySchedule = new ArrayList<EventDataContract>();
 
         for (EventDataContract e : _events)
         {
             if (e.getEventDate().equalsIgnoreCase(_workingDate))
-                _schedulesAdapter.add(e);
+                _todaySchedule.add(e);
         }
 
-        if(_schedulesAdapter.getCount() == 0)
+        if(_todaySchedule.size() == 0)
         {
             Toast.makeText(this, "Schedule not available: " + _workingDate, Toast.LENGTH_SHORT).show();
             _workingDate = Helpers.AddOneDayToDate(_workingDate); //Add one day, so we don't go over the limit
             return;
         }
 
-        setListAdapter(_schedulesAdapter);
+        _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row, _todaySchedule);
+        setListAdapter(_adapterView);
         Toast.makeText(this, _workingDate, Toast.LENGTH_SHORT).show();
     }
 
@@ -123,22 +127,23 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
     {
         _workingDate = Helpers.AddOneDayToDate(_workingDate);
 
-        _schedulesAdapter = new ArrayAdapter<EventDataContract>(this, R.layout.row);
+        _todaySchedule = new ArrayList<EventDataContract>();
 
         for (EventDataContract e : _events)
         {
             if (e.getEventDate().equalsIgnoreCase(_workingDate))
-                _schedulesAdapter.add(e);
+                _todaySchedule.add(e);
         }
 
-        if(_schedulesAdapter.getCount() == 0)
+        if(_todaySchedule.size() == 0)
         {
             Toast.makeText(this, "Schedule not available: " + _workingDate, Toast.LENGTH_SHORT).show();
             _workingDate = Helpers.MinusOneDayToDate(_workingDate); //Minus one day, so we don't go over the limit
             return;
         }
 
-        setListAdapter(_schedulesAdapter);
+        _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row, _todaySchedule);
+        setListAdapter(_adapterView);
         Toast.makeText(this, _workingDate, Toast.LENGTH_SHORT).show();
     }
 
@@ -175,7 +180,8 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
         @Override
         protected void onPostExecute(String result)
         {
-            setListAdapter(_schedulesAdapter);
+            _adapterView = new CustomBaseAdapter(ctx, R.layout.listview_item_row, _todaySchedule);
+            setListAdapter(_adapterView);
             _waitingDialog.dismiss();
         }
 
@@ -186,12 +192,10 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
                 RuvScheduleParser parser = new RuvScheduleParser(myurl);
                 _events = parser.GetSchedules();
 
-                _schedulesAdapter = new ArrayAdapter<EventDataContract>(ctx, R.layout.row);
-
                 for (EventDataContract e : _events)
                 {
                     if (e.getEventDate().equalsIgnoreCase(_workingDate))
-                        _schedulesAdapter.add(e);
+                        _todaySchedule.add(e);
                 }
             }
             catch (Exception ex)
