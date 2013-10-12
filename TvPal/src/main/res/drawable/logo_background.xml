@@ -6,4 +6,10 @@
             <solid android:color="#222" />
         </shape>
     </item>
+    <item>
+        <bitmap
+            android:src="@drawable/main_logo_dark"
+            android:gravity="center" >
+        </bitmap>
+    </item>
 </layer-list>
