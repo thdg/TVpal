@@ -12,9 +12,12 @@ import javax.xml.parsers.SAXParserFactory;
 import is.datacontracts.EventDataContract;
 
 /**
- * Created by Arnar on 28.9.2013.
+ * This class to parse xml files.  It uses the Sax Parser and extends DefaultHandler.
+ * It parses Ruv schedules.
+ *
+ * @author Arnar
+ * @see org.xml.sax.helpers.DefaultHandler
  */
-
 public class RuvScheduleParser extends DefaultHandler
 {
     private String baseURL;

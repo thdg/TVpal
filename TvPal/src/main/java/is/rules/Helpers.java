@@ -14,7 +14,10 @@ import java.util.Date;
 import is.tvpal.R;
 
 /**
- * Created by Arnar on 14.9.2013.
+ * This class has few static Helper functions.
+ * Such as showing alert dialogs and formatting dates.
+ *
+ * @author Arnar
  */
 public class Helpers
 {
@@ -46,7 +49,7 @@ public class Helpers
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();
         c.setTime(new Date()); // Now use today date.
-        c.add(Calendar.DATE, 5); // Adding 5 days
+        c.add(Calendar.DATE, 7); // Adding 5 days
 
         String dateAfterWeek = sdf.format(c.getTime());
         return String.format("%s/%s/", dateToday, dateAfterWeek);

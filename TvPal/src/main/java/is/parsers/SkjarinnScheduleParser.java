@@ -15,7 +15,11 @@ import javax.xml.parsers.SAXParserFactory;
 import is.datacontracts.EventDataContract;
 
 /**
- * Created by Arnar on 9.10.2013.
+ * This class to parse xml files.  It uses the Sax Parser and extends DefaultHandler.
+ * It parses Skjárinn schedules.
+ *
+ * @author Arnar
+ * @see org.xml.sax.helpers.DefaultHandler
  */
 public class SkjarinnScheduleParser extends DefaultHandler
 {

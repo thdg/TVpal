@@ -7,6 +7,11 @@ import android.widget.TextView;
 
 import is.tvpal.R;
 
+/**
+ * This class handles the activity to show detailed event information
+ * when an event has been selected.
+ * @author Þorsteinn
+ */
 public class DetailedEventActivity extends Activity {
 
     @Override

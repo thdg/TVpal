@@ -6,7 +6,11 @@ import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 
 /**
- * Created by Arnar on 10.10.2013.
+ * This class extends SimpleOnGestureListener and listens for a subset of all the gestures, swipes, double clicks
+ * It listens for a swipe event, and implements only the onFling method which listens to a swipe event
+ *
+ * @author Arnar
+ * @see is.handlers.SwipeGestureFilter.SimpleGestureListener
  */
 public class SwipeGestureFilter extends SimpleOnGestureListener
 {

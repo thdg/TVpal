@@ -25,6 +25,14 @@ import is.rules.Helpers;
 import is.tvpal.R;
 import is.handlers.SwipeGestureFilter;
 
+/**
+ * This class handles the activity to show Stöð 2 events.
+ * It extends ListActivity to show it as a List.
+ * It implements ItemClickListener to handle click events.
+ * It implements SwipeGestureFilter.SimpleGestureListener to handle swipe events.
+ * @author Arnar
+ * @see android.app.ListActivity
+ */
 public class DisplayStod2Activity extends ListActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener, SwipeGestureFilter.SimpleGestureListener
 {
     public static final String EXTRA_TITLE = "is.activites.TITLE";

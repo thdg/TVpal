@@ -5,7 +5,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 /**
- * Created by Arnar on 14.9.2013.
+ * Class to check if a device is connected to a Network.
+ *
+ * @author Arnar
  */
 public class ConnectionListener
 {

@@ -20,6 +20,13 @@ import is.rules.ConnectionListener;
 import is.rules.Helpers;
 import is.tvpal.R;
 
+/**
+ * This class handles the MainActivity.
+ * It creates an Drawer Navigation
+ * It sends the activity to another screen when an drawer item is selected.
+ * @author Þorsteinn
+ * @see android.support.v4.widget.DrawerLayout
+ */
 public class MainActivity extends Activity
 {
     public static final String EXTRA_STOD2 = "is.activites.STOD2";

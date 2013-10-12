@@ -17,7 +17,14 @@ import is.datacontracts.EventDataContract;
 import is.tvpal.R;
 
 /**
- * Created by Svavar on 10.10.2013.
+ *
+ * This class implements an Adapter that can be used in both ListView
+ * (by implementing the specialized ListAdapter interface}
+ * and Spinner (by implementing the specialized SpinnerAdapter interface.
+ * It extends BaseAdapter.
+ *
+ * @author Svavar
+ * @see    android.widget.BaseAdapter
  */
 public class CustomBaseAdapter extends BaseAdapter
 {
@@ -25,6 +32,11 @@ public class CustomBaseAdapter extends BaseAdapter
     private int layoutResourceId;
     private List<EventDataContract> schedule;
 
+    /**
+        @param context This is the current context of the application activity
+        @param layoutResourceId The id of the xml layout
+        @param schedule List of EventDataContract
+     */
     public CustomBaseAdapter(Context context, int layoutResourceId, List<EventDataContract> schedule)
     {
         this.context = context;

@@ -6,7 +6,10 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * Created by Arnar on 28.9.2013.
+ * This class represents an DataContract which has getter and setter methods
+ * to access and insert information about an event.
+ *
+ * @author Arnar
  */
 public class EventDataContract
 {
