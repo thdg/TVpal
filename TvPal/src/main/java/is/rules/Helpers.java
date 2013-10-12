@@ -96,7 +96,7 @@ public class Helpers
         return sdf.format(c.getTime());
     }
 
-    public static String SetDayFormat(String workingDate)
+    public static String SetDayFormat(Context cxt, String workingDate)
     {
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -110,8 +110,35 @@ public class Helpers
             e.printStackTrace();
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE d MMM");
+        SimpleDateFormat sdfDay = new SimpleDateFormat("EEEE");
+        String day = GetCorrectDayFormat(cxt, sdfDay.format(date));
 
-        return sdf.format(date);
+        SimpleDateFormat sdfMonth = new SimpleDateFormat("MMM");
+        String month = sdfMonth.format(date);
+
+        SimpleDateFormat sdfDayNumber = new SimpleDateFormat("d");
+        String dayNumber = sdfDayNumber.format(date);
+
+        return String.format("%s %s %s",day, dayNumber, month);
+    }
+
+    private static String GetCorrectDayFormat(Context cxt, String day)
+    {
+        if(day.equalsIgnoreCase("Monday"))
+            return cxt.getResources().getString(R.string.monday);
+        if(day.equalsIgnoreCase("Tuesday"))
+            return cxt.getResources().getString(R.string.tuesday);
+        if(day.equalsIgnoreCase("Wednesday"))
+            return cxt.getResources().getString(R.string.wednesday);
+        if(day.equalsIgnoreCase("Thursday"))
+            return cxt.getResources().getString(R.string.thursday);
+        if(day.equalsIgnoreCase("Friday"))
+            return cxt.getResources().getString(R.string.friday);
+        if(day.equalsIgnoreCase("Saturday"))
+            return cxt.getResources().getString(R.string.saturday);
+        if(day.equalsIgnoreCase("Sunday"))
+            return cxt.getResources().getString(R.string.sunday);
+
+        return null;
     }
 }

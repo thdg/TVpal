@@ -49,7 +49,7 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
         _todaySchedule = new ArrayList<EventDataContract>();
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-        setTitle(String.format("%s: %s", getResources().getString(R.string.ruv), Helpers.SetDayFormat(_workingDate)));
+        setTitle(String.format("%s: %s", getResources().getString(R.string.ruv), Helpers.SetDayFormat(this, _workingDate)));
 
         String ruvBaseUrl = getResources().getString(R.string.ruvBaseUrl);
         String ruvUrl = String.format("%s%s", ruvBaseUrl, Helpers.GetCorrectRuvUrlFormat());
@@ -100,7 +100,7 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
                 break;
         }
 
-        setTitle(String.format("%s: %s", getResources().getString(R.string.ruv), Helpers.SetDayFormat(_workingDate)));
+        setTitle(String.format("%s: %s", getResources().getString(R.string.ruv), Helpers.SetDayFormat(this, _workingDate)));
     }
 
     private void SwipeRightEvent()
@@ -117,14 +117,13 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
 
         if(_todaySchedule.size() == 0)
         {
-            Toast.makeText(this, "Schedule not available: " + _workingDate, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.scheduleNotAvailable), Toast.LENGTH_SHORT).show();
             _workingDate = Helpers.AddOneDayToDate(_workingDate); //Add one day, so we don't go over the limit
             return;
         }
 
         _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row, _todaySchedule);
         setListAdapter(_adapterView);
-        Toast.makeText(this, _workingDate, Toast.LENGTH_SHORT).show();
     }
 
     private void SwipeLeftEvent()
@@ -141,14 +140,13 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
 
         if(_todaySchedule.size() == 0)
         {
-            Toast.makeText(this, "Schedule not available: " + _workingDate, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.scheduleNotAvailable), Toast.LENGTH_SHORT).show();
             _workingDate = Helpers.MinusOneDayToDate(_workingDate); //Minus one day, so we don't go over the limit
             return;
         }
 
         _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row, _todaySchedule);
         setListAdapter(_adapterView);
-        Toast.makeText(this, _workingDate, Toast.LENGTH_SHORT).show();
     }
 
     private class DownloadRuvSchedules extends AsyncTask<String, Void, String>
@@ -177,7 +175,7 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
         protected void onPreExecute()
         {
             _waitingDialog = new ProgressDialog(ctx);
-            _waitingDialog.setMessage("Loading schedules");
+            _waitingDialog.setMessage(ctx.getResources().getString(R.string.loadingSchedule));
             _waitingDialog.show();
         }
 

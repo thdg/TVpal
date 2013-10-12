@@ -8,6 +8,8 @@
     <string name="title_activity_display_skjarinn">Skjárinn</string>
     <string name="title_activity_detailed_event">Event</string>
 
+    <string name="loadingSchedule">Hleð dagskrá...</string>
+    <string name="scheduleNotAvailable">Dagskrá ekki til...</string>
     <string name="ruv">Rúv</string>
     <string name="ruvBaseUrl">http://muninn.ruv.is/files/xml/ruv/</string>
     <string name="stod2BaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-2-dagskra-vikunnar</string>
@@ -29,5 +31,13 @@
         <item>Stöð 3</item>
         <item>Skjár Einn</item>
     </string-array>
+
+    <string name="monday">Mánudagur</string>
+    <string name="tuesday">Þriðjudagur</string>
+    <string name="wednesday">Miðvikudagur</string>
+    <string name="thursday">Fimmtudagur</string>
+    <string name="friday">Föstudagur</string>
+    <string name="saturday">Laugardagur</string>
+    <string name="sunday">Sunnudagur</string>
 
 </resources>

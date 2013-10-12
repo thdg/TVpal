@@ -51,7 +51,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
         _todaySchedule = new ArrayList<EventDataContract>();
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-        setTitle(String.format("%s: %s", getResources().getString(R.string.stod), Helpers.SetDayFormat(_workingDate)));
+        setTitle(String.format("%s: %s", getResources().getString(R.string.stod), Helpers.SetDayFormat(this, _workingDate)));
 
         Intent intent = getIntent();
 
@@ -101,7 +101,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
                 break;
         }
 
-        setTitle(String.format("%s: %s", getResources().getString(R.string.ruv), Helpers.SetDayFormat(_workingDate)));
+        setTitle(String.format("%s: %s", getResources().getString(R.string.ruv), Helpers.SetDayFormat(this, _workingDate)));
     }
 
     private void SwipeRightEvent()
@@ -118,14 +118,13 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
 
         if(_todaySchedule.size() == 0)
         {
-            Toast.makeText(this, "Schedule not available: " + _workingDate, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.scheduleNotAvailable), Toast.LENGTH_SHORT).show();
             _workingDate = Helpers.AddOneDayToDate(_workingDate); //Add one day, so we don't go over the limit
             return;
         }
 
         _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row, _todaySchedule);
         setListAdapter(_adapterView);
-        Toast.makeText(this, _workingDate, Toast.LENGTH_SHORT).show();
     }
 
     private void SwipeLeftEvent()
@@ -142,14 +141,13 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
 
         if(_todaySchedule.size() == 0)
         {
-            Toast.makeText(this, "Schedule not available: " + _workingDate, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.scheduleNotAvailable), Toast.LENGTH_SHORT).show();
             _workingDate = Helpers.MinusOneDayToDate(_workingDate); //Minus one day, so we don't go over the limit
             return;
         }
 
         _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row, _todaySchedule);
         setListAdapter(_adapterView);
-        Toast.makeText(this, _workingDate, Toast.LENGTH_SHORT).show();
     }
 
     private class DownloadStod2Schedules extends AsyncTask<String, Void, String>
@@ -178,7 +176,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
         protected void onPreExecute()
         {
             _waitingDialog = new ProgressDialog(ctx);
-            _waitingDialog.setMessage("Loading schedules");
+            _waitingDialog.setMessage(ctx.getResources().getString(R.string.loadingSchedule));
             _waitingDialog.show();
         }
 

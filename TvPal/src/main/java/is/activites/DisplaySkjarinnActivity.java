@@ -53,7 +53,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
         _todaySchedule = new ArrayList<EventDataContract>();
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-        setTitle(String.format("%s: %s", getResources().getString(R.string.skjarinn), Helpers.SetDayFormat(_workingDate)));
+        setTitle(String.format("%s: %s", getResources().getString(R.string.skjarinn), Helpers.SetDayFormat(this, _workingDate)));
 
         String skjarinnUrl = "http://www.skjarinn.is/einn/dagskrarupplysingar/?channel_id=7&weeks=1&output_format=xml";
         new DownloadSkjarinnSchedules(this).execute(skjarinnUrl);
@@ -102,7 +102,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
                 break;
         }
 
-        setTitle(String.format("%s: %s", getResources().getString(R.string.skjarinn), Helpers.SetDayFormat(_workingDate)));
+        setTitle(String.format("%s: %s", getResources().getString(R.string.skjarinn), Helpers.SetDayFormat(this, _workingDate)));
     }
 
     private void SwipeRightEvent()
@@ -119,14 +119,13 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
 
         if(_todaySchedule.size() == 0)
         {
-            Toast.makeText(this, "Schedule not available: " + _workingDate, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.scheduleNotAvailable), Toast.LENGTH_SHORT).show();
             _workingDate = Helpers.AddOneDayToDate(_workingDate); //Add one day, so we don't go over the limit
             return;
         }
 
         _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row, _todaySchedule);
         setListAdapter(_adapterView);
-        Toast.makeText(this, _workingDate, Toast.LENGTH_SHORT).show();
     }
 
     private void SwipeLeftEvent()
@@ -143,14 +142,13 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
 
         if(_todaySchedule.size() == 0)
         {
-            Toast.makeText(this, "Schedule not available: " + _workingDate, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.scheduleNotAvailable), Toast.LENGTH_SHORT).show();
             _workingDate = Helpers.MinusOneDayToDate(_workingDate); //Minus one day, so we don't go over the limit
             return;
         }
 
         _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row, _todaySchedule);
         setListAdapter(_adapterView);
-        Toast.makeText(this, _workingDate, Toast.LENGTH_SHORT).show();
     }
 
     private class DownloadSkjarinnSchedules extends AsyncTask<String, Void, String>
@@ -179,7 +177,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
         protected void onPreExecute()
         {
             _waitingDialog = new ProgressDialog(ctx);
-            _waitingDialog.setMessage("Loading schedules");
+            _waitingDialog.setMessage(ctx.getResources().getString(R.string.loadingSchedule));
             _waitingDialog.show();
         }
 
