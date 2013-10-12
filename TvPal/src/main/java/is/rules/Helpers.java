@@ -95,4 +95,23 @@ public class Helpers
 
         return sdf.format(c.getTime());
     }
+
+    public static String SetDayFormat(String workingDate)
+    {
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date date = null;
+        try
+        {
+            date = dt.parse(workingDate);
+        }
+        catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE d MMM");
+
+        return sdf.format(date);
+    }
 }

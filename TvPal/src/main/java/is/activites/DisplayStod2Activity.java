@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,6 +50,8 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
     {
         _todaySchedule = new ArrayList<EventDataContract>();
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+
+        setTitle(String.format("%s: %s", getResources().getString(R.string.stod), Helpers.SetDayFormat(_workingDate)));
 
         Intent intent = getIntent();
 
@@ -97,6 +100,8 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
                 SwipeLeftEvent();
                 break;
         }
+
+        setTitle(String.format("%s: %s", getResources().getString(R.string.ruv), Helpers.SetDayFormat(_workingDate)));
     }
 
     private void SwipeRightEvent()

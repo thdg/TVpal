@@ -53,6 +53,8 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
         _todaySchedule = new ArrayList<EventDataContract>();
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
+        setTitle(String.format("%s: %s", getResources().getString(R.string.skjarinn), Helpers.SetDayFormat(_workingDate)));
+
         String skjarinnUrl = "http://www.skjarinn.is/einn/dagskrarupplysingar/?channel_id=7&weeks=1&output_format=xml";
         new DownloadSkjarinnSchedules(this).execute(skjarinnUrl);
 
@@ -99,6 +101,8 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
                 SwipeLeftEvent();
                 break;
         }
+
+        setTitle(String.format("%s: %s", getResources().getString(R.string.skjarinn), Helpers.SetDayFormat(_workingDate)));
     }
 
     private void SwipeRightEvent()

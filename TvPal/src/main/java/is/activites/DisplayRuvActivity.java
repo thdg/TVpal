@@ -49,6 +49,8 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
         _todaySchedule = new ArrayList<EventDataContract>();
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
+        setTitle(String.format("%s: %s", getResources().getString(R.string.ruv), Helpers.SetDayFormat(_workingDate)));
+
         String ruvBaseUrl = getResources().getString(R.string.ruvBaseUrl);
         String ruvUrl = String.format("%s%s", ruvBaseUrl, Helpers.GetCorrectRuvUrlFormat());
 
@@ -97,6 +99,8 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
                 SwipeLeftEvent();
                 break;
         }
+
+        setTitle(String.format("%s: %s", getResources().getString(R.string.ruv), Helpers.SetDayFormat(_workingDate)));
     }
 
     private void SwipeRightEvent()
