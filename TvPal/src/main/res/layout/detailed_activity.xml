@@ -2,47 +2,46 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:padding="20dp" >
+    android:background="@drawable/detailed_event_background"
+    android:padding="17dp" >
 
     <TextView
         android:id="@+id/title"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:textSize="30sp"
-    />
+        android:layout_width="wrap_content"
+        android:textColor="#EEE"
+        android:textSize="40sp" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="14dp">
+        android:padding="17dp" >
 
         <TextView
             android:id="@+id/event_starting"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:textSize="18sp"
-        />
+            android:textColor="#DDD"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/event_duration"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:textSize="18sp"
             android:gravity="right"
-            />
+            android:textColor="#DDD"
+            android:textSize="30sp" />
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/event_description"
-        android:layout_height="0dp"
-        android:layout_width="match_parent"
-        android:layout_weight="10"
-        android:paddingTop="14dp"
-        android:textSize="16sp"
-    />
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textColor="#DDD"
+        android:textSize="30sp" />
 
 </LinearLayout>

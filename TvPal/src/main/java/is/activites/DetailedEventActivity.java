@@ -34,11 +34,15 @@ public class DetailedEventActivity extends Activity {
         TextView eventCategory = (TextView) findViewById(R.id.event_description);
         eventCategory.setText(description);
 
-        TextView eventStart = (TextView) findViewById(R.id.event_starting);
-        eventStart.setText(start);
+        if (!start.equals("")) {
+            TextView eventStart = (TextView) findViewById(R.id.event_starting);
+            eventStart.setText(getResources().getString(R.string.starting_time).format(start));
+        }
 
-        TextView eventDuration = (TextView) findViewById(R.id.event_duration);
-        eventDuration.setText(duration);
+        if (!duration.equals("")) {
+            TextView eventDuration = (TextView) findViewById(R.id.event_duration);
+            eventDuration.setText(getResources().getString(R.string.duration).format(duration));
+        }
 
     }
 

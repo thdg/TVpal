@@ -10,18 +10,16 @@
 
     <string name="loadingSchedule">Hleð dagskrá...</string>
     <string name="scheduleNotAvailable">Dagskrá ekki til...</string>
+    <string name="starting_time">Byrjar: %s</string>
+    <string name="duration">Lengd: %s</string>
+
     <string name="ruv">Rúv</string>
-    <string name="ruvBaseUrl">http://muninn.ruv.is/files/xml/ruv/</string>
-    <string name="stod2BaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-2-dagskra-vikunnar</string>
-    <string name="stod2SportBaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-2-Sport-dagskra-vikunnar</string>
-    <string name="stod3BaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-3-dagskra-vikunnar</string>
-    <string name="stod2BioBaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-2-Bio-dagskra-vikunnar</string>
+    <string name="ruvBaseUrl">http://muninn.ruv.is/files/xml/ruv/2013-09-28/</string>
+    <string name="stod2BaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-3-dagurinn</string>
     <string name="stod">Stöð 2</string>
     <string name="skjarinn">Skjárinn</string>
     <string name="drawer_open">Opna tjald</string>
     <string name="drawer_close">Loka tjaldi</string>
-    <string name="welcome_text">Verið velkomin!
-        \n\nSlide-ið til hægri til að sjá lista yfir sjónvarpsstöðvar.</string>
 
     <string-array name="channels_array">
         <item>Rúv</item>
@@ -29,7 +27,7 @@
         <item>Stöð 2 Sport</item>
         <item>Stöð 2 Bíó</item>
         <item>Stöð 3</item>
-        <item>Skjár Einn</item>
+        <item>Skjár einn</item>
     </string-array>
 
     <string name="monday">Mánudagur</string>
