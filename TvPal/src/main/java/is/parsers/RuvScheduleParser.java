@@ -74,6 +74,9 @@ public class RuvScheduleParser extends DefaultHandler
             eventTmp.setCurrentEpisode(attributes.getValue("number"));
             eventTmp.setNumberOfEpisodes(attributes.getValue("number-of-episodes"));
         }
+
+        if (elementName.equalsIgnoreCase("service"))
+            eventTmp.setServiceName(attributes.getValue("service-name"));
     }
 
     @Override

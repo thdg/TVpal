@@ -36,12 +36,12 @@ public class DetailedEventActivity extends Activity {
 
         if (!start.equals("")) {
             TextView eventStart = (TextView) findViewById(R.id.event_starting);
-            eventStart.setText(getResources().getString(R.string.starting_time).format(start));
+            eventStart.setText(String.format("%s: %s", getResources().getString(R.string.duration), start));
         }
 
         if (!duration.equals("")) {
             TextView eventDuration = (TextView) findViewById(R.id.event_duration);
-            eventDuration.setText(getResources().getString(R.string.duration).format(duration));
+            eventDuration.setText(String.format("%s: %s", getResources().getString(R.string.duration), duration));
         }
 
     }

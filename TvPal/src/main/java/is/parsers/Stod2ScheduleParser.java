@@ -87,6 +87,10 @@ public class Stod2ScheduleParser extends DefaultHandler
         if (element.equalsIgnoreCase("description")) {
             eventTmp.setDescription(tmpValue);
         }
+
+        if (element.equalsIgnoreCase("service")) {
+            eventTmp.setServiceName(tmpValue);
+        }
     }
     @Override
     public void characters(char[] ac, int i, int j) throws SAXException

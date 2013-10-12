@@ -46,7 +46,7 @@ public class Helpers
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();
         c.setTime(new Date()); // Now use today date.
-        c.add(Calendar.DATE, 7); // Adding 5 days
+        c.add(Calendar.DATE, 5); // Adding 5 days
 
         String dateAfterWeek = sdf.format(c.getTime());
         return String.format("%s/%s/", dateToday, dateAfterWeek);

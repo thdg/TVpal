@@ -23,6 +23,7 @@ public class SkjarinnScheduleParser extends DefaultHandler
     private List<EventDataContract> events;
     private String tmpValue;
     private EventDataContract eventTmp;
+    private String serviceName;
 
     public SkjarinnScheduleParser(String baseUrl)
     {
@@ -76,12 +77,16 @@ public class SkjarinnScheduleParser extends DefaultHandler
             eventTmp.setCurrentEpisode(attributes.getValue("number"));
             eventTmp.setNumberOfEpisodes(attributes.getValue("number-of-episodes"));
         }
+
+        if(elementName.equalsIgnoreCase("service"))
+            serviceName = attributes.getValue("service-name");
     }
 
     @Override
     public void endElement(String s, String s1, String element) throws SAXException
     {
         if (element.equals("event")) {
+            eventTmp.setServiceName(serviceName);
             events.add(eventTmp);
         }
         if (element.equalsIgnoreCase("title")){

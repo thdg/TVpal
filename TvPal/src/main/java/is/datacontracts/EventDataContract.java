@@ -19,6 +19,7 @@ public class EventDataContract
     private String description;
     private String duration;
     private String eventDate;
+    private String serviceName;
 
     public String getTitle() { return this.title; }
     public void setTitle(String title) { this.title = title; }
@@ -46,6 +47,9 @@ public class EventDataContract
 
     public String getEventDate() { return this.eventDate; }
     public void setEventDate(String eventDate) { this.eventDate = setCorrectEventDateFormat(eventDate); }
+
+    public String getServiceName() { return this.serviceName; }
+    public void setServiceName(String serviceName) { this.serviceName = serviceName; }
 
     public String setCorrectDateFormat(String startTime)
     {
