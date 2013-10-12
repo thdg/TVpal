@@ -17,13 +17,13 @@ import is.datacontracts.EventDataContract;
 import is.tvpal.R;
 
 /**
+ * Created by Svavar
  *
  * This class implements an Adapter that can be used in both ListView
  * (by implementing the specialized ListAdapter interface}
  * and Spinner (by implementing the specialized SpinnerAdapter interface.
  * It extends BaseAdapter.
  *
- * @author Svavar
  * @see    android.widget.BaseAdapter
  */
 public class CustomBaseAdapter extends BaseAdapter

@@ -14,10 +14,11 @@ import java.util.Date;
 import is.tvpal.R;
 
 /**
+ * Created by Arnar
+ *
  * This class has few static Helper functions.
  * Such as showing alert dialogs and formatting dates.
  *
- * @author Arnar
  */
 public class Helpers
 {

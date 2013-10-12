@@ -15,7 +15,7 @@ import is.datacontracts.EventDataContract;
  * This class to parse xml files.  It uses the Sax Parser and extends DefaultHandler.
  * It parses Stöð 2 schedules.
  *
- * @author Arnar
+ * Created by Arnar
  * @see org.xml.sax.helpers.DefaultHandler
  */
 public class Stod2ScheduleParser extends DefaultHandler

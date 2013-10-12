@@ -24,6 +24,8 @@ import is.rules.Helpers;
 import is.tvpal.R;
 
 /**
+ * Created by Arnar
+ *
  * This class handles the activity to show Rúv events.
  * It extends ListActivity to show it as a List.
  * It implements ItemClickListener to handle click events.
