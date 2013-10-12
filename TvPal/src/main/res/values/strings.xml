@@ -10,7 +10,7 @@
 
     <string name="loadingSchedule">Hleð dagskrá...</string>
     <string name="scheduleNotAvailable">Dagskrá ekki til...</string>
-    <string name="starting_time">Byrjar: %s</string>
+    <string name="starting_time">Byrjar</string>
     <string name="duration">Lengd</string>
 
     <string name="ruvBaseUrl">http://muninn.ruv.is/files/xml/ruv/</string>

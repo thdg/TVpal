@@ -36,7 +36,7 @@ public class DetailedEventActivity extends Activity {
 
         if (!start.equals("")) {
             TextView eventStart = (TextView) findViewById(R.id.event_starting);
-            eventStart.setText(String.format("%s: %s", getResources().getString(R.string.duration), start));
+            eventStart.setText(String.format("%s: %s", getResources().getString(R.string.starting_time), start));
         }
 
         if (!duration.equals("")) {
