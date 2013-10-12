@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:textColor="#EEE"
-        android:textSize="40sp" />
+        android:textSize="30sp" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
@@ -24,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:textColor="#DDD"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/event_duration"
@@ -33,7 +33,7 @@
             android:layout_weight="1"
             android:gravity="right"
             android:textColor="#DDD"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
     </LinearLayout>
 
@@ -42,6 +42,6 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:textColor="#DDD"
-        android:textSize="30sp" />
+        android:textSize="15sp" />
 
 </LinearLayout>
