@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TVpal.iml" filepath="$PROJECT_DIR$/TVpal.iml" />
       <module fileurl="file://$PROJECT_DIR$/TvPal/TvPal.iml" filepath="$PROJECT_DIR$/TvPal/TvPal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TvPalProject.iml" filepath="$PROJECT_DIR$/TvPalProject.iml" />
     </modules>
   </component>
 </project>
