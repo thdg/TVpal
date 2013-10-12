@@ -50,7 +50,7 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
         String ruvBaseUrl = getResources().getString(R.string.ruvBaseUrl);
-        String ruvUrl = String.format("%s%s",ruvBaseUrl, Helpers.GetCorrectRuvUrlFormat());
+        String ruvUrl = String.format("%s%s", ruvBaseUrl, Helpers.GetCorrectRuvUrlFormat());
 
         new DownloadRuvSchedules(this).execute(ruvUrl);
 
