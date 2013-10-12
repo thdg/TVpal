@@ -21,6 +21,7 @@ public class RuvScheduleParser extends DefaultHandler
     private List<EventDataContract> events;
     private String tmpValue;
     private EventDataContract eventTmp;
+    private String serviceName;
 
     public RuvScheduleParser(String baseUrl)
     {
@@ -76,13 +77,14 @@ public class RuvScheduleParser extends DefaultHandler
         }
 
         if (elementName.equalsIgnoreCase("service"))
-            eventTmp.setServiceName(attributes.getValue("service-name"));
+            serviceName = attributes.getValue("service-name");
     }
 
     @Override
     public void endElement(String s, String s1, String element) throws SAXException
     {
         if (element.equals("event")) {
+            eventTmp.setServiceName(serviceName);
             events.add(eventTmp);
         }
         if (element.equalsIgnoreCase("title")){

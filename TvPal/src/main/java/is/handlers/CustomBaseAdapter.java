@@ -66,12 +66,27 @@ public class CustomBaseAdapter extends BaseAdapter
 
         EventDataContract dataContract = schedule.get(position);
 
-        if (dataContract.getServiceName().equalsIgnoreCase("Skjar Einn"))
-        {
+        String serviceName = dataContract.getServiceName();
+
+        if (serviceName.equalsIgnoreCase("Skjar Einn")) {
             holder.imgIcon.setImageResource(R.drawable.skjareinn_64);
         }
+        else if (serviceName.equalsIgnoreCase(context.getResources().getString(R.string.ruv))) {
+            holder.imgIcon.setImageResource(R.drawable.ruv_svartur_64);
+        }
+        else if (serviceName.equalsIgnoreCase("STOD2")) {
+            holder.imgIcon.setImageResource(R.drawable.stod2_64);
+        }
+        else if(serviceName.equalsIgnoreCase("SPORT")) {
+            holder.imgIcon.setImageResource(R.drawable.stod2sport_64);
+        }
+        else if(serviceName.equalsIgnoreCase("STOD3")) {
+            holder.imgIcon.setImageResource(R.drawable.stod3_64);
+        }
+        else if(serviceName.equalsIgnoreCase("BIO")) {
+            holder.imgIcon.setImageResource(R.drawable.stod2bio_64);
+        }
 
-        //holder.imgIcon.setImageResource(R.drawable.tvshow);
         holder.title.setText(dataContract.getTitle());
         holder.startTime.setText(String.format("Byrjar: %s",dataContract.getStartTime()));
         holder.duration.setText(String.format("Lengd: %s", dataContract.getDuration()));
