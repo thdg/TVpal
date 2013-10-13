@@ -6,17 +6,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.IOException;
 import java.util.List;
-
 import is.datacontracts.ShowDataContract;
 import is.handlers.CustomShowAdapter;
 import is.parsers.TvDbShowParser;
