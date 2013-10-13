@@ -44,6 +44,6 @@
         android:layout_width="wrap_content"
         android:textColor="#DDD"
         android:textSize="15sp"
-        android:lineSpacingMultiplier="2"/>
+        android:lineSpacingExtra="3dp"/>
 
 </LinearLayout>
