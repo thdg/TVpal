@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 import is.datacontracts.EventDataContract;
-import is.handlers.CustomBaseAdapter;
+import is.handlers.CustomEventAdapter;
 import is.handlers.SwipeGestureFilter;
 import is.parsers.SkjarinnScheduleParser;
 import is.rules.Helpers;
@@ -46,7 +46,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
     private SwipeGestureFilter _detector;
     private String _workingDate;
     private List<EventDataContract> _todaySchedule;
-    private CustomBaseAdapter _adapterView;
+    private CustomEventAdapter _adapterView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -132,7 +132,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
             return;
         }
 
-        _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row_event, _todaySchedule);
+        _adapterView = new CustomEventAdapter(this, R.layout.listview_item_row_event, _todaySchedule);
         setListAdapter(_adapterView);
     }
 
@@ -155,7 +155,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
             return;
         }
 
-        _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row_event, _todaySchedule);
+        _adapterView = new CustomEventAdapter(this, R.layout.listview_item_row_event, _todaySchedule);
         setListAdapter(_adapterView);
     }
 
@@ -192,7 +192,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
         @Override
         protected void onPostExecute(String result)
         {
-            _adapterView = new CustomBaseAdapter(ctx, R.layout.listview_item_row_event, _todaySchedule);
+            _adapterView = new CustomEventAdapter(ctx, R.layout.listview_item_row_event, _todaySchedule);
             setListAdapter(_adapterView);
 
             _waitingDialog.dismiss();

@@ -7,18 +7,15 @@
     <string name="title_activity_display_ruv">Rúv</string>
     <string name="title_activity_display_skjarinn">Skjárinn</string>
     <string name="title_activity_detailed_event">Event</string>
-
     <string name="loadingSchedule">Hleð dagskrá...</string>
     <string name="scheduleNotAvailable">Dagskrá ekki til...</string>
     <string name="starting_time">Byrjar</string>
     <string name="duration">Lengd</string>
-
     <string name="ruvBaseUrl">http://muninn.ruv.is/files/xml/ruv/</string>
     <string name="stod2BaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-2-dagskra-vikunnar</string>
     <string name="stod2SportBaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-2-Sport-dagskra-vikunnar</string>
     <string name="stod3BaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-3-dagskra-vikunnar</string>
     <string name="stod2BioBaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-2-Bio-dagskra-vikunnar</string>
-
     <string name="ruv">Rúv</string>
     <string name="stod">Stöð 2</string>
     <string name="skjarinn">Skjárinn</string>
@@ -33,6 +30,7 @@
         <item>Stöð 2 Bíó</item>
         <item>Stöð 3</item>
         <item>Skjár einn</item>
+        <item>Search shows</item>
     </string-array>
 
     <string name="monday">Mánudagur</string>
@@ -42,5 +40,9 @@
     <string name="friday">Föstudagur</string>
     <string name="saturday">Laugardagur</string>
     <string name="sunday">Sunnudagur</string>
+    <string name="tvdbBaseUrl">http://thetvdb.com/api/GetSeries.php?seriesname=</string>
+    <string name="loadingShows">Hleð þáttum...</string>
+    <string name="title_activity_tv_show">Search</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

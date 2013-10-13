@@ -41,6 +41,10 @@
             android:name="is.activites.DetailedEventActivity"
             android:label="@string/title_activity_detailed_event" >
         </activity>
+        <activity
+            android:name="is.activites.TvShowActivity"
+            android:label="@string/title_activity_tv_show" >
+        </activity>
     </application>
 
 </manifest>

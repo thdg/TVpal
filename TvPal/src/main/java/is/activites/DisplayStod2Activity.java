@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import is.datacontracts.EventDataContract;
-import is.handlers.CustomBaseAdapter;
+import is.handlers.CustomEventAdapter;
 import is.parsers.Stod2ScheduleParser;
 import is.rules.Helpers;
 import is.tvpal.R;
@@ -44,7 +44,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
     private ProgressDialog _waitingDialog;
     private String _workingDate;
     private List<EventDataContract> _todaySchedule;
-    private CustomBaseAdapter _adapterView;
+    private CustomEventAdapter _adapterView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +130,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
             return;
         }
 
-        _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row_event, _todaySchedule);
+        _adapterView = new CustomEventAdapter(this, R.layout.listview_item_row_event, _todaySchedule);
         setListAdapter(_adapterView);
     }
 
@@ -153,7 +153,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
             return;
         }
 
-        _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row_event, _todaySchedule);
+        _adapterView = new CustomEventAdapter(this, R.layout.listview_item_row_event, _todaySchedule);
         setListAdapter(_adapterView);
     }
 
@@ -190,7 +190,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
         @Override
         protected void onPostExecute(String result)
         {
-            _adapterView = new CustomBaseAdapter(ctx, R.layout.listview_item_row_event, _todaySchedule);
+            _adapterView = new CustomEventAdapter(ctx, R.layout.listview_item_row_event, _todaySchedule);
             setListAdapter(_adapterView);
             _waitingDialog.dismiss();
         }
