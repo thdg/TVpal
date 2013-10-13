@@ -71,6 +71,7 @@ public class TvShowActivity extends Activity
 
         try {
             userEntry = editSearch.getText().toString();
+            userEntry = userEntry.replace(" ", "%20"); //Delete whitespaces and instert %20 to set correct urlFormat for the API
         }
         catch(Exception ex) {
             ex.getMessage();
