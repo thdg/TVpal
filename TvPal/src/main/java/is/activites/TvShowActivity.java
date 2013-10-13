@@ -6,8 +6,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -15,16 +17,18 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
 import is.datacontracts.ShowDataContract;
+import is.handlers.CustomEventAdapter;
 import is.handlers.CustomShowAdapter;
 import is.parsers.TvDbShowParser;
 import is.tvpal.R;
 
-public class TvShowActivity extends Activity
+public class TvShowActivity extends Activity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener
 {
-    private ListView lv;
-    private EditText editSearch;
-    private List<ShowDataContract> shows;
+    private ListView _lv;
+    private EditText _editSearch;
+    private List<ShowDataContract> _shows;
     private ProgressDialog _waitingDialog;
+    private CustomShowAdapter _adapterView;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -37,22 +41,20 @@ public class TvShowActivity extends Activity
 
     private void Initialize()
     {
-        editSearch = (EditText) findViewById(R.id.editMeh);
+        _editSearch = (EditText) findViewById(R.id.editMeh);
 
-        lv = (ListView) findViewById(R.id.lvId);
+        _lv = (ListView) findViewById(R.id.lvId);
+        _lv.setOnItemClickListener(this);
 
         InitializeEditTextSearch();
     }
 
     private void InitializeEditTextSearch()
     {
-        editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener()
-        {
+        _editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent)
-            {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH)
-                {
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     performSearch();
 
                     InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -70,7 +72,7 @@ public class TvShowActivity extends Activity
         String userEntry = null;
 
         try {
-            userEntry = editSearch.getText().toString();
+            userEntry = _editSearch.getText().toString();
             userEntry = userEntry.replace(" ", "%20"); //Delete whitespaces and instert %20 to set correct urlFormat for the API
         }
         catch(Exception ex) {
@@ -81,6 +83,19 @@ public class TvShowActivity extends Activity
 
         new DownloadShows(this).execute(searchUrl);
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
+    {
+        ShowDataContract selectedShow = _adapterView.getItem(position);
+        Toast.makeText(this, selectedShow.getFirstAired(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {}
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {}
 
     private class DownloadShows extends AsyncTask<String, Void, String>
     {
@@ -118,7 +133,8 @@ public class TvShowActivity extends Activity
             if (result.equalsIgnoreCase("empty"))
                 Toast.makeText(ctx, "No shows found", Toast.LENGTH_SHORT).show();
 
-            lv.setAdapter(new CustomShowAdapter(ctx, R.layout.listview_item_row_show, shows));
+            _adapterView = new CustomShowAdapter(ctx, R.layout.listview_item_row_show, _shows);
+            _lv.setAdapter(_adapterView);
 
             _waitingDialog.dismiss();
         }
@@ -128,9 +144,9 @@ public class TvShowActivity extends Activity
             try
             {
                 TvDbShowParser parser = new TvDbShowParser(myurl);
-                shows = parser.GetShows();
+                _shows = parser.GetShows();
 
-                if(shows.size() == 0)
+                if(_shows.size() == 0)
                 {
                     return "Empty";
                 }
