@@ -9,11 +9,9 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -132,7 +130,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
             return;
         }
 
-        _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row, _todaySchedule);
+        _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row_event, _todaySchedule);
         setListAdapter(_adapterView);
     }
 
@@ -155,7 +153,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
             return;
         }
 
-        _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row, _todaySchedule);
+        _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row_event, _todaySchedule);
         setListAdapter(_adapterView);
     }
 
@@ -192,7 +190,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
         @Override
         protected void onPostExecute(String result)
         {
-            _adapterView = new CustomBaseAdapter(ctx, R.layout.listview_item_row, _todaySchedule);
+            _adapterView = new CustomBaseAdapter(ctx, R.layout.listview_item_row_event, _todaySchedule);
             setListAdapter(_adapterView);
             _waitingDialog.dismiss();
         }

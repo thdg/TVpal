@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -133,7 +132,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
             return;
         }
 
-        _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row, _todaySchedule);
+        _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row_event, _todaySchedule);
         setListAdapter(_adapterView);
     }
 
@@ -156,7 +155,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
             return;
         }
 
-        _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row, _todaySchedule);
+        _adapterView = new CustomBaseAdapter(this, R.layout.listview_item_row_event, _todaySchedule);
         setListAdapter(_adapterView);
     }
 
@@ -193,7 +192,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
         @Override
         protected void onPostExecute(String result)
         {
-            _adapterView = new CustomBaseAdapter(ctx, R.layout.listview_item_row, _todaySchedule);
+            _adapterView = new CustomBaseAdapter(ctx, R.layout.listview_item_row_event, _todaySchedule);
             setListAdapter(_adapterView);
 
             _waitingDialog.dismiss();
