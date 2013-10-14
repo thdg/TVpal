@@ -7,15 +7,18 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import is.datacontracts.DrawerListDataContract;
+import is.handlers.CustomDrawerListAdapter;
 import is.rules.ConnectionListener;
 import is.rules.Helpers;
 import is.tvpal.R;
@@ -56,9 +59,17 @@ public class MainActivity extends Activity
         _DrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         _DrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        _DrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        List<DrawerListDataContract> options = new ArrayList<DrawerListDataContract>();
+        options.add(new DrawerListDataContract(getResources().getString(R.string.ruv), R.drawable.ruv_svartur_64));
+        options.add(new DrawerListDataContract(getResources().getString(R.string.stod_2), R.drawable.stod2_64));
+        options.add(new DrawerListDataContract(getResources().getString(R.string.stod_2_bio), R.drawable.stod2bio_64));
+        options.add(new DrawerListDataContract(getResources().getString(R.string.stod_2_sport), R.drawable.stod2sport_64));
+        options.add(new DrawerListDataContract(getResources().getString(R.string.stod_3), R.drawable.stod3_64));
+        options.add(new DrawerListDataContract(getResources().getString(R.string.skjar_einn), R.drawable.skjareinn_64));
+        options.add(new DrawerListDataContract(getResources().getString(R.string.search_show), 0));
+
         _DrawerList.setAdapter(
-                new ArrayAdapter<String>(this,R.layout.drawer_list_item, _ChannelTitles)
+                new CustomDrawerListAdapter(this, R.layout.drawer_list_item, options)
         );
         _DrawerList.setOnItemClickListener(new DrawerItemClickListener());
 

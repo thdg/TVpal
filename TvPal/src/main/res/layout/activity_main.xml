@@ -25,11 +25,11 @@
 
     <ListView
         android:id="@+id/left_drawer"
-        android:layout_width="240dp"
+        android:layout_width="260dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:choiceMode="singleChoice"
-        android:divider="#888"
+        android:divider="#AAA"
         android:dividerHeight="1dp"
         android:background="#eee"/>
 
