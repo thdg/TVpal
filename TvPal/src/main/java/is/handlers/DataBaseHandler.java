@@ -108,10 +108,9 @@ public class DataBaseHandler extends SQLiteOpenHelper
         return cursor.getCount() != 0;
     }
 
-    public void DeleteComment(ShowDataContract contract)
+    public void RemoveShow(String seriesId)
     {
         SQLiteDatabase database = this.getWritableDatabase();
-        String seriesId = contract.getSeriesId();
         database.delete(TABLE_SERIES, KEY_SERIESID + " = " + seriesId , null);
     }
 }

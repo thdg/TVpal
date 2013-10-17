@@ -22,6 +22,7 @@
     <string name="drawer_open">Opna tjald</string>
     <string name="drawer_close">Loka tjaldi</string>
     <string name="welcome_text">Verið velkomin! \n\nSlide-ið til hægri til að sjá lista yfir sjónvarpsstöðvar</string>
+    <string name="menuRemoveShow">Remove show</string>
 
     <string-array name="channels_array">
         <item>Rúv</item>
