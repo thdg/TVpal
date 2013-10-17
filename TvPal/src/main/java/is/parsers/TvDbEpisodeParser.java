@@ -26,6 +26,7 @@ public class TvDbEpisodeParser extends DefaultHandler {
     {
         this.baseURL = baseUrl;
         this.episodes = new ArrayList<EpisodeDataContract>();
+        episodeTmp = new EpisodeDataContract();
     }
 
     public List<EpisodeDataContract> GetEpisodes()
@@ -62,7 +63,9 @@ public class TvDbEpisodeParser extends DefaultHandler {
     public void startElement(String s, String s1, String elementName, Attributes attributes) throws SAXException
     {
         if (elementName.equalsIgnoreCase("Episode"))
+        {
             episodeTmp = new EpisodeDataContract();
+        }
     }
 
     @Override
@@ -83,7 +86,7 @@ public class TvDbEpisodeParser extends DefaultHandler {
         if(element.equalsIgnoreCase("Overview"))
             episodeTmp.setOverview(tmpValue);
 
-        if(element.equalsIgnoreCase("episode"))
+        if(element.equalsIgnoreCase("Episode"))
             episodes.add(episodeTmp);
     }
 

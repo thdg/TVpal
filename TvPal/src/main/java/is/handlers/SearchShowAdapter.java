@@ -2,17 +2,21 @@ package is.handlers;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.List;
+
+import is.datacontracts.EpisodeDataContract;
 import is.datacontracts.ShowDataContract;
+import is.parsers.TvDbEpisodeParser;
 import is.tvpal.R;
 
 public class SearchShowAdapter extends BaseAdapter
@@ -79,8 +83,10 @@ public class SearchShowAdapter extends BaseAdapter
 
                     if (!exists)
                     {
+                        String apiKey = context.getResources().getString(R.string.apiKey);
+                        String tvDbUrl = String.format("http://thetvdb.com/api/%s/series/%s/all/", apiKey, dataContract.getSeriesId());
+                        new DownloadEpisodes(context).execute(tvDbUrl);
                         db.AddSeries(dataContract);
-                        Toast.makeText(context, String.format("%s has been added to your shows", dataContract.getTitle()) ,Toast.LENGTH_SHORT).show();
                     }
                     else
                         Toast.makeText(context, String.format("Series %s exist in your shows", dataContract.getTitle()), Toast.LENGTH_SHORT).show();
@@ -90,6 +96,55 @@ public class SearchShowAdapter extends BaseAdapter
         });
 
         return row;
+    }
+
+    private class DownloadEpisodes extends AsyncTask<String, Void, String>
+    {
+        private Context ctx;
+
+        public DownloadEpisodes(Context context)
+        {
+            this.ctx = context;
+        }
+
+        @Override
+        protected String doInBackground(String... urls)
+        {
+            try
+            {
+                return GetEpisodes(urls[0]);
+            }
+            catch (IOException e)
+            {
+                return "Unable to retrieve web page. URL may be invalid";
+            }
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+        }
+
+        @Override
+        protected void onPostExecute(String result)
+        {
+        }
+
+        private String GetEpisodes(String myurl) throws IOException
+        {
+            try
+            {
+                TvDbEpisodeParser parser = new TvDbEpisodeParser(myurl);
+                List<EpisodeDataContract> episodes = parser.GetEpisodes();
+
+            }
+            catch (Exception ex)
+            {
+                ex.getMessage();
+            }
+
+            return "Successful";
+        }
     }
 
     @Override

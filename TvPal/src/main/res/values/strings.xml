@@ -42,10 +42,12 @@
     <string name="friday">Föstudagur</string>
     <string name="saturday">Laugardagur</string>
     <string name="sunday">Sunnudagur</string>
+
     <string name="tvdbBaseUrl">http://thetvdb.com/api/GetSeries.php?seriesname=</string>
+    <string name="apiKey">9A96DA217CEB03E7</string>
     <string name="loadingShows">Hleð þáttum...</string>
+
     <string name="title_activity_tv_show">Search</string>
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_my_shows">My Shows</string>
 
 </resources>

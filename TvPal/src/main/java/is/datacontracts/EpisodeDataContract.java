@@ -25,4 +25,10 @@ public class EpisodeDataContract
 
     public String getOverview() { return overview; }
     public void setOverview(String overview) { this.overview = overview; }
+
+    @Override
+    public String toString()
+    {
+        return String.format("%s-%s", seasonNumber, showNumber);
+    }
 }
