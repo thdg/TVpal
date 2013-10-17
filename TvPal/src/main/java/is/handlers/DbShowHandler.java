@@ -48,7 +48,7 @@ public class DbShowHandler extends SQLiteOpenHelper
                 "CREATE TABLE " + TABLE_SERIES + "("
                         + KEY_S_SERIESID + " varchar(20) PRIMARY KEY,"
                         + KEY_S_NAME + " varchar(100),"
-                        + KEY_S_OVERVIEW + " varchar(400),"
+                        + KEY_S_OVERVIEW + " text,"
                         + KEY_S_NETWORK + " varchar(100)"
                         + ")";
 
@@ -59,7 +59,7 @@ public class DbShowHandler extends SQLiteOpenHelper
                         + KEY_E_SEASON + " varchar(5),"
                         + KEY_E_EPISODE + " varchar(5),"
                         + KEY_E_AIRED + " varchar(15),"
-                        + KEY_E_OVERVIEW + " varchar(400)"
+                        + KEY_E_OVERVIEW + " text"
                         + ")";
 
         db.execSQL(CREATE_SERIES_TABLE);

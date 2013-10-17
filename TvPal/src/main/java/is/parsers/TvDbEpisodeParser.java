@@ -21,6 +21,7 @@ public class TvDbEpisodeParser extends DefaultHandler {
     private List<EpisodeDataContract> episodes;
     private String tmpValue;
     private EpisodeDataContract episodeTmp;
+    private StringBuilder sb;
 
     public TvDbEpisodeParser(String baseUrl)
     {
@@ -66,6 +67,9 @@ public class TvDbEpisodeParser extends DefaultHandler {
         {
             episodeTmp = new EpisodeDataContract();
         }
+
+        if(elementName.equalsIgnoreCase("Overview"))
+            sb = new StringBuilder();
     }
 
     @Override
@@ -84,8 +88,10 @@ public class TvDbEpisodeParser extends DefaultHandler {
             episodeTmp.setAired(tmpValue);
 
         if(element.equalsIgnoreCase("Overview"))
-            episodeTmp.setOverview(tmpValue);
-
+        {
+            episodeTmp.setOverview(sb.toString());
+            sb = null;
+        }
         if(element.equalsIgnoreCase("seriesid"))
             episodeTmp.setSeriesId(tmpValue);
 
@@ -96,6 +102,13 @@ public class TvDbEpisodeParser extends DefaultHandler {
     @Override
     public void characters(char[] ac, int i, int j) throws SAXException
     {
-        tmpValue = new String(ac, i, j);
+        if(sb != null)
+        {
+            for (int k= i; k<i+j; k++) {
+                sb.append(ac[k]);
+            }
+        }
+        else
+            tmpValue = new String(ac, i, j);
     }
 }
