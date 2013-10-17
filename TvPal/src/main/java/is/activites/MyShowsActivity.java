@@ -1,10 +1,14 @@
 package is.activites;
 
+import android.app.ListActivity;
 import android.os.Bundle;
-import android.app.Activity;
-import android.widget.TextView;
+import java.util.List;
+import is.datacontracts.ShowDataContract;
+import is.handlers.CustomMyShowsAdapter;
+import is.handlers.DataBaseHandler;
+import is.tvpal.R;
 
-public class MyShowsActivity extends Activity {
+public class MyShowsActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -16,10 +20,15 @@ public class MyShowsActivity extends Activity {
 
     private void Initialize()
     {
-        TextView tv = new TextView(this);
+        List<ShowDataContract> myShows = GetMyShows();
 
-        tv.setText("Arnar");
+        setListAdapter(new CustomMyShowsAdapter(this, R.layout.listview_item_my_shows, myShows));
+    }
 
-        setContentView(tv);
+    private List<ShowDataContract> GetMyShows()
+    {
+        DataBaseHandler db = new DataBaseHandler(this);
+
+        return db.GetAllSeries();
     }
 }
