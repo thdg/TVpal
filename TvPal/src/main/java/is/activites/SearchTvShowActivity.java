@@ -21,7 +21,7 @@ import is.handlers.SearchShowAdapter;
 import is.parsers.TvDbShowParser;
 import is.tvpal.R;
 
-public class SearchTvShowActivity extends Activity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener
+public class SearchTvShowActivity extends Activity
 {
     private ListView _lv;
     private EditText _editSearch;
@@ -43,7 +43,6 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
         _editSearch = (EditText) findViewById(R.id.editMeh);
 
         _lv = (ListView) findViewById(R.id.lvId);
-        _lv.setOnItemClickListener(this);
 
         InitializeEditTextSearch();
     }
@@ -82,18 +81,6 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
 
         new DownloadShows(this).execute(searchUrl);
     }
-
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
-    {
-        ShowDataContract selectedShow = _adapterView.getItem(position);
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {}
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {}
 
     private class DownloadShows extends AsyncTask<String, Void, String>
     {
