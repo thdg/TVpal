@@ -132,7 +132,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
             return;
         }
 
-        _adapterView = new CustomEventAdapter(this, R.layout.listview_item_row_event, _todaySchedule);
+        _adapterView = new CustomEventAdapter(this, R.layout.listview_item_event, _todaySchedule);
         setListAdapter(_adapterView);
     }
 
@@ -155,7 +155,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
             return;
         }
 
-        _adapterView = new CustomEventAdapter(this, R.layout.listview_item_row_event, _todaySchedule);
+        _adapterView = new CustomEventAdapter(this, R.layout.listview_item_event, _todaySchedule);
         setListAdapter(_adapterView);
     }
 
@@ -192,7 +192,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
         @Override
         protected void onPostExecute(String result)
         {
-            _adapterView = new CustomEventAdapter(ctx, R.layout.listview_item_row_event, _todaySchedule);
+            _adapterView = new CustomEventAdapter(ctx, R.layout.listview_item_event, _todaySchedule);
             setListAdapter(_adapterView);
 
             _waitingDialog.dismiss();

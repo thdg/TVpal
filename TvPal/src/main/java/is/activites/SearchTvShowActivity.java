@@ -17,7 +17,6 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
 import is.datacontracts.ShowDataContract;
-import is.handlers.CustomEventAdapter;
 import is.handlers.CustomShowAdapter;
 import is.parsers.TvDbShowParser;
 import is.tvpal.R;
@@ -132,7 +131,7 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
             if (result.equalsIgnoreCase("empty"))
                 Toast.makeText(ctx, "No shows found", Toast.LENGTH_SHORT).show();
 
-            _adapterView = new CustomShowAdapter(ctx, R.layout.listview_item_row_show, _shows);
+            _adapterView = new CustomShowAdapter(ctx, R.layout.listview_item_search_show, _shows);
             _lv.setAdapter(_adapterView);
 
             _waitingDialog.dismiss();
