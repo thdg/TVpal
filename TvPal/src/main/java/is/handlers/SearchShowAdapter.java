@@ -77,7 +77,7 @@ public class SearchShowAdapter extends BaseAdapter
             {
                 if (((CheckBox) view).isChecked())
                 {
-                    DataBaseHandler db = new DataBaseHandler(context);
+                    DbShowHandler db = new DbShowHandler(context);
 
                     boolean exists = db.CheckIfSeriesExist(dataContract.getSeriesId());
 

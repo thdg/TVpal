@@ -14,7 +14,7 @@ import java.util.List;
 
 import is.datacontracts.ShowDataContract;
 
-public class DataBaseHandler extends SQLiteOpenHelper
+public class DbShowHandler extends SQLiteOpenHelper
 {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "shows";
@@ -26,7 +26,7 @@ public class DataBaseHandler extends SQLiteOpenHelper
     private static final String KEY_OVERVIEW = "overview";
     private static final String KEY_NETWORK = "network";
 
-    public DataBaseHandler(Context context) {
+    public DbShowHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

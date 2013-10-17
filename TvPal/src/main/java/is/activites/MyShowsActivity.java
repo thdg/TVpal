@@ -11,13 +11,13 @@ import android.widget.Toast;
 
 import java.util.List;
 import is.datacontracts.ShowDataContract;
+import is.handlers.DbShowHandler;
 import is.handlers.MyShowsAdapter;
-import is.handlers.DataBaseHandler;
 import is.tvpal.R;
 
 public class MyShowsActivity extends ListActivity
 {
-    private DataBaseHandler _db;
+    private DbShowHandler _db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,7 +29,7 @@ public class MyShowsActivity extends ListActivity
 
     private void Initialize()
     {
-        _db = new DataBaseHandler(this);
+        _db = new DbShowHandler(this);
 
         SetListAdapterMyShows();
 
