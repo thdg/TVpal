@@ -34,7 +34,7 @@ import is.tvpal.R;
  * It implements SwipeGestureFilter.SimpleGestureListener to handle swipe events.
  * @see android.app.ListActivity
  */
-public class DisplaySkjarinnActivity extends ListActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener, SwipeGestureFilter.SimpleGestureListener
+public class DisplaySkjarinnActivity extends ListActivity implements AdapterView.OnItemClickListener, SwipeGestureFilter.SimpleGestureListener
 {
     public static final String EXTRA_TITLE = "is.activites.TITLE";
     public static final String EXTRA_DESCRIPTION = "is.activites.DESCRIPTION";
@@ -84,9 +84,6 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
 
         startActivity(intent);
     }
-
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
-    public void onNothingSelected(AdapterView<?> parent) {}
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent me)

@@ -14,7 +14,7 @@ import is.handlers.DbShowHandler;
 import is.handlers.SeasonAdapter;
 import is.tvpal.R;
 
-public class SeasonActivity extends ListActivity implements  AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener
+public class SeasonActivity extends ListActivity implements  AdapterView.OnItemClickListener
 {
     private DbShowHandler _db;
 
@@ -45,13 +45,5 @@ public class SeasonActivity extends ListActivity implements  AdapterView.OnItemC
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         DbShowHandler db = new DbShowHandler(this);
         List<EpisodeDataContract> data = db.GetAllEpisodes("d");
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
     }
 }

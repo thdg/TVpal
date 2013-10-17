@@ -18,7 +18,7 @@ import is.handlers.DbShowHandler;
 import is.handlers.MyShowsAdapter;
 import is.tvpal.R;
 
-public class MyShowsActivity extends ListActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener
+public class MyShowsActivity extends ListActivity implements AdapterView.OnItemClickListener
 {
     public static final String EXTRA_SERIESID = "is.activities.SERIESID";
 
@@ -103,10 +103,4 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
         intent.putExtra(EXTRA_SERIESID, show.getSeriesId());
         startActivity(intent);
     }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {}
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {}
 }
