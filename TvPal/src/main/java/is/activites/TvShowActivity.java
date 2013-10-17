@@ -88,7 +88,6 @@ public class TvShowActivity extends Activity implements AdapterView.OnItemClickL
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
     {
         ShowDataContract selectedShow = _adapterView.getItem(position);
-        Toast.makeText(this, selectedShow.getFirstAired(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
