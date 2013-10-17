@@ -31,6 +31,7 @@
         <item>Stöð 3</item>
         <item>Skjár einn</item>
         <item>Search shows</item>
+        <item>My shows</item>
     </string-array>
 
     <string name="monday">Mánudagur</string>
@@ -44,5 +45,6 @@
     <string name="loadingShows">Hleð þáttum...</string>
     <string name="title_activity_tv_show">Search</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_my_shows">My Shows</string>
 
 </resources>
