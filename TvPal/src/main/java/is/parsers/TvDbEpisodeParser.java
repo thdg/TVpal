@@ -74,17 +74,20 @@ public class TvDbEpisodeParser extends DefaultHandler {
         if(element.equalsIgnoreCase("id"))
             episodeTmp.setEpisodeId(tmpValue);
 
-        if(element.equalsIgnoreCase("DVD_season"))
+        if(element.equalsIgnoreCase("SeasonNumber"))
             episodeTmp.setSeasonNumber(tmpValue);
 
-        if(element.equalsIgnoreCase("absolute_number"))
-            episodeTmp.setShowNumber(tmpValue);
+        if(element.equalsIgnoreCase("EpisodeNumber"))
+            episodeTmp.setEpisodeNumber(tmpValue);
 
         if(element.equalsIgnoreCase("FirstAired"))
             episodeTmp.setAired(tmpValue);
 
         if(element.equalsIgnoreCase("Overview"))
             episodeTmp.setOverview(tmpValue);
+
+        if(element.equalsIgnoreCase("seriesid"))
+            episodeTmp.setSeriesId(tmpValue);
 
         if(element.equalsIgnoreCase("Episode"))
             episodes.add(episodeTmp);

@@ -6,18 +6,21 @@ import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ListView;
 import android.widget.Toast;
-
 import java.util.List;
+import is.datacontracts.EpisodeDataContract;
 import is.datacontracts.ShowDataContract;
 import is.handlers.DbShowHandler;
 import is.handlers.MyShowsAdapter;
 import is.tvpal.R;
 
-public class MyShowsActivity extends ListActivity
+public class MyShowsActivity extends ListActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener
 {
-    private DbShowHandler _db;
+    private DbShowHandler _dbShow;
+    private ListView _lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,7 +32,11 @@ public class MyShowsActivity extends ListActivity
 
     private void Initialize()
     {
-        _db = new DbShowHandler(this);
+        _dbShow = new DbShowHandler(this);
+
+
+        _lv = getListView();
+        _lv.setOnItemClickListener(this);
 
         SetListAdapterMyShows();
 
@@ -38,7 +45,7 @@ public class MyShowsActivity extends ListActivity
 
     private void SetListAdapterMyShows()
     {
-        List<ShowDataContract> myShows = _db.GetAllSeries();
+        List<ShowDataContract> myShows = _dbShow.GetAllSeries();
 
         setListAdapter(new MyShowsAdapter(this, R.layout.listview_item_my_shows, myShows));
     }
@@ -73,7 +80,7 @@ public class MyShowsActivity extends ListActivity
 
         try
         {
-            _db.RemoveShow(show.getSeriesId());
+            _dbShow.RemoveShow(show.getSeriesId());
             SetListAdapterMyShows();
             Toast.makeText(this, String.format("Removed %s from your shows", show.getTitle()), Toast.LENGTH_SHORT).show();
         }
@@ -82,4 +89,15 @@ public class MyShowsActivity extends ListActivity
             ex.getMessage();
         }
     }
+
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+    {
+        List<EpisodeDataContract> episodes = _dbShow.GetAllEpisodes();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {}
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {}
 }

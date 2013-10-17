@@ -12,19 +12,30 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import is.datacontracts.EpisodeDataContract;
 import is.datacontracts.ShowDataContract;
 
 public class DbShowHandler extends SQLiteOpenHelper
 {
+    //Database & table info
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "shows";
     private static final String TABLE_SERIES = "series";
+    private static final String TABLE_EPISODES = "episodes";
 
-    // Series Table Columns names
-    private static final String KEY_SERIESID = "seriesid";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_OVERVIEW = "overview";
-    private static final String KEY_NETWORK = "network";
+    // Columns in shows
+    private static final String KEY_S_SERIESID = "seriesid";
+    private static final String KEY_S_NAME = "name";
+    private static final String KEY_S_OVERVIEW = "overview";
+    private static final String KEY_S_NETWORK = "network";
+
+    //Columns in episodes
+    private static final String KEY_E_EPISODEID = "episodeId";
+    private static final String KEY_E_SERIESID = "seriesId";
+    private static final String KEY_E_SEASON = "season";
+    private static final String KEY_E_EPISODE = "episode";
+    private static final String KEY_E_OVERVIEW = "overview";
+    private static final String KEY_E_AIRED = "aired";
 
     public DbShowHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -35,13 +46,24 @@ public class DbShowHandler extends SQLiteOpenHelper
     {
         String CREATE_SERIES_TABLE =
                 "CREATE TABLE " + TABLE_SERIES + "("
-                        + KEY_SERIESID + " varchar(20) PRIMARY KEY,"
-                        + KEY_NAME + " varchar(100),"
-                        + KEY_OVERVIEW + " text,"
-                        + KEY_NETWORK + " varchar(100)"
+                        + KEY_S_SERIESID + " varchar(20) PRIMARY KEY,"
+                        + KEY_S_NAME + " varchar(100),"
+                        + KEY_S_OVERVIEW + " varchar(400),"
+                        + KEY_S_NETWORK + " varchar(100)"
+                        + ")";
+
+        String CREATE_EPISODE_TABLE =
+                "CREATE TABLE " + TABLE_EPISODES + "("
+                        + KEY_E_EPISODEID + " varchar(20) PRIMARY KEY,"
+                        + KEY_E_SERIESID + " varchar(20),"
+                        + KEY_E_SEASON + " varchar(5),"
+                        + KEY_E_EPISODE + " varchar(5),"
+                        + KEY_E_AIRED + " varchar(15),"
+                        + KEY_E_OVERVIEW + " varchar(400)"
                         + ")";
 
         db.execSQL(CREATE_SERIES_TABLE);
+        db.execSQL(CREATE_EPISODE_TABLE);
     }
 
     // Upgrading database
@@ -56,10 +78,10 @@ public class DbShowHandler extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_SERIESID, series.getSeriesId());
-        values.put(KEY_NAME, series.getTitle());
-        values.put(KEY_OVERVIEW, series.getOverview());
-        values.put(KEY_NETWORK, series.getNetwork());
+        values.put(KEY_S_SERIESID, series.getSeriesId());
+        values.put(KEY_S_NAME, series.getTitle());
+        values.put(KEY_S_OVERVIEW, series.getOverview());
+        values.put(KEY_S_NETWORK, series.getNetwork());
 
         db.insert(TABLE_SERIES, null, values);
         db.close();
@@ -69,7 +91,7 @@ public class DbShowHandler extends SQLiteOpenHelper
     {
         List<ShowDataContract> seriesList = new ArrayList<ShowDataContract>();
 
-        String selectQuery = "SELECT * FROM " + TABLE_SERIES + " ORDER BY " + KEY_NAME;
+        String selectQuery = "SELECT * FROM " + TABLE_SERIES + " ORDER BY " + KEY_S_NAME;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -77,7 +99,8 @@ public class DbShowHandler extends SQLiteOpenHelper
         cursor.moveToFirst();//Loop through all entities
         while (!cursor.isAfterLast())
         {
-            try {
+            try
+            {
                 ShowDataContract series = new ShowDataContract();
 
                 series.setSeriesId(cursor.getString(0));
@@ -88,7 +111,8 @@ public class DbShowHandler extends SQLiteOpenHelper
                 seriesList.add(series);
                 cursor.moveToNext();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 ex.getMessage();
             }
         }
@@ -99,7 +123,7 @@ public class DbShowHandler extends SQLiteOpenHelper
     public boolean CheckIfSeriesExist(String seriesId)
     {
         String selectClause = "SELECT * FROM " + TABLE_SERIES;
-        String whereClause  = "WHERE " + KEY_SERIESID + " = " + seriesId;
+        String whereClause  = "WHERE " + KEY_S_SERIESID + " = " + seriesId;
         String selectQuery  = String.format("%s %s", selectClause, whereClause);
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -111,6 +135,55 @@ public class DbShowHandler extends SQLiteOpenHelper
     public void RemoveShow(String seriesId)
     {
         SQLiteDatabase database = this.getWritableDatabase();
-        database.delete(TABLE_SERIES, KEY_SERIESID + " = " + seriesId , null);
+        database.delete(TABLE_SERIES, KEY_S_SERIESID + " = " + seriesId , null);
+    }
+
+    public void AddEpisode(EpisodeDataContract episode)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_E_EPISODEID, episode.getEpisodeId());
+        values.put(KEY_S_SERIESID, episode.getSeriesId());
+        values.put(KEY_E_SEASON, episode.getSeasonNumber());
+        values.put(KEY_E_EPISODE, episode.getEpisodeNumber());
+        values.put(KEY_E_AIRED, episode.getAired());
+        values.put(KEY_S_OVERVIEW, episode.getOverview());
+
+        db.insert(TABLE_EPISODES, null, values);
+        db.close();
+    }
+
+    public List<EpisodeDataContract> GetAllEpisodes()
+    {
+        List<EpisodeDataContract> episodeList= new ArrayList<EpisodeDataContract>();
+
+        String selectQuery = "SELECT * FROM " + TABLE_EPISODES;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();//Loop through all entities
+        while (!cursor.isAfterLast())
+        {
+            try
+            {
+                EpisodeDataContract episode= new EpisodeDataContract();
+
+                episode.setEpisodeId(cursor.getString(0));
+                episode.setSeriesId(cursor.getString(1));
+                episode.setSeasonNumber(cursor.getString(2));
+                episode.setEpisodeNumber(cursor.getString(3));
+                episode.setAired(cursor.getString(4));
+                episode.setOverview((cursor.getString(5)));
+
+                episodeList.add(episode);
+                cursor.moveToNext();
+            }
+            catch (Exception ex) {
+                ex.getMessage();
+            }
+        }
+
+        return episodeList;
     }
 }

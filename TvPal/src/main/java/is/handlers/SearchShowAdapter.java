@@ -123,11 +123,13 @@ public class SearchShowAdapter extends BaseAdapter
         @Override
         protected void onPreExecute()
         {
+
         }
 
         @Override
         protected void onPostExecute(String result)
         {
+            Toast.makeText(ctx, "Done", Toast.LENGTH_SHORT).show();
         }
 
         private String GetEpisodes(String myurl) throws IOException
@@ -137,6 +139,9 @@ public class SearchShowAdapter extends BaseAdapter
                 TvDbEpisodeParser parser = new TvDbEpisodeParser(myurl);
                 List<EpisodeDataContract> episodes = parser.GetEpisodes();
 
+                DbShowHandler db = new DbShowHandler(ctx);
+                for (EpisodeDataContract e : episodes)
+                    db.AddEpisode(e);
             }
             catch (Exception ex)
             {

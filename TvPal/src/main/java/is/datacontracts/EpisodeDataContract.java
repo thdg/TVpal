@@ -6,8 +6,9 @@ package is.datacontracts;
 public class EpisodeDataContract
 {
     private String episodeId;
+    private String seriesId;
     private String seasonNumber;
-    private String showNumber;
+    private String episodeNumber;
     private String aired;
     private String overview;
 
@@ -17,8 +18,8 @@ public class EpisodeDataContract
     public String getSeasonNumber() { return seasonNumber; }
     public void setSeasonNumber(String seasonNumber) { this.seasonNumber = seasonNumber; }
 
-    public String getShowNumber() { return showNumber; }
-    public void setShowNumber(String showNumber) { this.showNumber = showNumber; }
+    public String getEpisodeNumber() { return episodeNumber; }
+    public void setEpisodeNumber(String episodeNumber) { this.episodeNumber = episodeNumber; }
 
     public String getAired() { return aired; }
     public void setAired(String aired) { this.aired = aired; }
@@ -26,9 +27,12 @@ public class EpisodeDataContract
     public String getOverview() { return overview; }
     public void setOverview(String overview) { this.overview = overview; }
 
+    public String getSeriesId() { return seriesId; }
+    public void setSeriesId(String seriesId) { this.seriesId = seriesId; }
+
     @Override
     public String toString()
     {
-        return String.format("%s-%s", seasonNumber, showNumber);
+        return String.format("%s-%s", seasonNumber, episodeNumber);
     }
 }
