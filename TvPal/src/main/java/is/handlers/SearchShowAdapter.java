@@ -15,13 +15,13 @@ import java.util.List;
 import is.datacontracts.ShowDataContract;
 import is.tvpal.R;
 
-public class CustomShowAdapter extends BaseAdapter
+public class SearchShowAdapter extends BaseAdapter
 {
     private Context context;
     private int layoutResourceId;
     private List<ShowDataContract> shows;
 
-    public CustomShowAdapter(Context context, int layoutResourceId, List<ShowDataContract> shows)
+    public SearchShowAdapter(Context context, int layoutResourceId, List<ShowDataContract> shows)
     {
         this.context = context;
         this.layoutResourceId = layoutResourceId;
@@ -78,7 +78,10 @@ public class CustomShowAdapter extends BaseAdapter
                     boolean exists = db.CheckIfSeriesExist(dataContract.getSeriesId());
 
                     if (!exists)
+                    {
                         db.AddSeries(dataContract);
+                        Toast.makeText(context, String.format("%s has been added to your shows", dataContract.getTitle()) ,Toast.LENGTH_SHORT).show();
+                    }
                     else
                         Toast.makeText(context, String.format("Series %s exist in your shows", dataContract.getTitle()), Toast.LENGTH_SHORT).show();
                 }

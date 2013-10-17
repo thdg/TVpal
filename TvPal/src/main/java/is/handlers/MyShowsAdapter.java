@@ -15,13 +15,13 @@ import java.util.List;
 import is.datacontracts.ShowDataContract;
 import is.tvpal.R;
 
-public class CustomMyShowsAdapter extends BaseAdapter
+public class MyShowsAdapter extends BaseAdapter
 {
     private Context context;
     private int layoutResourceId;
     private List<ShowDataContract> schedule;
 
-    public CustomMyShowsAdapter(Context context, int layoutResourceId, List<ShowDataContract> schedule)
+    public MyShowsAdapter(Context context, int layoutResourceId, List<ShowDataContract> schedule)
     {
         this.context = context;
         this.layoutResourceId = layoutResourceId;

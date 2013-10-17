@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import java.util.List;
 import is.datacontracts.ShowDataContract;
-import is.handlers.CustomMyShowsAdapter;
+import is.handlers.MyShowsAdapter;
 import is.handlers.DataBaseHandler;
 import is.tvpal.R;
 
@@ -40,7 +40,7 @@ public class MyShowsActivity extends ListActivity
     {
         List<ShowDataContract> myShows = _db.GetAllSeries();
 
-        setListAdapter(new CustomMyShowsAdapter(this, R.layout.listview_item_my_shows, myShows));
+        setListAdapter(new MyShowsAdapter(this, R.layout.listview_item_my_shows, myShows));
     }
 
     @Override

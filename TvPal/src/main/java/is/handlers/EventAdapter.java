@@ -26,7 +26,7 @@ import is.tvpal.R;
  *
  * @see    android.widget.BaseAdapter
  */
-public class CustomEventAdapter extends BaseAdapter
+public class EventAdapter extends BaseAdapter
 {
     private Context context;
     private int layoutResourceId;
@@ -37,7 +37,7 @@ public class CustomEventAdapter extends BaseAdapter
         @param layoutResourceId The id of the xml layout
         @param schedule List of EventDataContract
      */
-    public CustomEventAdapter(Context context, int layoutResourceId, List<EventDataContract> schedule)
+    public EventAdapter(Context context, int layoutResourceId, List<EventDataContract> schedule)
     {
         this.context = context;
         this.layoutResourceId = layoutResourceId;
