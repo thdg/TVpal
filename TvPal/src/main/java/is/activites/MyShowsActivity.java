@@ -1,6 +1,7 @@
 package is.activites;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
@@ -19,6 +20,8 @@ import is.tvpal.R;
 
 public class MyShowsActivity extends ListActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener
 {
+    public static final String EXTRA_SERIESID = "is.activities.SERIESID";
+
     private DbShowHandler _dbShow;
     private ListView _lv;
 
@@ -92,7 +95,11 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
 
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
     {
-        List<EpisodeDataContract> episodes = _dbShow.GetAllEpisodes();
+        ShowDataContract show = (ShowDataContract) getListAdapter().getItem(i);
+
+        Intent intent = new Intent(this, SeasonActivity.class);
+        intent.putExtra(EXTRA_SERIESID, show.getSeriesId());
+        startActivity(intent);
     }
 
     @Override

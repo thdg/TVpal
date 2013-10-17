@@ -154,11 +154,11 @@ public class DbShowHandler extends SQLiteOpenHelper
         db.close();
     }
 
-    public List<EpisodeDataContract> GetAllEpisodes()
+    public List<EpisodeDataContract> GetAllEpisodes(String seriesId)
     {
         List<EpisodeDataContract> episodeList= new ArrayList<EpisodeDataContract>();
 
-        String selectQuery = "SELECT * FROM " + TABLE_EPISODES;
+        String selectQuery = "SELECT distinct season FROM " + TABLE_EPISODES + " WHERE seriesId = " + seriesId + " order by season";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -169,13 +169,7 @@ public class DbShowHandler extends SQLiteOpenHelper
             {
                 EpisodeDataContract episode= new EpisodeDataContract();
 
-                episode.setEpisodeId(cursor.getString(0));
-                episode.setSeriesId(cursor.getString(1));
-                episode.setSeasonNumber(cursor.getString(2));
-                episode.setEpisodeNumber(cursor.getString(3));
-                episode.setAired(cursor.getString(4));
-                episode.setOverview((cursor.getString(5)));
-
+                episode.setSeasonNumber(cursor.getString(0));
                 episodeList.add(episode);
                 cursor.moveToNext();
             }

@@ -49,6 +49,10 @@
             android:name="is.activites.MyShowsActivity"
             android:label="@string/title_activity_my_shows" >
         </activity>
+        <activity
+            android:name="is.activites.SeasonActivity"
+            android:label="@string/title_activity_season" >
+        </activity>
     </application>
 
 </manifest>

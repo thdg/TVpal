@@ -33,6 +33,6 @@ public class EpisodeDataContract
     @Override
     public String toString()
     {
-        return String.format("%s-%s", seasonNumber, episodeNumber);
+        return "Season " + seasonNumber;
     }
 }

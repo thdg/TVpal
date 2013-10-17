@@ -86,6 +86,7 @@ public class SearchShowAdapter extends BaseAdapter
                         String apiKey = context.getResources().getString(R.string.apiKey);
                         String tvDbUrl = String.format("http://thetvdb.com/api/%s/series/%s/all/", apiKey, dataContract.getSeriesId());
                         new DownloadEpisodes(context).execute(tvDbUrl);
+                        Toast.makeText(context, String.format("%s will be added to your shows", dataContract.getTitle()), Toast.LENGTH_SHORT).show();
                         db.AddSeries(dataContract);
                     }
                     else
@@ -123,13 +124,12 @@ public class SearchShowAdapter extends BaseAdapter
         @Override
         protected void onPreExecute()
         {
-
         }
 
         @Override
         protected void onPostExecute(String result)
         {
-            Toast.makeText(ctx, "Done", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ctx, "Added to your shows", Toast.LENGTH_SHORT).show();
         }
 
         private String GetEpisodes(String myurl) throws IOException
