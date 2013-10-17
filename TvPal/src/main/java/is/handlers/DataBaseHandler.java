@@ -14,7 +14,6 @@ import java.util.List;
 
 import is.datacontracts.ShowDataContract;
 
-
 public class DataBaseHandler extends SQLiteOpenHelper
 {
     private static final int DATABASE_VERSION = 1;
@@ -52,7 +51,7 @@ public class DataBaseHandler extends SQLiteOpenHelper
         //Add functionality when database is updated
     }
 
-    public void addSeries(ShowDataContract series)
+    public void AddSeries(ShowDataContract series)
     {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -66,7 +65,7 @@ public class DataBaseHandler extends SQLiteOpenHelper
         db.close();
     }
 
-    public List<ShowDataContract> getAllSeries()
+    public List<ShowDataContract> GetAllSeries()
     {
         List<ShowDataContract> seriesList = new ArrayList<ShowDataContract>();
 
@@ -109,7 +108,7 @@ public class DataBaseHandler extends SQLiteOpenHelper
         return cursor.getCount() != 0;
     }
 
-    public void deleteComment(ShowDataContract contract)
+    public void DeleteComment(ShowDataContract contract)
     {
         SQLiteDatabase database = this.getWritableDatabase();
         String seriesId = contract.getSeriesId();

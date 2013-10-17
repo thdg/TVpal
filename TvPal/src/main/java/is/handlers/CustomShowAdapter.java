@@ -73,7 +73,14 @@ public class CustomShowAdapter extends BaseAdapter
             {
                 if (((CheckBox) view).isChecked())
                 {
-                    Toast.makeText(context, "hahaha", Toast.LENGTH_SHORT).show();
+                    DataBaseHandler db = new DataBaseHandler(context);
+
+                    boolean exists = db.CheckIfSeriesExist(dataContract.getSeriesId());
+
+                    if (!exists)
+                        db.AddSeries(dataContract);
+                    else
+                        Toast.makeText(context, String.format("Series %s exist in your shows", dataContract.getTitle()), Toast.LENGTH_SHORT).show();
                 }
                 holder.checkShow.setEnabled(false);
             }
