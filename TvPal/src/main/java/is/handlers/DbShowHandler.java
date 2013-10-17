@@ -136,6 +136,7 @@ public class DbShowHandler extends SQLiteOpenHelper
     {
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete(TABLE_SERIES, KEY_S_SERIESID + " = " + seriesId , null);
+        database.delete(TABLE_EPISODES, KEY_E_SERIESID + " = " + seriesId, null);
     }
 
     public void AddEpisode(EpisodeDataContract episode)
@@ -154,7 +155,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         db.close();
     }
 
-    public List<EpisodeDataContract> GetAllEpisodes(String seriesId)
+    public List<EpisodeDataContract> GetAllSeasons(String seriesId)
     {
         List<EpisodeDataContract> episodeList= new ArrayList<EpisodeDataContract>();
 
@@ -170,6 +171,40 @@ public class DbShowHandler extends SQLiteOpenHelper
                 EpisodeDataContract episode= new EpisodeDataContract();
 
                 episode.setSeasonNumber(cursor.getString(0));
+                episodeList.add(episode);
+                cursor.moveToNext();
+            }
+            catch (Exception ex) {
+                ex.getMessage();
+            }
+        }
+
+        return episodeList;
+    }
+
+    public List<EpisodeDataContract> GetAllEpisodes(String seriesId)
+    {
+        List<EpisodeDataContract> episodeList= new ArrayList<EpisodeDataContract>();
+
+        String selectQuery = "SELECT * FROM " + TABLE_EPISODES;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();//Loop through all entities
+        while (!cursor.isAfterLast())
+        {
+            try
+            {
+                EpisodeDataContract episode= new EpisodeDataContract();
+
+                episode.setSeasonNumber(cursor.getString(0));
+                episode.setEpisodeId(cursor.getString(0));
+                episode.setSeriesId(cursor.getString(1));
+                episode.setSeasonNumber(cursor.getString(2));
+                episode.setEpisodeNumber(cursor.getString(3));
+                episode.setAired(cursor.getString(4));
+                episode.setOverview((cursor.getString(5)));
+
                 episodeList.add(episode);
                 cursor.moveToNext();
             }

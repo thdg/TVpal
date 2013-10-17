@@ -37,9 +37,11 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
     {
         _dbShow = new DbShowHandler(this);
 
-
         _lv = getListView();
         _lv.setOnItemClickListener(this);
+
+        List<ShowDataContract> li = _dbShow.GetAllSeries();
+        List<EpisodeDataContract> lu = _dbShow.GetAllEpisodes("#d");
 
         SetListAdapterMyShows();
 
