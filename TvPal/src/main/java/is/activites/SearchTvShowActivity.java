@@ -22,7 +22,7 @@ import is.handlers.CustomShowAdapter;
 import is.parsers.TvDbShowParser;
 import is.tvpal.R;
 
-public class TvShowActivity extends Activity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener
+public class SearchTvShowActivity extends Activity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener
 {
     private ListView _lv;
     private EditText _editSearch;

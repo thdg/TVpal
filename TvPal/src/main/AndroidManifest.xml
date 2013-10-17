@@ -42,7 +42,7 @@
             android:label="@string/title_activity_detailed_event" >
         </activity>
         <activity
-            android:name="is.activites.TvShowActivity"
+            android:name="is.activites.SearchTvShowActivity"
             android:label="@string/title_activity_tv_show" >
         </activity>
     </application>

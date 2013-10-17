@@ -147,7 +147,7 @@ public class MainActivity extends Activity
                         intent = new Intent(this, DisplaySkjarinnActivity.class);
                         break;
                     case 6:
-                        intent = new Intent(this, TvShowActivity.class);
+                        intent = new Intent(this, SearchTvShowActivity.class);
                         break;
                     default:
                         intent = new Intent(this, MainActivity.class);
