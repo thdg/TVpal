@@ -16,14 +16,12 @@
     <string name="stod2SportBaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-2-Sport-dagskra-vikunnar</string>
     <string name="stod3BaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-3-dagskra-vikunnar</string>
     <string name="stod2BioBaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-2-Bio-dagskra-vikunnar</string>
-
     <string name="stod">Stöð 2</string>
     <string name="skjarinn">Skjárinn</string>
     <string name="drawer_open">Opna tjald</string>
     <string name="drawer_close">Loka tjaldi</string>
     <string name="welcome_text">Verið velkomin! \n\nSlide-ið til hægri til að sjá lista yfir sjónvarpsstöðvar</string>
     <string name="menuRemoveShow">Remove show</string>
-
     <string name="ruv">Rúv</string>
     <string name="stod_2">Stöð 2</string>
     <string name="stod_2_bio">Stöð 2 Bíó</string>
@@ -57,5 +55,7 @@
     <string name="title_activity_tv_show">Search</string>
     <string name="title_activity_my_shows">My Shows</string>
     <string name="title_activity_season">Seasons</string>
+    <string name="title_activity_single_season">Season</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

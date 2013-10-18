@@ -9,6 +9,7 @@ public class EpisodeData
     private String seriesId;
     private String seasonNumber;
     private String episodeNumber;
+    private String episodeName;
     private String aired;
     private String overview;
 
@@ -29,6 +30,9 @@ public class EpisodeData
 
     public String getSeriesId() { return seriesId; }
     public void setSeriesId(String seriesId) { this.seriesId = seriesId; }
+
+    public String getEpisodeName() { return episodeName; }
+    public void setEpisodeName(String episodeName) { this.episodeName = episodeName; }
 
     @Override
     public String toString()

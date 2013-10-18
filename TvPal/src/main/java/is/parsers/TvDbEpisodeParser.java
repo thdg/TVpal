@@ -92,8 +92,12 @@ public class TvDbEpisodeParser extends DefaultHandler {
             episodeTmp.setOverview(sb.toString());
             sb = null;
         }
+
         if(element.equalsIgnoreCase("seriesid"))
             episodeTmp.setSeriesId(tmpValue);
+
+        if(element.equalsIgnoreCase("EpisodeName"))
+            episodeTmp.setEpisodeName(tmpValue);
 
         if(element.equalsIgnoreCase("Episode"))
             episodes.add(episodeTmp);

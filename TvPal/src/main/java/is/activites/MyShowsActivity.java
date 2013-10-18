@@ -41,9 +41,6 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
         _lv = getListView();
         _lv.setOnItemClickListener(this);
 
-        List<ShowData> li = _dbShow.GetAllSeries();
-        List<EpisodeData> lu = _dbShow.GetAllEpisodes("#d");
-
         SetListAdapterMyShows();
 
         registerForContextMenu(getListView());
@@ -100,7 +97,7 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
     {
         ShowData show = (ShowData) getListAdapter().getItem(i);
 
-        Intent intent = new Intent(this, SeasonActivity.class);
+        Intent intent = new Intent(this, SeasonsActivity.class);
         intent.putExtra(EXTRA_SERIESID, show.getSeriesId());
         startActivity(intent);
     }

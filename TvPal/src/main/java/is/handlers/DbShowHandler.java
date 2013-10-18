@@ -34,6 +34,7 @@ public class DbShowHandler extends SQLiteOpenHelper
     private static final String KEY_E_SERIESID = "seriesId";
     private static final String KEY_E_SEASON = "season";
     private static final String KEY_E_EPISODE = "episode";
+    private static final String KEY_E_EPISODENAME = "episodeName";
     private static final String KEY_E_OVERVIEW = "overview";
     private static final String KEY_E_AIRED = "aired";
 
@@ -58,6 +59,7 @@ public class DbShowHandler extends SQLiteOpenHelper
                         + KEY_E_SERIESID + " varchar(20),"
                         + KEY_E_SEASON + " varchar(5),"
                         + KEY_E_EPISODE + " varchar(5),"
+                        + KEY_E_EPISODENAME  + " varchar(150),"
                         + KEY_E_AIRED + " varchar(15),"
                         + KEY_E_OVERVIEW + " text"
                         + ")";
@@ -148,6 +150,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         values.put(KEY_S_SERIESID, episode.getSeriesId());
         values.put(KEY_E_SEASON, episode.getSeasonNumber());
         values.put(KEY_E_EPISODE, episode.getEpisodeNumber());
+        values.put(KEY_E_EPISODENAME, episode.getEpisodeName());
         values.put(KEY_E_AIRED, episode.getAired());
         values.put(KEY_S_OVERVIEW, episode.getOverview());
 
@@ -174,7 +177,8 @@ public class DbShowHandler extends SQLiteOpenHelper
                 episodeList.add(episode);
                 cursor.moveToNext();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 ex.getMessage();
             }
         }
@@ -182,35 +186,25 @@ public class DbShowHandler extends SQLiteOpenHelper
         return episodeList;
     }
 
-    public List<EpisodeData> GetAllEpisodes(String seriesId)
+    public List<EpisodeData> GetEpisodesBySeason(String seriesId, String seasonNumber)
     {
-        List<EpisodeData> episodeList= new ArrayList<EpisodeData>();
+        List<EpisodeData> episodeList = new ArrayList<EpisodeData>();
 
-        String selectQuery = "SELECT * FROM " + TABLE_EPISODES;
+        String selectQuery = String.format("select * from episodes where seriesId = %s and season = %s", seriesId, seasonNumber);
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        cursor.moveToFirst();//Loop through all entities
-        while (!cursor.isAfterLast())
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast())
         {
-            try
-            {
-                EpisodeData episode= new EpisodeData();
+            EpisodeData episode = new EpisodeData();
 
-                episode.setSeasonNumber(cursor.getString(0));
-                episode.setEpisodeId(cursor.getString(0));
-                episode.setSeriesId(cursor.getString(1));
-                episode.setSeasonNumber(cursor.getString(2));
-                episode.setEpisodeNumber(cursor.getString(3));
-                episode.setAired(cursor.getString(4));
-                episode.setOverview((cursor.getString(5)));
+            episode.setEpisodeNumber(cursor.getString(3));
+            episode.setEpisodeName(cursor.getString(4));
+            episode.setOverview(cursor.getString(5));
 
-                episodeList.add(episode);
-                cursor.moveToNext();
-            }
-            catch (Exception ex) {
-                ex.getMessage();
-            }
+            episodeList.add(episode);
+            cursor.moveToNext();
         }
 
         return episodeList;

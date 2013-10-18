@@ -50,8 +50,12 @@
             android:label="@string/title_activity_my_shows" >
         </activity>
         <activity
-            android:name="is.activites.SeasonActivity"
+            android:name="is.activites.SeasonsActivity"
             android:label="@string/title_activity_season" >
+        </activity>
+        <activity
+            android:name="is.activites.SingleSeasonActivity"
+            android:label="@string/title_activity_single_season" >
         </activity>
     </application>
 
