@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import java.util.List;
 import is.datacontracts.EpisodeData;
+import is.handlers.database.DbShowHandler;
 import is.tvpal.R;
 
 /**
@@ -67,6 +68,17 @@ public class EpisodeAdapter extends BaseAdapter
 
         holder.numberOfEpisode.setText(String.format("%s:", dataContract.getEpisodeNumber()));
         holder.name.setText(dataContract.getEpisodeName());
+
+        holder.setEpisodeSeen.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                DbShowHandler db = new DbShowHandler(context);
+
+                db.UpdateEpisodeSeen(dataContract.getEpisodeId());
+            }
+        });
 
         if (dataContract.getSeen())
             holder.setEpisodeSeen.setChecked(true);

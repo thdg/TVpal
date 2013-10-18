@@ -204,6 +204,7 @@ public class DbShowHandler extends SQLiteOpenHelper
             {
                 EpisodeData episode = new EpisodeData();
 
+                episode.setEpisodeId(cursor.getString(0));
                 episode.setEpisodeNumber(cursor.getString(3));
                 episode.setEpisodeName(cursor.getString(4));
                 episode.setOverview(cursor.getString(6));
@@ -219,5 +220,32 @@ public class DbShowHandler extends SQLiteOpenHelper
         }
 
         return episodeList;
+    }
+
+    public void UpdateEpisodeSeen(String episodeId)
+    {
+        int seen = 1;
+
+        if (GetShowSeen(episodeId))
+            seen = 0;
+
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_E_SEEN, seen);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(TABLE_EPISODES, values, KEY_E_EPISODEID + " = " + episodeId, null);
+    }
+
+    public boolean GetShowSeen(String episodeId)
+    {
+        String selectQuery = String.format("select * from episodes where episodeId = " + episodeId);
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+
+        return Integer.parseInt(cursor.getString(7)) == 1;
+
     }
 }
