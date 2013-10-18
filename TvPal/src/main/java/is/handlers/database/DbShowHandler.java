@@ -165,7 +165,7 @@ public class DbShowHandler extends SQLiteOpenHelper
     {
         List<EpisodeData> episodeList= new ArrayList<EpisodeData>();
 
-        String selectQuery = "SELECT distinct season FROM " + TABLE_EPISODES + " WHERE seriesId = " + seriesId + " order by season";
+        String selectQuery = "SELECT distinct season FROM " + TABLE_EPISODES + " WHERE seriesId = " + seriesId + " order by season+0 desc";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 

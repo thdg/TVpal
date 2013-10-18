@@ -37,10 +37,4 @@ public class EpisodeData
 
     public boolean getSeen() { return seen; }
     public void setSeen(int seen){ this.seen = seen == 1; }
-
-    @Override
-    public String toString()
-    {
-        return "Season " + seasonNumber;
-    }
 }
