@@ -4,15 +4,12 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import is.datacontracts.EventDataContract;
+import is.datacontracts.EventData;
 
 /**
  * This class to parse xml files.  It uses the Sax Parser and extends DefaultHandler.
@@ -24,18 +21,18 @@ import is.datacontracts.EventDataContract;
 public class SkjarinnScheduleParser extends DefaultHandler
 {
     private String baseURL;
-    private List<EventDataContract> events;
+    private List<EventData> events;
     private String tmpValue;
-    private EventDataContract eventTmp;
+    private EventData eventTmp;
     private String serviceName;
 
     public SkjarinnScheduleParser(String baseUrl)
     {
         this.baseURL = baseUrl;
-        this.events = new ArrayList<EventDataContract>();
+        this.events = new ArrayList<EventData>();
     }
 
-    public List<EventDataContract> GetSchedules()
+    public List<EventData> GetSchedules()
     {
         parseDocument();
 
@@ -70,7 +67,7 @@ public class SkjarinnScheduleParser extends DefaultHandler
     {
         if (elementName.equalsIgnoreCase("event"))
         {
-            eventTmp = new EventDataContract();
+            eventTmp = new EventData();
             eventTmp.setStartTime(String.format("%s:00",attributes.getValue("start-time")));
             eventTmp.setEventDate(String.format("%s:00", attributes.getValue("start-time")));
             eventTmp.setDuration(attributes.getValue("duration"));

@@ -9,7 +9,8 @@ import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import is.datacontracts.EventDataContract;
+
+import is.datacontracts.EventData;
 
 /**
  * This class to parse xml files.  It uses the Sax Parser and extends DefaultHandler.
@@ -21,17 +22,17 @@ import is.datacontracts.EventDataContract;
 public class Stod2ScheduleParser extends DefaultHandler
 {
     private String baseURL;
-    private List<EventDataContract> events;
+    private List<EventData> events;
     private String tmpValue;
-    private EventDataContract eventTmp;
+    private EventData eventTmp;
 
     public Stod2ScheduleParser(String baseUrl)
     {
         this.baseURL = baseUrl;
-        this.events = new ArrayList<EventDataContract>();
+        this.events = new ArrayList<EventData>();
     }
 
-    public List<EventDataContract> GetSchedules()
+    public List<EventData> GetSchedules()
     {
         parseDocument();
 
@@ -66,7 +67,7 @@ public class Stod2ScheduleParser extends DefaultHandler
     {
         if (elementName.equalsIgnoreCase("event"))
         {
-            eventTmp = new EventDataContract();
+            eventTmp = new EventData();
             eventTmp.setStartTime(attributes.getValue("starttime"));
             eventTmp.setDuration(attributes.getValue("duration"));
             eventTmp.setEventDate(attributes.getValue("starttime"));

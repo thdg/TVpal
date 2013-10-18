@@ -16,7 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import is.datacontracts.EventDataContract;
+
+import is.datacontracts.EventData;
 import is.handlers.EventAdapter;
 import is.parsers.Stod2ScheduleParser;
 import is.rules.Helpers;
@@ -39,11 +40,11 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
     public static final String EXTRA_START = "is.activites.START";
     public static final String EXTRA_DURATION = "is.activites.DURATION";
 
-    private List<EventDataContract> _events;
+    private List<EventData> _events;
     private SwipeGestureFilter _detector;
     private ProgressDialog _waitingDialog;
     private String _workingDate;
-    private List<EventDataContract> _todaySchedule;
+    private List<EventData> _todaySchedule;
     private EventAdapter _adapterView;
 
     @Override
@@ -55,7 +56,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
 
     private void Initialize()
     {
-        _todaySchedule = new ArrayList<EventDataContract>();
+        _todaySchedule = new ArrayList<EventData>();
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
         setTitle(String.format("%s: %s", getResources().getString(R.string.stod), Helpers.SetDayFormat(this, _workingDate)));
@@ -72,7 +73,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
-        EventDataContract selectedEvent = _adapterView.getItem(position);
+        EventData selectedEvent = _adapterView.getItem(position);
 
         Intent intent = new Intent(this, DetailedEventActivity.class);
         intent.putExtra(EXTRA_TITLE, selectedEvent.getTitle());
@@ -112,9 +113,9 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
     {
         _workingDate = Helpers.MinusOneDayToDate(_workingDate);
 
-        _todaySchedule = new ArrayList<EventDataContract>();
+        _todaySchedule = new ArrayList<EventData>();
 
-        for (EventDataContract e : _events)
+        for (EventData e : _events)
         {
             if (e.getEventDate().equalsIgnoreCase(_workingDate))
                 _todaySchedule.add(e);
@@ -135,9 +136,9 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
     {
         _workingDate = Helpers.AddOneDayToDate(_workingDate);
 
-        _todaySchedule = new ArrayList<EventDataContract>();
+        _todaySchedule = new ArrayList<EventData>();
 
-        for (EventDataContract e : _events)
+        for (EventData e : _events)
         {
             if (e.getEventDate().equalsIgnoreCase(_workingDate))
                 _todaySchedule.add(e);
@@ -199,7 +200,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
                 Stod2ScheduleParser parser = new Stod2ScheduleParser(myurl);
                 _events = parser.GetSchedules();
 
-                for (EventDataContract e : _events)
+                for (EventData e : _events)
                 {
                     if (e.getEventDate().equalsIgnoreCase(_workingDate))
                         _todaySchedule.add(e);

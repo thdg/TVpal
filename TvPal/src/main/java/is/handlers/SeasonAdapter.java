@@ -13,16 +13,16 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import java.util.List;
 
-import is.datacontracts.EpisodeDataContract;
+import is.datacontracts.EpisodeData;
 import is.tvpal.R;
 
 public class SeasonAdapter extends BaseAdapter
 {
     private Context context;
     private int layoutResourceId;
-    private List<EpisodeDataContract> schedule;
+    private List<EpisodeData> schedule;
 
-    public SeasonAdapter(Context context, int layoutResourceId, List<EpisodeDataContract> schedule)
+    public SeasonAdapter(Context context, int layoutResourceId, List<EpisodeData> schedule)
     {
         this.context = context;
         this.layoutResourceId = layoutResourceId;
@@ -55,7 +55,7 @@ public class SeasonAdapter extends BaseAdapter
             holder = (EventHolder)row.getTag();
         }
 
-        final EpisodeDataContract dataContract = schedule.get(position);
+        final EpisodeData dataContract = schedule.get(position);
 
         holder.title.setText(String.format("Season %s", dataContract.getSeasonNumber()));
 
@@ -69,7 +69,7 @@ public class SeasonAdapter extends BaseAdapter
     }
 
     @Override
-    public EpisodeDataContract getItem(int position)
+    public EpisodeData getItem(int position)
     {
         return schedule.get(position);
     }

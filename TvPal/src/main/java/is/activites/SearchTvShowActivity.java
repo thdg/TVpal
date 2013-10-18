@@ -6,17 +6,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
-import is.datacontracts.ShowDataContract;
+
+import is.datacontracts.ShowData;
 import is.handlers.SearchShowAdapter;
 import is.parsers.TvDbShowParser;
 import is.tvpal.R;
@@ -25,7 +24,7 @@ public class SearchTvShowActivity extends Activity
 {
     private ListView _lv;
     private EditText _editSearch;
-    private List<ShowDataContract> _shows;
+    private List<ShowData> _shows;
     private ProgressDialog _waitingDialog;
     private SearchShowAdapter _adapterView;
 

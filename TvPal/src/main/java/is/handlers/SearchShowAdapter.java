@@ -14,8 +14,8 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
 
-import is.datacontracts.EpisodeDataContract;
-import is.datacontracts.ShowDataContract;
+import is.datacontracts.EpisodeData;
+import is.datacontracts.ShowData;
 import is.parsers.TvDbEpisodeParser;
 import is.tvpal.R;
 
@@ -23,9 +23,9 @@ public class SearchShowAdapter extends BaseAdapter
 {
     private Context context;
     private int layoutResourceId;
-    private List<ShowDataContract> shows;
+    private List<ShowData> shows;
 
-    public SearchShowAdapter(Context context, int layoutResourceId, List<ShowDataContract> shows)
+    public SearchShowAdapter(Context context, int layoutResourceId, List<ShowData> shows)
     {
         this.context = context;
         this.layoutResourceId = layoutResourceId;
@@ -64,7 +64,7 @@ public class SearchShowAdapter extends BaseAdapter
             holder = (ShowHolder)row.getTag();
         }
 
-        final ShowDataContract dataContract = shows.get(position);
+        final ShowData dataContract = shows.get(position);
 
         holder.title.setText(dataContract.getTitle());
         holder.network.setText(String.format("Network: %s",dataContract.getNetwork()));
@@ -137,10 +137,10 @@ public class SearchShowAdapter extends BaseAdapter
             try
             {
                 TvDbEpisodeParser parser = new TvDbEpisodeParser(myurl);
-                List<EpisodeDataContract> episodes = parser.GetEpisodes();
+                List<EpisodeData> episodes = parser.GetEpisodes();
 
                 DbShowHandler db = new DbShowHandler(ctx);
-                for (EpisodeDataContract e : episodes)
+                for (EpisodeData e : episodes)
                     db.AddEpisode(e);
             }
             catch (Exception ex)
@@ -159,7 +159,7 @@ public class SearchShowAdapter extends BaseAdapter
     }
 
     @Override
-    public ShowDataContract getItem(int position)
+    public ShowData getItem(int position)
     {
         return shows.get(position);
     }

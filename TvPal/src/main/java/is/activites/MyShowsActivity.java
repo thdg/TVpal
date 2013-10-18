@@ -12,8 +12,9 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.util.List;
-import is.datacontracts.EpisodeDataContract;
-import is.datacontracts.ShowDataContract;
+
+import is.datacontracts.EpisodeData;
+import is.datacontracts.ShowData;
 import is.handlers.DbShowHandler;
 import is.handlers.MyShowsAdapter;
 import is.tvpal.R;
@@ -40,8 +41,8 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
         _lv = getListView();
         _lv.setOnItemClickListener(this);
 
-        List<ShowDataContract> li = _dbShow.GetAllSeries();
-        List<EpisodeDataContract> lu = _dbShow.GetAllEpisodes("#d");
+        List<ShowData> li = _dbShow.GetAllSeries();
+        List<EpisodeData> lu = _dbShow.GetAllEpisodes("#d");
 
         SetListAdapterMyShows();
 
@@ -50,7 +51,7 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
 
     private void SetListAdapterMyShows()
     {
-        List<ShowDataContract> myShows = _dbShow.GetAllSeries();
+        List<ShowData> myShows = _dbShow.GetAllSeries();
 
         setListAdapter(new MyShowsAdapter(this, R.layout.listview_item_my_shows, myShows));
     }
@@ -81,7 +82,7 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
     private void RemoveShow(int selectedShow)
     {
         //Get the selected show, ugly hack to find it in the adapter
-        ShowDataContract show = (ShowDataContract) getListAdapter().getItem(selectedShow);
+        ShowData show = (ShowData) getListAdapter().getItem(selectedShow);
 
         try
         {
@@ -97,7 +98,7 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
 
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
     {
-        ShowDataContract show = (ShowDataContract) getListAdapter().getItem(i);
+        ShowData show = (ShowData) getListAdapter().getItem(i);
 
         Intent intent = new Intent(this, SeasonActivity.class);
         intent.putExtra(EXTRA_SERIESID, show.getSeriesId());

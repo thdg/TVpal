@@ -12,16 +12,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import java.util.List;
-import is.datacontracts.ShowDataContract;
+
+import is.datacontracts.ShowData;
 import is.tvpal.R;
 
 public class MyShowsAdapter extends BaseAdapter
 {
     private Context context;
     private int layoutResourceId;
-    private List<ShowDataContract> schedule;
+    private List<ShowData> schedule;
 
-    public MyShowsAdapter(Context context, int layoutResourceId, List<ShowDataContract> schedule)
+    public MyShowsAdapter(Context context, int layoutResourceId, List<ShowData> schedule)
     {
         this.context = context;
         this.layoutResourceId = layoutResourceId;
@@ -58,7 +59,7 @@ public class MyShowsAdapter extends BaseAdapter
             holder = (EventHolder)row.getTag();
         }
 
-        final ShowDataContract dataContract = schedule.get(position);
+        final ShowData dataContract = schedule.get(position);
 
         holder.title.setText(dataContract.getTitle());
         holder.network.setText(String.format("Network: %s",dataContract.getNetwork()));
@@ -74,7 +75,7 @@ public class MyShowsAdapter extends BaseAdapter
     }
 
     @Override
-    public ShowDataContract getItem(int position)
+    public ShowData getItem(int position)
     {
         return schedule.get(position);
     }

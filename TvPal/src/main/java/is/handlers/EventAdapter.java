@@ -3,17 +3,15 @@ package is.handlers;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.apache.http.client.methods.HttpPost;
-
 import java.util.List;
-import is.datacontracts.EventDataContract;
+
+import is.datacontracts.EventData;
 import is.tvpal.R;
 
 /**
@@ -30,14 +28,14 @@ public class EventAdapter extends BaseAdapter
 {
     private Context context;
     private int layoutResourceId;
-    private List<EventDataContract> schedule;
+    private List<EventData> schedule;
 
     /**
         @param context This is the current context of the application activity
         @param layoutResourceId The id of the xml layout
-        @param schedule List of EventDataContract
+        @param schedule List of EventData
      */
-    public EventAdapter(Context context, int layoutResourceId, List<EventDataContract> schedule)
+    public EventAdapter(Context context, int layoutResourceId, List<EventData> schedule)
     {
         this.context = context;
         this.layoutResourceId = layoutResourceId;
@@ -76,7 +74,7 @@ public class EventAdapter extends BaseAdapter
             holder = (EventHolder)row.getTag();
         }
 
-        EventDataContract dataContract = schedule.get(position);
+        EventData dataContract = schedule.get(position);
 
         String serviceName = dataContract.getServiceName();
 
@@ -113,7 +111,7 @@ public class EventAdapter extends BaseAdapter
     }
 
     @Override
-    public EventDataContract getItem(int position)
+    public EventData getItem(int position)
     {
         return schedule.get(position);
     }

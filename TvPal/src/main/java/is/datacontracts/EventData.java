@@ -12,7 +12,7 @@ import java.util.Locale;
  * to access and insert information about an event.
  *
  */
-public class EventDataContract
+public class EventData
 {
     private String title;
     private String startTime;

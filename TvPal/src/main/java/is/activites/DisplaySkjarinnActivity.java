@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import is.datacontracts.EventDataContract;
+import is.datacontracts.EventData;
 import is.handlers.EventAdapter;
 import is.handlers.SwipeGestureFilter;
 import is.parsers.SkjarinnScheduleParser;
@@ -42,10 +42,10 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
     public static final String EXTRA_DURATION = "is.activites.DURATION";
 
     private ProgressDialog _waitingDialog;
-    private List<EventDataContract> _events;
+    private List<EventData> _events;
     private SwipeGestureFilter _detector;
     private String _workingDate;
-    private List<EventDataContract> _todaySchedule;
+    private List<EventData> _todaySchedule;
     private EventAdapter _adapterView;
 
     @Override
@@ -58,7 +58,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
 
     private void Initialize()
     {
-        _todaySchedule = new ArrayList<EventDataContract>();
+        _todaySchedule = new ArrayList<EventData>();
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
         setTitle(String.format("%s: %s", getResources().getString(R.string.skjarinn), Helpers.SetDayFormat(this, _workingDate)));
@@ -74,7 +74,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
-        EventDataContract selectedEvent = _adapterView.getItem(position);
+        EventData selectedEvent = _adapterView.getItem(position);
 
         Intent intent = new Intent(this, DetailedEventActivity.class);
         intent.putExtra(EXTRA_TITLE, selectedEvent.getTitle());
@@ -114,9 +114,9 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
     {
         _workingDate = Helpers.MinusOneDayToDate(_workingDate);
 
-        _todaySchedule = new ArrayList<EventDataContract>();
+        _todaySchedule = new ArrayList<EventData>();
 
-        for (EventDataContract e : _events)
+        for (EventData e : _events)
         {
             if (e.getEventDate().equalsIgnoreCase(_workingDate))
                 _todaySchedule.add(e);
@@ -137,9 +137,9 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
     {
         _workingDate = Helpers.AddOneDayToDate(_workingDate);
 
-        _todaySchedule = new ArrayList<EventDataContract>();
+        _todaySchedule = new ArrayList<EventData>();
 
-        for (EventDataContract e : _events)
+        for (EventData e : _events)
         {
             if (e.getEventDate().equalsIgnoreCase(_workingDate))
                 _todaySchedule.add(e);
@@ -202,7 +202,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
                 SkjarinnScheduleParser parser = new SkjarinnScheduleParser(myurl);
                 _events = parser.GetSchedules();
 
-                for (EventDataContract e : _events)
+                for (EventData e : _events)
                 {
                     if (e.getEventDate().equalsIgnoreCase(_workingDate))
                         _todaySchedule.add(e);

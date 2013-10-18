@@ -10,7 +10,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import is.datacontracts.EpisodeDataContract;
+import is.datacontracts.EpisodeData;
 
 /**
  * Created by Arnar on 12.10.2013.
@@ -18,19 +18,19 @@ import is.datacontracts.EpisodeDataContract;
 public class TvDbEpisodeParser extends DefaultHandler {
 
     private String baseURL;
-    private List<EpisodeDataContract> episodes;
+    private List<EpisodeData> episodes;
     private String tmpValue;
-    private EpisodeDataContract episodeTmp;
+    private EpisodeData episodeTmp;
     private StringBuilder sb;
 
     public TvDbEpisodeParser(String baseUrl)
     {
         this.baseURL = baseUrl;
-        this.episodes = new ArrayList<EpisodeDataContract>();
-        episodeTmp = new EpisodeDataContract();
+        this.episodes = new ArrayList<EpisodeData>();
+        episodeTmp = new EpisodeData();
     }
 
-    public List<EpisodeDataContract> GetEpisodes()
+    public List<EpisodeData> GetEpisodes()
     {
         parseDocument();
 
@@ -65,7 +65,7 @@ public class TvDbEpisodeParser extends DefaultHandler {
     {
         if (elementName.equalsIgnoreCase("Episode"))
         {
-            episodeTmp = new EpisodeDataContract();
+            episodeTmp = new EpisodeData();
         }
 
         if(elementName.equalsIgnoreCase("Overview"))

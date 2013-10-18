@@ -10,7 +10,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import is.datacontracts.ShowDataContract;
+import is.datacontracts.ShowData;
 
 /**
  * Created by Arnar on 12.10.2013.
@@ -18,17 +18,17 @@ import is.datacontracts.ShowDataContract;
 public class TvDbShowParser extends DefaultHandler {
 
     private String baseURL;
-    private List<ShowDataContract> shows;
+    private List<ShowData> shows;
     private String tmpValue;
-    private ShowDataContract showTmp;
+    private ShowData showTmp;
 
     public TvDbShowParser(String baseUrl)
     {
         this.baseURL = baseUrl;
-        this.shows = new ArrayList<ShowDataContract>();
+        this.shows = new ArrayList<ShowData>();
     }
 
-    public List<ShowDataContract> GetShows()
+    public List<ShowData> GetShows()
     {
         parseDocument();
 
@@ -62,7 +62,7 @@ public class TvDbShowParser extends DefaultHandler {
     public void startElement(String s, String s1, String elementName, Attributes attributes) throws SAXException
     {
         if (elementName.equalsIgnoreCase("Series"))
-            showTmp = new ShowDataContract();
+            showTmp = new ShowData();
     }
 
     @Override

@@ -3,12 +3,12 @@ package is.datacontracts;
 /**
  * Created by thdg9_000 on 14.10.2013.
  */
-public class DrawerListDataContract
+public class DrawerListData
 {
     private String name;
     private int iconId;
 
-    public DrawerListDataContract(String name, int iconId)
+    public DrawerListData(String name, int iconId)
     {
         this.name = name;
         this.iconId = iconId;

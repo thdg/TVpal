@@ -8,8 +8,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.List;
-import is.datacontracts.EpisodeDataContract;
-import is.datacontracts.ShowDataContract;
+
+import is.datacontracts.EpisodeData;
 import is.handlers.DbShowHandler;
 import is.handlers.SeasonAdapter;
 import is.tvpal.R;
@@ -36,7 +36,7 @@ public class SeasonActivity extends ListActivity implements  AdapterView.OnItemC
 
         _db = new DbShowHandler(this);
 
-        List<EpisodeDataContract> episodes = _db.GetAllSeasons(seriesId);
+        List<EpisodeData> episodes = _db.GetAllSeasons(seriesId);
 
         setListAdapter(new SeasonAdapter(this, R.layout.listview_item_seasons, episodes));
     }
@@ -44,6 +44,6 @@ public class SeasonActivity extends ListActivity implements  AdapterView.OnItemC
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         DbShowHandler db = new DbShowHandler(this);
-        List<EpisodeDataContract> data = db.GetAllEpisodes("d");
+        List<EpisodeData> data = db.GetAllEpisodes("d");
     }
 }

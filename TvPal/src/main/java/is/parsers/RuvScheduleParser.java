@@ -9,7 +9,8 @@ import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import is.datacontracts.EventDataContract;
+
+import is.datacontracts.EventData;
 
 /**
  * This class to parse xml files.  It uses the Sax Parser and extends DefaultHandler.
@@ -21,18 +22,18 @@ import is.datacontracts.EventDataContract;
 public class RuvScheduleParser extends DefaultHandler
 {
     private String baseURL;
-    private List<EventDataContract> events;
+    private List<EventData> events;
     private String tmpValue;
-    private EventDataContract eventTmp;
+    private EventData eventTmp;
     private String serviceName;
 
     public RuvScheduleParser(String baseUrl)
     {
         this.baseURL = baseUrl;
-        this.events = new ArrayList<EventDataContract>();
+        this.events = new ArrayList<EventData>();
     }
 
-    public List<EventDataContract> GetSchedules()
+    public List<EventData> GetSchedules()
     {
         parseDocument();
 
@@ -67,7 +68,7 @@ public class RuvScheduleParser extends DefaultHandler
     {
         if (elementName.equalsIgnoreCase("event"))
         {
-            eventTmp = new EventDataContract();
+            eventTmp = new EventData();
             eventTmp.setStartTime(attributes.getValue("start-time"));
             eventTmp.setEventDate(attributes.getValue("start-time"));
             eventTmp.setDuration(attributes.getValue("duration"));

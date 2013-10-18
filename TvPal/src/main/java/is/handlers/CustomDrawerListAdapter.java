@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import is.datacontracts.DrawerListDataContract;
+import is.datacontracts.DrawerListData;
 import is.tvpal.R;
 
 /**
@@ -21,14 +21,14 @@ public class CustomDrawerListAdapter extends BaseAdapter
 {
     private Context context;
     private int layoutResourceId;
-    private List<DrawerListDataContract> options;
+    private List<DrawerListData> options;
 
     /**
      @param context This is the current context of the application activity
      @param layoutResourceId The id of the xml layout
      @param options List of Service
      */
-    public CustomDrawerListAdapter(Context context, int layoutResourceId, List<DrawerListDataContract> options)
+    public CustomDrawerListAdapter(Context context, int layoutResourceId, List<DrawerListData> options)
     {
         this.context = context;
         this.layoutResourceId = layoutResourceId;
@@ -63,7 +63,7 @@ public class CustomDrawerListAdapter extends BaseAdapter
             item = (DrawerListItem)row.getTag();
         }
 
-        DrawerListDataContract dataContract = options.get(position);
+        DrawerListData dataContract = options.get(position);
 
         item.name.setText(dataContract.getName());
         if (dataContract.getIcon()!=0) // leave default
@@ -79,7 +79,7 @@ public class CustomDrawerListAdapter extends BaseAdapter
     }
 
     @Override
-    public DrawerListDataContract getItem(int position)
+    public DrawerListData getItem(int position)
     {
         return options.get(position);
     }

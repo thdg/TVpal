@@ -12,8 +12,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import is.datacontracts.EpisodeDataContract;
-import is.datacontracts.ShowDataContract;
+import is.datacontracts.EpisodeData;
+import is.datacontracts.ShowData;
 
 public class DbShowHandler extends SQLiteOpenHelper
 {
@@ -73,7 +73,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         //Add functionality when database is updated
     }
 
-    public void AddSeries(ShowDataContract series)
+    public void AddSeries(ShowData series)
     {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -87,9 +87,9 @@ public class DbShowHandler extends SQLiteOpenHelper
         db.close();
     }
 
-    public List<ShowDataContract> GetAllSeries()
+    public List<ShowData> GetAllSeries()
     {
-        List<ShowDataContract> seriesList = new ArrayList<ShowDataContract>();
+        List<ShowData> seriesList = new ArrayList<ShowData>();
 
         String selectQuery = "SELECT * FROM " + TABLE_SERIES + " ORDER BY " + KEY_S_NAME;
 
@@ -101,7 +101,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         {
             try
             {
-                ShowDataContract series = new ShowDataContract();
+                ShowData series = new ShowData();
 
                 series.setSeriesId(cursor.getString(0));
                 series.setTitle(cursor.getString(1));
@@ -139,7 +139,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         database.delete(TABLE_EPISODES, KEY_E_SERIESID + " = " + seriesId, null);
     }
 
-    public void AddEpisode(EpisodeDataContract episode)
+    public void AddEpisode(EpisodeData episode)
     {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -155,9 +155,9 @@ public class DbShowHandler extends SQLiteOpenHelper
         db.close();
     }
 
-    public List<EpisodeDataContract> GetAllSeasons(String seriesId)
+    public List<EpisodeData> GetAllSeasons(String seriesId)
     {
-        List<EpisodeDataContract> episodeList= new ArrayList<EpisodeDataContract>();
+        List<EpisodeData> episodeList= new ArrayList<EpisodeData>();
 
         String selectQuery = "SELECT distinct season FROM " + TABLE_EPISODES + " WHERE seriesId = " + seriesId + " order by season";
         SQLiteDatabase db = this.getWritableDatabase();
@@ -168,7 +168,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         {
             try
             {
-                EpisodeDataContract episode= new EpisodeDataContract();
+                EpisodeData episode= new EpisodeData();
 
                 episode.setSeasonNumber(cursor.getString(0));
                 episodeList.add(episode);
@@ -182,9 +182,9 @@ public class DbShowHandler extends SQLiteOpenHelper
         return episodeList;
     }
 
-    public List<EpisodeDataContract> GetAllEpisodes(String seriesId)
+    public List<EpisodeData> GetAllEpisodes(String seriesId)
     {
-        List<EpisodeDataContract> episodeList= new ArrayList<EpisodeDataContract>();
+        List<EpisodeData> episodeList= new ArrayList<EpisodeData>();
 
         String selectQuery = "SELECT * FROM " + TABLE_EPISODES;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -195,7 +195,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         {
             try
             {
-                EpisodeDataContract episode= new EpisodeDataContract();
+                EpisodeData episode= new EpisodeData();
 
                 episode.setSeasonNumber(cursor.getString(0));
                 episode.setEpisodeId(cursor.getString(0));
