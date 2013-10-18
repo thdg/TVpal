@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import java.util.List;
 import is.datacontracts.EpisodeData;
@@ -36,6 +37,7 @@ public class EpisodeAdapter extends BaseAdapter
     {
         TextView numberOfEpisode;
         TextView name;
+        CheckBox setEpisodeSeen;
     }
 
     @Override
@@ -52,6 +54,7 @@ public class EpisodeAdapter extends BaseAdapter
             holder = new EventHolder();
             holder.numberOfEpisode = (TextView) row.findViewById(R.id.numberOfEpisode);
             holder.name = (TextView) row.findViewById(R.id.episodeName);
+            holder.setEpisodeSeen = (CheckBox) row.findViewById(R.id.setEpisodeSeen);
 
             row.setTag(holder);
         }
@@ -64,6 +67,9 @@ public class EpisodeAdapter extends BaseAdapter
 
         holder.numberOfEpisode.setText(String.format("%s:", dataContract.getEpisodeNumber()));
         holder.name.setText(dataContract.getEpisodeName());
+
+        if (dataContract.getSeen())
+            holder.setEpisodeSeen.setChecked(true);
 
         return row;
     }

@@ -37,6 +37,7 @@ public class DbShowHandler extends SQLiteOpenHelper
     private static final String KEY_E_EPISODENAME = "episodeName";
     private static final String KEY_E_OVERVIEW = "overview";
     private static final String KEY_E_AIRED = "aired";
+    private static final String KEY_E_SEEN = "seen";
 
     public DbShowHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -61,7 +62,8 @@ public class DbShowHandler extends SQLiteOpenHelper
                         + KEY_E_EPISODE + " varchar(5),"
                         + KEY_E_EPISODENAME  + " varchar(150),"
                         + KEY_E_AIRED + " varchar(15),"
-                        + KEY_E_OVERVIEW + " text"
+                        + KEY_E_OVERVIEW + " text,"
+                        + KEY_E_SEEN + " int"
                         + ")";
 
         db.execSQL(CREATE_SERIES_TABLE);
@@ -153,6 +155,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         values.put(KEY_E_EPISODENAME, episode.getEpisodeName());
         values.put(KEY_E_AIRED, episode.getAired());
         values.put(KEY_S_OVERVIEW, episode.getOverview());
+        values.put(KEY_E_SEEN, 0);
 
         db.insert(TABLE_EPISODES, null, values);
         db.close();
@@ -197,14 +200,22 @@ public class DbShowHandler extends SQLiteOpenHelper
         cursor.moveToFirst();
         while(!cursor.isAfterLast())
         {
-            EpisodeData episode = new EpisodeData();
+            try
+            {
+                EpisodeData episode = new EpisodeData();
 
-            episode.setEpisodeNumber(cursor.getString(3));
-            episode.setEpisodeName(cursor.getString(4));
-            episode.setOverview(cursor.getString(5));
+                episode.setEpisodeNumber(cursor.getString(3));
+                episode.setEpisodeName(cursor.getString(4));
+                episode.setOverview(cursor.getString(6));
+                episode.setSeen(Integer.parseInt(cursor.getString(7)));
 
-            episodeList.add(episode);
-            cursor.moveToNext();
+                episodeList.add(episode);
+                cursor.moveToNext();
+            }
+            catch (Exception ex)
+            {
+                ex.getMessage();
+            }
         }
 
         return episodeList;

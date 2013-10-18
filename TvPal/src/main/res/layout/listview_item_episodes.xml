@@ -6,17 +6,25 @@
     android:padding="15dp">
 
     <TextView android:id="@+id/numberOfEpisode"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="22sp"
         android:text="12:" />
 
     <TextView android:id="@+id/episodeName"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxWidth="270sp"
+        android:layout_toRightOf="@+id/numberOfEpisode"
         android:textSize="22sp"
-        android:text="Episode:"
-        android:paddingLeft="50sp"/>
+        android:paddingLeft="10sp"
+        android:text="Episode:"/>
+
+    <CheckBox
+        android:id="@+id/setEpisodeSeen"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>

@@ -12,6 +12,7 @@ public class EpisodeData
     private String episodeName;
     private String aired;
     private String overview;
+    private boolean seen;
 
     public String getEpisodeId() { return episodeId; }
     public void setEpisodeId(String episodeId) { this.episodeId = episodeId;}
@@ -33,6 +34,9 @@ public class EpisodeData
 
     public String getEpisodeName() { return episodeName; }
     public void setEpisodeName(String episodeName) { this.episodeName = episodeName; }
+
+    public boolean getSeen() { return seen; }
+    public void setSeen(int seen){ this.seen = seen == 1; }
 
     @Override
     public String toString()
