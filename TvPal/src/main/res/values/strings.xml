@@ -30,8 +30,8 @@
     <string name="stod_2_sport">Stöð 2 Sport</string>
     <string name="skjar_einn">Skjár einn</string>
     <string name="stod_3">Stöð 3</string>
-    <string name="search_show">Leita að þætti</string>
-
+    <string name="search_show">Search shows</string>
+    <string name="my_shows">My shows</string>
 
     <string-array name="channels_array">
         <item>Rúv</item>
@@ -57,6 +57,5 @@
     <string name="title_activity_tv_show">Search</string>
     <string name="title_activity_my_shows">My Shows</string>
     <string name="title_activity_season">Seasons</string>
-    <string name="hello_world">Hello world!</string>
 
 </resources>
