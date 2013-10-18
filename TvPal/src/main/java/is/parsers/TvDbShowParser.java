@@ -80,9 +80,6 @@ public class TvDbShowParser extends DefaultHandler {
         if (element.equalsIgnoreCase("Overview"))
             showTmp.setOverview(tmpValue);
 
-        if (element.equalsIgnoreCase("FirstAired"))
-            showTmp.setFirstAired(tmpValue);
-
         if (element.equalsIgnoreCase("Network"))
             showTmp.setNetwork(tmpValue);
     }

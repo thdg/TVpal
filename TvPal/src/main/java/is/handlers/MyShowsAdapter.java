@@ -1,33 +1,35 @@
 package is.handlers;
 
+/**
+ * Created by Arnar on 17.10.2013.
+ */
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
 import is.datacontracts.ShowDataContract;
 import is.tvpal.R;
 
-public class CustomShowAdapter extends BaseAdapter
+public class MyShowsAdapter extends BaseAdapter
 {
     private Context context;
     private int layoutResourceId;
-    private List<ShowDataContract> shows;
+    private List<ShowDataContract> schedule;
 
-    public CustomShowAdapter(Context context, int layoutResourceId, List<ShowDataContract> shows)
+    public MyShowsAdapter(Context context, int layoutResourceId, List<ShowDataContract> schedule)
     {
         this.context = context;
         this.layoutResourceId = layoutResourceId;
-        this.shows = shows;
+        this.schedule = schedule;
     }
 
-    static class ShowHolder
+    static class EventHolder
     {
-        ImageView imgIcon;
         TextView title;
         TextView network;
         TextView overview;
@@ -37,15 +39,14 @@ public class CustomShowAdapter extends BaseAdapter
     public View getView(int position, View convertView, ViewGroup parent)
     {
         View row = convertView;
-        ShowHolder holder;
+        final EventHolder holder;
 
         if(row == null)
         {
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);
 
-            holder = new ShowHolder();
-            holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
+            holder = new EventHolder();
             holder.title = (TextView) row.findViewById(R.id.title);
             holder.network = (TextView) row.findViewById(R.id.network);
             holder.overview = (TextView) row.findViewById(R.id.overview);
@@ -54,10 +55,10 @@ public class CustomShowAdapter extends BaseAdapter
         }
         else
         {
-            holder = (ShowHolder)row.getTag();
+            holder = (EventHolder)row.getTag();
         }
 
-        ShowDataContract dataContract = shows.get(position);
+        final ShowDataContract dataContract = schedule.get(position);
 
         holder.title.setText(dataContract.getTitle());
         holder.network.setText(String.format("Network: %s",dataContract.getNetwork()));
@@ -69,18 +70,18 @@ public class CustomShowAdapter extends BaseAdapter
     @Override
     public int getCount()
     {
-        return (shows == null) ? 0 : shows.size();
+        return (schedule == null) ? 0 : schedule.size();
     }
 
     @Override
     public ShowDataContract getItem(int position)
     {
-        return shows.get(position);
+        return schedule.get(position);
     }
 
     @Override
     public long getItemId(int position)
     {
-        return shows.indexOf(getItem(position));
+        return schedule.indexOf(getItem(position));
     }
 }

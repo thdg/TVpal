@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 import is.datacontracts.EventDataContract;
-import is.handlers.CustomEventAdapter;
+import is.handlers.EventAdapter;
 import is.handlers.SwipeGestureFilter;
 import is.parsers.SkjarinnScheduleParser;
 import is.rules.Helpers;
@@ -34,7 +34,7 @@ import is.tvpal.R;
  * It implements SwipeGestureFilter.SimpleGestureListener to handle swipe events.
  * @see android.app.ListActivity
  */
-public class DisplaySkjarinnActivity extends ListActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener, SwipeGestureFilter.SimpleGestureListener
+public class DisplaySkjarinnActivity extends ListActivity implements AdapterView.OnItemClickListener, SwipeGestureFilter.SimpleGestureListener
 {
     public static final String EXTRA_TITLE = "is.activites.TITLE";
     public static final String EXTRA_DESCRIPTION = "is.activites.DESCRIPTION";
@@ -46,7 +46,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
     private SwipeGestureFilter _detector;
     private String _workingDate;
     private List<EventDataContract> _todaySchedule;
-    private CustomEventAdapter _adapterView;
+    private EventAdapter _adapterView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -84,9 +84,6 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
 
         startActivity(intent);
     }
-
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
-    public void onNothingSelected(AdapterView<?> parent) {}
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent me)
@@ -132,7 +129,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
             return;
         }
 
-        _adapterView = new CustomEventAdapter(this, R.layout.listview_item_row_event, _todaySchedule);
+        _adapterView = new EventAdapter(this, R.layout.listview_item_event, _todaySchedule);
         setListAdapter(_adapterView);
     }
 
@@ -155,7 +152,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
             return;
         }
 
-        _adapterView = new CustomEventAdapter(this, R.layout.listview_item_row_event, _todaySchedule);
+        _adapterView = new EventAdapter(this, R.layout.listview_item_event, _todaySchedule);
         setListAdapter(_adapterView);
     }
 
@@ -192,7 +189,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
         @Override
         protected void onPostExecute(String result)
         {
-            _adapterView = new CustomEventAdapter(ctx, R.layout.listview_item_row_event, _todaySchedule);
+            _adapterView = new EventAdapter(ctx, R.layout.listview_item_event, _todaySchedule);
             setListAdapter(_adapterView);
 
             _waitingDialog.dismiss();

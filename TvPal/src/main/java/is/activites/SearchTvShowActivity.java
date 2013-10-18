@@ -17,18 +17,17 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
 import is.datacontracts.ShowDataContract;
-import is.handlers.CustomEventAdapter;
-import is.handlers.CustomShowAdapter;
+import is.handlers.SearchShowAdapter;
 import is.parsers.TvDbShowParser;
 import is.tvpal.R;
 
-public class TvShowActivity extends Activity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener
+public class SearchTvShowActivity extends Activity
 {
     private ListView _lv;
     private EditText _editSearch;
     private List<ShowDataContract> _shows;
     private ProgressDialog _waitingDialog;
-    private CustomShowAdapter _adapterView;
+    private SearchShowAdapter _adapterView;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -44,7 +43,6 @@ public class TvShowActivity extends Activity implements AdapterView.OnItemClickL
         _editSearch = (EditText) findViewById(R.id.editMeh);
 
         _lv = (ListView) findViewById(R.id.lvId);
-        _lv.setOnItemClickListener(this);
 
         InitializeEditTextSearch();
     }
@@ -84,19 +82,6 @@ public class TvShowActivity extends Activity implements AdapterView.OnItemClickL
         new DownloadShows(this).execute(searchUrl);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
-    {
-        ShowDataContract selectedShow = _adapterView.getItem(position);
-        Toast.makeText(this, selectedShow.getFirstAired(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {}
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {}
-
     private class DownloadShows extends AsyncTask<String, Void, String>
     {
         private Context ctx;
@@ -133,7 +118,7 @@ public class TvShowActivity extends Activity implements AdapterView.OnItemClickL
             if (result.equalsIgnoreCase("empty"))
                 Toast.makeText(ctx, "No shows found", Toast.LENGTH_SHORT).show();
 
-            _adapterView = new CustomShowAdapter(ctx, R.layout.listview_item_row_show, _shows);
+            _adapterView = new SearchShowAdapter(ctx, R.layout.listview_item_search_show, _shows);
             _lv.setAdapter(_adapterView);
 
             _waitingDialog.dismiss();

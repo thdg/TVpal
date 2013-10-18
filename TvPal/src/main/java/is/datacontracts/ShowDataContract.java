@@ -9,7 +9,6 @@ public class ShowDataContract
     private String title;
     private String overview;
     private String network;
-    private String firstAired;
 
     public String getSeriesId() { return this.seriesId; }
     public void setSeriesId(String seriesId) { this.seriesId = seriesId; }
@@ -22,9 +21,6 @@ public class ShowDataContract
 
     public String getNetwork() { return this.network; }
     public void setNetwork(String network) { this.network = network; }
-
-    public String getFirstAired() { return this.firstAired; }
-    public void setFirstAired(String firstAired) { this.firstAired = firstAired; }
 
     @Override
     public String toString()

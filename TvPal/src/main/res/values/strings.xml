@@ -22,6 +22,7 @@
     <string name="drawer_open">Opna tjald</string>
     <string name="drawer_close">Loka tjaldi</string>
     <string name="welcome_text">Verið velkomin! \n\nSlide-ið til hægri til að sjá lista yfir sjónvarpsstöðvar</string>
+    <string name="menuRemoveShow">Remove show</string>
 
     <string name="ruv">Rúv</string>
     <string name="stod_2">Stöð 2</string>
@@ -40,6 +41,7 @@
         <item>Stöð 3</item>
         <item>Skjár einn</item>
         <item>Search shows</item>
+        <item>My shows</item>
     </string-array>
 
     <string name="monday">Mánudagur</string>
@@ -50,8 +52,11 @@
     <string name="saturday">Laugardagur</string>
     <string name="sunday">Sunnudagur</string>
     <string name="tvdbBaseUrl">http://thetvdb.com/api/GetSeries.php?seriesname=</string>
+    <string name="apiKey">9A96DA217CEB03E7</string>
     <string name="loadingShows">Hleð þáttum...</string>
     <string name="title_activity_tv_show">Search</string>
+    <string name="title_activity_my_shows">My Shows</string>
+    <string name="title_activity_season">Seasons</string>
     <string name="hello_world">Hello world!</string>
 
 </resources>
