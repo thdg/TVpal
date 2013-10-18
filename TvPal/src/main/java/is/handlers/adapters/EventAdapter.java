@@ -1,4 +1,4 @@
-package is.handlers;
+package is.handlers.adapters;
 
 import android.app.Activity;
 import android.content.Context;

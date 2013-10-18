@@ -1,4 +1,4 @@
-package is.activites;
+package is.activites.showActivities;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -7,11 +7,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import is.datacontracts.EpisodeData;
-import is.handlers.DbShowHandler;
-import is.handlers.SeasonAdapter;
+import is.handlers.database.DbShowHandler;
+import is.handlers.adapters.SeasonAdapter;
 import is.tvpal.R;
 
 public class SeasonsActivity extends ListActivity implements  AdapterView.OnItemClickListener

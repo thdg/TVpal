@@ -1,4 +1,4 @@
-package is.handlers;
+package is.handlers.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,6 +16,7 @@ import java.util.List;
 
 import is.datacontracts.EpisodeData;
 import is.datacontracts.ShowData;
+import is.handlers.database.DbShowHandler;
 import is.parsers.TvDbEpisodeParser;
 import is.tvpal.R;
 

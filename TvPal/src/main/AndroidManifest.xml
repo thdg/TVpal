@@ -26,35 +26,35 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="is.activites.DisplayStod2Activity"
+            android:name="is.activites.scheduleActivites.DisplayStod2Activity"
             android:label="@string/title_activity_display_stod2" >
         </activity>
         <activity
-            android:name="is.activites.DisplayRuvActivity"
+            android:name="is.activites.scheduleActivites.DisplayRuvActivity"
             android:label="@string/title_activity_display_ruv" >
         </activity>
         <activity
-            android:name="is.activites.DisplaySkjarinnActivity"
+            android:name="is.activites.scheduleActivites.DisplaySkjarinnActivity"
             android:label="@string/title_activity_display_skjarinn" >
         </activity>
         <activity
-            android:name="is.activites.DetailedEventActivity"
+            android:name="is.activites.scheduleActivites.DetailedEventActivity"
             android:label="@string/title_activity_detailed_event" >
         </activity>
         <activity
-            android:name="is.activites.SearchTvShowActivity"
+            android:name="is.activites.showActivities.SearchTvShowActivity"
             android:label="@string/title_activity_tv_show" >
         </activity>
         <activity
-            android:name="is.activites.MyShowsActivity"
+            android:name="is.activites.showActivities.MyShowsActivity"
             android:label="@string/title_activity_my_shows" >
         </activity>
         <activity
-            android:name="is.activites.SeasonsActivity"
+            android:name="is.activites.showActivities.SeasonsActivity"
             android:label="@string/title_activity_season" >
         </activity>
         <activity
-            android:name="is.activites.SingleSeasonActivity"
+            android:name="is.activites.showActivities.SingleSeasonActivity"
             android:label="@string/title_activity_single_season" >
         </activity>
     </application>

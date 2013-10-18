@@ -17,8 +17,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import is.activites.scheduleActivites.DisplayRuvActivity;
+import is.activites.scheduleActivites.DisplaySkjarinnActivity;
+import is.activites.scheduleActivites.DisplayStod2Activity;
+import is.activites.showActivities.MyShowsActivity;
+import is.activites.showActivities.SearchTvShowActivity;
 import is.datacontracts.DrawerListData;
-import is.handlers.CustomDrawerListAdapter;
+import is.handlers.adapters.CustomDrawerListAdapter;
 import is.rules.ConnectionListener;
 import is.rules.Helpers;
 import is.tvpal.R;

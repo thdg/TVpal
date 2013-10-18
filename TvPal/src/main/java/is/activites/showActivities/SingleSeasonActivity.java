@@ -1,12 +1,12 @@
-package is.activites;
+package is.activites.showActivities;
 
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import java.util.List;
 import is.datacontracts.EpisodeData;
-import is.handlers.DbShowHandler;
-import is.handlers.EpisodeAdapter;
+import is.handlers.database.DbShowHandler;
+import is.handlers.adapters.EpisodeAdapter;
 
 public class SingleSeasonActivity extends ListActivity
 {

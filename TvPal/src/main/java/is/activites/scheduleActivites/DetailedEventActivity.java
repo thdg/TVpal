@@ -1,4 +1,4 @@
-package is.activites;
+package is.activites.scheduleActivites;
 
 import android.app.Activity;
 import android.content.Intent;

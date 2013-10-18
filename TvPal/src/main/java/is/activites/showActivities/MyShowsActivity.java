@@ -1,4 +1,4 @@
-package is.activites;
+package is.activites.showActivities;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -13,10 +13,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 import java.util.List;
 
-import is.datacontracts.EpisodeData;
 import is.datacontracts.ShowData;
-import is.handlers.DbShowHandler;
-import is.handlers.MyShowsAdapter;
+import is.handlers.database.DbShowHandler;
+import is.handlers.adapters.MyShowsAdapter;
 import is.tvpal.R;
 
 public class MyShowsActivity extends ListActivity implements AdapterView.OnItemClickListener

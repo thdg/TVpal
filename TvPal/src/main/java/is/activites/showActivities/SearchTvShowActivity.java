@@ -1,4 +1,4 @@
-package is.activites;
+package is.activites.showActivities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 import is.datacontracts.ShowData;
-import is.handlers.SearchShowAdapter;
+import is.handlers.adapters.SearchShowAdapter;
 import is.parsers.TvDbShowParser;
 import is.tvpal.R;
 

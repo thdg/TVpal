@@ -1,4 +1,4 @@
-package is.activites;
+package is.activites.scheduleActivites;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -17,8 +17,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import is.activites.MainActivity;
 import is.datacontracts.EventData;
-import is.handlers.EventAdapter;
+import is.handlers.adapters.EventAdapter;
 import is.parsers.Stod2ScheduleParser;
 import is.rules.Helpers;
 import is.tvpal.R;

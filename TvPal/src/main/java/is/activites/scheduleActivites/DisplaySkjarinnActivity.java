@@ -1,4 +1,4 @@
-package is.activites;
+package is.activites.scheduleActivites;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 import is.datacontracts.EventData;
-import is.handlers.EventAdapter;
+import is.handlers.adapters.EventAdapter;
 import is.handlers.SwipeGestureFilter;
 import is.parsers.SkjarinnScheduleParser;
 import is.rules.Helpers;

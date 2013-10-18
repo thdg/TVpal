@@ -1,4 +1,4 @@
-package is.handlers;
+package is.handlers.adapters;
 
 /**
  * Created by Arnar on 17.10.2013.
