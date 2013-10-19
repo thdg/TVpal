@@ -69,8 +69,8 @@ public class MainActivity extends Activity
         options.add(new DrawerListData(getResources().getString(R.string.stod_2_sport), R.drawable.stod2sport_64));
         options.add(new DrawerListData(getResources().getString(R.string.stod_3), R.drawable.stod3_64));
         options.add(new DrawerListData(getResources().getString(R.string.skjar_einn), R.drawable.skjareinn_64));
-        options.add(new DrawerListData(getResources().getString(R.string.search_show),0));
-        options.add(new DrawerListData(getResources().getString(R.string.my_shows), 0));
+        options.add(new DrawerListData(getResources().getString(R.string.search_show), R.drawable.m_glass_64));
+        options.add(new DrawerListData(getResources().getString(R.string.my_shows), R.drawable.eye_64));
 
         _DrawerList.setAdapter(
                 new CustomDrawerListAdapter(this, R.layout.drawer_list_item, options)
