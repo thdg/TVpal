@@ -50,16 +50,13 @@
             android:label="@string/title_activity_my_shows" >
         </activity>
         <activity
-            android:name="is.activites.showActivities.SeasonsActivity"
-            android:label="@string/title_activity_season" >
+            android:name="is.activites.showActivities.SeasonsActivity" >
         </activity>
         <activity
-            android:name="is.activites.showActivities.SingleSeasonActivity"
-            android:label="@string/title_activity_single_season" >
+            android:name="is.activites.showActivities.SingleSeasonActivity" >
         </activity>
         <activity
-            android:name="is.activites.showActivities.EpisodeActivity"
-            android:label="@string/title_activity_episode" >
+            android:name="is.activites.showActivities.EpisodeActivity" >
         </activity>
     </application>
 

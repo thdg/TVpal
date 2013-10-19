@@ -34,6 +34,8 @@ public class SingleSeasonActivity extends ListActivity implements AdapterView.On
         String seriesId = intent.getStringExtra(SeasonsActivity.EXTRA_SERIESID);
         String season   = intent.getStringExtra(SeasonsActivity.EXTRA_SEASON);
 
+        setTitle(String.format("Season %s",season));
+
         List<EpisodeData> episodes = _db.GetEpisodesBySeason(seriesId, season);
 
         ListView lv = getListView();

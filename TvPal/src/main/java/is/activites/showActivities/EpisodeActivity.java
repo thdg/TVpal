@@ -31,6 +31,8 @@ public class EpisodeActivity extends Activity
         _db = new DbShowHandler(this);
 
         Intent intent = getIntent();
+        //TODO: Find a better way to set title. (Siggi)
+        setTitle(String.format("%s",""));
 
         String episodeId = intent.getStringExtra(SingleSeasonActivity.EXTRA_EPISODEID);
 
