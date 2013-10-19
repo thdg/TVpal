@@ -45,7 +45,6 @@ public class MainActivity extends Activity
     private DrawerLayout _DrawerLayout;
     private ListView _DrawerList;
     private ActionBarDrawerToggle _DrawerToggle;
-    private String[] _ChannelTitles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +59,6 @@ public class MainActivity extends Activity
     {
         _connectivityListener = new ConnectionListener();
 
-        _ChannelTitles = getResources().getStringArray(R.array.channels_array);
         _DrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         _DrawerList = (ListView) findViewById(R.id.left_drawer);
 

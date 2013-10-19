@@ -31,17 +31,6 @@
     <string name="search_show">Search shows</string>
     <string name="my_shows">My shows</string>
 
-    <string-array name="channels_array">
-        <item>Rúv</item>
-        <item>Stöð 2</item>
-        <item>Stöð 2 Sport</item>
-        <item>Stöð 2 Bíó</item>
-        <item>Stöð 3</item>
-        <item>Skjár einn</item>
-        <item>Search shows</item>
-        <item>My shows</item>
-    </string-array>
-
     <string name="monday">Mánudagur</string>
     <string name="tuesday">Þriðjudagur</string>
     <string name="wednesday">Miðvikudagur</string>
