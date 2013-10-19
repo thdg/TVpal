@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:padding="10sp">
+    android:padding="5sp">
 
     <EditText
         android:id="@+id/editMeh"
@@ -17,7 +17,7 @@
         android:id="@+id/vio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="20sp"/>
+        android:paddingBottom="5sp"/>
 
     <ListView
         android:id="@+id/lvId"

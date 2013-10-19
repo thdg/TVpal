@@ -53,6 +53,8 @@ public class SearchShowAdapter extends BaseAdapter
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new ShowHolder();
+
+
             holder.title = (TextView) row.findViewById(R.id.title);
             holder.network = (TextView) row.findViewById(R.id.network);
             holder.overview = (TextView) row.findViewById(R.id.overview);
@@ -67,9 +69,16 @@ public class SearchShowAdapter extends BaseAdapter
 
         final ShowData dataContract = shows.get(position);
 
+
         holder.title.setText(dataContract.getTitle());
-        holder.network.setText(String.format("Network: %s",dataContract.getNetwork()));
-        holder.overview.setText(String.format("Overview: %s", dataContract.getOverview()));
+
+        String strNetwork = dataContract.getNetwork();
+        if(strNetwork == null) strNetwork = "";
+        holder.network.setText(String.format("Network: %s",strNetwork));
+
+        String strOverview = dataContract.getOverview();
+        if(strOverview == null) strOverview = "";
+        holder.overview.setText(String.format("Overview: %s",strOverview));
 
         holder.checkShow.setOnClickListener(new View.OnClickListener()
         {
