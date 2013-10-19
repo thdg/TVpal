@@ -76,7 +76,7 @@ public class EpisodeActivity extends Activity implements SwipeGestureFilter.Simp
 
         _episodeTitle.setText(episode.getEpisodeName());
         _episodeAired.setText(String.format("Aired: %s", Helpers.GetDayFormatForEpisodes(episode.getAired())));
-        _episodeSeason.setText(String.format("Episode %s \nSeason: %s", episode.getEpisodeNumber(), episode.getSeasonNumber()));
+        _episodeSeason.setText(String.format("Season %s \nEpisode: %s", episode.getSeasonNumber(), episode.getEpisodeNumber()));
         _episodeOverview.setText(episode.getOverview());
     }
 
