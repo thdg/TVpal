@@ -54,7 +54,6 @@ public class SearchShowAdapter extends BaseAdapter
 
             holder = new ShowHolder();
 
-
             holder.title = (TextView) row.findViewById(R.id.title);
             holder.network = (TextView) row.findViewById(R.id.network);
             holder.overview = (TextView) row.findViewById(R.id.overview);
@@ -68,7 +67,6 @@ public class SearchShowAdapter extends BaseAdapter
         }
 
         final ShowData dataContract = shows.get(position);
-
 
         holder.title.setText(dataContract.getTitle());
 
@@ -95,9 +93,8 @@ public class SearchShowAdapter extends BaseAdapter
                     {
                         String apiKey = context.getResources().getString(R.string.apiKey);
                         String tvDbUrl = String.format("http://thetvdb.com/api/%s/series/%s/all/", apiKey, dataContract.getSeriesId());
-                        new DownloadEpisodes(context).execute(tvDbUrl);
+                        new DownloadEpisodes(context, dataContract).execute(tvDbUrl);
                         Toast.makeText(context, String.format("%s will be added to your shows", dataContract.getTitle()), Toast.LENGTH_SHORT).show();
-                        db.AddSeries(dataContract);
                     }
                     else
                         Toast.makeText(context, String.format("Series %s exist in your shows", dataContract.getTitle()), Toast.LENGTH_SHORT).show();
@@ -112,10 +109,12 @@ public class SearchShowAdapter extends BaseAdapter
     private class DownloadEpisodes extends AsyncTask<String, Void, String>
     {
         private Context ctx;
+        private ShowData show;
 
-        public DownloadEpisodes(Context context)
+        public DownloadEpisodes(Context context, ShowData show)
         {
             this.ctx = context;
+            this.show = show;
         }
 
         @Override
@@ -132,14 +131,9 @@ public class SearchShowAdapter extends BaseAdapter
         }
 
         @Override
-        protected void onPreExecute()
-        {
-        }
-
-        @Override
         protected void onPostExecute(String result)
         {
-            Toast.makeText(ctx, "Added to your shows", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ctx, String.format("Added %s your shows", show.getTitle()), Toast.LENGTH_SHORT).show();
         }
 
         private String GetEpisodes(String myurl) throws IOException
@@ -152,6 +146,8 @@ public class SearchShowAdapter extends BaseAdapter
                 DbShowHandler db = new DbShowHandler(ctx);
                 for (EpisodeData e : episodes)
                     db.AddEpisode(e);
+
+                db.AddSeries(show);
             }
             catch (Exception ex)
             {
