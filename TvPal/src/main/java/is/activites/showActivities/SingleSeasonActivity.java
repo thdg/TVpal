@@ -3,13 +3,19 @@ package is.activites.showActivities;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
 import java.util.List;
 import is.datacontracts.EpisodeData;
 import is.handlers.database.DbShowHandler;
 import is.handlers.adapters.EpisodeAdapter;
 
-public class SingleSeasonActivity extends ListActivity
+public class SingleSeasonActivity extends ListActivity implements AdapterView.OnItemClickListener
 {
+    public static final String EXTRA_EPISODEID = "is.activites.showActivities.EPISODEID";
+
     private DbShowHandler _db;
 
     @Override
@@ -30,6 +36,21 @@ public class SingleSeasonActivity extends ListActivity
 
         List<EpisodeData> episodes = _db.GetEpisodesBySeason(seriesId, season);
 
+        ListView lv = getListView();
+        lv.setOnItemClickListener(this);
+
         setListAdapter(new EpisodeAdapter(this, is.tvpal.R.layout.listview_item_episodes, episodes));
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
+    {
+        EpisodeData selectedEpisode = (EpisodeData) adapterView.getAdapter().getItem(position);
+
+        String episodeId = selectedEpisode.getEpisodeId();
+
+        Intent intent = new Intent(this, EpisodeActivity.class);
+        intent.putExtra(EXTRA_EPISODEID, episodeId);
+        startActivity(intent);
     }
 }

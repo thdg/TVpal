@@ -246,6 +246,26 @@ public class DbShowHandler extends SQLiteOpenHelper
         cursor.moveToFirst();
 
         return Integer.parseInt(cursor.getString(7)) == 1;
+    }
 
+    public EpisodeData GetEpisodeById(String episodeId)
+    {
+        EpisodeData data = new EpisodeData();
+
+        String selectQuery = String.format("select * from %s where %s = %s", TABLE_EPISODES, KEY_E_EPISODEID, episodeId);
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        //EpisodeId is the Primary Key so there should only exist one entity
+        cursor.moveToFirst();
+
+        data.setEpisodeName(cursor.getString(4));
+        data.setEpisodeNumber(cursor.getString(3));
+        data.setOverview(cursor.getString(6));
+        data.setAired(cursor.getColumnName(5));
+        data.setSeasonNumber(cursor.getString(2));
+        data.setSeen(Integer.parseInt(cursor.getString(7)));
+
+        return data;
     }
 }

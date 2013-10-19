@@ -30,7 +30,6 @@
     <string name="stod_3">Stöð 3</string>
     <string name="search_show">Search shows</string>
     <string name="my_shows">My shows</string>
-
     <string name="monday">Mánudagur</string>
     <string name="tuesday">Þriðjudagur</string>
     <string name="wednesday">Miðvikudagur</string>
@@ -46,5 +45,6 @@
     <string name="title_activity_season">Seasons</string>
     <string name="title_activity_single_season">Season</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_episode">Episodes</string>
 
 </resources>

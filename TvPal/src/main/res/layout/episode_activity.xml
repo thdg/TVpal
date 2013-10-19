@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".EpisodeActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/episodeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Episode"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/episodeAired"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aired:"
+        android:textSize="16sp"
+        android:paddingTop="10sp"/>
+
+    <TextView
+        android:id="@+id/episodeSeason"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Season:"
+        android:textSize="16sp"
+        android:paddingTop="10sp"/>
+
+    <TextView
+        android:id="@+id/episodeOverview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Overview:"
+        android:textSize="16sp"
+        android:paddingTop="10sp"/>
+
+
+</LinearLayout>
