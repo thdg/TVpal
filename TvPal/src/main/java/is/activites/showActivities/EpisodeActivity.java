@@ -41,6 +41,8 @@ public class EpisodeActivity extends Activity implements SwipeGestureFilter.Simp
         _episode = new EpisodeData();
 
         Intent intent = getIntent();
+        //TODO: Find a better way to set title. (Siggi)
+        setTitle(String.format("%s",""));
         _seriesId = intent.getStringExtra(SingleSeasonActivity.EXTRA_SERIESID);
         _seasonNr = intent.getStringExtra(SingleSeasonActivity.EXTRA_SEASONNR);
         _episodeId = intent.getStringExtra(SingleSeasonActivity.EXTRA_EPISODEID);

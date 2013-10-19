@@ -20,6 +20,7 @@ public class SeasonsActivity extends ListActivity implements  AdapterView.OnItem
 
     private DbShowHandler _db;
     private String _seriesId;
+    private String _seriesNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,7 +33,11 @@ public class SeasonsActivity extends ListActivity implements  AdapterView.OnItem
     private void Initialize()
     {
         Intent intent = getIntent();
-       _seriesId = intent.getStringExtra(MyShowsActivity.EXTRA_SERIESID);
+        _seriesId = intent.getStringExtra(MyShowsActivity.EXTRA_SERIESID);
+
+        _seriesNumber = intent.getStringExtra(MyShowsActivity.EXTRA_SERIESNUMBER);
+
+        setTitle(_seriesNumber);
 
         ListView lv = getListView();
         lv.setOnItemClickListener(this);

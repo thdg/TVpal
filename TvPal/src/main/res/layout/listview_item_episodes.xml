@@ -19,13 +19,16 @@
         android:layout_toRightOf="@+id/numberOfEpisode"
         android:textSize="22sp"
         android:paddingLeft="10sp"
-        android:text="Episode:"/>
+        android:text="Episode:"
+        android:layout_toLeftOf="@+id/setEpisodeSeen" />
 
     <CheckBox
         android:button="@drawable/eye_checkbox_small"
         android:id="@+id/setEpisodeSeen"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:focusable="false"
         android:layout_alignBottom="@+id/episodeName" />
