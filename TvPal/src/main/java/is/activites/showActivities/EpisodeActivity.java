@@ -23,7 +23,7 @@ public class EpisodeActivity extends Activity implements SwipeGestureFilter.Simp
     private EpisodeData _episode;
     private String _seriesId;
     private String _seasonNr;
-    private String _episodeId;
+    private String _episodeNr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,11 +41,13 @@ public class EpisodeActivity extends Activity implements SwipeGestureFilter.Simp
         _episode = new EpisodeData();
 
         Intent intent = getIntent();
+
         //TODO: Find a better way to set title. (Siggi)
         setTitle(String.format("%s",""));
+
         _seriesId = intent.getStringExtra(SingleSeasonActivity.EXTRA_SERIESID);
         _seasonNr = intent.getStringExtra(SingleSeasonActivity.EXTRA_SEASONNR);
-        _episodeId = intent.getStringExtra(SingleSeasonActivity.EXTRA_EPISODEID);
+        _episodeNr = intent.getStringExtra(SingleSeasonActivity.EXTRA_EPISODENR);
 
         GenerateLayout();
     }
@@ -56,7 +58,7 @@ public class EpisodeActivity extends Activity implements SwipeGestureFilter.Simp
 
         for (EpisodeData e : _episodes)
         {
-            if (e.getEpisodeId().equalsIgnoreCase(_episodeId))
+            if (e.getEpisodeNumber().equalsIgnoreCase(_episodeNr))
             {
                 _episode = e;
                 break;
@@ -74,7 +76,7 @@ public class EpisodeActivity extends Activity implements SwipeGestureFilter.Simp
 
         _episodeTitle.setText(episode.getEpisodeName());
         _episodeAired.setText(String.format("Aired: %s", Helpers.GetDayFormatForEpisodes(episode.getAired())));
-        _episodeSeason.setText(String.format("Season: %s", episode.getSeasonNumber()));
+        _episodeSeason.setText(String.format("Episode %s \nSeason: %s", episode.getEpisodeNumber(), episode.getSeasonNumber()));
         _episodeOverview.setText(episode.getOverview());
     }
 
@@ -110,14 +112,26 @@ public class EpisodeActivity extends Activity implements SwipeGestureFilter.Simp
             if (e.getEpisodeNumber().equalsIgnoreCase(selectedEpisodeNumber))
             {
                 int episodeNumber = Integer.parseInt(_episode.getEpisodeNumber());
-                String nextEpisode   = Integer.toString(episodeNumber + 1);
-                _episode.setEpisodeNumber(nextEpisode);
+                _episodeNr = Integer.toString(episodeNumber + 1);
                 GenerateLayout();
+                return;
             }
         }
     }
 
     private void SwipeRightEvent()
     {
+        String selectedEpisodeNumber = _episode.getEpisodeNumber();
+
+        for(EpisodeData e : _episodes)
+        {
+            if (e.getEpisodeNumber().equalsIgnoreCase(selectedEpisodeNumber))
+            {
+                int episodeNumber = Integer.parseInt(_episode.getEpisodeNumber());
+                _episodeNr = Integer.toString(episodeNumber - 1);
+                GenerateLayout();
+                return;
+            }
+        }
     }
 }
