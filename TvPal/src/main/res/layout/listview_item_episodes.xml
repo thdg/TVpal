@@ -22,10 +22,14 @@
         android:text="Episode:"/>
 
     <CheckBox
+        android:button="@drawable/eye_checkbox_small"
         android:id="@+id/setEpisodeSeen"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_alignParentRight="true"
-        android:focusable="false"/>
+        android:focusable="false"
+        android:layout_alignBottom="@+id/episodeName" />
+
+
 
 </RelativeLayout>
