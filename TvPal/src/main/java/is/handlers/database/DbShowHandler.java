@@ -205,8 +205,11 @@ public class DbShowHandler extends SQLiteOpenHelper
                 EpisodeData episode = new EpisodeData();
 
                 episode.setEpisodeId(cursor.getString(0));
+                episode.setSeriesId(cursor.getString(1));
+                episode.setSeasonNumber(cursor.getString(2));
                 episode.setEpisodeNumber(cursor.getString(3));
                 episode.setEpisodeName(cursor.getString(4));
+                episode.setAired(cursor.getString(5));
                 episode.setOverview(cursor.getString(6));
                 episode.setSeen(Integer.parseInt(cursor.getString(7)));
 
@@ -248,7 +251,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         return Integer.parseInt(cursor.getString(7)) == 1;
     }
 
-    public EpisodeData GetEpisodeById(String episodeId)
+    public EpisodeData GetEpisodesBySeason(String episodeId)
     {
         EpisodeData data = new EpisodeData();
 
@@ -262,7 +265,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         data.setEpisodeName(cursor.getString(4));
         data.setEpisodeNumber(cursor.getString(3));
         data.setOverview(cursor.getString(6));
-        data.setAired(cursor.getColumnName(5));
+        data.setAired(cursor.getString(5));
         data.setSeasonNumber(cursor.getString(2));
         data.setSeen(Integer.parseInt(cursor.getString(7)));
 

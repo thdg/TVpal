@@ -145,4 +145,22 @@ public class Helpers
 
         return null;
     }
+
+    public static String GetDayFormatForEpisodes(String day)
+    {
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date date;
+        try
+        {
+            date = dt.parse(day);
+        }
+        catch (ParseException e)
+        {
+            return "TBA";
+        }
+
+        SimpleDateFormat formatDay = new SimpleDateFormat("yyyy - EEEE MMM");
+        return formatDay.format(date);
+    }
 }

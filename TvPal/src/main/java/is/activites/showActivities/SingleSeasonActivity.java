@@ -14,6 +14,8 @@ import is.handlers.adapters.EpisodeAdapter;
 
 public class SingleSeasonActivity extends ListActivity implements AdapterView.OnItemClickListener
 {
+    public static final String EXTRA_SERIESID = "is.activites.showActivities.SERIESID";
+    public static final String EXTRA_SEASONNR = "is.activites.showActivities.SEASONNR";
     public static final String EXTRA_EPISODEID = "is.activites.showActivities.EPISODEID";
 
     private DbShowHandler _db;
@@ -47,10 +49,10 @@ public class SingleSeasonActivity extends ListActivity implements AdapterView.On
     {
         EpisodeData selectedEpisode = (EpisodeData) adapterView.getAdapter().getItem(position);
 
-        String episodeId = selectedEpisode.getEpisodeId();
-
         Intent intent = new Intent(this, EpisodeActivity.class);
-        intent.putExtra(EXTRA_EPISODEID, episodeId);
+        intent.putExtra(EXTRA_SERIESID, selectedEpisode.getSeriesId());
+        intent.putExtra(EXTRA_SEASONNR, selectedEpisode.getSeasonNumber());
+        intent.putExtra(EXTRA_EPISODEID, selectedEpisode.getEpisodeId());
         startActivity(intent);
     }
 }
