@@ -62,8 +62,14 @@ public class MyShowsAdapter extends BaseAdapter
         final ShowData dataContract = schedule.get(position);
 
         holder.title.setText(dataContract.getTitle());
-        holder.network.setText(String.format("Network: %s",dataContract.getNetwork()));
-        holder.overview.setText(String.format("Overview: %s", dataContract.getOverview()));
+
+        String strNetwork = dataContract.getNetwork();
+        if(strNetwork == null) strNetwork = "";
+        holder.network.setText(String.format("Network: %s",strNetwork));
+
+        String strOverview = dataContract.getOverview();
+        if(strOverview == null) strOverview = "";
+        holder.overview.setText(String.format("Overview: %s",strOverview));
 
         return row;
     }

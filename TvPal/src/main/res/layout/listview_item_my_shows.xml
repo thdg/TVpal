@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="10dp">
+    android:padding="5dp">
 
     <ImageView android:id="@+id/imgIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:src="@drawable/tvshow"/>
@@ -18,20 +18,21 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/imgIcon"
         android:textStyle="bold"
-        android:textSize="22sp"
+        android:textSize="20sp"
         android:text="Þáttur"
         android:textColor="#000000"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toLeftOf="@+id/checkShow" />
 
     <TextView android:id="@+id/network"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
+        android:layout_below="@+id/imgIcon"
         android:textSize="18sp"
         android:text="Network:"
         android:textColor="#000000"
-        android:paddingLeft="80sp"/>
+        android:layout_toLeftOf="@+id/checkShow" />
 
     <TextView android:id="@+id/overview"
         android:layout_width="fill_parent"
@@ -40,7 +41,6 @@
         android:layout_below="@+id/network"
         android:text="Overview:"
         android:textColor="#000000"
-        android:paddingTop="9sp"
         android:maxLines="3"/>
 
 </RelativeLayout>
