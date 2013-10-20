@@ -92,7 +92,7 @@ public class SearchShowAdapter extends BaseAdapter
                     if (!exists)
                     {
                         String apiKey = context.getResources().getString(R.string.apiKey);
-                        String tvDbUrl = String.format("http://thetvdb.com/api/%s/series/%s/all/", apiKey, dataContract.getSeriesId());
+                        String tvDbUrl = String.format("http://thetvdb.com/api/%s/series/%s/all/en.xml", apiKey, dataContract.getSeriesId());
                         new DownloadEpisodes(context, dataContract).execute(tvDbUrl);
                         Toast.makeText(context, String.format("%s will be added to your shows", dataContract.getTitle()), Toast.LENGTH_SHORT).show();
                     }
@@ -155,6 +155,7 @@ public class SearchShowAdapter extends BaseAdapter
             {
                 db.RemoveShow(show.getSeriesId());
                 Toast.makeText(context, "Whoops, something went wrong", Toast.LENGTH_SHORT).show();
+                return "Problem";
             }
 
             return "Successful";
