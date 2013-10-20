@@ -133,25 +133,28 @@ public class SearchShowAdapter extends BaseAdapter
         @Override
         protected void onPostExecute(String result)
         {
-            Toast.makeText(ctx, String.format("Added %s your shows", show.getTitle()), Toast.LENGTH_SHORT).show();
+            if (result.equalsIgnoreCase("Successful"))
+                Toast.makeText(ctx, String.format("Added %s your shows", show.getTitle()), Toast.LENGTH_SHORT).show();
         }
 
         private String GetEpisodes(String myurl) throws IOException
         {
+            DbShowHandler db = new DbShowHandler(ctx);
+
             try
             {
-                TvDbEpisodeParser parser = new TvDbEpisodeParser(myurl);
+                db.AddSeries(show);
+
+                TvDbEpisodeParser parser = new TvDbEpisodeParser(myurl, context, show.getSeriesId());
                 List<EpisodeData> episodes = parser.GetEpisodes();
 
-                DbShowHandler db = new DbShowHandler(ctx);
                 for (EpisodeData e : episodes)
                     db.AddEpisode(e);
-
-                db.AddSeries(show);
             }
             catch (Exception ex)
             {
-                ex.getMessage();
+                db.RemoveShow(show.getSeriesId());
+                Toast.makeText(context, "Whoops, something went wrong", Toast.LENGTH_SHORT).show();
             }
 
             return "Successful";

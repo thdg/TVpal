@@ -46,5 +46,6 @@
     <string name="title_activity_single_season">Season</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_episode">Episodes</string>
+    <string name="emptyShows">You have not added any shows</string>
 
 </resources>

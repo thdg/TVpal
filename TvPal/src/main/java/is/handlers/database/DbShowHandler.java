@@ -9,6 +9,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +32,7 @@ public class DbShowHandler extends SQLiteOpenHelper
     private static final String KEY_S_NAME = "name";
     private static final String KEY_S_OVERVIEW = "overview";
     private static final String KEY_S_NETWORK = "network";
+    private static final String KEY_S_THUMBNAIL = "thumbnail";
 
     //Columns in episodes
     private static final String KEY_E_EPISODEID = "episodeId";
@@ -39,7 +44,8 @@ public class DbShowHandler extends SQLiteOpenHelper
     private static final String KEY_E_AIRED = "aired";
     private static final String KEY_E_SEEN = "seen";
 
-    public DbShowHandler(Context context) {
+    public DbShowHandler(Context context)
+    {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -51,7 +57,8 @@ public class DbShowHandler extends SQLiteOpenHelper
                         + KEY_S_SERIESID + " varchar(20) PRIMARY KEY,"
                         + KEY_S_NAME + " varchar(100),"
                         + KEY_S_OVERVIEW + " text,"
-                        + KEY_S_NETWORK + " varchar(100)"
+                        + KEY_S_NETWORK + " varchar(100),"
+                        + KEY_S_THUMBNAIL + " blob"
                         + ")";
 
         String CREATE_EPISODE_TABLE =
@@ -112,6 +119,10 @@ public class DbShowHandler extends SQLiteOpenHelper
                 series.setOverview(cursor.getString(2));
                 series.setNetwork(cursor.getString(3));
 
+                byte[] thumbnailByteStream = cursor.getBlob(4);
+                Bitmap bmp = BitmapFactory.decodeByteArray(thumbnailByteStream, 0, thumbnailByteStream.length);
+                series.setThumbNail(bmp);
+
                 seriesList.add(series);
                 cursor.moveToNext();
             }
@@ -141,6 +152,17 @@ public class DbShowHandler extends SQLiteOpenHelper
         SQLiteDatabase database = this.getWritableDatabase();
         database.delete(TABLE_SERIES, KEY_S_SERIESID + " = " + seriesId , null);
         database.delete(TABLE_EPISODES, KEY_E_SERIESID + " = " + seriesId, null);
+    }
+
+    public void AddThumbnailToSeries(byte[] byteStream, String seriesId)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_S_THUMBNAIL, byteStream);
+
+        db.update(TABLE_SERIES, values, KEY_S_SERIESID + " = " + seriesId, null);
+        db.close();
     }
 
     public void AddEpisode(EpisodeData episode)
@@ -249,26 +271,5 @@ public class DbShowHandler extends SQLiteOpenHelper
         cursor.moveToFirst();
 
         return Integer.parseInt(cursor.getString(7)) == 1;
-    }
-
-    public EpisodeData GetEpisodesBySeason(String episodeId)
-    {
-        EpisodeData data = new EpisodeData();
-
-        String selectQuery = String.format("select * from %s where %s = %s", TABLE_EPISODES, KEY_E_EPISODEID, episodeId);
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        //EpisodeId is the Primary Key so there should only exist one entity
-        cursor.moveToFirst();
-
-        data.setEpisodeName(cursor.getString(4));
-        data.setEpisodeNumber(cursor.getString(3));
-        data.setOverview(cursor.getString(6));
-        data.setAired(cursor.getString(5));
-        data.setSeasonNumber(cursor.getString(2));
-        data.setSeen(Integer.parseInt(cursor.getString(7)));
-
-        return data;
     }
 }

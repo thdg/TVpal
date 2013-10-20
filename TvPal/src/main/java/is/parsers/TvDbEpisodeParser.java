@@ -1,5 +1,7 @@
 package is.parsers;
 
+import android.content.Context;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -11,6 +13,8 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import is.datacontracts.EpisodeData;
+import is.handlers.database.DbShowHandler;
+import is.rules.BitmapProperties;
 
 /**
  * Created by Arnar on 12.10.2013.
@@ -22,12 +26,16 @@ public class TvDbEpisodeParser extends DefaultHandler {
     private String tmpValue;
     private EpisodeData episodeTmp;
     private StringBuilder sb;
+    private Context context;
+    private String seriesId;
 
-    public TvDbEpisodeParser(String baseUrl)
+    public TvDbEpisodeParser(String baseUrl, Context context, String seriesId)
     {
         this.baseURL = baseUrl;
         this.episodes = new ArrayList<EpisodeData>();
         episodeTmp = new EpisodeData();
+        this.context = context;
+        this.seriesId = seriesId;
     }
 
     public List<EpisodeData> GetEpisodes()
@@ -98,6 +106,23 @@ public class TvDbEpisodeParser extends DefaultHandler {
 
         if(element.equalsIgnoreCase("EpisodeName"))
             episodeTmp.setEpisodeName(tmpValue);
+
+        if(element.equalsIgnoreCase("poster"))
+        {
+            try
+            {
+                String posterUrl = String.format("http://thetvdb.com/banners/%s", tmpValue);
+
+                BitmapProperties pic = new BitmapProperties();
+                byte[] thumbnailByteStream = pic.getBitmapFromURL(posterUrl);
+                DbShowHandler db = new DbShowHandler(context);
+                db.AddThumbnailToSeries(thumbnailByteStream, seriesId);
+            }
+            catch (Exception ex)
+            {
+                ex.getMessage();
+            }
+        }
 
         if(element.equalsIgnoreCase("Episode"))
             episodes.add(episodeTmp);

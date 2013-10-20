@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class MyShowsAdapter extends BaseAdapter
         TextView title;
         TextView network;
         TextView overview;
+        ImageView thumbnail;
     }
 
     @Override
@@ -51,6 +53,7 @@ public class MyShowsAdapter extends BaseAdapter
             holder.title = (TextView) row.findViewById(R.id.title);
             holder.network = (TextView) row.findViewById(R.id.network);
             holder.overview = (TextView) row.findViewById(R.id.overview);
+            holder.thumbnail = (ImageView) row.findViewById(R.id.imgIcon);
 
             row.setTag(holder);
         }
@@ -70,6 +73,9 @@ public class MyShowsAdapter extends BaseAdapter
         String strOverview = dataContract.getOverview();
         if(strOverview == null) strOverview = "";
         holder.overview.setText(String.format("Overview: %s",strOverview));
+
+        if (dataContract.getThumbNail() != null)
+            holder.thumbnail.setImageBitmap(dataContract.getThumbNail());
 
         return row;
     }
