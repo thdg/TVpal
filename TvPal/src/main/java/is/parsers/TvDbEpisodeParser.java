@@ -1,6 +1,7 @@
 package is.parsers;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

@@ -1,5 +1,7 @@
 package is.datacontracts;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Arnar on 17.10.2013.
  */
@@ -13,6 +15,7 @@ public class EpisodeData
     private String aired;
     private String overview;
     private boolean seen;
+    private Bitmap picture;
 
     public String getEpisodeId() { return episodeId; }
     public void setEpisodeId(String episodeId) { this.episodeId = episodeId;}
@@ -37,4 +40,7 @@ public class EpisodeData
 
     public boolean getSeen() { return seen; }
     public void setSeen(int seen){ this.seen = seen == 1; }
+
+    public Bitmap getPicture() { return picture; }
+    public void setPicture(Bitmap picture) { this.picture = picture;}
 }

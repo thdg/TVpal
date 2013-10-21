@@ -21,7 +21,14 @@
             android:layout_height="wrap_content"
             android:text="Episode"
             android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:paddingBottom="15sp"/>
+
+        <ImageView
+            android:id="@+id/episodePicture"
+            android:layout_width="fill_parent"
+            android:layout_height="160sp"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/episodeAired"
