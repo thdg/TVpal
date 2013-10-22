@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.List;
 import is.datacontracts.EpisodeData;
 import is.handlers.database.DbShowHandler;
+import is.rules.Helpers;
 import is.tvpal.R;
 
 /**
@@ -38,6 +39,7 @@ public class EpisodeAdapter extends BaseAdapter
     {
         TextView numberOfEpisode;
         TextView name;
+        TextView aired;
         CheckBox setEpisodeSeen;
     }
 
@@ -56,6 +58,7 @@ public class EpisodeAdapter extends BaseAdapter
             holder.numberOfEpisode = (TextView) row.findViewById(R.id.numberOfEpisode);
             holder.name = (TextView) row.findViewById(R.id.episodeName);
             holder.setEpisodeSeen = (CheckBox) row.findViewById(R.id.setEpisodeSeen);
+            holder.aired = (TextView) row.findViewById(R.id.aired);
 
             row.setTag(holder);
         }
@@ -68,6 +71,7 @@ public class EpisodeAdapter extends BaseAdapter
 
         holder.numberOfEpisode.setText(String.format("%s:", dataContract.getEpisodeNumber()));
         holder.name.setText(dataContract.getEpisodeName());
+        holder.aired.setText(Helpers.FormatDateEpisode(dataContract.getAired()));
 
         holder.setEpisodeSeen.setOnClickListener(new View.OnClickListener()
         {

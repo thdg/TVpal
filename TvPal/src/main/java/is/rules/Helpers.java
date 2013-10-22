@@ -160,7 +160,25 @@ public class Helpers
             return "TBA";
         }
 
-        SimpleDateFormat formatDay = new SimpleDateFormat("yyyy - EEEE MMM");
+        SimpleDateFormat formatDay = new SimpleDateFormat("yyyy - EEEE d MMM");
+        return formatDay.format(date);
+    }
+
+    public static String FormatDateEpisode(String day)
+    {
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date date;
+        try
+        {
+            date = dt.parse(day);
+        }
+        catch (ParseException e)
+        {
+            return "TBA";
+        }
+
+        SimpleDateFormat formatDay = new SimpleDateFormat("MMM d - yyyy");
         return formatDay.format(date);
     }
 }

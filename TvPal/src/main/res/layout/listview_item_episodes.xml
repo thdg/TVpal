@@ -22,6 +22,15 @@
         android:text="Episode:"
         android:layout_toLeftOf="@+id/setEpisodeSeen" />
 
+    <TextView
+        android:id="@+id/aired"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/episodeName"
+        android:layout_toRightOf="@+id/numberOfEpisode"
+        android:text="Aired:"
+        android:paddingLeft="10sp"/>
+
     <CheckBox
         android:button="@drawable/eye_checkbox_small"
         android:id="@+id/setEpisodeSeen"
