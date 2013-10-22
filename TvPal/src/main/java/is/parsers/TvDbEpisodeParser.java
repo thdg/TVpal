@@ -125,6 +125,12 @@ public class TvDbEpisodeParser extends DefaultHandler {
             }
         }
 
+        if(element.equalsIgnoreCase("Rating"))
+            episodeTmp.setRating(tmpValue);
+
+        if(element.equalsIgnoreCase("Director"))
+            episodeTmp.setDirector(tmpValue);
+
         if(element.equalsIgnoreCase("Episode"))
             episodes.add(episodeTmp);
     }

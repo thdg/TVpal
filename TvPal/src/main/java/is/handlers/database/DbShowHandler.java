@@ -43,6 +43,8 @@ public class DbShowHandler extends SQLiteOpenHelper
     private static final String KEY_E_OVERVIEW = "overview";
     private static final String KEY_E_AIRED = "aired";
     private static final String KEY_E_SEEN = "seen";
+    private static final String KEY_E_DIRECTOR = "director";
+    private static final String KEY_E_RATING = "rating";
 
     public DbShowHandler(Context context)
     {
@@ -70,7 +72,9 @@ public class DbShowHandler extends SQLiteOpenHelper
                         + KEY_E_EPISODENAME  + " varchar(150),"
                         + KEY_E_AIRED + " varchar(15),"
                         + KEY_E_OVERVIEW + " text,"
-                        + KEY_E_SEEN + " int"
+                        + KEY_E_SEEN + " int,"
+                        + KEY_E_DIRECTOR + " varchar(250),"
+                        + KEY_E_RATING + " varchar(10)"
                         + ")";
 
         db.execSQL(CREATE_SERIES_TABLE);
@@ -178,6 +182,8 @@ public class DbShowHandler extends SQLiteOpenHelper
         values.put(KEY_E_AIRED, episode.getAired());
         values.put(KEY_S_OVERVIEW, episode.getOverview());
         values.put(KEY_E_SEEN, 0);
+        values.put(KEY_E_DIRECTOR, episode.getDirector());
+        values.put(KEY_E_RATING, episode.getRating());
 
         db.insert(TABLE_EPISODES, null, values);
         db.close();
@@ -234,6 +240,8 @@ public class DbShowHandler extends SQLiteOpenHelper
                 episode.setAired(cursor.getString(5));
                 episode.setOverview(cursor.getString(6));
                 episode.setSeen(Integer.parseInt(cursor.getString(7)));
+                episode.setDirector(cursor.getString(8));
+                episode.setRating(cursor.getString(9));
 
                 episodeList.add(episode);
                 cursor.moveToNext();

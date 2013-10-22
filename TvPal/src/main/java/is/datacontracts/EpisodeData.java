@@ -16,6 +16,8 @@ public class EpisodeData
     private String overview;
     private boolean seen;
     private Bitmap picture;
+    private String director;
+    private String rating;
 
     public String getEpisodeId() { return episodeId; }
     public void setEpisodeId(String episodeId) { this.episodeId = episodeId;}
@@ -43,4 +45,10 @@ public class EpisodeData
 
     public Bitmap getPicture() { return picture; }
     public void setPicture(Bitmap picture) { this.picture = picture;}
+
+    public String getDirector() { return director; }
+    public void setDirector(String director) { this.director = director; }
+
+    public String getRating() { return rating; }
+    public void setRating(String rating) { this.rating = rating;}
 }
