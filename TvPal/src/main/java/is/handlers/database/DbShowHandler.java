@@ -28,7 +28,7 @@ public class DbShowHandler extends SQLiteOpenHelper
     private static final String TABLE_EPISODES = "episodes";
 
     // Columns in shows
-    private static final String KEY_S_SERIESID = "seriesid";
+    private static final String KEY_S_SERIESID = "seriesId";
     private static final String KEY_S_NAME = "name";
     private static final String KEY_S_OVERVIEW = "overview";
     private static final String KEY_S_NETWORK = "network";
@@ -123,6 +123,7 @@ public class DbShowHandler extends SQLiteOpenHelper
                 series.setOverview(cursor.getString(2));
                 series.setNetwork(cursor.getString(3));
 
+                //TODO: Refactor to hashmap in the adapter, this takes an awful lot of memory
                 byte[] thumbnailByteStream = cursor.getBlob(4);
                 Bitmap bmp = BitmapFactory.decodeByteArray(thumbnailByteStream, 0, thumbnailByteStream.length);
                 series.setThumbNail(bmp);
@@ -167,6 +168,21 @@ public class DbShowHandler extends SQLiteOpenHelper
 
         db.update(TABLE_SERIES, values, KEY_S_SERIESID + " = " + seriesId, null);
         db.close();
+    }
+
+    public Bitmap GetSeriesThumbnail(String seriesId)
+    {
+        List<EpisodeData> episodeList= new ArrayList<EpisodeData>();
+
+        String selectQuery = String.format("SELECT thumbnail from %s where seriesId = %s", TABLE_SERIES, seriesId);
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();//It should exist
+
+        byte[] thumbnailByteStream = cursor.getBlob(0);
+        Bitmap bmp = BitmapFactory.decodeByteArray(thumbnailByteStream, 0, thumbnailByteStream.length);
+        return bmp;
     }
 
     public void AddEpisode(EpisodeData episode)
@@ -279,5 +295,40 @@ public class DbShowHandler extends SQLiteOpenHelper
         cursor.moveToFirst();
 
         return Integer.parseInt(cursor.getString(7)) == 1;
+    }
+
+    public List<EpisodeData> GetUpcomingShows(String date)
+    {
+        List<EpisodeData> episodeList = new ArrayList<EpisodeData>();
+
+        String selectQuery = String.format("select episodeName, aired, seriesId " +
+                "from episodes " +
+                "where aired >= '%s' " +
+                "order by aired limit 15", date);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast())
+        {
+            try
+            {
+                EpisodeData episode = new EpisodeData();
+
+                episode.setEpisodeName(cursor.getString(0));
+                episode.setAired(cursor.getString(1));
+                episode.setSeriesId(cursor.getString(2));
+
+                episodeList.add(episode);
+                cursor.moveToNext();
+            }
+            catch (Exception ex)
+            {
+                ex.getMessage();
+            }
+        }
+
+        return episodeList;
     }
 }

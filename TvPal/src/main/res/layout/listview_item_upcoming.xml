@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="5dp">
+
+    <ImageView android:id="@+id/upcomingImg"
+        android:layout_width="80sp"
+        android:layout_height="96sp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/tvshow"/>
+
+    <TextView android:id="@+id/upcomingTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/upcomingImg"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:paddingLeft="10sp"
+        android:paddingTop="10sp"
+        android:text="Þáttur"
+        android:textColor="#000000"/>
+
+    <TextView android:id="@+id/upcomingAirDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/upcomingTitle"
+        android:layout_toRightOf="@id/upcomingImg"
+        android:textSize="18sp"
+        android:text="Aired:"
+        android:paddingLeft="10sp"
+        android:textColor="#000000"
+        android:maxLines="3"/>
+
+</RelativeLayout>

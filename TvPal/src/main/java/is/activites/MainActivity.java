@@ -22,6 +22,7 @@ import is.activites.scheduleActivites.DisplaySkjarinnActivity;
 import is.activites.scheduleActivites.DisplayStod2Activity;
 import is.activites.showActivities.MyShowsActivity;
 import is.activites.showActivities.SearchTvShowActivity;
+import is.activites.showActivities.UpcomingShowsActivity;
 import is.datacontracts.DrawerListData;
 import is.handlers.adapters.CustomDrawerListAdapter;
 import is.handlers.database.DbShowHandler;
@@ -52,10 +53,6 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DbShowHandler db = new DbShowHandler(this);
-        //db.GetSeen();
-
-
         Initialize();
     }
 
@@ -76,6 +73,7 @@ public class MainActivity extends Activity
         options.add(new DrawerListData(getResources().getString(R.string.skjar_einn), R.drawable.skjareinn_64));
         options.add(new DrawerListData(getResources().getString(R.string.search_show), R.drawable.m_glass_64));
         options.add(new DrawerListData(getResources().getString(R.string.my_shows), R.drawable.eye_64));
+        options.add(new DrawerListData(getString(R.string.upcoming_shows), R.drawable.calendar_64));
 
         _DrawerList.setAdapter(
                 new CustomDrawerListAdapter(this, R.layout.drawer_list_item, options)
@@ -171,6 +169,9 @@ public class MainActivity extends Activity
                         break;
                     case 7:
                         intent = new Intent(this, MyShowsActivity.class);
+                        break;
+                    case 8:
+                        intent = new Intent(this, UpcomingShowsActivity.class);
                         break;
                     default:
                         intent = new Intent(this, MainActivity.class);
