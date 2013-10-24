@@ -84,7 +84,7 @@ public class EpisodeAdapter extends BaseAdapter
             }
         });
 
-        if (dataContract.getSeen())
+        if (dataContract.getSeen().equalsIgnoreCase("1"))
             holder.setEpisodeSeen.setChecked(true);
 
         return row;

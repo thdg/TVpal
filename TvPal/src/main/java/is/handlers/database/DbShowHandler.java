@@ -56,25 +56,25 @@ public class DbShowHandler extends SQLiteOpenHelper
     {
         String CREATE_SERIES_TABLE =
                 "CREATE TABLE " + TABLE_SERIES + "("
-                        + KEY_S_SERIESID + " varchar(20) PRIMARY KEY,"
-                        + KEY_S_NAME + " varchar(100),"
-                        + KEY_S_OVERVIEW + " text,"
-                        + KEY_S_NETWORK + " varchar(100),"
-                        + KEY_S_THUMBNAIL + " blob"
+                        + KEY_S_SERIESID + " TEXT PRIMARY KEY,"
+                        + KEY_S_NAME + " TEXT,"
+                        + KEY_S_OVERVIEW + " TEXT,"
+                        + KEY_S_NETWORK + " TEXT,"
+                        + KEY_S_THUMBNAIL + " BLOB"
                         + ")";
 
         String CREATE_EPISODE_TABLE =
                 "CREATE TABLE " + TABLE_EPISODES + "("
-                        + KEY_E_EPISODEID + " varchar(20) PRIMARY KEY,"
-                        + KEY_E_SERIESID + " varchar(20),"
-                        + KEY_E_SEASON + " varchar(5),"
-                        + KEY_E_EPISODE + " varchar(5),"
-                        + KEY_E_EPISODENAME  + " varchar(150),"
-                        + KEY_E_AIRED + " varchar(15),"
-                        + KEY_E_OVERVIEW + " text,"
-                        + KEY_E_SEEN + " int,"
-                        + KEY_E_DIRECTOR + " varchar(250),"
-                        + KEY_E_RATING + " varchar(10)"
+                        + KEY_E_EPISODEID + " TEXT PRIMARY KEY,"
+                        + KEY_E_SERIESID + " TEXT,"
+                        + KEY_E_SEASON + " TEXT,"
+                        + KEY_E_EPISODE + " TEXT,"
+                        + KEY_E_EPISODENAME  + " TEXT,"
+                        + KEY_E_AIRED + " TEXT,"
+                        + KEY_E_OVERVIEW + " TEXT,"
+                        + KEY_E_SEEN + " TEXT,"
+                        + KEY_E_DIRECTOR + " TEXT,"
+                        + KEY_E_RATING + " TEXT"
                         + ")";
 
         db.execSQL(CREATE_SERIES_TABLE);
@@ -181,7 +181,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         values.put(KEY_E_EPISODENAME, episode.getEpisodeName());
         values.put(KEY_E_AIRED, episode.getAired());
         values.put(KEY_S_OVERVIEW, episode.getOverview());
-        values.put(KEY_E_SEEN, 0);
+        values.put(KEY_E_SEEN, "0");
         values.put(KEY_E_DIRECTOR, episode.getDirector());
         values.put(KEY_E_RATING, episode.getRating());
 
@@ -239,7 +239,7 @@ public class DbShowHandler extends SQLiteOpenHelper
                 episode.setEpisodeName(cursor.getString(4));
                 episode.setAired(cursor.getString(5));
                 episode.setOverview(cursor.getString(6));
-                episode.setSeen(Integer.parseInt(cursor.getString(7)));
+                episode.setSeen(cursor.getString(7));
                 episode.setDirector(cursor.getString(8));
                 episode.setRating(cursor.getString(9));
 
@@ -257,10 +257,10 @@ public class DbShowHandler extends SQLiteOpenHelper
 
     public void UpdateEpisodeSeen(String episodeId)
     {
-        int seen = 1;
+        String seen = "1";
 
         if (GetShowSeen(episodeId))
-            seen = 0;
+            seen = "0";
 
         ContentValues values = new ContentValues();
 

@@ -14,7 +14,7 @@ public class EpisodeData
     private String episodeName;
     private String aired;
     private String overview;
-    private boolean seen;
+    private String seen;
     private Bitmap picture;
     private String director;
     private String rating;
@@ -40,8 +40,8 @@ public class EpisodeData
     public String getEpisodeName() { return episodeName; }
     public void setEpisodeName(String episodeName) { this.episodeName = episodeName; }
 
-    public boolean getSeen() { return seen; }
-    public void setSeen(int seen){ this.seen = seen == 1; }
+    public String getSeen() { return seen; }
+    public void setSeen(String seen){ this.seen = seen; }
 
     public Bitmap getPicture() { return picture; }
     public void setPicture(Bitmap picture) { this.picture = picture;}

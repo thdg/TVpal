@@ -24,6 +24,7 @@ import is.activites.showActivities.MyShowsActivity;
 import is.activites.showActivities.SearchTvShowActivity;
 import is.datacontracts.DrawerListData;
 import is.handlers.adapters.CustomDrawerListAdapter;
+import is.handlers.database.DbShowHandler;
 import is.rules.ConnectionListener;
 import is.rules.Helpers;
 import is.tvpal.R;
@@ -50,6 +51,10 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DbShowHandler db = new DbShowHandler(this);
+        //db.GetSeen();
+
 
         Initialize();
     }
