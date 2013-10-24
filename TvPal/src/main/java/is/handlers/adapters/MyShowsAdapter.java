@@ -33,7 +33,6 @@ public class MyShowsAdapter extends BaseAdapter
     static class EventHolder
     {
         TextView title;
-        TextView network;
         TextView overview;
         ImageView thumbnail;
     }
@@ -51,7 +50,6 @@ public class MyShowsAdapter extends BaseAdapter
 
             holder = new EventHolder();
             holder.title = (TextView) row.findViewById(R.id.title);
-            holder.network = (TextView) row.findViewById(R.id.network);
             holder.overview = (TextView) row.findViewById(R.id.overview);
             holder.thumbnail = (ImageView) row.findViewById(R.id.imgIcon);
 
@@ -65,10 +63,6 @@ public class MyShowsAdapter extends BaseAdapter
         final ShowData dataContract = schedule.get(position);
 
         holder.title.setText(dataContract.getTitle());
-
-        String strNetwork = dataContract.getNetwork();
-        if(strNetwork == null) strNetwork = "";
-        holder.network.setText(String.format("Network: %s",strNetwork));
 
         String strOverview = dataContract.getOverview();
         if(strOverview == null) strOverview = "";
