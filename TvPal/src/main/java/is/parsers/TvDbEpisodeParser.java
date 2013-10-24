@@ -24,7 +24,6 @@ public class TvDbEpisodeParser extends DefaultHandler {
 
     private String baseURL;
     private List<EpisodeData> episodes;
-    private String tmpValue;
     private EpisodeData episodeTmp;
     private StringBuilder sb;
     private Context context;
@@ -70,14 +69,19 @@ public class TvDbEpisodeParser extends DefaultHandler {
     }
 
     @Override
-    public void startElement(String s, String s1, String elementName, Attributes attributes) throws SAXException
+    public void startElement(String s, String s1, String element, Attributes attributes) throws SAXException
     {
-        if (elementName.equalsIgnoreCase("Episode"))
+        sb = new StringBuilder();
+
+        if (element.equalsIgnoreCase("Episode"))
         {
             episodeTmp = new EpisodeData();
         }
 
-        if(elementName.equalsIgnoreCase("Overview"))
+        if(element.equalsIgnoreCase("FirstAired") || element.equalsIgnoreCase("Overview") || element.equalsIgnoreCase("EpisodeName")
+           || element.equalsIgnoreCase("id") || element.equalsIgnoreCase("SeasonNumber") || element.equalsIgnoreCase("EpisodeNumber")
+           || element.equalsIgnoreCase("seriesid") || element.equalsIgnoreCase("Rating") || element.equalsIgnoreCase("Director")
+           || element.equalsIgnoreCase("poster"))
             sb = new StringBuilder();
     }
 
@@ -85,16 +89,28 @@ public class TvDbEpisodeParser extends DefaultHandler {
     public void endElement(String s, String s1, String element) throws SAXException
     {
         if(element.equalsIgnoreCase("id"))
-            episodeTmp.setEpisodeId(tmpValue);
+        {
+            episodeTmp.setEpisodeId(sb.toString());
+            sb = null;
+        }
 
         if(element.equalsIgnoreCase("SeasonNumber"))
-            episodeTmp.setSeasonNumber(tmpValue);
+        {
+            episodeTmp.setSeasonNumber(sb.toString());
+            sb = null;
+        }
 
         if(element.equalsIgnoreCase("EpisodeNumber"))
-            episodeTmp.setEpisodeNumber(tmpValue);
+        {
+            episodeTmp.setEpisodeNumber(sb.toString());
+            sb = null;
+        }
 
         if(element.equalsIgnoreCase("FirstAired"))
-            episodeTmp.setAired(tmpValue);
+        {
+            episodeTmp.setAired(sb.toString());
+            sb = null;
+        }
 
         if(element.equalsIgnoreCase("Overview"))
         {
@@ -103,16 +119,22 @@ public class TvDbEpisodeParser extends DefaultHandler {
         }
 
         if(element.equalsIgnoreCase("seriesid"))
-            episodeTmp.setSeriesId(tmpValue);
+        {
+            episodeTmp.setSeriesId(sb.toString());
+            sb = null;
+        }
 
         if(element.equalsIgnoreCase("EpisodeName"))
-            episodeTmp.setEpisodeName(tmpValue);
+        {
+            episodeTmp.setEpisodeName(sb.toString());
+            sb = null;
+        }
 
         if(element.equalsIgnoreCase("poster"))
         {
             try
             {
-                String posterUrl = String.format("http://thetvdb.com/banners/%s", tmpValue);
+                String posterUrl = String.format("http://thetvdb.com/banners/%s", sb.toString());
 
                 BitmapProperties pic = new BitmapProperties();
                 byte[] thumbnailByteStream = pic.getBitmapFromURL(posterUrl);
@@ -123,13 +145,20 @@ public class TvDbEpisodeParser extends DefaultHandler {
             {
                 ex.getMessage();
             }
+            sb = null;
         }
 
         if(element.equalsIgnoreCase("Rating"))
-            episodeTmp.setRating(tmpValue);
+        {
+            episodeTmp.setRating(sb.toString());
+            sb = null;
+        }
 
         if(element.equalsIgnoreCase("Director"))
-            episodeTmp.setDirector(tmpValue);
+        {
+            episodeTmp.setDirector(sb.toString());
+            sb = null;
+        }
 
         if(element.equalsIgnoreCase("Episode"))
             episodes.add(episodeTmp);
@@ -144,7 +173,5 @@ public class TvDbEpisodeParser extends DefaultHandler {
                 sb.append(ac[k]);
             }
         }
-        else
-            tmpValue = new String(ac, i, j);
     }
 }
