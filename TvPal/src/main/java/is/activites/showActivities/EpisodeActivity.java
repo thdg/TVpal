@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +31,7 @@ public class EpisodeActivity extends Activity implements SwipeGestureFilter.Simp
     private String _seasonNr;
     private String _episodeNr;
     private ImageView _episodePicture;
+    private CheckBox _episodeSeen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,6 +45,22 @@ public class EpisodeActivity extends Activity implements SwipeGestureFilter.Simp
     private void Initialize()
     {
         _episodePicture = (ImageView) findViewById(R.id.episodePicture);
+        _episodeSeen = (CheckBox) findViewById(R.id.episodeSeen);
+
+        _episodeSeen.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                _db.UpdateEpisodeSeen(_episode.getEpisodeId());
+
+                String seen = "0";
+                if(_episode.getSeen().equalsIgnoreCase("0"))
+                    seen = "1";
+
+                _episode.setSeen(seen);
+            }
+        });
 
         _db = new DbShowHandler(this);
         _detector = new SwipeGestureFilter(this,this);
@@ -100,6 +119,7 @@ public class EpisodeActivity extends Activity implements SwipeGestureFilter.Simp
         _episodeOverview.setText(_episode.getOverview());
         _episodeDirector.setText(String.format("Director: %s", _episode.getDirector()));
         _episodeRating.setText(String.format("Rating: %s", _episode.getRating()));
+        _episodeSeen.setChecked(_episode.getSeen().equalsIgnoreCase("1"));
     }
 
     @Override

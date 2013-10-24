@@ -40,7 +40,6 @@ public class EpisodeAdapter extends BaseAdapter
         TextView numberOfEpisode;
         TextView name;
         TextView aired;
-        CheckBox setEpisodeSeen;
     }
 
     @Override
@@ -57,7 +56,6 @@ public class EpisodeAdapter extends BaseAdapter
             holder = new EventHolder();
             holder.numberOfEpisode = (TextView) row.findViewById(R.id.numberOfEpisode);
             holder.name = (TextView) row.findViewById(R.id.episodeName);
-            holder.setEpisodeSeen = (CheckBox) row.findViewById(R.id.setEpisodeSeen);
             holder.aired = (TextView) row.findViewById(R.id.aired);
 
             row.setTag(holder);
@@ -72,20 +70,6 @@ public class EpisodeAdapter extends BaseAdapter
         holder.numberOfEpisode.setText(String.format("%s:", dataContract.getEpisodeNumber()));
         holder.name.setText(dataContract.getEpisodeName());
         holder.aired.setText(Helpers.FormatDateEpisode(dataContract.getAired()));
-
-        holder.setEpisodeSeen.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                DbShowHandler db = new DbShowHandler(context);
-
-                db.UpdateEpisodeSeen(dataContract.getEpisodeId());
-            }
-        });
-
-        if (dataContract.getSeen().equalsIgnoreCase("1"))
-            holder.setEpisodeSeen.setChecked(true);
 
         return row;
     }
