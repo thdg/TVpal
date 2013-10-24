@@ -21,7 +21,7 @@ import is.handlers.database.DbShowHandler;
 import is.rules.Helpers;
 import is.tvpal.R;
 
-public class UpcomingShowsAdapter extends BaseAdapter
+public class ActivityAdapter extends BaseAdapter
 {
     private Context context;
     private int layoutResourceId;
@@ -29,7 +29,7 @@ public class UpcomingShowsAdapter extends BaseAdapter
     private DbShowHandler db;
     private HashMap<String, Bitmap> pictures;
 
-    public UpcomingShowsAdapter(Context context, int layoutResourceId, List<EpisodeData> schedule)
+    public ActivityAdapter(Context context, int layoutResourceId, List<EpisodeData> schedule)
     {
         this.context = context;
         this.layoutResourceId = layoutResourceId;
@@ -42,6 +42,7 @@ public class UpcomingShowsAdapter extends BaseAdapter
     {
         ImageView episodeImage;
         TextView episodeName;
+        TextView episodeNumber;
         TextView episodeAired;
     }
 
@@ -57,9 +58,10 @@ public class UpcomingShowsAdapter extends BaseAdapter
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new EventHolder();
-            holder.episodeImage = (ImageView) row.findViewById(R.id.upcomingImg);
-            holder.episodeName = (TextView) row.findViewById(R.id.upcomingTitle);
-            holder.episodeAired = (TextView) row.findViewById(R.id.upcomingAirDate);
+            holder.episodeImage = (ImageView) row.findViewById(R.id.activityImg);
+            holder.episodeName = (TextView) row.findViewById(R.id.activityTitle);
+            holder.episodeAired = (TextView) row.findViewById(R.id.activityAirDate);
+            holder.episodeNumber = (TextView) row.findViewById(R.id.activityEpisode);
 
             row.setTag(holder);
         }
@@ -71,6 +73,7 @@ public class UpcomingShowsAdapter extends BaseAdapter
         final EpisodeData dataContract = schedule.get(position);
 
         holder.episodeName.setText(dataContract.getEpisodeName());
+        holder.episodeNumber.setText(String.format("%sx%s", dataContract.getSeasonNumber(), dataContract.getEpisodeNumber()));
         holder.episodeAired.setText(Helpers.FormatDateEpisode(dataContract.getAired()));
 
         //TODO: Maby this takes to much memory, look into that

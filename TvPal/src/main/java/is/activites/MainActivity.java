@@ -21,11 +21,11 @@ import is.activites.scheduleActivites.DisplayRuvActivity;
 import is.activites.scheduleActivites.DisplaySkjarinnActivity;
 import is.activites.scheduleActivites.DisplayStod2Activity;
 import is.activites.showActivities.MyShowsActivity;
+import is.activites.showActivities.RecentShowsActivity;
 import is.activites.showActivities.SearchTvShowActivity;
 import is.activites.showActivities.UpcomingShowsActivity;
 import is.datacontracts.DrawerListData;
 import is.handlers.adapters.CustomDrawerListAdapter;
-import is.handlers.database.DbShowHandler;
 import is.rules.ConnectionListener;
 import is.rules.Helpers;
 import is.tvpal.R;
@@ -74,9 +74,10 @@ public class MainActivity extends Activity
         options.add(new DrawerListData(getResources().getString(R.string.search_show), R.drawable.m_glass_64));
         options.add(new DrawerListData(getResources().getString(R.string.my_shows), R.drawable.eye_64));
         options.add(new DrawerListData(getString(R.string.upcoming_shows), R.drawable.calendar_64));
+        options.add(new DrawerListData(getString(R.string.recent_shows), R.drawable.recent_64));
 
         _DrawerList.setAdapter(
-                new CustomDrawerListAdapter(this, R.layout.drawer_list_item, options)
+                new CustomDrawerListAdapter(this, R.layout.navigation_drawer, options)
         );
         _DrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
@@ -172,6 +173,9 @@ public class MainActivity extends Activity
                         break;
                     case 8:
                         intent = new Intent(this, UpcomingShowsActivity.class);
+                        break;
+                    case 9:
+                        intent = new Intent(this, RecentShowsActivity.class);
                         break;
                     default:
                         intent = new Intent(this, MainActivity.class);

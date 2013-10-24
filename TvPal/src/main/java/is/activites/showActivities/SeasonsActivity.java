@@ -46,7 +46,7 @@ public class SeasonsActivity extends ListActivity implements  AdapterView.OnItem
 
         List<EpisodeData> episodes = _db.GetAllSeasons(_seriesId);
 
-        setListAdapter(new SeasonAdapter(this, R.layout.listview_item_season, episodes));
+        setListAdapter(new SeasonAdapter(this, R.layout.listview_season, episodes));
     }
 
     @Override

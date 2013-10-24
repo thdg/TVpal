@@ -301,7 +301,7 @@ public class DbShowHandler extends SQLiteOpenHelper
     {
         List<EpisodeData> episodeList = new ArrayList<EpisodeData>();
 
-        String selectQuery = String.format("select episodeName, aired, seriesId " +
+        String selectQuery = String.format("select episodeName, aired, seriesId, season, episode " +
                 "from episodes " +
                 "where aired >= '%s' " +
                 "order by aired limit 15", date);
@@ -319,6 +319,45 @@ public class DbShowHandler extends SQLiteOpenHelper
                 episode.setEpisodeName(cursor.getString(0));
                 episode.setAired(cursor.getString(1));
                 episode.setSeriesId(cursor.getString(2));
+                episode.setSeasonNumber(cursor.getString(3));
+                episode.setEpisodeNumber(cursor.getString(4));
+
+                episodeList.add(episode);
+                cursor.moveToNext();
+            }
+            catch (Exception ex)
+            {
+                ex.getMessage();
+            }
+        }
+
+        return episodeList;
+    }
+
+    public List<EpisodeData> GetRecentShows(String date)
+    {
+        List<EpisodeData> episodeList = new ArrayList<EpisodeData>();
+
+        String selectQuery = String.format("select episodeName, aired, seriesId, season, episode " +
+                "from episodes " +
+                "where aired < '%s' " +
+                "order by aired desc limit 15", date);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast())
+        {
+            try
+            {
+                EpisodeData episode = new EpisodeData();
+
+                episode.setEpisodeName(cursor.getString(0));
+                episode.setAired(cursor.getString(1));
+                episode.setSeriesId(cursor.getString(2));
+                episode.setSeasonNumber(cursor.getString(3));
+                episode.setEpisodeNumber(cursor.getString(4));
 
                 episodeList.add(episode);
                 cursor.moveToNext();

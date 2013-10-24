@@ -130,7 +130,7 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
             return;
         }
 
-        _adapterView = new EventAdapter(this, R.layout.listview_item_event, _todaySchedule);
+        _adapterView = new EventAdapter(this, R.layout.listview_event, _todaySchedule);
         setListAdapter(_adapterView);
     }
 
@@ -153,7 +153,7 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
             return;
         }
 
-        _adapterView = new EventAdapter(this, R.layout.listview_item_event, _todaySchedule);
+        _adapterView = new EventAdapter(this, R.layout.listview_event, _todaySchedule);
         setListAdapter(_adapterView);
     }
 
@@ -190,7 +190,7 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
         @Override
         protected void onPostExecute(String result)
         {
-            _adapterView = new EventAdapter(ctx, R.layout.listview_item_event, _todaySchedule);
+            _adapterView = new EventAdapter(ctx, R.layout.listview_event, _todaySchedule);
             setListAdapter(_adapterView);
             _waitingDialog.dismiss();
         }

@@ -65,6 +65,10 @@
             android:name="is.activites.showActivities.UpcomingShowsActivity"
             android:label="@string/title_activity_upcoming_shows" >
         </activity>
+        <activity
+            android:name="is.activites.showActivities.RecentShowsActivity"
+            android:label="@string/title_activity_recent_shows" >
+        </activity>
     </application>
 
 </manifest>

@@ -15,11 +15,11 @@ import is.handlers.adapters.ActivityAdapter;
 import is.handlers.database.DbShowHandler;
 import is.tvpal.R;
 
-public class UpcomingShowsActivity extends Activity
+public class RecentShowsActivity extends Activity
 {
     private ListView _listView;
     private DbShowHandler _db;
-    private List<EpisodeData> _upcomingShows;
+    private List<EpisodeData> _recentShows;
     private ActivityAdapter _adapterView;
 
     @Override
@@ -34,8 +34,9 @@ public class UpcomingShowsActivity extends Activity
     private void Initialize()
     {
         _db = new DbShowHandler(this);
+
         TextView tv = (TextView) findViewById(R.id.overviewTitle);
-        tv.setText("Upcoming shows");
+        tv.setText("Recent shows");
 
         _listView = (ListView) findViewById(R.id.overviewShows);
 
@@ -69,7 +70,7 @@ public class UpcomingShowsActivity extends Activity
         {
             if (result.equalsIgnoreCase("Successful"))
             {
-                _adapterView = new ActivityAdapter(context, R.layout.listview_activity, _upcomingShows);
+                _adapterView = new ActivityAdapter(context, R.layout.listview_activity, _recentShows);
                 _listView.setAdapter(_adapterView);
             }
         }
@@ -78,7 +79,7 @@ public class UpcomingShowsActivity extends Activity
         {
             try
             {
-                _upcomingShows = _db.GetUpcomingShows(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+                _recentShows = _db.GetRecentShows(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
             }
             catch (Exception ex)
             {

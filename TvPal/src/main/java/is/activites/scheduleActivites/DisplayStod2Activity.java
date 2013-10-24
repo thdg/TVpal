@@ -129,7 +129,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
             return;
         }
 
-        _adapterView = new EventAdapter(this, R.layout.listview_item_event, _todaySchedule);
+        _adapterView = new EventAdapter(this, R.layout.listview_event, _todaySchedule);
         setListAdapter(_adapterView);
     }
 
@@ -152,7 +152,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
             return;
         }
 
-        _adapterView = new EventAdapter(this, R.layout.listview_item_event, _todaySchedule);
+        _adapterView = new EventAdapter(this, R.layout.listview_event, _todaySchedule);
         setListAdapter(_adapterView);
     }
 
@@ -189,7 +189,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
         @Override
         protected void onPostExecute(String result)
         {
-            _adapterView = new EventAdapter(ctx, R.layout.listview_item_event, _todaySchedule);
+            _adapterView = new EventAdapter(ctx, R.layout.listview_event, _todaySchedule);
             setListAdapter(_adapterView);
             _waitingDialog.dismiss();
         }

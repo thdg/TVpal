@@ -9,16 +9,15 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/episodeTitle"
+        android:id="@+id/overviewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upcoming shows"
         android:textSize="20sp"
         android:textStyle="bold"
         android:paddingBottom="15sp"/>
 
     <ListView
-        android:id="@+id/upcomingShows"
+        android:id="@+id/overviewShows"
         android:layout_height="fill_parent"
         android:layout_width="fill_parent" />
 

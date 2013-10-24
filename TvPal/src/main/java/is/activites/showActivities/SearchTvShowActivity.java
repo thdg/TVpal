@@ -32,7 +32,7 @@ public class SearchTvShowActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tvshow_activity);
+        setContentView(R.layout.search_tvshows_activity);
 
         Initialize();
     }
@@ -117,7 +117,7 @@ public class SearchTvShowActivity extends Activity
             if (result.equalsIgnoreCase("empty"))
                 Toast.makeText(ctx, "No shows found", Toast.LENGTH_SHORT).show();
 
-            _adapterView = new SearchShowAdapter(ctx, R.layout.listview_item_search_show, _shows);
+            _adapterView = new SearchShowAdapter(ctx, R.layout.listview_search_show, _shows);
             _lv.setAdapter(_adapterView);
 
             _waitingDialog.dismiss();

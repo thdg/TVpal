@@ -43,7 +43,7 @@ public class SingleSeasonActivity extends ListActivity implements AdapterView.On
         ListView lv = getListView();
         lv.setOnItemClickListener(this);
 
-        setListAdapter(new EpisodeAdapter(this, is.tvpal.R.layout.listview_item_episodes, episodes));
+        setListAdapter(new EpisodeAdapter(this, is.tvpal.R.layout.listview_episodes, episodes));
     }
 
     @Override

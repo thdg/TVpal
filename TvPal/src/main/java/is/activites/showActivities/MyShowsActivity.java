@@ -50,7 +50,7 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
     {
         List<ShowData> myShows = _dbShow.GetAllSeries();
 
-        setListAdapter(new MyShowsAdapter(this, R.layout.listview_item_my_shows, myShows));
+        setListAdapter(new MyShowsAdapter(this, R.layout.listview_my_shows, myShows));
     }
 
     @Override
