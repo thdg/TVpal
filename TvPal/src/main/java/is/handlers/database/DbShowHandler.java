@@ -104,44 +104,6 @@ public class DbShowHandler extends SQLiteOpenHelper
         db.close();
     }
 
-    public List<ShowData> GetAllSeries()
-    {
-        List<ShowData> seriesList = new ArrayList<ShowData>();
-
-        String selectQuery = "SELECT * FROM " + TABLE_SERIES + " ORDER BY " + KEY_S_NAME;
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        cursor.moveToFirst();//Loop through all entities
-        while (!cursor.isAfterLast())
-        {
-            try
-            {
-                ShowData series = new ShowData();
-
-                series.setSeriesId(cursor.getString(0));
-                series.setTitle(cursor.getString(1));
-                series.setOverview(cursor.getString(2));
-                series.setNetwork(cursor.getString(3));
-
-                //TODO: Refactor to hashmap in the adapter, this takes an awful lot of memory
-                byte[] thumbnailByteStream = cursor.getBlob(4);
-                Bitmap bmp = BitmapFactory.decodeByteArray(thumbnailByteStream, 0, thumbnailByteStream.length);
-                series.setThumbNail(bmp);
-
-                seriesList.add(series);
-                cursor.moveToNext();
-            }
-            catch (Exception ex)
-            {
-                ex.getMessage();
-            }
-        }
-
-        return seriesList;
-    }
-
     public boolean CheckIfSeriesExist(String seriesId)
     {
         String selectClause = "SELECT * FROM " + TABLE_SERIES;
@@ -315,6 +277,18 @@ public class DbShowHandler extends SQLiteOpenHelper
                 "from episodes " +
                 "where aired < '%s' " +
                 "order by aired desc limit 15", date);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        return cursor;
+    }
+
+    public Cursor GetCursorMyShows()
+    {
+        String selectQuery = String.format("select seriesId as _id, name, overview, thumbnail " +
+                "from %s order by %s", TABLE_SERIES, KEY_S_NAME);
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

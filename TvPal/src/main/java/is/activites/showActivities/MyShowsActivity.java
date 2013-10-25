@@ -2,6 +2,7 @@ package is.activites.showActivities;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
@@ -11,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.Currency;
 import java.util.List;
 
 import is.datacontracts.ShowData;
@@ -23,8 +26,9 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
     public static final String EXTRA_SERIESID = "is.activities.SERIESID";
     public static final String EXTRA_SERIESNUMBER = "is.activities.SERIESNUMBER";
 
-    private DbShowHandler _dbShow;
+    private DbShowHandler _db;
     private ListView _lv;
+    private MyShowsAdapter _adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,21 +40,19 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
 
     private void Initialize()
     {
-        _dbShow = new DbShowHandler(this);
+        _db = new DbShowHandler(this);
 
         _lv = getListView();
         _lv.setOnItemClickListener(this);
 
         SetListAdapterMyShows();
-
         registerForContextMenu(getListView());
     }
 
     private void SetListAdapterMyShows()
     {
-        List<ShowData> myShows = _dbShow.GetAllSeries();
-
-        setListAdapter(new MyShowsAdapter(this, R.layout.listview_my_shows, myShows));
+        _adapter = new MyShowsAdapter(this, _db.GetCursorMyShows(), 0);
+        setListAdapter(_adapter);
     }
 
     @Override
@@ -78,14 +80,13 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
 
     private void RemoveShow(int selectedShow)
     {
-        //Get the selected show, ugly hack to find it in the adapter
-        ShowData show = (ShowData) getListAdapter().getItem(selectedShow);
+        Cursor show = (Cursor) _adapter.getItem(selectedShow);
 
         try
         {
-            _dbShow.RemoveShow(show.getSeriesId());
+            _db.RemoveShow(show.getString(0));
             SetListAdapterMyShows();
-            Toast.makeText(this, String.format("Removed %s from your shows", show.getTitle()), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, String.format("Removed %s from your shows", show.getString(1)), Toast.LENGTH_SHORT).show();
         }
         catch (Exception ex)
         {
@@ -93,13 +94,13 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
         }
     }
 
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
     {
-        ShowData show = (ShowData) getListAdapter().getItem(i);
+        Cursor show = (Cursor) _adapter.getItem(position);
 
         Intent intent = new Intent(this, SeasonsActivity.class);
-        intent.putExtra(EXTRA_SERIESID, show.getSeriesId());
-        intent.putExtra(EXTRA_SERIESNUMBER, show.getTitle());
+        intent.putExtra(EXTRA_SERIESID, show.getString(0));
+        intent.putExtra(EXTRA_SERIESNUMBER, show.getString(1));
 
         startActivity(intent);
     }

@@ -1,36 +1,35 @@
 package is.handlers.adapters;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.v4.widget.CursorAdapter;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import is.tvpal.R;
+
 /**
  * Created by Arnar on 17.10.2013.
  */
 
-import android.app.Activity;
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-import java.util.List;
-
-import is.datacontracts.ShowData;
-import is.tvpal.R;
-
-public class MyShowsAdapter extends BaseAdapter
+public class MyShowsAdapter extends CursorAdapter
 {
-    private Context context;
-    private int layoutResourceId;
-    private List<ShowData> schedule;
+    private static final int LAYOUT = R.layout.listview_my_shows;
 
-    public MyShowsAdapter(Context context, int layoutResourceId, List<ShowData> schedule)
+    private LayoutInflater mLayoutInflater;
+
+    public MyShowsAdapter(Context context, Cursor c, int flags)
     {
-        this.context = context;
-        this.layoutResourceId = layoutResourceId;
-        this.schedule = schedule;
+        super(context, c, flags);
+        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    static class EventHolder
+    static class ViewHolder
     {
         TextView title;
         TextView overview;
@@ -40,55 +39,54 @@ public class MyShowsAdapter extends BaseAdapter
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        View row = convertView;
-        final EventHolder holder;
-
-        if(row == null)
+        if (!mDataValid)
         {
-            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-            row = inflater.inflate(layoutResourceId, parent, false);
+            throw new IllegalStateException("Only call when cursor is valid");
+        }
+        if (!mCursor.moveToPosition(position))
+        {
+            throw new IllegalStateException("Failed to move cursor to position  " + position);
+        }
 
-            holder = new EventHolder();
-            holder.title = (TextView) row.findViewById(R.id.title);
-            holder.overview = (TextView) row.findViewById(R.id.overview);
-            holder.thumbnail = (ImageView) row.findViewById(R.id.imgIcon);
+        final ViewHolder viewHolder;
 
-            row.setTag(holder);
+        if (convertView == null)
+        {
+            convertView = newView(mContext, mCursor, parent);
+
+            viewHolder = new ViewHolder();
+            viewHolder.title = (TextView) convertView.findViewById(R.id.title);
+            viewHolder.overview = (TextView) convertView.findViewById(R.id.overview);
+            viewHolder.thumbnail = (ImageView) convertView.findViewById(R.id.imgIcon);
+
+            convertView.setTag(viewHolder);
         }
         else
         {
-            holder = (EventHolder)row.getTag();
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        final ShowData dataContract = schedule.get(position);
+        viewHolder.title.setText(mCursor.getString(1));
 
-        holder.title.setText(dataContract.getTitle());
+        String strOverview = mCursor.getString(2) == null ? "" : mCursor.getString(2);
 
-        String strOverview = dataContract.getOverview();
-        if(strOverview == null) strOverview = "";
-        holder.overview.setText(String.format("Overview: %s",strOverview));
+        viewHolder.overview.setText(String.format("Overview: %s", strOverview));
 
-        if (dataContract.getThumbNail() != null)
-            holder.thumbnail.setImageBitmap(dataContract.getThumbNail());
+        byte[] thumbnailByteStream = mCursor.getBlob(3);
+        Bitmap bmp = BitmapFactory.decodeByteArray(thumbnailByteStream, 0, thumbnailByteStream.length);
+        viewHolder.thumbnail.setImageBitmap(bmp);
 
-        return row;
+        return convertView;
     }
 
     @Override
-    public int getCount()
+    public void bindView(View view, Context context, Cursor cursor)
     {
-        return (schedule == null) ? 0 : schedule.size();
     }
 
     @Override
-    public ShowData getItem(int position)
+    public View newView(Context context, Cursor cursor, ViewGroup parent)
     {
-        return schedule.get(position);
-    }
-
-    @Override
-    public long getItemId(int position)
-    {
-        return schedule.indexOf(getItem(position));
+        return mLayoutInflater.inflate(LAYOUT, parent, false);
     }
 }
