@@ -4,41 +4,39 @@ package is.handlers.adapters;
  * Created by Arnar on 17.10.2013.
  */
 
-import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.HashMap;
-import java.util.List;
-import is.datacontracts.EpisodeData;
+
 import is.handlers.database.DbShowHandler;
 import is.rules.Helpers;
 import is.tvpal.R;
 
-public class ActivityAdapter extends BaseAdapter
+public class ActivityAdapter extends CursorAdapter
 {
-    private Context context;
-    private int layoutResourceId;
-    private List<EpisodeData> schedule;
+    private static final int LAYOUT = R.layout.listview_activity;
+
+    private LayoutInflater mLayoutInflater;
     private DbShowHandler db;
     private HashMap<String, Bitmap> pictures;
 
-    public ActivityAdapter(Context context, int layoutResourceId, List<EpisodeData> schedule)
+    public ActivityAdapter(Context context, Cursor c, int flags)
     {
-        this.context = context;
-        this.layoutResourceId = layoutResourceId;
-        this.schedule = schedule;
-        this.db = new DbShowHandler(context);
+        super(context, c, flags);
+        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.pictures = new HashMap<String, Bitmap>();
+        this.db = new DbShowHandler(context);
     }
 
-    static class EventHolder
+    static class ViewHolder
     {
         ImageView episodeImage;
         TextView episodeName;
@@ -49,60 +47,61 @@ public class ActivityAdapter extends BaseAdapter
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        View row = convertView;
-        final EventHolder holder;
-
-        if(row == null)
+        if (!mDataValid)
         {
-            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-            row = inflater.inflate(layoutResourceId, parent, false);
+            throw new IllegalStateException("Only call when cursor is valid");
+        }
+        if (!mCursor.moveToPosition(position))
+        {
+            throw new IllegalStateException("Failed to move cursor to position  " + position);
+        }
 
-            holder = new EventHolder();
-            holder.episodeImage = (ImageView) row.findViewById(R.id.activityImg);
-            holder.episodeName = (TextView) row.findViewById(R.id.activityTitle);
-            holder.episodeAired = (TextView) row.findViewById(R.id.activityAirDate);
-            holder.episodeNumber = (TextView) row.findViewById(R.id.activityEpisode);
+        final ViewHolder viewHolder;
 
-            row.setTag(holder);
+        if (convertView == null)
+        {
+            convertView = newView(mContext, mCursor, parent);
+
+            viewHolder = new ViewHolder();
+
+            viewHolder.episodeImage = (ImageView) convertView.findViewById(R.id.activityImg);
+            viewHolder.episodeName = (TextView) convertView.findViewById(R.id.activityTitle);
+            viewHolder.episodeAired = (TextView) convertView.findViewById(R.id.activityAirDate);
+            viewHolder.episodeNumber = (TextView) convertView.findViewById(R.id.activityEpisode);
+
+            convertView.setTag(viewHolder);
         }
         else
         {
-            holder = (EventHolder)row.getTag();
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        final EpisodeData dataContract = schedule.get(position);
+        viewHolder.episodeName.setText(mCursor.getString(1));
+        viewHolder.episodeNumber.setText(String.format("%sx%s", mCursor.getString(4), mCursor.getString(5)));
+        viewHolder.episodeAired.setText(Helpers.FormatDateEpisode(mCursor.getString(2)));
 
-        holder.episodeName.setText(dataContract.getEpisodeName());
-        holder.episodeNumber.setText(String.format("%sx%s", dataContract.getSeasonNumber(), dataContract.getEpisodeNumber()));
-        holder.episodeAired.setText(Helpers.FormatDateEpisode(dataContract.getAired()));
+        String seriesId = mCursor.getString(3);
 
         //TODO: Maby this takes to much memory, look into that
-        if (!pictures.containsKey(dataContract.getSeriesId()))
+        if (!pictures.containsKey(seriesId))
         {
-            Bitmap bmp = db.GetSeriesThumbnail(dataContract.getSeriesId());
-            pictures.put(dataContract.getSeriesId(), bmp);
+            Bitmap bmp = db.GetSeriesThumbnail(seriesId);
+            pictures.put(seriesId, bmp);
         }
 
-        holder.episodeImage.setImageBitmap(pictures.get(dataContract.getSeriesId()));
+        viewHolder.episodeImage.setImageBitmap(pictures.get(seriesId));
 
-        return row;
+        return convertView;
     }
 
     @Override
-    public int getCount()
+    public void bindView(View view, Context context, Cursor cursor)
     {
-        return (schedule == null) ? 0 : schedule.size();
     }
 
     @Override
-    public EpisodeData getItem(int position)
+    public View newView(Context context, Cursor cursor, ViewGroup parent)
     {
-        return schedule.get(position);
-    }
-
-    @Override
-    public long getItemId(int position)
-    {
-        return schedule.indexOf(getItem(position));
+        return mLayoutInflater.inflate(LAYOUT, parent, false);
     }
 }

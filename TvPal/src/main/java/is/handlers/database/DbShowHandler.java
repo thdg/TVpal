@@ -13,7 +13,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import is.datacontracts.EpisodeData;
@@ -172,8 +174,6 @@ public class DbShowHandler extends SQLiteOpenHelper
 
     public Bitmap GetSeriesThumbnail(String seriesId)
     {
-        List<EpisodeData> episodeList= new ArrayList<EpisodeData>();
-
         String selectQuery = String.format("SELECT thumbnail from %s where seriesId = %s", TABLE_SERIES, seriesId);
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -269,80 +269,6 @@ public class DbShowHandler extends SQLiteOpenHelper
         return episodeList;
     }
 
-    public List<EpisodeData> GetUpcomingShows(String date)
-    {
-        List<EpisodeData> episodeList = new ArrayList<EpisodeData>();
-
-        String selectQuery = String.format("select episodeName, aired, seriesId, season, episode " +
-                "from episodes " +
-                "where aired >= '%s' " +
-                "order by aired limit 15", date);
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        cursor.moveToFirst();
-        while(!cursor.isAfterLast())
-        {
-            try
-            {
-                EpisodeData episode = new EpisodeData();
-
-                episode.setEpisodeName(cursor.getString(0));
-                episode.setAired(cursor.getString(1));
-                episode.setSeriesId(cursor.getString(2));
-                episode.setSeasonNumber(cursor.getString(3));
-                episode.setEpisodeNumber(cursor.getString(4));
-
-                episodeList.add(episode);
-                cursor.moveToNext();
-            }
-            catch (Exception ex)
-            {
-                ex.getMessage();
-            }
-        }
-
-        return episodeList;
-    }
-
-    public List<EpisodeData> GetRecentShows(String date)
-    {
-        List<EpisodeData> episodeList = new ArrayList<EpisodeData>();
-
-        String selectQuery = String.format("select episodeName, aired, seriesId, season, episode " +
-                "from episodes " +
-                "where aired < '%s' " +
-                "order by aired desc limit 15", date);
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        cursor.moveToFirst();
-        while(!cursor.isAfterLast())
-        {
-            try
-            {
-                EpisodeData episode = new EpisodeData();
-
-                episode.setEpisodeName(cursor.getString(0));
-                episode.setAired(cursor.getString(1));
-                episode.setSeriesId(cursor.getString(2));
-                episode.setSeasonNumber(cursor.getString(3));
-                episode.setEpisodeNumber(cursor.getString(4));
-
-                episodeList.add(episode);
-                cursor.moveToNext();
-            }
-            catch (Exception ex)
-            {
-                ex.getMessage();
-            }
-        }
-
-        return episodeList;
-    }
-
     public Cursor GetCursorSeasons(String seriesId)
     {
         String selectQuery = "SELECT distinct season as _id, season FROM " + TABLE_EPISODES + " WHERE seriesId = " + seriesId + " order by season+0 desc";
@@ -359,6 +285,36 @@ public class DbShowHandler extends SQLiteOpenHelper
     {
         String selectQuery = String.format("select episodeId as _id, seriesId, season, episode, episodeName, aired " +
                 "from episodes where seriesId = %s and season = %s", seriesId, seasonNumber);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        return cursor;
+    }
+
+    public Cursor GetCursorUpcoming()
+    {
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String selectQuery = String.format("select episodeId as _id, episodeName, aired, seriesId, season, episode " +
+                "from episodes " +
+                "where aired >= '%s' " +
+                "order by aired limit 15", date);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        return cursor;
+    }
+
+    public Cursor GetCursorRecent()
+    {
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String selectQuery = String.format("select episodeId as _id, episodeName, aired, seriesId, season, episode " +
+                "from episodes " +
+                "where aired < '%s' " +
+                "order by aired desc limit 15", date);
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
