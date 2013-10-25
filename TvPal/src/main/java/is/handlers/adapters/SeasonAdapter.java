@@ -6,6 +6,7 @@ import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import is.tvpal.R;
 
@@ -24,6 +25,7 @@ public class SeasonAdapter extends CursorAdapter
     static class ViewHolder
     {
         TextView seasonTitle;
+        ProgressBar progressBar;
     }
 
     @Override
@@ -46,6 +48,7 @@ public class SeasonAdapter extends CursorAdapter
 
             viewHolder = new ViewHolder();
             viewHolder.seasonTitle = (TextView) convertView.findViewById(R.id.season);
+            viewHolder.progressBar = (ProgressBar) convertView.findViewById(R.id.seasonProgressBar);
 
             convertView.setTag(viewHolder);
         }
@@ -54,7 +57,10 @@ public class SeasonAdapter extends CursorAdapter
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.seasonTitle.setText(String.format("Season %s" ,mCursor.getString(1)));
+        viewHolder.seasonTitle.setText(String.format("Season %s" , mCursor.getString(mCursor.getColumnIndex("season"))));
+
+        viewHolder.progressBar.setMax(20);
+        viewHolder.progressBar.setProgress(10);
 
         return convertView;
     }
