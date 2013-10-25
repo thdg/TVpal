@@ -1,26 +1,31 @@
 package is.activites.scheduleActivites;
 
-import android.app.ListActivity;
+import android.annotation.TargetApi;
+import android.app.ActionBar;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.MotionEvent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import is.datacontracts.EventData;
 import is.handlers.adapters.EventAdapter;
-import is.handlers.SwipeGestureFilter;
 import is.parsers.SkjarinnScheduleParser;
 import is.rules.Helpers;
 import is.tvpal.R;
@@ -34,126 +39,175 @@ import is.tvpal.R;
  * It implements SwipeGestureFilter.SimpleGestureListener to handle swipe events.
  * @see android.app.ListActivity
  */
-public class DisplaySkjarinnActivity extends ListActivity implements AdapterView.OnItemClickListener, SwipeGestureFilter.SimpleGestureListener
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+public class DisplaySkjarinnActivity extends FragmentActivity implements ActionBar.TabListener
 {
     public static final String EXTRA_TITLE = "is.activites.TITLE";
     public static final String EXTRA_DESCRIPTION = "is.activites.DESCRIPTION";
     public static final String EXTRA_START = "is.activites.START";
     public static final String EXTRA_DURATION = "is.activites.DURATION";
+    public static final String skjarinnUrl = "http://www.skjarinn.is/einn/dagskrarupplysingar/?channel_id=7&weeks=1&output_format=xml";
 
     private ProgressDialog _waitingDialog;
-    private List<EventData> _events;
-    private SwipeGestureFilter _detector;
+    private static List<EventData> _events;
     private String _workingDate;
-    private List<EventData> _todaySchedule;
-    private EventAdapter _adapterView;
+
+    private SchedulePagerAdapter mScheduleAdapter;
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.tab_schedules);
 
         Initialize();
     }
 
     private void Initialize()
     {
-        _todaySchedule = new ArrayList<EventData>();
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-
-        setTitle(String.format("%s: %s", getResources().getString(R.string.skjarinn), Helpers.SetDayFormat(this, _workingDate)));
-
-        String skjarinnUrl = "http://www.skjarinn.is/einn/dagskrarupplysingar/?channel_id=7&weeks=1&output_format=xml";
         new DownloadSkjarinnSchedules(this).execute(skjarinnUrl);
-
-        ListView lv = getListView();
-        lv.setOnItemClickListener(this);
-
-        _detector = new SwipeGestureFilter(this,this);
     }
 
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    public void CreateTabViews()
     {
-        EventData selectedEvent = _adapterView.getItem(position);
+        mScheduleAdapter = new SchedulePagerAdapter(getSupportFragmentManager(), this);
 
-        Intent intent = new Intent(this, DetailedEventActivity.class);
-        intent.putExtra(EXTRA_TITLE, selectedEvent.getTitle());
-        intent.putExtra(EXTRA_DESCRIPTION, selectedEvent.getDescription());
-        intent.putExtra(EXTRA_START, selectedEvent.getStartTime());
-        intent.putExtra(EXTRA_DURATION, selectedEvent.getDuration());
+        final ActionBar actionBar = getActionBar();
 
-        startActivity(intent);
+        actionBar.setHomeButtonEnabled(false);
+
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mScheduleAdapter);
+        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position)
+            {
+                actionBar.setSelectedNavigationItem(position);
+            }
+        });
+
+        for (int i = 0; i < mScheduleAdapter.getCount(); i++)
+        {
+            actionBar.addTab(actionBar.newTab()
+                            .setText(mScheduleAdapter.getPageTitle(i))
+                            .setTabListener(this));
+        }
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent me)
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction)
     {
-        // Call onTouchEvent of SwipeGestureFilter class
-        this._detector.onTouchEvent(me);
-        return super.dispatchTouchEvent(me);
+        mViewPager.setCurrentItem(tab.getPosition());
     }
 
     @Override
-    public void onSwipe(int direction)
-    {
-        switch (direction)
-        {
-            case SwipeGestureFilter.SWIPE_RIGHT :
-                SwipeRightEvent();
-                break;
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction)
+    {}
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
 
-            case SwipeGestureFilter.SWIPE_LEFT :
-                SwipeLeftEvent();
-                break;
+    public class SchedulePagerAdapter extends FragmentStatePagerAdapter
+    {
+        private Context cxt;
+
+        public SchedulePagerAdapter(FragmentManager fm, Context cxt)
+        {
+            super(fm);
+            this.cxt = cxt;
         }
 
-        setTitle(String.format("%s: %s", getResources().getString(R.string.skjarinn), Helpers.SetDayFormat(this, _workingDate)));
+        @Override
+        public Fragment getItem(int position)
+        {
+            Fragment fragment = new ScheduleFragment();
+            Bundle args = new Bundle();
+
+            String date;
+
+            if (position == 0)
+                date = _workingDate;
+            else
+                date = Helpers.AddDaysToDate(_workingDate, position);
+
+            args.putString(ScheduleFragment.ARG_SCHEDULE_DAY, date);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public int getCount()
+        {
+            //TODO: Hardcoded length for now
+            return 7;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position)
+        {
+            //TODO: Find better way to set tab titles, this is very gay
+            if (position == 0)
+                return Helpers.GetDateFormatForTabs(cxt, _workingDate);
+            else
+            {
+                String date = Helpers.AddDaysToDate(_workingDate, position);
+                return Helpers.GetDateFormatForTabs(cxt, date);
+            }
+        }
     }
 
-    private void SwipeRightEvent()
+    public class ScheduleFragment extends Fragment implements AdapterView.OnItemClickListener
     {
-        _workingDate = Helpers.MinusOneDayToDate(_workingDate);
+        public static final String ARG_SCHEDULE_DAY = "schedule_day";
 
-        _todaySchedule = new ArrayList<EventData>();
+        private EventAdapter _adapterView;
 
-        for (EventData e : _events)
+        public ScheduleFragment()
         {
-            if (e.getEventDate().equalsIgnoreCase(_workingDate))
-                _todaySchedule.add(e);
         }
 
-        if(_todaySchedule.size() == 0)
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            Toast.makeText(this, getResources().getString(R.string.scheduleNotAvailable), Toast.LENGTH_SHORT).show();
-            _workingDate = Helpers.AddOneDayToDate(_workingDate); //Add one day, so we don't go over the limit
-            return;
+            View rootView = inflater.inflate(R.layout.skjarinn_schedules, container, false);
+            Bundle args = getArguments();
+            String day = args.getString(ARG_SCHEDULE_DAY);
+            List<EventData> _todaySchedule = new ArrayList<EventData>();
+
+            for (EventData e : _events)
+            {
+                if (e.getEventDate().equalsIgnoreCase(day))
+                    _todaySchedule.add(e);
+            }
+
+            _adapterView = new EventAdapter(inflater.getContext(), R.layout.listview_event, _todaySchedule);
+
+            if (rootView != null)
+            {
+                ((ListView) rootView.findViewById(R.id.schedules)).setAdapter(_adapterView);
+                ((ListView) rootView.findViewById(R.id.schedules)).setOnItemClickListener(this);
+            }
+
+            return rootView;
         }
 
-        _adapterView = new EventAdapter(this, R.layout.listview_event, _todaySchedule);
-        setListAdapter(_adapterView);
-    }
-
-    private void SwipeLeftEvent()
-    {
-        _workingDate = Helpers.AddOneDayToDate(_workingDate);
-
-        _todaySchedule = new ArrayList<EventData>();
-
-        for (EventData e : _events)
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
         {
-            if (e.getEventDate().equalsIgnoreCase(_workingDate))
-                _todaySchedule.add(e);
-        }
+            EventData selectedEvent = _adapterView.getItem(i);
 
-        if(_todaySchedule.size() == 0)
-        {
-            Toast.makeText(this, getResources().getString(R.string.scheduleNotAvailable), Toast.LENGTH_SHORT).show();
-            _workingDate = Helpers.MinusOneDayToDate(_workingDate); //Minus one day, so we don't go over the limit
-            return;
-        }
+            Intent intent = new Intent(getApplicationContext(), DetailedEventActivity.class);
+            intent.putExtra(EXTRA_TITLE, selectedEvent.getTitle());
+            intent.putExtra(EXTRA_DESCRIPTION, selectedEvent.getDescription());
+            intent.putExtra(EXTRA_START, selectedEvent.getStartTime());
+            intent.putExtra(EXTRA_DURATION, selectedEvent.getDuration());
 
-        _adapterView = new EventAdapter(this, R.layout.listview_event, _todaySchedule);
-        setListAdapter(_adapterView);
+            startActivity(intent);
+        }
     }
 
     private class DownloadSkjarinnSchedules extends AsyncTask<String, Void, String>
@@ -182,16 +236,14 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
         protected void onPreExecute()
         {
             _waitingDialog = new ProgressDialog(ctx);
-            _waitingDialog.setMessage(ctx.getResources().getString(R.string.loadingSchedule));
+            _waitingDialog.setMessage(ctx.getString(R.string.loadingSchedule));
             _waitingDialog.show();
         }
 
         @Override
         protected void onPostExecute(String result)
         {
-            _adapterView = new EventAdapter(ctx, R.layout.listview_event, _todaySchedule);
-            setListAdapter(_adapterView);
-
+            CreateTabViews();
             _waitingDialog.dismiss();
         }
 
@@ -202,11 +254,7 @@ public class DisplaySkjarinnActivity extends ListActivity implements AdapterView
                 SkjarinnScheduleParser parser = new SkjarinnScheduleParser(myurl);
                 _events = parser.GetSchedules();
 
-                for (EventData e : _events)
-                {
-                    if (e.getEventDate().equalsIgnoreCase(_workingDate))
-                        _todaySchedule.add(e);
-                }
+                _workingDate = _events.get(0).getEventDate();
             }
             catch (Exception ex)
             {

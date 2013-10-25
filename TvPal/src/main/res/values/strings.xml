@@ -30,13 +30,13 @@
     <string name="stod_3">Stöð 3</string>
     <string name="search_show">Search shows</string>
     <string name="my_shows">My shows</string>
-    <string name="monday">Mánudagur</string>
-    <string name="tuesday">Þriðjudagur</string>
-    <string name="wednesday">Miðvikudagur</string>
-    <string name="thursday">Fimmtudagur</string>
-    <string name="friday">Föstudagur</string>
-    <string name="saturday">Laugardagur</string>
-    <string name="sunday">Sunnudagur</string>
+    <string name="monday">Mán</string>
+    <string name="tuesday">Þri</string>
+    <string name="wednesday">Mið</string>
+    <string name="thursday">Fim</string>
+    <string name="friday">Fös</string>
+    <string name="saturday">Lau</string>
+    <string name="sunday">Sun</string>
     <string name="tvdbBaseUrl">http://thetvdb.com/api/GetSeries.php?seriesname=</string>
     <string name="apiKey">9A96DA217CEB03E7</string>
     <string name="loadingShows">Hleð þáttum...</string>

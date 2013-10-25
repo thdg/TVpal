@@ -114,7 +114,7 @@ public class EpisodeActivity extends Activity implements SwipeGestureFilter.Simp
         TextView _episodeRating = (TextView) findViewById(R.id.episodeRating);
 
         _episodeTitle.setText(_episode.getEpisodeName());
-        _episodeAired.setText(String.format("Aired: %s", Helpers.GetDayFormatForEpisodes(_episode.getAired())));
+        _episodeAired.setText(String.format("Aired: %s", Helpers.FormatDateEpisode(_episode.getAired())));
         _episodeSeason.setText(String.format("Season %s \nEpisode: %s", _episode.getSeasonNumber(), _episode.getEpisodeNumber()));
         _episodeOverview.setText(_episode.getOverview());
         _episodeDirector.setText(String.format("Director: %s", _episode.getDirector()));

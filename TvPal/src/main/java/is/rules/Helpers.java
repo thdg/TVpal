@@ -100,7 +100,29 @@ public class Helpers
         return sdf.format(c.getTime());
     }
 
-    public static String SetDayFormat(Context cxt, String workingDate)
+    public static String AddDaysToDate(String workingDate, int daysToAdd)
+    {
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date date = null;
+        try
+        {
+            date = dt.parse(workingDate);
+        }
+        catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+        c.setTime(date); // Now use working date.
+        c.add(Calendar.DATE, daysToAdd);
+
+        return sdf.format(c.getTime());
+    }
+
+    public static String SetICEDayFormat(Context cxt, String workingDate)
     {
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -146,24 +168,6 @@ public class Helpers
         return null;
     }
 
-    public static String GetDayFormatForEpisodes(String day)
-    {
-        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date date;
-        try
-        {
-            date = dt.parse(day);
-        }
-        catch (ParseException e)
-        {
-            return "TBA";
-        }
-
-        SimpleDateFormat formatDay = new SimpleDateFormat("yyyy - EEEE d MMM");
-        return formatDay.format(date);
-    }
-
     public static String FormatDateEpisode(String day)
     {
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
@@ -180,5 +184,28 @@ public class Helpers
 
         SimpleDateFormat formatDay = new SimpleDateFormat("MMM d - yyyy");
         return formatDay.format(date);
+    }
+
+    public static String GetDateFormatForTabs(Context cxt, String workingDate)
+    {
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date date = null;
+        try
+        {
+            date = dt.parse(workingDate);
+        }
+        catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+
+        SimpleDateFormat sdfDay = new SimpleDateFormat("EEEE");
+        String day = GetCorrectDayFormat(cxt, sdfDay.format(date));
+
+        SimpleDateFormat sdfMonth = new SimpleDateFormat("d");
+        String month = sdfMonth.format(date);
+
+        return String.format("%s %s",day, month);
     }
 }

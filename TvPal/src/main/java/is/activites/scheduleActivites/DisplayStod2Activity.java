@@ -49,7 +49,11 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
     private EventAdapter _adapterView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        if (savedInstanceState == null)
+            return;
+
         super.onCreate(savedInstanceState);
 
         Initialize();
@@ -60,7 +64,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
         _todaySchedule = new ArrayList<EventData>();
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-        setTitle(String.format("%s: %s", getResources().getString(R.string.stod), Helpers.SetDayFormat(this, _workingDate)));
+        setTitle(String.format("%s: %s", getResources().getString(R.string.stod), Helpers.SetICEDayFormat(this, _workingDate)));
 
         Intent intent = getIntent();
 
@@ -107,7 +111,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
                 break;
         }
 
-        setTitle(String.format("%s: %s", getResources().getString(R.string.ruv), Helpers.SetDayFormat(this, _workingDate)));
+        setTitle(String.format("%s: %s", getResources().getString(R.string.ruv), Helpers.SetICEDayFormat(this, _workingDate)));
     }
 
     private void SwipeRightEvent()
