@@ -25,7 +25,7 @@ import is.activites.showActivities.RecentShowsActivity;
 import is.activites.showActivities.SearchTvShowActivity;
 import is.activites.showActivities.UpcomingShowsActivity;
 import is.datacontracts.DrawerListData;
-import is.handlers.adapters.CustomDrawerListAdapter;
+import is.handlers.adapters.DrawerListAdapter;
 import is.rules.ConnectionListener;
 import is.rules.Helpers;
 import is.tvpal.R;
@@ -77,7 +77,7 @@ public class MainActivity extends Activity
         options.add(new DrawerListData(getString(R.string.recent_shows), R.drawable.recent_64));
 
         _DrawerList.setAdapter(
-                new CustomDrawerListAdapter(this, R.layout.navigation_drawer, options)
+                new DrawerListAdapter(this, R.layout.navigation_drawer, options)
         );
         _DrawerList.setOnItemClickListener(new DrawerItemClickListener());
 

@@ -17,7 +17,7 @@ import is.tvpal.R;
 /**
  * Created by Þorsteinn on 14.10.2013.
  */
-public class CustomDrawerListAdapter extends BaseAdapter
+public class DrawerListAdapter extends BaseAdapter
 {
     private Context context;
     private int layoutResourceId;
@@ -28,7 +28,7 @@ public class CustomDrawerListAdapter extends BaseAdapter
      @param layoutResourceId The id of the xml layout
      @param options List of Service
      */
-    public CustomDrawerListAdapter(Context context, int layoutResourceId, List<DrawerListData> options)
+    public DrawerListAdapter(Context context, int layoutResourceId, List<DrawerListData> options)
     {
         this.context = context;
         this.layoutResourceId = layoutResourceId;
