@@ -37,7 +37,7 @@ public class DbShowHandler extends SQLiteOpenHelper
     //Columns in episodes
     private static final String KEY_E_EPISODEID = "episodeId";
     private static final String KEY_E_SERIESID = "seriesId";
-    private static final String KEY_E_SEASON = "season";
+    public static final String KEY_E_SEASON = "season";
     private static final String KEY_E_EPISODE = "episode";
     private static final String KEY_E_EPISODENAME = "episodeName";
     private static final String KEY_E_OVERVIEW = "overview";
@@ -205,34 +205,6 @@ public class DbShowHandler extends SQLiteOpenHelper
         db.close();
     }
 
-    public List<EpisodeData> GetAllSeasons(String seriesId)
-    {
-        List<EpisodeData> episodeList= new ArrayList<EpisodeData>();
-
-        String selectQuery = "SELECT distinct season FROM " + TABLE_EPISODES + " WHERE seriesId = " + seriesId + " order by season+0 desc";
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        cursor.moveToFirst();//Loop through all entities
-        while (!cursor.isAfterLast())
-        {
-            try
-            {
-                EpisodeData episode= new EpisodeData();
-
-                episode.setSeasonNumber(cursor.getString(0));
-                episodeList.add(episode);
-                cursor.moveToNext();
-            }
-            catch (Exception ex)
-            {
-                ex.getMessage();
-            }
-        }
-
-        return episodeList;
-    }
-
     public List<EpisodeData> GetEpisodesBySeason(String seriesId, String seasonNumber)
     {
         List<EpisodeData> episodeList = new ArrayList<EpisodeData>();
@@ -369,5 +341,17 @@ public class DbShowHandler extends SQLiteOpenHelper
         }
 
         return episodeList;
+    }
+
+    public Cursor GetCursor(String seriesId)
+    {
+        String selectQuery = "SELECT distinct season as _id, season FROM " + TABLE_EPISODES + " WHERE seriesId = " + seriesId + " order by season+0 desc";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+
+        return cursor;
     }
 }
