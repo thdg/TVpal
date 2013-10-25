@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import is.datacontracts.EpisodeData;
 import is.handlers.adapters.SeasonAdapter;
 import is.handlers.database.DbShowHandler;
 
@@ -43,7 +41,7 @@ public class SeasonsActivity extends ListActivity implements  AdapterView.OnItem
         lv.setOnItemClickListener(this);
 
         DbShowHandler _db = new DbShowHandler(this);
-        _adapter= new SeasonAdapter(this, _db.GetCursor(_seriesId), 0);
+        _adapter= new SeasonAdapter(this, _db.GetCursorSeasons(_seriesId), 0);
         setListAdapter(_adapter);
     }
 

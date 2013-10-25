@@ -4,38 +4,30 @@ package is.handlers.adapters;
  * Created by Arnar on 18.10.2013.
  */
 
-import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
+import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
-import java.util.List;
-import is.datacontracts.EpisodeData;
-import is.handlers.database.DbShowHandler;
+
 import is.rules.Helpers;
 import is.tvpal.R;
 
-/**
- * Created by Arnar on 17.10.2013.
- */
+public class EpisodeAdapter extends CursorAdapter {
 
-public class EpisodeAdapter extends BaseAdapter
-{
-    private Context context;
-    private int layoutResourceId;
-    private List<EpisodeData> schedule;
+    private static final int LAYOUT = R.layout.listview_episodes;
 
-    public EpisodeAdapter(Context context, int layoutResourceId, List<EpisodeData> schedule)
+    private LayoutInflater mLayoutInflater;
+
+    public EpisodeAdapter(Context context, Cursor c, int flags)
     {
-        this.context = context;
-        this.layoutResourceId = layoutResourceId;
-        this.schedule = schedule;
+        super(context, c, flags);
+        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    static class EventHolder
+    static class ViewHolder
     {
         TextView numberOfEpisode;
         TextView name;
@@ -45,50 +37,48 @@ public class EpisodeAdapter extends BaseAdapter
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        View row = convertView;
-        final EventHolder holder;
-
-        if(row == null)
+        if (!mDataValid)
         {
-            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-            row = inflater.inflate(layoutResourceId, parent, false);
+            throw new IllegalStateException("Only call when cursor is valid");
+        }
+        if (!mCursor.moveToPosition(position))
+        {
+            throw new IllegalStateException("Failed to move cursor to position  " + position);
+        }
 
-            holder = new EventHolder();
-            holder.numberOfEpisode = (TextView) row.findViewById(R.id.numberOfEpisode);
-            holder.name = (TextView) row.findViewById(R.id.episodeName);
-            holder.aired = (TextView) row.findViewById(R.id.aired);
+        final ViewHolder viewHolder;
 
-            row.setTag(holder);
+        if (convertView == null)
+        {
+            convertView = newView(mContext, mCursor, parent);
+
+            viewHolder = new ViewHolder();
+            viewHolder.numberOfEpisode = (TextView) convertView.findViewById(R.id.numberOfEpisode);
+            viewHolder.name = (TextView) convertView.findViewById(R.id.episodeName);
+            viewHolder.aired = (TextView) convertView.findViewById(R.id.aired);
+
+            convertView.setTag(viewHolder);
         }
         else
         {
-            holder = (EventHolder)row.getTag();
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        final EpisodeData dataContract = schedule.get(position);
+        viewHolder.numberOfEpisode.setText(String.format("%s:", mCursor.getString(3)));
+        viewHolder.name.setText(mCursor.getString(4));
+        viewHolder.aired.setText(Helpers.FormatDateEpisode(mCursor.getString(5)));
 
-        holder.numberOfEpisode.setText(String.format("%s:", dataContract.getEpisodeNumber()));
-        holder.name.setText(dataContract.getEpisodeName());
-        holder.aired.setText(Helpers.FormatDateEpisode(dataContract.getAired()));
-
-        return row;
+        return convertView;
     }
 
     @Override
-    public int getCount()
+    public void bindView(View view, Context context, Cursor cursor)
     {
-        return (schedule == null) ? 0 : schedule.size();
     }
 
     @Override
-    public EpisodeData getItem(int position)
+    public View newView(Context context, Cursor cursor, ViewGroup parent)
     {
-        return schedule.get(position);
-    }
-
-    @Override
-    public long getItemId(int position)
-    {
-        return schedule.indexOf(getItem(position));
+        return mLayoutInflater.inflate(LAYOUT, parent, false);
     }
 }

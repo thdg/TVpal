@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import is.tvpal.R;
 
-public class SeasonAdapter extends CursorAdapter {
-
+public class SeasonAdapter extends CursorAdapter
+{
     private static final int LAYOUT = R.layout.listview_season;
 
     private LayoutInflater mLayoutInflater;
