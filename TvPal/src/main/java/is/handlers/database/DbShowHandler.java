@@ -231,9 +231,15 @@ public class DbShowHandler extends SQLiteOpenHelper
         return episodeList;
     }
 
+    /*
+    *
+        Cursors
+     *
+     */
+
     public Cursor GetCursorSeasons(String seriesId)
     {
-        String selectQuery = "SELECT distinct season as _id, season FROM " + TABLE_EPISODES + " WHERE seriesId = " + seriesId + " order by season+0 desc";
+        String selectQuery = "SELECT distinct season as _id, season, seriesId FROM " + TABLE_EPISODES + " WHERE seriesId = " + seriesId + " order by season+0 desc";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -295,5 +301,33 @@ public class DbShowHandler extends SQLiteOpenHelper
 
         cursor.moveToFirst();
         return cursor;
+    }
+
+    /*
+        Database queries
+     */
+
+    public int GetTotalSeasonCount(String seriesId, String season)
+    {
+        String selectQuery = String.format("select count(*) from %s " +
+                "where seriesId = '%s' and season = '%s'", TABLE_EPISODES, seriesId, season);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        return cursor.getInt(0);
+    }
+
+    public int GetTotalSeasonSeen(String seriesId, String season)
+    {
+        String selectQuery = String.format("select count(*) from %s " +
+                "where seriesId = '%s' and season = '%s' and seen = '1'", TABLE_EPISODES, seriesId, season);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        return cursor.getInt(0);
     }
 }
