@@ -17,9 +17,19 @@
         android:layout_height="wrap_content"
         android:maxWidth="270sp"
         android:layout_toRightOf="@+id/numberOfEpisode"
-        android:textSize="22sp"
+        android:layout_toLeftOf="@+id/setEpisodeSeen"
+        android:textSize="18sp"
         android:paddingLeft="10sp"
         android:text="Episode:"/>
+
+    <CheckBox
+        android:button="@drawable/eye_checkbox_small"
+        android:id="@+id/setEpisodeSeen"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentRight="true"
+        android:focusable="false"/>
 
     <TextView
         android:id="@+id/aired"

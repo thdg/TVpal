@@ -251,7 +251,7 @@ public class DbShowHandler extends SQLiteOpenHelper
 
     public Cursor GetCursorEpisodes(String seriesId, String seasonNumber)
     {
-        String selectQuery = String.format("select episodeId as _id, seriesId, season, episode, episodeName, aired " +
+        String selectQuery = String.format("select episodeId as _id, seriesId, season, episode, episodeName, aired, seen " +
                 "from episodes where seriesId = %s and season = %s", seriesId, seasonNumber);
 
         SQLiteDatabase db = this.getWritableDatabase();

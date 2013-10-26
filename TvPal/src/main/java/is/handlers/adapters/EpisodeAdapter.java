@@ -10,8 +10,10 @@ import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
+import is.handlers.database.DbShowHandler;
 import is.rules.Helpers;
 import is.tvpal.R;
 
@@ -20,11 +22,13 @@ public class EpisodeAdapter extends CursorAdapter {
     private static final int LAYOUT = R.layout.listview_episodes;
 
     private LayoutInflater mLayoutInflater;
+    private DbShowHandler db;
 
     public EpisodeAdapter(Context context, Cursor c, int flags)
     {
         super(context, c, flags);
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.db = new DbShowHandler(context);
     }
 
     static class ViewHolder
@@ -32,6 +36,7 @@ public class EpisodeAdapter extends CursorAdapter {
         TextView numberOfEpisode;
         TextView name;
         TextView aired;
+        CheckBox checkShowSeen;
     }
 
     @Override
@@ -56,6 +61,7 @@ public class EpisodeAdapter extends CursorAdapter {
             viewHolder.numberOfEpisode = (TextView) convertView.findViewById(R.id.numberOfEpisode);
             viewHolder.name = (TextView) convertView.findViewById(R.id.episodeName);
             viewHolder.aired = (TextView) convertView.findViewById(R.id.aired);
+            viewHolder.checkShowSeen = (CheckBox) convertView.findViewById(R.id.setEpisodeSeen);
 
             convertView.setTag(viewHolder);
         }
@@ -63,6 +69,12 @@ public class EpisodeAdapter extends CursorAdapter {
         {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
+        viewHolder.checkShowSeen.setEnabled(false);
+
+        String showSeen = mCursor.getString(6);
+        if (showSeen.equalsIgnoreCase("1"))
+            viewHolder.checkShowSeen.setChecked(true);
 
         viewHolder.numberOfEpisode.setText(String.format("%s:", mCursor.getString(3)));
         viewHolder.name.setText(mCursor.getString(4));
