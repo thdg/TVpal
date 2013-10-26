@@ -17,7 +17,7 @@ import android.widget.TextView;
 import java.util.HashMap;
 
 import is.handlers.database.DbShowHandler;
-import is.rules.Helpers;
+import is.utilities.Helpers;
 import is.tvpal.R;
 
 public class ActivityAdapter extends CursorAdapter

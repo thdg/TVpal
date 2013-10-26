@@ -14,7 +14,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import is.handlers.database.DbShowHandler;
-import is.rules.Helpers;
+import is.utilities.Helpers;
 import is.tvpal.R;
 
 public class EpisodeAdapter extends CursorAdapter {

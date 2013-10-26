@@ -26,8 +26,8 @@ import is.activites.showActivities.SearchTvShowActivity;
 import is.activites.showActivities.UpcomingShowsActivity;
 import is.datacontracts.DrawerListData;
 import is.handlers.adapters.DrawerListAdapter;
-import is.rules.ConnectionListener;
-import is.rules.Helpers;
+import is.utilities.ConnectionListener;
+import is.utilities.Helpers;
 import is.tvpal.R;
 
 /**

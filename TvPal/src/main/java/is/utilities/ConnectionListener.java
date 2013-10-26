@@ -1,4 +1,4 @@
-package is.rules;
+package is.utilities;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

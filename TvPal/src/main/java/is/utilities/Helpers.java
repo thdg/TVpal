@@ -1,4 +1,4 @@
-package is.rules;
+package is.utilities;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;

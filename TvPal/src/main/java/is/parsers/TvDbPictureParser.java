@@ -1,6 +1,5 @@
 package is.parsers;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -8,15 +7,12 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import is.datacontracts.EpisodeData;
-import is.handlers.database.DbShowHandler;
-import is.rules.BitmapProperties;
+import is.utilities.BitmapProperties;
 
 /**
  * Created by Arnar on 12.10.2013.

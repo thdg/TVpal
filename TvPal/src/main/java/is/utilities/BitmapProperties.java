@@ -1,4 +1,4 @@
-package is.rules;
+package is.utilities;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;

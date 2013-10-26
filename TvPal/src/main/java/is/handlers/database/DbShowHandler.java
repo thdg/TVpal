@@ -94,13 +94,30 @@ public class DbShowHandler extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(KEY_S_SERIESID, series.getSeriesId());
-        values.put(KEY_S_NAME, series.getTitle());
-        values.put(KEY_S_OVERVIEW, series.getOverview());
-        values.put(KEY_S_NETWORK, series.getNetwork());
+        if (db != null)
+        {
+            db.beginTransaction();
+            try
+            {
+                ContentValues values = new ContentValues();
+                values.put(KEY_S_SERIESID, series.getSeriesId());
+                values.put(KEY_S_NAME, series.getTitle());
+                values.put(KEY_S_OVERVIEW, series.getOverview());
+                values.put(KEY_S_NETWORK, series.getNetwork());
 
-        db.insert(TABLE_SERIES, null, values);
+                db.insert(TABLE_SERIES, null, values);
+                db.setTransactionSuccessful();
+            }
+            catch (Exception ex)
+            {
+                //TODO: Implement error handling
+            }
+            finally
+            {
+                db.endTransaction();
+            }
+        }
+
         db.close();
     }
 
@@ -176,10 +193,13 @@ public class DbShowHandler extends SQLiteOpenHelper
             }
             catch (Exception ex)
             {
+                //TODO: Implement error handling
+            }
+            finally
+            {
                 db.endTransaction();
             }
 
-            db.endTransaction();
             db.close();
         }
     }

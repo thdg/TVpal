@@ -12,16 +12,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import is.activites.MainActivity;
 import is.datacontracts.EventData;
 import is.handlers.adapters.EventAdapter;
 import is.parsers.Stod2ScheduleParser;
-import is.rules.Helpers;
+import is.utilities.Helpers;
 import is.tvpal.R;
 import is.handlers.SwipeGestureFilter;
 

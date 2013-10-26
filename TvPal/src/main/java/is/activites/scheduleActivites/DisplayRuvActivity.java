@@ -21,7 +21,7 @@ import is.datacontracts.EventData;
 import is.handlers.adapters.EventAdapter;
 import is.handlers.SwipeGestureFilter;
 import is.parsers.RuvScheduleParser;
-import is.rules.Helpers;
+import is.utilities.Helpers;
 import is.tvpal.R;
 
 /**

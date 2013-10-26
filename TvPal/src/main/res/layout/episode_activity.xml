@@ -28,7 +28,8 @@
             android:id="@+id/episodePicture"
             android:layout_width="fill_parent"
             android:layout_height="160sp"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_episode"/>
 
         <CheckBox
             android:button="@drawable/eye_checkbox_small"

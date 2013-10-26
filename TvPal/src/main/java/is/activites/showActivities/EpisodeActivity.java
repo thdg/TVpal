@@ -18,7 +18,8 @@ import is.datacontracts.EpisodeData;
 import is.handlers.SwipeGestureFilter;
 import is.handlers.database.DbShowHandler;
 import is.parsers.TvDbPictureParser;
-import is.rules.Helpers;
+import is.utilities.ConnectionListener;
+import is.utilities.Helpers;
 import is.tvpal.R;
 
 public class EpisodeActivity extends Activity implements SwipeGestureFilter.SimpleGestureListener
@@ -32,6 +33,7 @@ public class EpisodeActivity extends Activity implements SwipeGestureFilter.Simp
     private String _episodeNr;
     private ImageView _episodePicture;
     private CheckBox _episodeSeen;
+    private ConnectionListener _connection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -62,6 +64,7 @@ public class EpisodeActivity extends Activity implements SwipeGestureFilter.Simp
             }
         });
 
+        _connection = new ConnectionListener();
         _db = new DbShowHandler(this);
         _detector = new SwipeGestureFilter(this,this);
         _episode = new EpisodeData();
@@ -95,16 +98,21 @@ public class EpisodeActivity extends Activity implements SwipeGestureFilter.Simp
 
     private void SetTextInTextViews()
     {
-        if(_episode.getPicture() != null)
+        if (_connection.isNetworkAvailable(this))
         {
-            _episodePicture.setImageBitmap(_episode.getPicture());
+            if(_episode.getPicture() != null)
+            {
+                _episodePicture.setImageBitmap(_episode.getPicture());
+            }
+            else
+            {
+                _episodePicture.setImageResource(R.drawable.default_episode);
+                String apiUrl = String.format("http://thetvdb.com/api/9A96DA217CEB03E7/episodes/%s", _episode.getEpisodeId());
+                new DownloadPicture(_episode).execute(apiUrl);
+            }
         }
         else
-        {
-            _episodePicture.setImageBitmap(null);
-            String apiUrl = String.format("http://thetvdb.com/api/9A96DA217CEB03E7/episodes/%s", _episode.getEpisodeId());
-            new DownloadPicture(_episode).execute(apiUrl);
-        }
+            _episodePicture.setImageResource(R.drawable.default_episode);
 
         TextView _episodeTitle = (TextView) findViewById(R.id.episodeTitle);
         TextView _episodeAired = (TextView) findViewById(R.id.episodeAired);

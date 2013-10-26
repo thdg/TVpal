@@ -27,7 +27,7 @@ import java.util.List;
 import is.datacontracts.EventData;
 import is.handlers.adapters.EventAdapter;
 import is.parsers.SkjarinnScheduleParser;
-import is.rules.Helpers;
+import is.utilities.Helpers;
 import is.tvpal.R;
 
 /**
