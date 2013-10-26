@@ -135,6 +135,8 @@ public class SearchShowAdapter extends BaseAdapter
         {
             if (result.equalsIgnoreCase("Successful"))
                 Toast.makeText(ctx, String.format("Added %s your shows", show.getTitle()), Toast.LENGTH_SHORT).show();
+            else if (result.equalsIgnoreCase("Problem"))
+                Toast.makeText(ctx, "Whoops, something went wrong", Toast.LENGTH_SHORT).show();
         }
 
         private String GetEpisodes(String myurl) throws IOException
@@ -148,13 +150,12 @@ public class SearchShowAdapter extends BaseAdapter
                 TvDbEpisodeParser parser = new TvDbEpisodeParser(myurl, context, show.getSeriesId());
                 List<EpisodeData> episodes = parser.GetEpisodes();
 
-                for (EpisodeData e : episodes)
-                    db.AddEpisode(e);
+                db.AddSeries(show);
+                db.AddEpisodes(episodes);
             }
             catch (Exception ex)
             {
                 db.RemoveShow(show.getSeriesId());
-                Toast.makeText(context, "Whoops, something went wrong", Toast.LENGTH_SHORT).show();
                 return "Problem";
             }
 

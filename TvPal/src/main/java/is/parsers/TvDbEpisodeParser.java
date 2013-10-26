@@ -38,34 +38,19 @@ public class TvDbEpisodeParser extends DefaultHandler {
         this.seriesId = seriesId;
     }
 
-    public List<EpisodeData> GetEpisodes()
+    public List<EpisodeData> GetEpisodes() throws IOException, SAXException, ParserConfigurationException
     {
         parseDocument();
 
         return this.episodes;
     }
 
-    private void parseDocument()
+    private void parseDocument() throws ParserConfigurationException, SAXException, IOException
     {
         SAXParserFactory factory = SAXParserFactory.newInstance();
+        SAXParser parser = factory.newSAXParser();
+        parser.parse(baseURL, this);
 
-        try
-        {
-            SAXParser parser = factory.newSAXParser();
-            parser.parse(baseURL, this);
-        }
-        catch (ParserConfigurationException e)
-        {
-            e.printStackTrace();
-        }
-        catch (SAXException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
     }
 
     @Override

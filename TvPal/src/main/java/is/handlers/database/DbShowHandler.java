@@ -147,24 +147,41 @@ public class DbShowHandler extends SQLiteOpenHelper
         return bmp;
     }
 
-    public void AddEpisode(EpisodeData episode)
+    public void AddEpisodes(List<EpisodeData> episodes)
     {
         SQLiteDatabase db = this.getWritableDatabase();
+        if (db != null)
+        {
+            db.beginTransaction();
+            try
+            {
+                for (EpisodeData episode : episodes)
+                {
+                    ContentValues values = new ContentValues();
+                    values.put(KEY_E_EPISODEID, episode.getEpisodeId());
+                    values.put(KEY_S_SERIESID, episode.getSeriesId());
+                    values.put(KEY_E_SEASON, episode.getSeasonNumber());
+                    values.put(KEY_E_EPISODE, episode.getEpisodeNumber());
+                    values.put(KEY_E_EPISODENAME, episode.getEpisodeName());
+                    values.put(KEY_E_AIRED, episode.getAired());
+                    values.put(KEY_S_OVERVIEW, episode.getOverview());
+                    values.put(KEY_E_SEEN, "0");
+                    values.put(KEY_E_DIRECTOR, episode.getDirector());
+                    values.put(KEY_E_RATING, episode.getRating());
 
-        ContentValues values = new ContentValues();
-        values.put(KEY_E_EPISODEID, episode.getEpisodeId());
-        values.put(KEY_S_SERIESID, episode.getSeriesId());
-        values.put(KEY_E_SEASON, episode.getSeasonNumber());
-        values.put(KEY_E_EPISODE, episode.getEpisodeNumber());
-        values.put(KEY_E_EPISODENAME, episode.getEpisodeName());
-        values.put(KEY_E_AIRED, episode.getAired());
-        values.put(KEY_S_OVERVIEW, episode.getOverview());
-        values.put(KEY_E_SEEN, "0");
-        values.put(KEY_E_DIRECTOR, episode.getDirector());
-        values.put(KEY_E_RATING, episode.getRating());
+                    db.insert(TABLE_EPISODES, null, values);
+                }
 
-        db.insert(TABLE_EPISODES, null, values);
-        db.close();
+                db.setTransactionSuccessful();
+            }
+            catch (Exception ex)
+            {
+                db.endTransaction();
+            }
+
+            db.endTransaction();
+            db.close();
+        }
     }
 
     public void UpdateEpisodeSeen(String episodeId)

@@ -19,8 +19,8 @@ public class TvDbShowParser extends DefaultHandler {
 
     private String baseURL;
     private List<ShowData> shows;
-    private String tmpValue;
     private ShowData showTmp;
+    private StringBuilder sb;
 
     public TvDbShowParser(String baseUrl)
     {
@@ -59,10 +59,14 @@ public class TvDbShowParser extends DefaultHandler {
     }
 
     @Override
-    public void startElement(String s, String s1, String elementName, Attributes attributes) throws SAXException
+    public void startElement(String s, String s1, String element, Attributes attributes) throws SAXException
     {
-        if (elementName.equalsIgnoreCase("Series"))
+        if (element.equalsIgnoreCase("Series"))
             showTmp = new ShowData();
+
+        if(element.equalsIgnoreCase("seriesid") || element.equalsIgnoreCase("SeriesName")
+          || element.equalsIgnoreCase("Overview") || element.equalsIgnoreCase("Network"))
+            sb = new StringBuilder();
     }
 
     @Override
@@ -72,21 +76,38 @@ public class TvDbShowParser extends DefaultHandler {
             shows.add(showTmp);
 
         if (element.equalsIgnoreCase("seriesid"))
-            showTmp.setSeriesId(tmpValue);
+        {
+            showTmp.setSeriesId(sb.toString());
+            sb = null;
+        }
 
         if (element.equalsIgnoreCase("SeriesName"))
-            showTmp.setTitle(tmpValue);
+        {
+            showTmp.setTitle(sb.toString());
+            sb = null;
+        }
 
         if (element.equalsIgnoreCase("Overview"))
-            showTmp.setOverview(tmpValue);
+        {
+            showTmp.setOverview(sb.toString());
+            sb = null;
+        }
 
         if (element.equalsIgnoreCase("Network"))
-            showTmp.setNetwork(tmpValue);
+        {
+            showTmp.setNetwork(sb.toString());
+            sb = null;
+        }
     }
 
     @Override
     public void characters(char[] ac, int i, int j) throws SAXException
     {
-        tmpValue = new String(ac, i, j);
+        if(sb != null)
+        {
+            for (int k= i; k<i+j; k++) {
+                sb.append(ac[k]);
+            }
+        }
     }
 }
