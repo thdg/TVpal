@@ -137,63 +137,69 @@ public class MainActivity extends Activity
         try
         {
             boolean networkAvailable = _connectivityListener.isNetworkAvailable(this);
+            Intent intent = null;
 
-            if(networkAvailable)
+            if((position >= 0 && position < 7))
             {
-                Intent intent;
-                switch (position)
+                if(networkAvailable)
                 {
-                    case 0:
-                        intent = new Intent(this, DisplayRuvActivity.class);
-                        break;
-                    case 1:
-                        intent = new Intent(this, DisplayStod2Activity.class);
-                        intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BaseUrl));
-                        break;
-                    case 2:
-                        intent = new Intent(this, DisplayStod2Activity.class);
-                        intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2SportBaseUrl));
-                        break;
-                    case 3:
-                        intent = new Intent(this, DisplayStod2Activity.class);
-                        intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BioBaseUrl));
-                        break;
-                    case 4:
-                        intent = new Intent(this, DisplayStod2Activity.class);
-                        intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod3BaseUrl));
-                        break;
-                    case 5:
-                        intent = new Intent(this, DisplaySkjarinnActivity.class);
-                        break;
-                    case 6:
-                        intent = new Intent(this, SearchTvShowActivity.class);
-                        break;
-                    case 7:
-                        intent = new Intent(this, MyShowsActivity.class);
-                        break;
-                    case 8:
-                        intent = new Intent(this, UpcomingShowsActivity.class);
-                        break;
-                    case 9:
-                        intent = new Intent(this, RecentShowsActivity.class);
-                        break;
-                    default:
-                        intent = new Intent(this, MainActivity.class);
+                    switch (position)
+                    {
+                        case 0:
+                            intent = new Intent(this, DisplayRuvActivity.class);
+                            break;
+                        case 1:
+                            intent = new Intent(this, DisplayStod2Activity.class);
+                            intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BaseUrl));
+                            break;
+                        case 2:
+                            intent = new Intent(this, DisplayStod2Activity.class);
+                            intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2SportBaseUrl));
+                            break;
+                        case 3:
+                            intent = new Intent(this, DisplayStod2Activity.class);
+                            intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BioBaseUrl));
+                            break;
+                        case 4:
+                            intent = new Intent(this, DisplayStod2Activity.class);
+                            intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod3BaseUrl));
+                            break;
+                        case 5:
+                            intent = new Intent(this, DisplaySkjarinnActivity.class);
+                            break;
+                        case 6:
+                            intent = new Intent(this, SearchTvShowActivity.class);
+                            break;
+                    }
                 }
-
-                _DrawerList.setItemChecked(position, true);
-                _DrawerLayout.closeDrawer(_DrawerList);
-
-                startActivity(intent);
+                else
+                {
+                    Helpers.showNetworkAlertDialog(this);
+                    return; //So the navigation bar stays open
+                }
             }
-            else
+
+            switch (position)
             {
-                Helpers.showNetworkAlertDialog(this);
+                case 7:
+                    intent = new Intent(this, MyShowsActivity.class);
+                    break;
+                case 8:
+                    intent = new Intent(this, UpcomingShowsActivity.class);
+                    break;
+                case 9:
+                    intent = new Intent(this, RecentShowsActivity.class);
+                    break;
             }
+
+            _DrawerList.setItemChecked(position, true);
+            _DrawerLayout.closeDrawer(_DrawerList);
+
+            startActivity(intent);
         }
         catch (Exception ex)
         {
-            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 }
