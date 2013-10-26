@@ -51,9 +51,6 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        if (savedInstanceState == null)
-            return;
-
         super.onCreate(savedInstanceState);
 
         Initialize();
@@ -62,9 +59,6 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
     private void Initialize()
     {
         _todaySchedule = new ArrayList<EventData>();
-        _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-
-        setTitle(String.format("%s: %s", getResources().getString(R.string.stod), Helpers.SetICEDayFormat(this, _workingDate)));
 
         Intent intent = getIntent();
 
@@ -111,7 +105,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
                 break;
         }
 
-        setTitle(String.format("%s: %s", getResources().getString(R.string.ruv), Helpers.SetICEDayFormat(this, _workingDate)));
+        setTitle(Helpers.SetICEDayFormat(this, _workingDate));
     }
 
     private void SwipeRightEvent()
@@ -193,6 +187,8 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
         @Override
         protected void onPostExecute(String result)
         {
+            setTitle(Helpers.SetICEDayFormat(ctx, _workingDate));
+
             _adapterView = new EventAdapter(ctx, R.layout.listview_event, _todaySchedule);
             setListAdapter(_adapterView);
             _waitingDialog.dismiss();
@@ -204,6 +200,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
             {
                 Stod2ScheduleParser parser = new Stod2ScheduleParser(myurl);
                 _events = parser.GetSchedules();
+                _workingDate = _events.get(0).getEventDate();
 
                 for (EventData e : _events)
                 {
