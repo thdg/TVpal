@@ -12,6 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import is.handlers.database.DbShowHandler;
 import is.utilities.Helpers;
@@ -23,12 +27,17 @@ public class EpisodeAdapter extends CursorAdapter {
 
     private LayoutInflater mLayoutInflater;
     private DbShowHandler db;
+    private List<Boolean> mCheckedShows = new ArrayList<Boolean>();
 
     public EpisodeAdapter(Context context, Cursor c, int flags)
     {
         super(context, c, flags);
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.db = new DbShowHandler(context);
+
+        for(int i = 0; i < this.getCount(); i++) {
+            mCheckedShows.add(i, false);
+        }
     }
 
     static class ViewHolder
@@ -70,11 +79,22 @@ public class EpisodeAdapter extends CursorAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.checkShowSeen.setEnabled(false);
+        final String episodeId = mCursor.getString(0);
+
+        viewHolder.checkShowSeen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.UpdateEpisodeSeen(episodeId);
+            }
+        });
 
         String showSeen = mCursor.getString(6);
         if (showSeen.equalsIgnoreCase("1"))
-            viewHolder.checkShowSeen.setChecked(true);
+        {
+            mCheckedShows.set(position, true);
+        }
+
+        viewHolder.checkShowSeen.setChecked(mCheckedShows.get(position));
 
         viewHolder.numberOfEpisode.setText(String.format("%s:", mCursor.getString(3)));
         viewHolder.name.setText(mCursor.getString(4));
