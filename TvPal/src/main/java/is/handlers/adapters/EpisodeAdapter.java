@@ -28,12 +28,16 @@ public class EpisodeAdapter extends CursorAdapter {
     private LayoutInflater mLayoutInflater;
     private DbShowHandler db;
     private List<Boolean> mCheckedShows = new ArrayList<Boolean>();
+    private String seriesId;
+    private String season;
 
-    public EpisodeAdapter(Context context, Cursor c, int flags)
+    public EpisodeAdapter(Context context, Cursor c, int flags, String seriesId, String season)
     {
         super(context, c, flags);
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.db = new DbShowHandler(context);
+        this.season = season;
+        this.seriesId = seriesId;
 
         for(int i = 0; i < this.getCount(); i++) {
             mCheckedShows.add(i, false);
@@ -83,8 +87,10 @@ public class EpisodeAdapter extends CursorAdapter {
 
         viewHolder.checkShowSeen.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 db.UpdateEpisodeSeen(episodeId);
+                changeCursor(db.GetCursorEpisodes(seriesId, season));
             }
         });
 

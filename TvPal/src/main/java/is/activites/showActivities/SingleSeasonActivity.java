@@ -39,7 +39,7 @@ public class SingleSeasonActivity extends ListActivity implements AdapterView.On
         ListView lv = getListView();
         lv.setOnItemClickListener(this);
 
-        _adapter = new EpisodeAdapter(this, _db.GetCursorEpisodes(seriesId, season), 0);
+        _adapter = new EpisodeAdapter(this, _db.GetCursorEpisodes(seriesId, season), 0, seriesId, season);
         setListAdapter(_adapter);
     }
 
