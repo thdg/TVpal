@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -60,7 +61,7 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
     {
         try
         {
-            super.onCreate(savedInstanceState);
+            super.onCreate(null);
             setContentView(R.layout.tab_schedules);
 
             Initialize();
@@ -89,7 +90,13 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mScheduleAdapter);
+        try {
+            mViewPager.setAdapter(mScheduleAdapter);
+        }
+        catch (Exception ex)
+        {
+            ex.getMessage();
+        }
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position)
