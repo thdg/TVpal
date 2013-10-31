@@ -65,7 +65,7 @@ public class TvDbShowParser extends DefaultHandler {
             showTmp = new ShowData();
 
         if(element.equalsIgnoreCase("seriesid") || element.equalsIgnoreCase("SeriesName")
-          || element.equalsIgnoreCase("Overview") || element.equalsIgnoreCase("Network"))
+          || element.equalsIgnoreCase("Overview") || element.equalsIgnoreCase("Network") || element.equalsIgnoreCase("FirstAired"))
             sb = new StringBuilder();
     }
 
@@ -96,6 +96,12 @@ public class TvDbShowParser extends DefaultHandler {
         if (element.equalsIgnoreCase("Network"))
         {
             showTmp.setNetwork(sb.toString());
+            sb = null;
+        }
+
+        if (element.equalsIgnoreCase("FirstAired"))
+        {
+            showTmp.setFirstAired(sb.toString());
             sb = null;
         }
     }

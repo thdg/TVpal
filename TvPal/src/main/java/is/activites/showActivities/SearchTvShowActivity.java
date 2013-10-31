@@ -2,14 +2,23 @@ package is.activites.showActivities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
@@ -20,7 +29,7 @@ import is.handlers.adapters.SearchShowAdapter;
 import is.parsers.TvDbShowParser;
 import is.tvpal.R;
 
-public class SearchTvShowActivity extends Activity
+public class SearchTvShowActivity extends Activity implements AdapterView.OnItemClickListener
 {
     private ListView _lv;
     private EditText _editSearch;
@@ -42,6 +51,7 @@ public class SearchTvShowActivity extends Activity
         _editSearch = (EditText) findViewById(R.id.editMeh);
 
         _lv = (ListView) findViewById(R.id.lvId);
+        _lv.setOnItemClickListener(this);
 
         InitializeEditTextSearch();
     }
@@ -79,6 +89,38 @@ public class SearchTvShowActivity extends Activity
         String searchUrl = String.format("%s%s", getResources().getString(R.string.tvdbBaseUrl), userEntry);
 
         new DownloadShows(this).execute(searchUrl);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+    {
+        ShowData show = _adapterView.getItem(i);
+
+        LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = layoutInflater.inflate(R.layout.popup_show, null);
+        final PopupWindow popupWindow = new PopupWindow(popupView,
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT);
+
+        TextView showTitle = (TextView) popupView.findViewById(R.id.popupTitle);
+        TextView showOverview = (TextView) popupView.findViewById(R.id.popupOverview);
+        TextView showNetwork = (TextView) popupView.findViewById(R.id.popupNetwork);
+        TextView showFirstAired = (TextView) popupView.findViewById(R.id.popupFirstAired);
+        Button showClose = (Button) popupView.findViewById(R.id.popUpClose);
+
+        showTitle.setText(show.getTitle());
+        showOverview.setText(String.format("Overview: %s", show.getOverview()));
+        showNetwork.setText(String.format("Network: %s", show.getNetwork()));
+        showFirstAired.setText(String.format("First aired: %s", show.getFirstAired()));
+
+        popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+
+        showClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+            }
+        });
     }
 
     private class DownloadShows extends AsyncTask<String, Void, String>

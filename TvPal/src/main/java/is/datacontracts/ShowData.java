@@ -1,7 +1,5 @@
 package is.datacontracts;
 
-import android.graphics.Bitmap;
-
 /**
  * Created by Arnar on 12.10.2013.
  */
@@ -11,7 +9,7 @@ public class ShowData
     private String title;
     private String overview;
     private String network;
-    private Bitmap thumbNail;
+    private String firstAired;
 
     public String getSeriesId() { return this.seriesId; }
     public void setSeriesId(String seriesId) { this.seriesId = seriesId; }
@@ -25,13 +23,13 @@ public class ShowData
     public String getNetwork() { return this.network; }
     public void setNetwork(String network) { this.network = network; }
 
-    public Bitmap getThumbNail() { return this.thumbNail; }
-    public void setThumbNail(Bitmap thumbNail) { this.thumbNail = thumbNail; }
-
+    public String getFirstAired() { return firstAired; }
+    public void setFirstAired(String firstAired) { this.firstAired = firstAired; }
 
     @Override
     public String toString()
     {
         return this.title;
     }
+
 }
