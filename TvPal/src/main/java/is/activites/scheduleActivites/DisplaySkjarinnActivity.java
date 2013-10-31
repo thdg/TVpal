@@ -90,13 +90,7 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
-        try {
-            mViewPager.setAdapter(mScheduleAdapter);
-        }
-        catch (Exception ex)
-        {
-            ex.getMessage();
-        }
+        mViewPager.setAdapter(mScheduleAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position)
