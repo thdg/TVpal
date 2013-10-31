@@ -22,6 +22,8 @@ import is.tvpal.R;
 
 public class SearchShowAdapter extends BaseAdapter
 {
+    public static final String ApiKey = "9A96DA217CEB03E7";
+
     private Context context;
     private int layoutResourceId;
     private List<ShowData> shows;
@@ -91,8 +93,7 @@ public class SearchShowAdapter extends BaseAdapter
 
                     if (!exists)
                     {
-                        String apiKey = context.getResources().getString(R.string.apiKey);
-                        String tvDbUrl = String.format("http://thetvdb.com/api/%s/series/%s/all/en.xml", apiKey, dataContract.getSeriesId());
+                        String tvDbUrl = String.format("http://thetvdb.com/api/%s/series/%s/all/en.xml", ApiKey, dataContract.getSeriesId());
                         new DownloadEpisodes(context, dataContract).execute(tvDbUrl);
                         Toast.makeText(context, String.format("%s will be added to your shows", dataContract.getTitle()), Toast.LENGTH_SHORT).show();
                     }

@@ -12,13 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import is.handlers.database.DbShowHandler;
-import is.utilities.Helpers;
+import is.utilities.DateUtil;
 import is.tvpal.R;
 
 public class EpisodeAdapter extends CursorAdapter {
@@ -108,7 +107,7 @@ public class EpisodeAdapter extends CursorAdapter {
 
         viewHolder.numberOfEpisode.setText(String.format("%s:", mCursor.getString(3)));
         viewHolder.name.setText(mCursor.getString(4));
-        viewHolder.aired.setText(Helpers.FormatDateEpisode(mCursor.getString(5)));
+        viewHolder.aired.setText(DateUtil.FormatDateEpisode(mCursor.getString(5)));
 
         return convertView;
     }

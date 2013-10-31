@@ -1,41 +1,43 @@
 package is.activites.scheduleActivites;
 
-import android.app.ListActivity;
+import android.annotation.TargetApi;
+import android.app.ActionBar;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import is.datacontracts.EventData;
-import is.handlers.adapters.EventAdapter;
-import is.handlers.SwipeGestureFilter;
 import is.parsers.RuvScheduleParser;
-import is.utilities.Helpers;
+import is.utilities.DateUtil;
 import is.tvpal.R;
 
 /**
  * Created by Arnar
  *
  * This class handles the activity to show Rúv events.
- * It extends ListActivity to show it as a List.
- * It implements ItemClickListener to handle click events.
- * It implements SwipeGestureFilter.SimpleGestureListener to handle swipe events.
+ * It extends FragmentActivity, it shows ListActivity for each Fragment
+ * It implements ActionBar.TabListener to handle swipe between views.
  * @author Arnar
- * @see android.app.ListActivity
+ * @see import android.support.v4.app.FragmentActivity;
  */
-public class DisplayRuvActivity extends ListActivity implements AdapterView.OnItemClickListener, SwipeGestureFilter.SimpleGestureListener
+
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+public class DisplayRuvActivity extends FragmentActivity implements ActionBar.TabListener
 {
+    public static final String RuvUrl = "http://muninn.ruv.is/files/xml/ruv/";
     public static final String EXTRA_TITLE = "is.activites.TITLE";
     public static final String EXTRA_DESCRIPTION = "is.activites.DESCRIPTION";
     public static final String EXTRA_START = "is.activites.START";
@@ -43,118 +45,126 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
 
     private List<EventData> _events;
     private ProgressDialog _waitingDialog;
-    private SwipeGestureFilter _detector;
     private String _workingDate;
-    private List<EventData> _todaySchedule;
-    private EventAdapter _adapterView;
+    private SchedulePagerAdapter mScheduleAdapter;
+    private ViewPager mViewPager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        try
+        {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.tab_schedules);
 
-        Initialize();
+            Initialize();
+        }
+        catch (Exception ex)
+        {
+            Log.e(getClass().getName(), ex.getMessage());
+        }
     }
 
     private void Initialize()
     {
-        _todaySchedule = new ArrayList<EventData>();
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-
-        setTitle(String.format("%s: %s", getResources().getString(R.string.ruv), Helpers.SetICEDayFormat(this, _workingDate)));
-
-        String ruvBaseUrl = getResources().getString(R.string.ruvBaseUrl);
-        String ruvUrl = String.format("%s%s", ruvBaseUrl, Helpers.GetCorrectRuvUrlFormat());
-
+        String ruvUrl = String.format("%s%s", RuvUrl, DateUtil.GetCorrectRuvUrlFormat());
         new DownloadRuvSchedules(this).execute(ruvUrl);
-
-        ListView lv = getListView();
-        lv.setOnItemClickListener(this);
-
-        _detector = new SwipeGestureFilter(this,this);
     }
 
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void CreateTabViews()
     {
-        EventData selectedEvent = _adapterView.getItem(position);
+        mScheduleAdapter = new SchedulePagerAdapter(getSupportFragmentManager(), this);
 
-        Intent intent = new Intent(this, DetailedEventActivity.class);
-        intent.putExtra(EXTRA_DESCRIPTION, selectedEvent.getDescription());
-        intent.putExtra(EXTRA_TITLE, selectedEvent.getTitle());
-        intent.putExtra(EXTRA_START, selectedEvent.getStartTime());
-        intent.putExtra(EXTRA_DURATION, selectedEvent.getDuration());
+        final ActionBar actionBar = getActionBar();
 
-        startActivity(intent);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mScheduleAdapter);
+        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position)
+            {
+                actionBar.setSelectedNavigationItem(position);
+            }
+        });
+
+        for (int i = 0; i < mScheduleAdapter.getCount(); i++)
+        {
+            actionBar.addTab(actionBar.newTab()
+                    .setText(mScheduleAdapter.getPageTitle(i))
+                    .setTabListener(this));
+        }
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent me)
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction)
     {
-        // Call onTouchEvent of SwipeGestureFilter class
-        this._detector.onTouchEvent(me);
-        return super.dispatchTouchEvent(me);
+        mViewPager.setCurrentItem(tab.getPosition());
     }
 
     @Override
-    public void onSwipe(int direction)
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
+
+    public class SchedulePagerAdapter extends FragmentStatePagerAdapter
     {
-        switch (direction)
-        {
-            case SwipeGestureFilter.SWIPE_RIGHT :
-                SwipeRightEvent();
-                break;
+        private Context cxt;
 
-            case SwipeGestureFilter.SWIPE_LEFT :
-                SwipeLeftEvent();
-                break;
+        public SchedulePagerAdapter(FragmentManager fm, Context cxt)
+        {
+            super(fm);
+            this.cxt = cxt;
         }
 
-        setTitle(String.format("%s: %s", getResources().getString(R.string.ruv), Helpers.SetICEDayFormat(this, _workingDate)));
-    }
-
-    private void SwipeRightEvent()
-    {
-        _workingDate = Helpers.MinusOneDayToDate(_workingDate);
-
-        _todaySchedule = new ArrayList<EventData>();
-
-        for (EventData e : _events)
+        @Override
+        public Fragment getItem(int position)
         {
-            if (e.getEventDate().equalsIgnoreCase(_workingDate))
-                _todaySchedule.add(e);
+            Fragment fragment = new ScheduleFragment(cxt);
+            Bundle args = new Bundle();
+
+            String date;
+
+            if (position == 0)
+                date = _workingDate;
+            else
+                date = DateUtil.AddDaysToDate(_workingDate, position);
+
+            ArrayList<EventData> _todaySchedule = new ArrayList<EventData>();
+
+            for (EventData e : _events)
+            {
+                if (e.getEventDate().equalsIgnoreCase(date))
+                    _todaySchedule.add(e);
+            }
+
+            args.putSerializable(ScheduleFragment.ARG_SCHEDULE_DAY, _todaySchedule);
+            fragment.setArguments(args);
+            return fragment;
         }
 
-        if(_todaySchedule.size() == 0)
+        @Override
+        public int getCount()
         {
-            Toast.makeText(this, getResources().getString(R.string.scheduleNotAvailable), Toast.LENGTH_SHORT).show();
-            _workingDate = Helpers.AddOneDayToDate(_workingDate); //Add one day, so we don't go over the limit
-            return;
+            //TODO: Hardcoded length for now
+            return 6;
         }
 
-        _adapterView = new EventAdapter(this, R.layout.listview_event, _todaySchedule);
-        setListAdapter(_adapterView);
-    }
-
-    private void SwipeLeftEvent()
-    {
-        _workingDate = Helpers.AddOneDayToDate(_workingDate);
-
-        _todaySchedule = new ArrayList<EventData>();
-
-        for (EventData e : _events)
+        @Override
+        public CharSequence getPageTitle(int position)
         {
-            if (e.getEventDate().equalsIgnoreCase(_workingDate))
-                _todaySchedule.add(e);
+            //TODO: Find better way to set tab titles, this is very gay
+            if (position == 0)
+                return DateUtil.GetDateFormatForTabs(cxt, _workingDate);
+            else
+            {
+                String date = DateUtil.AddDaysToDate(_workingDate, position);
+                return DateUtil.GetDateFormatForTabs(cxt, date);
+            }
         }
-
-        if(_todaySchedule.size() == 0)
-        {
-            Toast.makeText(this, getResources().getString(R.string.scheduleNotAvailable), Toast.LENGTH_SHORT).show();
-            _workingDate = Helpers.MinusOneDayToDate(_workingDate); //Minus one day, so we don't go over the limit
-            return;
-        }
-
-        _adapterView = new EventAdapter(this, R.layout.listview_event, _todaySchedule);
-        setListAdapter(_adapterView);
     }
 
     private class DownloadRuvSchedules extends AsyncTask<String, Void, String>
@@ -175,6 +185,7 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
             }
             catch (IOException e)
             {
+                Log.e(getClass().getName(), e.getMessage());
                 return "Unable to retrieve web page. URL may be invalid";
             }
         }
@@ -183,15 +194,15 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
         protected void onPreExecute()
         {
             _waitingDialog = new ProgressDialog(ctx);
-            _waitingDialog.setMessage(ctx.getResources().getString(R.string.loadingSchedule));
+            _waitingDialog.setMessage(ctx.getString(R.string.loadingSchedule));
+            _waitingDialog.setCancelable(false);
             _waitingDialog.show();
         }
 
         @Override
         protected void onPostExecute(String result)
         {
-            _adapterView = new EventAdapter(ctx, R.layout.listview_event, _todaySchedule);
-            setListAdapter(_adapterView);
+            CreateTabViews();
             _waitingDialog.dismiss();
         }
 
@@ -202,15 +213,11 @@ public class DisplayRuvActivity extends ListActivity implements AdapterView.OnIt
                 RuvScheduleParser parser = new RuvScheduleParser(myurl);
                 _events = parser.GetSchedules();
 
-                for (EventData e : _events)
-                {
-                    if (e.getEventDate().equalsIgnoreCase(_workingDate))
-                        _todaySchedule.add(e);
-                }
+                _workingDate = _events.get(0).getEventDate();
             }
             catch (Exception ex)
             {
-                ex.getMessage();
+                Log.e(getClass().getName(), ex.getMessage());
             }
 
             return "Successful";

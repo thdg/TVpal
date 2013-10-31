@@ -2,6 +2,7 @@ package is.activites;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -27,8 +28,9 @@ import is.activites.showActivities.UpcomingShowsActivity;
 import is.datacontracts.DrawerListData;
 import is.handlers.adapters.DrawerListAdapter;
 import is.utilities.ConnectionListener;
-import is.utilities.Helpers;
+import is.utilities.DateUtil;
 import is.tvpal.R;
+import is.utilities.DialogUtil;
 
 /**
  * Created by Þorsteinn
@@ -174,7 +176,7 @@ public class MainActivity extends Activity
                 }
                 else
                 {
-                    Helpers.showNetworkAlertDialog(this);
+                    DialogUtil.showNetworkAlertDialog(this);
                     return; //So the navigation bar stays open
                 }
             }

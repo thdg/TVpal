@@ -17,7 +17,7 @@ import android.widget.TextView;
 import java.util.HashMap;
 
 import is.handlers.database.DbShowHandler;
-import is.utilities.Helpers;
+import is.utilities.DateUtil;
 import is.tvpal.R;
 
 public class ActivityAdapter extends CursorAdapter
@@ -78,7 +78,7 @@ public class ActivityAdapter extends CursorAdapter
 
         viewHolder.episodeName.setText(mCursor.getString(1));
         viewHolder.episodeNumber.setText(String.format("%sx%s", mCursor.getString(4), mCursor.getString(5)));
-        viewHolder.episodeAired.setText(Helpers.FormatDateEpisode(mCursor.getString(2)));
+        viewHolder.episodeAired.setText(DateUtil.FormatDateEpisode(mCursor.getString(2)));
 
         String seriesId = mCursor.getString(3);
 

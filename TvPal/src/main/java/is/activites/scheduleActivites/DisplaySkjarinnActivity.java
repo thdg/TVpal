@@ -21,17 +21,17 @@ import java.util.Date;
 import java.util.List;
 import is.datacontracts.EventData;
 import is.parsers.SkjarinnScheduleParser;
-import is.utilities.Helpers;
+import is.utilities.DateUtil;
 import is.tvpal.R;
 
 /**
  * Created by Arnar
  *
- * This class handles the activity to show Skjárinn events.
- * It extends ListActivity to show it as a List.
- * It implements ItemClickListener to handle click events.
- * It implements SwipeGestureFilter.SimpleGestureListener to handle swipe events.
- * @see android.app.ListActivity
+ * This class handles the activity to show Rúv events.
+ * It extends FragmentActivity, it shows ListActivity for each Fragment
+ * It implements ActionBar.TabListener to handle swipe between views.
+ * @author Arnar
+ * @see import android.support.v4.app.FragmentActivity;
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class DisplaySkjarinnActivity extends FragmentActivity implements ActionBar.TabListener
@@ -130,7 +130,7 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
             if (position == 0)
                 date = _workingDate;
             else
-                date = Helpers.AddDaysToDate(_workingDate, position);
+                date = DateUtil.AddDaysToDate(_workingDate, position);
 
             ArrayList<EventData> _todaySchedule = new ArrayList<EventData>();
 
@@ -157,11 +157,11 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
         {
             //TODO: Find better way to set tab titles, this is very gay
             if (position == 0)
-                return Helpers.GetDateFormatForTabs(cxt, _workingDate);
+                return DateUtil.GetDateFormatForTabs(cxt, _workingDate);
             else
             {
-                String date = Helpers.AddDaysToDate(_workingDate, position);
-                return Helpers.GetDateFormatForTabs(cxt, date);
+                String date = DateUtil.AddDaysToDate(_workingDate, position);
+                return DateUtil.GetDateFormatForTabs(cxt, date);
             }
         }
     }
@@ -184,6 +184,7 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
             }
             catch (IOException e)
             {
+                Log.e(getClass().getName(), e.getMessage());
                 return "Unable to retrieve web page. URL may be invalid";
             }
         }
@@ -215,7 +216,7 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
             }
             catch (Exception ex)
             {
-                ex.getMessage();
+                Log.e(getClass().getName(), ex.getMessage());
             }
 
             return "Successful";

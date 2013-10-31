@@ -19,7 +19,7 @@ import is.activites.MainActivity;
 import is.datacontracts.EventData;
 import is.handlers.adapters.EventAdapter;
 import is.parsers.Stod2ScheduleParser;
-import is.utilities.Helpers;
+import is.utilities.DateUtil;
 import is.tvpal.R;
 import is.handlers.SwipeGestureFilter;
 
@@ -103,12 +103,12 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
                 break;
         }
 
-        setTitle(Helpers.SetICEDayFormat(this, _workingDate));
+        setTitle(DateUtil.SetICEDayFormat(this, _workingDate));
     }
 
     private void SwipeRightEvent()
     {
-        _workingDate = Helpers.MinusOneDayToDate(_workingDate);
+        _workingDate = DateUtil.MinusOneDayToDate(_workingDate);
 
         _todaySchedule = new ArrayList<EventData>();
 
@@ -121,7 +121,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
         if(_todaySchedule.size() == 0)
         {
             Toast.makeText(this, getResources().getString(R.string.scheduleNotAvailable), Toast.LENGTH_SHORT).show();
-            _workingDate = Helpers.AddOneDayToDate(_workingDate); //Add one day, so we don't go over the limit
+            _workingDate = DateUtil.AddOneDayToDate(_workingDate); //Add one day, so we don't go over the limit
             return;
         }
 
@@ -131,7 +131,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
 
     private void SwipeLeftEvent()
     {
-        _workingDate = Helpers.AddOneDayToDate(_workingDate);
+        _workingDate = DateUtil.AddOneDayToDate(_workingDate);
 
         _todaySchedule = new ArrayList<EventData>();
 
@@ -144,7 +144,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
         if(_todaySchedule.size() == 0)
         {
             Toast.makeText(this, getResources().getString(R.string.scheduleNotAvailable), Toast.LENGTH_SHORT).show();
-            _workingDate = Helpers.MinusOneDayToDate(_workingDate); //Minus one day, so we don't go over the limit
+            _workingDate = DateUtil.MinusOneDayToDate(_workingDate); //Minus one day, so we don't go over the limit
             return;
         }
 
@@ -185,7 +185,7 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
         @Override
         protected void onPostExecute(String result)
         {
-            setTitle(Helpers.SetICEDayFormat(ctx, _workingDate));
+            setTitle(DateUtil.SetICEDayFormat(ctx, _workingDate));
 
             _adapterView = new EventAdapter(ctx, R.layout.listview_event, _todaySchedule);
             setListAdapter(_adapterView);

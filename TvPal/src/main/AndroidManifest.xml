@@ -31,7 +31,8 @@
         </activity>
         <activity
             android:name="is.activites.scheduleActivites.DisplayRuvActivity"
-            android:label="@string/title_activity_display_ruv" >
+            android:label="@string/title_activity_display_ruv"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="is.activites.scheduleActivites.DisplaySkjarinnActivity"

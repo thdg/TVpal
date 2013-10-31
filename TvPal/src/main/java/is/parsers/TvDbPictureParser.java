@@ -70,7 +70,6 @@ public class TvDbPictureParser extends DefaultHandler {
         {
             try
             {
-                //TODO: Fix hardcoded api key
                 String pictureUrl = String.format("http://thetvdb.com/banners/%s", tmpValue);
                 BitmapProperties bit = new BitmapProperties();
                 byte[] pictureByteStream = bit.getBitmapFromURL(pictureUrl);
