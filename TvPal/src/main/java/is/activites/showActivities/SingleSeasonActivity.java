@@ -17,6 +17,9 @@ public class SingleSeasonActivity extends ListActivity implements AdapterView.On
     public static final String EXTRA_EPISODENR = "is.activites.showActivities.EPISODENR";
 
     private EpisodeAdapter _adapter;
+    private DbShowHandler _db;
+    private String _seriesId;
+    private String _season;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -26,21 +29,27 @@ public class SingleSeasonActivity extends ListActivity implements AdapterView.On
         Initialize();
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        _adapter = new EpisodeAdapter(this, _db.GetCursorEpisodes(_seriesId, _season), 0, _seriesId, _season);
+        setListAdapter(_adapter);
+    }
+
     private void Initialize()
     {
-        DbShowHandler _db = new DbShowHandler(this);
+        _db = new DbShowHandler(this);
 
         Intent intent = getIntent();
-        String seriesId = intent.getStringExtra(SeasonsActivity.EXTRA_SERIESID);
-        String season   = intent.getStringExtra(SeasonsActivity.EXTRA_SEASON);
+        _seriesId = intent.getStringExtra(SeasonsActivity.EXTRA_SERIESID);
+        _season   = intent.getStringExtra(SeasonsActivity.EXTRA_SEASON);
 
-        setTitle(String.format("Season %s", season));
+        setTitle(String.format("Season %s", _season));
 
         ListView lv = getListView();
         lv.setOnItemClickListener(this);
-
-        _adapter = new EpisodeAdapter(this, _db.GetCursorEpisodes(seriesId, season), 0, seriesId, season);
-        setListAdapter(_adapter);
     }
 
     @Override
