@@ -99,6 +99,10 @@ public class EpisodeAdapter extends CursorAdapter {
         {
             mCheckedShows.set(position, true);
         }
+        else
+        {
+            mCheckedShows.set(position, false);
+        }
 
         viewHolder.checkShowSeen.setChecked(mCheckedShows.get(position));
 

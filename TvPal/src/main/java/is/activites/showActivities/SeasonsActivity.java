@@ -18,7 +18,7 @@ public class SeasonsActivity extends ListActivity implements  AdapterView.OnItem
 
     private String _seriesId;
     private SeasonAdapter _adapter;
-
+    private DbShowHandler _db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -26,6 +26,14 @@ public class SeasonsActivity extends ListActivity implements  AdapterView.OnItem
         super.onCreate(savedInstanceState);
 
         Initialize();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        _adapter= new SeasonAdapter(this, _db.GetCursorSeasons(_seriesId), 0);
+        setListAdapter(_adapter);
     }
 
     private void Initialize()
@@ -40,9 +48,8 @@ public class SeasonsActivity extends ListActivity implements  AdapterView.OnItem
         ListView lv = getListView();
         lv.setOnItemClickListener(this);
 
-        DbShowHandler _db = new DbShowHandler(this);
-        _adapter= new SeasonAdapter(this, _db.GetCursorSeasons(_seriesId), 0);
-        setListAdapter(_adapter);
+        _db = new DbShowHandler(this);
+
     }
 
     @Override
