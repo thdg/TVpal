@@ -5,8 +5,6 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,18 +13,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.util.Log;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import is.datacontracts.EventData;
-import is.handlers.adapters.EventAdapter;
 import is.parsers.SkjarinnScheduleParser;
 import is.utilities.Helpers;
 import is.tvpal.R;
@@ -68,7 +61,7 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
         }
         catch (Exception ex)
         {
-            ex.getMessage();
+            Log.e(getClass().getName(),ex.getMessage());
         }
     }
 
@@ -78,14 +71,11 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
         new DownloadSkjarinnSchedules(this).execute(skjarinnUrl);
     }
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     public void CreateTabViews()
     {
         mScheduleAdapter = new SchedulePagerAdapter(getSupportFragmentManager(), this);
 
         final ActionBar actionBar = getActionBar();
-
-        actionBar.setHomeButtonEnabled(false);
 
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
