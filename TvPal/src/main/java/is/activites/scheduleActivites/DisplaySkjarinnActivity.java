@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.KeyEvent;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -61,7 +64,7 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
         }
         catch (Exception ex)
         {
-            Log.e(getClass().getName(),ex.getMessage());
+            Log.e(getClass().getName(), ex.getMessage());
         }
     }
 
@@ -80,7 +83,13 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mScheduleAdapter);
+        try {
+            mViewPager.setAdapter(mScheduleAdapter);
+        }
+        catch (Exception ex)
+        {
+            ex.getMessage();
+        }
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position)
@@ -193,6 +202,7 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
         {
             _waitingDialog = new ProgressDialog(ctx);
             _waitingDialog.setMessage(ctx.getString(R.string.loadingSchedule));
+            _waitingDialog.setCancelable(false);
             _waitingDialog.show();
         }
 
