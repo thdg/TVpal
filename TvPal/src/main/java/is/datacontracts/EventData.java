@@ -1,5 +1,6 @@
 package is.datacontracts;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,7 +13,7 @@ import java.util.Locale;
  * to access and insert information about an event.
  *
  */
-public class EventData
+public class EventData implements Serializable
 {
     private String title;
     private String startTime;

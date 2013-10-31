@@ -58,10 +58,17 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.tab_schedules);
+        try
+        {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.tab_schedules);
 
-        Initialize();
+            Initialize();
+        }
+        catch (Exception ex)
+        {
+            ex.getMessage();
+        }
     }
 
     private void Initialize()
@@ -124,7 +131,7 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
         @Override
         public Fragment getItem(int position)
         {
-            Fragment fragment = new ScheduleFragment();
+            Fragment fragment = new ScheduleFragment(cxt);
             Bundle args = new Bundle();
 
             String date;
@@ -134,7 +141,15 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
             else
                 date = Helpers.AddDaysToDate(_workingDate, position);
 
-            args.putString(ScheduleFragment.ARG_SCHEDULE_DAY, date);
+            ArrayList<EventData> _todaySchedule = new ArrayList<EventData>();
+
+            for (EventData e : _events)
+            {
+                if (e.getEventDate().equalsIgnoreCase(date))
+                    _todaySchedule.add(e);
+            }
+
+            args.putSerializable(ScheduleFragment.ARG_SCHEDULE_DAY, _todaySchedule);
             fragment.setArguments(args);
             return fragment;
         }
@@ -157,56 +172,6 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
                 String date = Helpers.AddDaysToDate(_workingDate, position);
                 return Helpers.GetDateFormatForTabs(cxt, date);
             }
-        }
-    }
-
-    public class ScheduleFragment extends Fragment implements AdapterView.OnItemClickListener
-    {
-        public static final String ARG_SCHEDULE_DAY = "schedule_day";
-
-        private EventAdapter _adapterView;
-
-        public ScheduleFragment()
-        {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
-            View rootView = inflater.inflate(R.layout.skjarinn_schedules, container, false);
-            Bundle args = getArguments();
-            String day = args.getString(ARG_SCHEDULE_DAY);
-            List<EventData> _todaySchedule = new ArrayList<EventData>();
-
-            for (EventData e : _events)
-            {
-                if (e.getEventDate().equalsIgnoreCase(day))
-                    _todaySchedule.add(e);
-            }
-
-            _adapterView = new EventAdapter(inflater.getContext(), R.layout.listview_event, _todaySchedule);
-
-            if (rootView != null)
-            {
-                ((ListView) rootView.findViewById(R.id.schedules)).setAdapter(_adapterView);
-                ((ListView) rootView.findViewById(R.id.schedules)).setOnItemClickListener(this);
-            }
-
-            return rootView;
-        }
-
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
-        {
-            EventData selectedEvent = _adapterView.getItem(i);
-
-            Intent intent = new Intent(getApplicationContext(), DetailedEventActivity.class);
-            intent.putExtra(EXTRA_TITLE, selectedEvent.getTitle());
-            intent.putExtra(EXTRA_DESCRIPTION, selectedEvent.getDescription());
-            intent.putExtra(EXTRA_START, selectedEvent.getStartTime());
-            intent.putExtra(EXTRA_DURATION, selectedEvent.getDuration());
-
-            startActivity(intent);
         }
     }
 
