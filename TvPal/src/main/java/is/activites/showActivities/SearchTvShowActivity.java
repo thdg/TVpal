@@ -36,6 +36,7 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
     private List<ShowData> _shows;
     private ProgressDialog _waitingDialog;
     private SearchShowAdapter _adapterView;
+    private PopupWindow _popupWindow;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -44,6 +45,17 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
         setContentView(R.layout.search_tvshows_activity);
 
         Initialize();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK)
+        {
+            if (_popupWindow.isShowing())
+                _popupWindow.dismiss();
+        }
+        return true;
     }
 
     private void Initialize()
@@ -96,9 +108,14 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
     {
         ShowData show = _adapterView.getItem(i);
 
+        CreatePopupWindow(show);
+    }
+
+    private void CreatePopupWindow(ShowData show)
+    {
         LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = layoutInflater.inflate(R.layout.popup_show, null);
-        final PopupWindow popupWindow = new PopupWindow(popupView,
+        _popupWindow = new PopupWindow(popupView,
                 WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.WRAP_CONTENT);
 
@@ -113,12 +130,12 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
         showNetwork.setText(String.format("Network: %s", show.getNetwork()));
         showFirstAired.setText(String.format("First aired: %s", show.getFirstAired()));
 
-        popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+        _popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
 
         showClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                popupWindow.dismiss();
+                _popupWindow.dismiss();
             }
         });
     }
