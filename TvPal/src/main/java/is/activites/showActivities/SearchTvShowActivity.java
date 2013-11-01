@@ -2,10 +2,12 @@ package is.activites.showActivities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Color;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -16,7 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -28,6 +30,7 @@ import is.datacontracts.ShowData;
 import is.handlers.adapters.SearchShowAdapter;
 import is.parsers.TvDbShowParser;
 import is.tvpal.R;
+import is.utilities.BitmapProperties;
 
 public class SearchTvShowActivity extends Activity implements AdapterView.OnItemClickListener
 {
@@ -37,6 +40,7 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
     private ProgressDialog _waitingDialog;
     private SearchShowAdapter _adapterView;
     private PopupWindow _popupWindow;
+    private ImageView _popupBanner;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -122,12 +126,15 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
         _popupWindow.setContentView(popupView);
         _popupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
         _popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-        
+
         TextView showTitle = (TextView) popupView.findViewById(R.id.popupTitle);
         TextView showOverview = (TextView) popupView.findViewById(R.id.popupOverview);
         TextView showNetwork = (TextView) popupView.findViewById(R.id.popupNetwork);
         TextView showFirstAired = (TextView) popupView.findViewById(R.id.popupFirstAired);
         Button showClose = (Button) popupView.findViewById(R.id.popUpClose);
+        _popupBanner = (ImageView) popupView.findViewById(R.id.popupBanner);
+        if (show.getSeriesId() != null)
+            new DownloadBannerBitmap(show.getBanner()).execute();
 
         showTitle.setText(show.getTitle());
         showOverview.setText(String.format("Overview: %s", show.getOverview()));
@@ -200,10 +207,59 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
             }
             catch (Exception ex)
             {
-                ex.getMessage();
+                Log.e(getClass().getName(), ex.getMessage());
             }
 
             return "Successful";
+        }
+    }
+
+    private class DownloadBannerBitmap extends AsyncTask<String, Void, String>
+    {
+        private String apiUrl = "http://thetvdb.com/banners/";
+        private String bannerUrl;
+        private Bitmap banner;
+
+        public DownloadBannerBitmap(String bannerUrl)
+        {
+            this.bannerUrl = bannerUrl;
+        }
+
+        @Override
+        protected String doInBackground(String... urls)
+        {
+            try
+            {
+                return GetBanner();
+            }
+            catch (IOException e)
+            {
+                return "Unable to retrieve web page. URL may be invalid";
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result)
+        {
+            if(_popupWindow.isShowing() && result.equalsIgnoreCase("Successful"))
+                _popupBanner.setImageBitmap(banner);
+        }
+
+        private String GetBanner() throws IOException
+        {
+            try
+            {
+                BitmapProperties bmp = new BitmapProperties();
+                byte[] bannerByteStream = bmp.getBitmapFromURL(String.format("%s%s", apiUrl, bannerUrl));
+                banner = BitmapFactory.decodeByteArray(bannerByteStream, 0, bannerByteStream.length);
+                return "Successful";
+            }
+            catch (Exception ex)
+            {
+                Log.e(getClass().getName(), ex.getMessage());
+            }
+
+            return "Errrrrrrrrrrrrrror";
         }
     }
 }

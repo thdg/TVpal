@@ -22,12 +22,20 @@
             android:text="Title"
             android:textColor="#eee"/>
 
+        <ImageView
+            android:id="@+id/popupBanner"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/popupTitle"
+            android:layout_height="140sp"
+            android:src="@drawable/default_episode"
+            android:adjustViewBounds="true"/>
+
 
         <TextView
             android:id="@+id/popupOverview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/popupTitle"
+            android:layout_below="@+id/popupBanner"
             android:textSize="17sp"
             android:text="Overview"
             android:textColor="#eee"

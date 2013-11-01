@@ -10,6 +10,7 @@ public class ShowData
     private String overview;
     private String network;
     private String firstAired;
+    private String banner;
 
     public String getSeriesId() { return this.seriesId; }
     public void setSeriesId(String seriesId) { this.seriesId = seriesId; }
@@ -25,6 +26,9 @@ public class ShowData
 
     public String getFirstAired() { return firstAired; }
     public void setFirstAired(String firstAired) { this.firstAired = firstAired; }
+
+    public String getBanner() { return banner; }
+    public void setBanner(String banner) { this.banner = banner; }
 
     @Override
     public String toString()

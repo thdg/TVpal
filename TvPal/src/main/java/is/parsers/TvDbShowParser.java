@@ -88,6 +88,9 @@ public class TvDbShowParser extends DefaultHandler {
         if (element.equalsIgnoreCase("FirstAired"))
             showTmp.setFirstAired(sb.toString());
 
+        if(element.equalsIgnoreCase("banner"))
+            showTmp.setBanner(sb.toString());
+
         sb = null;
     }
 
