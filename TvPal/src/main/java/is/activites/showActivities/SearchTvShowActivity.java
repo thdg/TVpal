@@ -57,7 +57,6 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
                 _popupWindow.dismiss();
                 return true;
             }
-
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -65,6 +64,7 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
     private void Initialize()
     {
         _editSearch = (EditText) findViewById(R.id.editMeh);
+        _popupWindow = new PopupWindow();
 
         _lv = (ListView) findViewById(R.id.lvId);
         _lv.setOnItemClickListener(this);
@@ -119,9 +119,9 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
     {
         LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = layoutInflater.inflate(R.layout.popup_show, null);
-        _popupWindow = new PopupWindow(popupView,
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT);
+        _popupWindow.setContentView(popupView);
+        _popupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
+        _popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
 
         TextView showTitle = (TextView) popupView.findViewById(R.id.popupTitle);
         TextView showOverview = (TextView) popupView.findViewById(R.id.popupOverview);
