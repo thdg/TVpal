@@ -53,9 +53,13 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
         if (keyCode == KeyEvent.KEYCODE_BACK)
         {
             if (_popupWindow.isShowing())
+            {
                 _popupWindow.dismiss();
+                return true;
+            }
+
         }
-        return true;
+        return super.onKeyDown(keyCode, event);
     }
 
     private void Initialize()
