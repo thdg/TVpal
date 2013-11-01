@@ -2,6 +2,7 @@ package is.parsers;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -22,6 +23,7 @@ public class TvDbPictureParser extends DefaultHandler {
     private String baseURL;
     private String tmpValue;
     private Bitmap episodePicture;
+    private StringBuilder sb;
 
     public TvDbPictureParser(String baseUrl)
     {
@@ -61,6 +63,7 @@ public class TvDbPictureParser extends DefaultHandler {
     @Override
     public void startElement(String s, String s1, String elementName, Attributes attributes) throws SAXException
     {
+        sb = new StringBuilder();
     }
 
     @Override
@@ -70,21 +73,28 @@ public class TvDbPictureParser extends DefaultHandler {
         {
             try
             {
-                String pictureUrl = String.format("http://thetvdb.com/banners/%s", tmpValue);
+                String pictureUrl = String.format("http://thetvdb.com/banners/%s", sb.toString());
                 BitmapProperties bit = new BitmapProperties();
                 byte[] pictureByteStream = bit.getBitmapFromURL(pictureUrl);
                 episodePicture = BitmapFactory.decodeByteArray(pictureByteStream, 0, pictureByteStream.length);
             }
             catch (Exception ex)
             {
-                ex.getMessage();
+                Log.e(getClass().getName(), ex.getMessage());
             }
         }
+
+        sb = null;
     }
 
     @Override
     public void characters(char[] ac, int i, int j) throws SAXException
     {
-        tmpValue = new String(ac, i, j);
+        if(sb != null)
+        {
+            for (int k= i; k<i+j; k++) {
+                sb.append(ac[k]);
+            }
+        }
     }
 }

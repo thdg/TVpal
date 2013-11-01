@@ -122,7 +122,7 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
         _popupWindow.setContentView(popupView);
         _popupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
         _popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-
+        
         TextView showTitle = (TextView) popupView.findViewById(R.id.popupTitle);
         TextView showOverview = (TextView) popupView.findViewById(R.id.popupOverview);
         TextView showNetwork = (TextView) popupView.findViewById(R.id.popupNetwork);

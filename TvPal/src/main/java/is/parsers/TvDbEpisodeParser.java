@@ -1,6 +1,7 @@
 package is.parsers;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -62,57 +63,32 @@ public class TvDbEpisodeParser extends DefaultHandler {
             episodeTmp = new EpisodeData();
         }
 
-        if(element.equalsIgnoreCase("FirstAired") || element.equalsIgnoreCase("Overview") || element.equalsIgnoreCase("EpisodeName")
-           || element.equalsIgnoreCase("id") || element.equalsIgnoreCase("SeasonNumber") || element.equalsIgnoreCase("EpisodeNumber")
-           || element.equalsIgnoreCase("seriesid") || element.equalsIgnoreCase("Rating") || element.equalsIgnoreCase("Director")
-           || element.equalsIgnoreCase("poster"))
-            sb = new StringBuilder();
+        sb = new StringBuilder();
     }
 
     @Override
     public void endElement(String s, String s1, String element) throws SAXException
     {
         if(element.equalsIgnoreCase("id"))
-        {
             episodeTmp.setEpisodeId(sb.toString());
-            sb = null;
-        }
 
         if(element.equalsIgnoreCase("SeasonNumber"))
-        {
             episodeTmp.setSeasonNumber(sb.toString());
-            sb = null;
-        }
 
         if(element.equalsIgnoreCase("EpisodeNumber"))
-        {
             episodeTmp.setEpisodeNumber(sb.toString());
-            sb = null;
-        }
 
         if(element.equalsIgnoreCase("FirstAired"))
-        {
             episodeTmp.setAired(sb.toString());
-            sb = null;
-        }
 
         if(element.equalsIgnoreCase("Overview"))
-        {
             episodeTmp.setOverview(sb.toString());
-            sb = null;
-        }
 
         if(element.equalsIgnoreCase("seriesid"))
-        {
             episodeTmp.setSeriesId(sb.toString());
-            sb = null;
-        }
 
         if(element.equalsIgnoreCase("EpisodeName"))
-        {
             episodeTmp.setEpisodeName(sb.toString());
-            sb = null;
-        }
 
         if(element.equalsIgnoreCase("poster"))
         {
@@ -127,25 +103,20 @@ public class TvDbEpisodeParser extends DefaultHandler {
             }
             catch (Exception ex)
             {
-                ex.getMessage();
+                Log.e(getClass().getName(), ex.getMessage());
             }
-            sb = null;
         }
 
         if(element.equalsIgnoreCase("Rating"))
-        {
             episodeTmp.setRating(sb.toString());
-            sb = null;
-        }
 
         if(element.equalsIgnoreCase("Director"))
-        {
             episodeTmp.setDirector(sb.toString());
-            sb = null;
-        }
 
         if(element.equalsIgnoreCase("Episode"))
             episodes.add(episodeTmp);
+
+        sb = null;
     }
 
     @Override
