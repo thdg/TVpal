@@ -27,7 +27,8 @@
         </activity>
         <activity
             android:name="is.activites.scheduleActivites.DisplayStod2Activity"
-            android:label="@string/title_activity_display_stod2" >
+            android:label="@string/title_activity_display_stod2"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="is.activites.scheduleActivites.DisplayRuvActivity"
