@@ -30,8 +30,6 @@ public class UpcomingShowsActivity extends Activity
     private void Initialize()
     {
         _db = new DbShowHandler(this);
-        TextView tv = (TextView) findViewById(R.id.overviewTitle);
-        tv.setText("Upcoming shows");
 
         _listView = (ListView) findViewById(R.id.overviewShows);
 

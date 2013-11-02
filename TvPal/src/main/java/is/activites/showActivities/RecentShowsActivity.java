@@ -31,9 +31,6 @@ public class RecentShowsActivity extends Activity
     {
         _db = new DbShowHandler(this);
 
-        TextView tv = (TextView) findViewById(R.id.overviewTitle);
-        tv.setText("Recent shows");
-
         _listView = (ListView) findViewById(R.id.overviewShows);
 
         _adapter = new ActivityAdapter(this, _db.GetCursorRecent(), 0);
