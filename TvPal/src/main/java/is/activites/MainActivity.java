@@ -58,7 +58,7 @@ public class MainActivity extends Activity
         Initialize();
     }
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void Initialize()
     {
         _connectivityListener = new ConnectionListener();
@@ -104,7 +104,6 @@ public class MainActivity extends Activity
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
     }
 
     @Override

@@ -14,6 +14,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.MenuItem;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -69,6 +71,8 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
     {
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         new DownloadSkjarinnSchedules(this).execute(skjarinnUrl);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void CreateTabViews()
@@ -220,6 +224,19 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
             }
 
             return "Successful";
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

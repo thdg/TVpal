@@ -3,6 +3,7 @@ package is.activites.scheduleActivites;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import is.tvpal.R;
@@ -21,6 +22,8 @@ public class DetailedEventActivity extends Activity {
         setContentView(R.layout.detailed_activity);
 
         Initialize();
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void Initialize()
@@ -49,7 +52,18 @@ public class DetailedEventActivity extends Activity {
             TextView eventDuration = (TextView) findViewById(R.id.event_duration);
             eventDuration.setText(String.format("%s: %s", getResources().getString(R.string.duration), duration));
         }
-
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

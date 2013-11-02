@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -66,6 +67,8 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
         lv.setOnItemClickListener(this);
 
         _detector = new SwipeGestureFilter(this,this);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
@@ -212,6 +215,19 @@ public class DisplayStod2Activity extends ListActivity implements AdapterView.On
             }
 
             return "Successful";
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
