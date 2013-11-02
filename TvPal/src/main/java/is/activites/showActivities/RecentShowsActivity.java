@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.TextView;
 import is.handlers.adapters.ActivityAdapter;
 import is.handlers.database.DbShowHandler;
 import is.tvpal.R;

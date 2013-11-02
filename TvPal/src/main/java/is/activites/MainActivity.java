@@ -45,6 +45,7 @@ import is.utilities.DialogUtil;
 public class MainActivity extends Activity
 {
     public static final String EXTRA_STOD2 = "is.activites.STOD2";
+    public static final String EXTRA_TITLE = "is.activites.TITLE";
 
     private ConnectionListener _connectivityListener;
 
@@ -157,18 +158,22 @@ public class MainActivity extends Activity
                         case 2:
                             intent = new Intent(this, DisplayStod2Activity.class);
                             intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BaseUrl));
+                            intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_2));
                             break;
                         case 3:
                             intent = new Intent(this, DisplayStod2Activity.class);
                             intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2SportBaseUrl));
+                            intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_2_sport));
                             break;
                         case 4:
                             intent = new Intent(this, DisplayStod2Activity.class);
                             intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BioBaseUrl));
+                            intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_2_bio));
                             break;
                         case 5:
                             intent = new Intent(this, DisplayStod2Activity.class);
                             intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod3BaseUrl));
+                            intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_3));
                             break;
                         case 6:
                             intent = new Intent(this, DisplaySkjarinnActivity.class);
