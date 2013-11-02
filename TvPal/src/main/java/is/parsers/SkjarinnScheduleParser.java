@@ -22,9 +22,9 @@ public class SkjarinnScheduleParser extends DefaultHandler
 {
     private String baseURL;
     private List<EventData> events;
-    private String tmpValue;
     private EventData eventTmp;
     private String serviceName;
+    private StringBuilder sb;
 
     public SkjarinnScheduleParser(String baseUrl)
     {
@@ -81,6 +81,8 @@ public class SkjarinnScheduleParser extends DefaultHandler
 
         if(elementName.equalsIgnoreCase("service"))
             serviceName = attributes.getValue("service-name");
+
+        sb = new StringBuilder();
     }
 
     @Override
@@ -91,20 +93,25 @@ public class SkjarinnScheduleParser extends DefaultHandler
             events.add(eventTmp);
         }
         if (element.equalsIgnoreCase("title")){
-            eventTmp.setTitle(tmpValue);
+            eventTmp.setTitle(sb.toString());
         }
 
         if (element.equalsIgnoreCase("description")) {
-            eventTmp.setDescription(tmpValue);
+            eventTmp.setDescription(sb.toString());
         }
 
         if(element.equalsIgnoreCase("subtitle")) {
-            eventTmp.setSubtitles(tmpValue);
+            eventTmp.setSubtitles(sb.toString());
         }
     }
     @Override
     public void characters(char[] ac, int i, int j) throws SAXException
     {
-        tmpValue = new String(ac, i, j);
+        if(sb != null)
+        {
+            for (int k= i; k<i+j; k++) {
+                sb.append(ac[k]);
+            }
+        }
     }
 }

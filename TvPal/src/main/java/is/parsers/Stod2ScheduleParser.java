@@ -23,8 +23,8 @@ public class Stod2ScheduleParser extends DefaultHandler
 {
     private String baseURL;
     private List<EventData> events;
-    private String tmpValue;
     private EventData eventTmp;
+    private StringBuilder sb;
 
     public Stod2ScheduleParser(String baseUrl)
     {
@@ -77,6 +77,8 @@ public class Stod2ScheduleParser extends DefaultHandler
         {
             eventTmp.setCurrentEpisode(attributes.getValue("episode"));
         }
+
+        sb = new StringBuilder();
     }
 
     @Override
@@ -86,20 +88,27 @@ public class Stod2ScheduleParser extends DefaultHandler
             events.add(eventTmp);
         }
         if (element.equalsIgnoreCase("title")){
-            eventTmp.setTitle(tmpValue);
+            eventTmp.setTitle(sb.toString());
         }
 
         if (element.equalsIgnoreCase("description")) {
-            eventTmp.setDescription(tmpValue);
+            eventTmp.setDescription(sb.toString());
         }
 
         if (element.equalsIgnoreCase("service")) {
-            eventTmp.setServiceName(tmpValue);
+            eventTmp.setServiceName(sb.toString());
         }
+
+        sb = null;
     }
     @Override
     public void characters(char[] ac, int i, int j) throws SAXException
     {
-        tmpValue = new String(ac, i, j);
+        if(sb != null)
+        {
+            for (int k= i; k<i+j; k++) {
+                sb.append(ac[k]);
+            }
+        }
     }
 }

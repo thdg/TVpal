@@ -2,7 +2,6 @@ package is.activites;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -14,10 +13,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import is.activites.scheduleActivites.DisplayRuvActivity;
 import is.activites.scheduleActivites.DisplaySkjarinnActivity;
 import is.activites.scheduleActivites.DisplayStod2Activity;
@@ -30,7 +27,6 @@ import is.datacontracts.DrawerListHeader;
 import is.datacontracts.Item;
 import is.handlers.adapters.DrawerListAdapter;
 import is.utilities.ConnectionListener;
-import is.utilities.DateUtil;
 import is.tvpal.R;
 import is.utilities.DialogUtil;
 

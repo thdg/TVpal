@@ -23,9 +23,9 @@ public class RuvScheduleParser extends DefaultHandler
 {
     private String baseURL;
     private List<EventData> events;
-    private String tmpValue;
     private EventData eventTmp;
     private String serviceName;
+    private StringBuilder sb;
 
     public RuvScheduleParser(String baseUrl)
     {
@@ -82,6 +82,8 @@ public class RuvScheduleParser extends DefaultHandler
 
         if (elementName.equalsIgnoreCase("service"))
             serviceName = attributes.getValue("service-name");
+
+        sb = new StringBuilder();
     }
 
     @Override
@@ -92,23 +94,31 @@ public class RuvScheduleParser extends DefaultHandler
             events.add(eventTmp);
         }
         if (element.equalsIgnoreCase("title")){
-            eventTmp.setTitle(tmpValue);
+            eventTmp.setTitle(sb.toString());
         }
 
         if (element.equalsIgnoreCase("category")) {
-            eventTmp.setCategory(tmpValue);
+            eventTmp.setCategory(sb.toString());
         }
 
         if(element.equalsIgnoreCase("open")){
-            eventTmp.setSubtitles(tmpValue);
+            eventTmp.setSubtitles(sb.toString());
         }
+
         if(element.equalsIgnoreCase("description")){
-            eventTmp.setDescription(tmpValue);
+            eventTmp.setDescription(sb.toString());
         }
+
+        sb = null;
     }
     @Override
     public void characters(char[] ac, int i, int j) throws SAXException
     {
-        tmpValue = new String(ac, i, j);
+        if(sb != null)
+        {
+            for (int k= i; k<i+j; k++) {
+                sb.append(ac[k]);
+            }
+        }
     }
 }
