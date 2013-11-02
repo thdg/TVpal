@@ -53,4 +53,9 @@ public class DrawerListAdapter extends ArrayAdapter<Item>
     public int getItemViewType(int position) {
         return getItem(position).getViewType();
     }
+
+    @Override
+    public boolean isEnabled(int position) {
+        return getItemViewType(position) == RowType.LIST_ITEM.ordinal();
+    }
 }
