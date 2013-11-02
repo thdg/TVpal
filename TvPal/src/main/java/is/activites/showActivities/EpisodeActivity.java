@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
@@ -81,6 +82,8 @@ public class EpisodeActivity extends Activity implements SwipeGestureFilter.Simp
         _episodes = _db.GetEpisodesBySeason(_seriesId, _seasonNr);
 
         GenerateLayout();
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void GenerateLayout()
@@ -231,6 +234,19 @@ public class EpisodeActivity extends Activity implements SwipeGestureFilter.Simp
             }
 
             return "Successful";
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

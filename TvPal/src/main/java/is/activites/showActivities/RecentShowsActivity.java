@@ -1,7 +1,10 @@
 package is.activites.showActivities;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 import is.handlers.adapters.ActivityAdapter;
@@ -23,6 +26,7 @@ public class RecentShowsActivity extends Activity
         Initialize();
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void Initialize()
     {
         _db = new DbShowHandler(this);
@@ -34,5 +38,20 @@ public class RecentShowsActivity extends Activity
 
         _adapter = new ActivityAdapter(this, _db.GetCursorRecent(), 0);
         _listView.setAdapter(_adapter);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -1,9 +1,12 @@
 package is.activites.showActivities;
 
+import android.annotation.TargetApi;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -38,6 +41,7 @@ public class SingleSeasonActivity extends ListActivity implements AdapterView.On
         setListAdapter(_adapter);
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void Initialize()
     {
         _db = new DbShowHandler(this);
@@ -50,6 +54,8 @@ public class SingleSeasonActivity extends ListActivity implements AdapterView.On
 
         ListView lv = getListView();
         lv.setOnItemClickListener(this);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -62,5 +68,18 @@ public class SingleSeasonActivity extends ListActivity implements AdapterView.On
         intent.putExtra(EXTRA_SEASONNR, selectedEpisode.getString(2));
         intent.putExtra(EXTRA_EPISODENR, selectedEpisode.getString(3));
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

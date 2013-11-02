@@ -1,16 +1,19 @@
 package is.activites.showActivities;
 
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
@@ -65,6 +68,7 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
         return super.onKeyDown(keyCode, event);
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void Initialize()
     {
         _editSearch = (EditText) findViewById(R.id.editMeh);
@@ -74,6 +78,7 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
         _lv.setOnItemClickListener(this);
 
         InitializeEditTextSearch();
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void InitializeEditTextSearch()
@@ -260,6 +265,19 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
             }
 
             return "Errrrrrrrrrrrrrror";
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

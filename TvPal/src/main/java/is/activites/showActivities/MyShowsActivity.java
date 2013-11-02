@@ -1,8 +1,10 @@
 package is.activites.showActivities;
 
+import android.annotation.TargetApi;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
@@ -38,6 +40,7 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
         Initialize();
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void Initialize()
     {
         _db = new DbShowHandler(this);
@@ -47,6 +50,8 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
 
         SetListAdapterMyShows();
         registerForContextMenu(getListView());
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void SetListAdapterMyShows()
@@ -103,5 +108,18 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
         intent.putExtra(EXTRA_SERIESNUMBER, show.getString(1));
 
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
