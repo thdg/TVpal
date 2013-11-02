@@ -146,7 +146,7 @@ public class MainActivity extends Activity
             boolean networkAvailable = _connectivityListener.isNetworkAvailable(this);
             Intent intent = null;
 
-            if((position >= 1 && position < 8))
+            if((position >= 1 && position < 9))
             {
                 if(networkAvailable)
                 {
@@ -174,7 +174,7 @@ public class MainActivity extends Activity
                         case 6:
                             intent = new Intent(this, DisplaySkjarinnActivity.class);
                             break;
-                        case 7:
+                        case 8:
                             intent = new Intent(this, SearchTvShowActivity.class);
                             break;
                     }
