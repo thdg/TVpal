@@ -26,6 +26,8 @@ import is.activites.showActivities.RecentShowsActivity;
 import is.activites.showActivities.SearchTvShowActivity;
 import is.activites.showActivities.UpcomingShowsActivity;
 import is.datacontracts.DrawerListData;
+import is.datacontracts.DrawerListHeader;
+import is.datacontracts.Item;
 import is.handlers.adapters.DrawerListAdapter;
 import is.utilities.ConnectionListener;
 import is.utilities.DateUtil;
@@ -46,9 +48,9 @@ public class MainActivity extends Activity
 
     private ConnectionListener _connectivityListener;
 
-    private DrawerLayout _DrawerLayout;
-    private ListView _DrawerList;
-    private ActionBarDrawerToggle _DrawerToggle;
+    private DrawerLayout _drawerLayout;
+    private ListView _drawerList;
+    private ActionBarDrawerToggle _drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,31 +65,33 @@ public class MainActivity extends Activity
     {
         _connectivityListener = new ConnectionListener();
 
-        _DrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        _DrawerList = (ListView) findViewById(R.id.left_drawer);
+        _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        _drawerList = (ListView) findViewById(R.id.left_drawer);
 
-        List<DrawerListData> options = new ArrayList<DrawerListData>();
-        options.add(new DrawerListData(getResources().getString(R.string.ruv), R.drawable.ruv_svartur_64));
-        options.add(new DrawerListData(getResources().getString(R.string.stod_2), R.drawable.stod2_64));
-        options.add(new DrawerListData(getResources().getString(R.string.stod_2_sport), R.drawable.stod2sport_64));
-        options.add(new DrawerListData(getResources().getString(R.string.stod_2_bio), R.drawable.stod2bio_64));
-        options.add(new DrawerListData(getResources().getString(R.string.stod_3), R.drawable.stod3_64));
-        options.add(new DrawerListData(getResources().getString(R.string.skjar_einn), R.drawable.skjareinn_64));
-        options.add(new DrawerListData(getResources().getString(R.string.search_show), R.drawable.m_glass_64));
-        options.add(new DrawerListData(getResources().getString(R.string.my_shows), R.drawable.eye_64));
-        options.add(new DrawerListData(getString(R.string.upcoming_shows), R.drawable.calendar_64));
-        options.add(new DrawerListData(getString(R.string.recent_shows), R.drawable.recent_64));
+        List<Item> items = new ArrayList<Item>();
+        items.add(new DrawerListHeader(getResources().getString(R.string.schedule_header)));
+        items.add(new DrawerListData(getResources().getString(R.string.ruv), R.drawable.ruv_svartur_64));
+        items.add(new DrawerListData(getResources().getString(R.string.stod_2), R.drawable.stod2_64));
+        items.add(new DrawerListData(getResources().getString(R.string.stod_2_sport), R.drawable.stod2sport_64));
+        items.add(new DrawerListData(getResources().getString(R.string.stod_2_bio), R.drawable.stod2bio_64));
+        items.add(new DrawerListData(getResources().getString(R.string.stod_3), R.drawable.stod3_64));
+        items.add(new DrawerListData(getResources().getString(R.string.skjar_einn), R.drawable.skjareinn_64));
+        items.add(new DrawerListHeader(getResources().getString(R.string.shows_header)));
+        items.add(new DrawerListData(getResources().getString(R.string.search_show), R.drawable.m_glass_64));
+        items.add(new DrawerListData(getResources().getString(R.string.my_shows), R.drawable.eye_64));
+        items.add(new DrawerListData(getString(R.string.upcoming_shows), R.drawable.calendar_64));
+        items.add(new DrawerListData(getString(R.string.recent_shows), R.drawable.recent_64));
 
-        _DrawerList.setAdapter(
-                new DrawerListAdapter(this, R.layout.navigation_drawer, options)
+        _drawerList.setAdapter(
+                new DrawerListAdapter(this, items)
         );
-        _DrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        _drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
-        _DrawerToggle = new ActionBarDrawerToggle(
+        _drawerToggle = new ActionBarDrawerToggle(
                 this,
-                _DrawerLayout,
+                _drawerLayout,
                 R.drawable.ic_drawer,
                 R.string.drawer_open,  /* "open drawer" description for accessibility */
                 R.string.drawer_close  /* "close drawer" description for accessibility */
@@ -100,7 +104,7 @@ public class MainActivity extends Activity
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
-        _DrawerLayout.setDrawerListener(_DrawerToggle);
+        _drawerLayout.setDrawerListener(_drawerToggle);
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -110,26 +114,28 @@ public class MainActivity extends Activity
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
-        _DrawerToggle.syncState();
+        _drawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        _DrawerToggle.onConfigurationChanged(newConfig);
+        _drawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Pass the event to ActionBarDrawerToggle, if it returns
         // true, then it has handled the app icon touch event
-        return super.onOptionsItemSelected(item) || _DrawerToggle.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item) || _drawerToggle.onOptionsItemSelected(item);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+        {
+            if (DrawerListAdapter.RowType.LIST_ITEM.ordinal() == _drawerList.getAdapter().getItemViewType(position))
+                selectItem(position);
         }
     }
 
@@ -140,35 +146,35 @@ public class MainActivity extends Activity
             boolean networkAvailable = _connectivityListener.isNetworkAvailable(this);
             Intent intent = null;
 
-            if((position >= 0 && position < 7))
+            if((position >= 1 && position < 8))
             {
                 if(networkAvailable)
                 {
                     switch (position)
                     {
-                        case 0:
-                            intent = new Intent(this, DisplayRuvActivity.class);
-                            break;
                         case 1:
-                            intent = new Intent(this, DisplayStod2Activity.class);
-                            intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BaseUrl));
+                            intent = new Intent(this, DisplayRuvActivity.class);
                             break;
                         case 2:
                             intent = new Intent(this, DisplayStod2Activity.class);
-                            intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2SportBaseUrl));
+                            intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BaseUrl));
                             break;
                         case 3:
                             intent = new Intent(this, DisplayStod2Activity.class);
-                            intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BioBaseUrl));
+                            intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2SportBaseUrl));
                             break;
                         case 4:
                             intent = new Intent(this, DisplayStod2Activity.class);
-                            intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod3BaseUrl));
+                            intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BioBaseUrl));
                             break;
                         case 5:
-                            intent = new Intent(this, DisplaySkjarinnActivity.class);
+                            intent = new Intent(this, DisplayStod2Activity.class);
+                            intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod3BaseUrl));
                             break;
                         case 6:
+                            intent = new Intent(this, DisplaySkjarinnActivity.class);
+                            break;
+                        case 7:
                             intent = new Intent(this, SearchTvShowActivity.class);
                             break;
                     }
@@ -182,19 +188,19 @@ public class MainActivity extends Activity
 
             switch (position)
             {
-                case 7:
+                case 9:
                     intent = new Intent(this, MyShowsActivity.class);
                     break;
-                case 8:
+                case 10:
                     intent = new Intent(this, UpcomingShowsActivity.class);
                     break;
-                case 9:
+                case 11:
                     intent = new Intent(this, RecentShowsActivity.class);
                     break;
             }
 
-            _DrawerList.setItemChecked(position, true);
-            _DrawerLayout.closeDrawer(_DrawerList);
+            _drawerList.setItemChecked(position, true);
+            _drawerLayout.closeDrawer(_drawerList);
 
             startActivity(intent);
         }

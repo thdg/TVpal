@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:padding="10sp">
+    >
 
     <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/drawer_list_icon"
@@ -12,7 +18,8 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:gravity="center"
-    />
+        android:paddingLeft="16dp"
+        />
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/drawer_list_title"
@@ -24,7 +31,15 @@
         android:paddingRight="16dp"
         android:textColor="#444"
         android:textSize="20sp"
-        android:minHeight="32dp"
-    />
+        android:minHeight="48dp"
+        />
+
+    </LinearLayout>
+
+    <View
+        android:layout_height="1dip"
+        android:layout_width="fill_parent"
+        android:background="#bababa"
+        />
 
 </LinearLayout>
