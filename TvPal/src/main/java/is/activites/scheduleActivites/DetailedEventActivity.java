@@ -1,11 +1,15 @@
 package is.activites.scheduleActivites;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import is.datacontracts.EventData;
 import is.tvpal.R;
 
 /**
@@ -22,35 +26,33 @@ public class DetailedEventActivity extends Activity {
         setContentView(R.layout.detailed_activity);
 
         Initialize();
-
-        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void Initialize()
     {
         Intent intent = getIntent();
 
-        String title       = intent.getStringExtra(DisplayRuvActivity.EXTRA_TITLE);
-        String description = intent.getStringExtra(DisplayRuvActivity.EXTRA_DESCRIPTION);
-        String start       = intent.getStringExtra(DisplayRuvActivity.EXTRA_START);
-        String duration    = intent.getStringExtra(DisplayRuvActivity.EXTRA_DURATION);
+        EventData event = (EventData) intent.getSerializableExtra(ScheduleFragment.EXTRA_EVENT);
 
-        setTitle(title);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        setTitle(event.getTitle());
 
         TextView eventDescription = (TextView) findViewById(R.id.title);
-        eventDescription.setText(title);
+        eventDescription.setText(event.getTitle());
 
         TextView eventCategory = (TextView) findViewById(R.id.event_description);
-        eventCategory.setText(description);
+        eventCategory.setText(event.getDescription());
 
-        if (!start.equals("")) {
+        if (!event.getStartTime().equals("")) {
             TextView eventStart = (TextView) findViewById(R.id.event_starting);
-            eventStart.setText(String.format("%s: %s", getResources().getString(R.string.starting_time), start));
+            eventStart.setText(String.format("%s: %s", getResources().getString(R.string.starting_time), event.getStartTime()));
         }
 
-        if (!duration.equals("")) {
+        if (!event.getDuration().equals("")) {
             TextView eventDuration = (TextView) findViewById(R.id.event_duration);
-            eventDuration.setText(String.format("%s: %s", getResources().getString(R.string.duration), duration));
+            eventDuration.setText(String.format("%s: %s", getResources().getString(R.string.duration), event.getDuration()));
         }
     }
 

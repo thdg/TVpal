@@ -16,6 +16,7 @@ import is.tvpal.R;
 
 public class ScheduleFragment extends Fragment implements AdapterView.OnItemClickListener
 {
+    public static final String EXTRA_EVENT = "is.activites.scheduleActivites.EVENT";
     public static final String ARG_SCHEDULE_DAY = "schedule_day";
 
     private EventAdapter _adapterView;
@@ -51,10 +52,7 @@ public class ScheduleFragment extends Fragment implements AdapterView.OnItemClic
         EventData selectedEvent = _adapterView.getItem(i);
 
         Intent intent = new Intent(cxt, DetailedEventActivity.class);
-        intent.putExtra(DisplaySkjarinnActivity.EXTRA_TITLE, selectedEvent.getTitle());
-        intent.putExtra(DisplaySkjarinnActivity.EXTRA_DESCRIPTION, selectedEvent.getDescription());
-        intent.putExtra(DisplaySkjarinnActivity.EXTRA_START, selectedEvent.getStartTime());
-        intent.putExtra(DisplaySkjarinnActivity.EXTRA_DURATION, selectedEvent.getDuration());
+        intent.putExtra(EXTRA_EVENT, selectedEvent);
 
         startActivity(intent);
     }

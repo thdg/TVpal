@@ -1,49 +1,57 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:background="@drawable/logo_background"
-    android:padding="17dp" >
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:textColor="#EEE"
-        android:textSize="30sp" />
+    android:fadingEdge="vertical"
+    android:fillViewport="true">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="17dp"
-        android:paddingBottom="17dp" >
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:background="@drawable/logo_background"
+        android:padding="17dp" >
 
         <TextView
-            android:id="@+id/event_starting"
+            android:id="@+id/title"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:textColor="#DDD"
-            android:textSize="20sp" />
+            android:layout_width="wrap_content"
+            android:textColor="#EEE"
+            android:textSize="30sp" />
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="17dp"
+            android:paddingBottom="17dp" >
+
+            <TextView
+                android:id="@+id/event_starting"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="#DDD"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/event_duration"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textColor="#DDD"
+                android:textSize="20sp" />
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/event_duration"
+            android:id="@+id/event_description"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="right"
+            android:layout_width="wrap_content"
             android:textColor="#DDD"
-            android:textSize="20sp" />
+            android:textSize="15sp"
+            android:lineSpacingExtra="3dp"/>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/event_description"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:textColor="#DDD"
-        android:textSize="15sp"
-        android:lineSpacingExtra="3dp"/>
-
-</LinearLayout>
+</ScrollView>
