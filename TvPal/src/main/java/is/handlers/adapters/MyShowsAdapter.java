@@ -14,7 +14,10 @@ import android.widget.TextView;
 import is.tvpal.R;
 
 /**
- * Created by Arnar on 17.10.2013.
+ * Created by Arnar on 18.10.2013.
+ * An adapter to show what shows a user is watching
+ * It extends CursorAdapter
+ * @see android.support.v4.widget.CursorAdapter
  */
 
 public class MyShowsAdapter extends CursorAdapter

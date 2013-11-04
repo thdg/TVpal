@@ -13,8 +13,12 @@ import javax.xml.parsers.SAXParserFactory;
 import is.datacontracts.ShowData;
 
 /**
+ * This class parses xml files.  It uses the Sax Parser and extends DefaultHandler.
+ * It parses series data from the TheTvDB database.
  * Created by Arnar on 12.10.2013.
+ * @see org.xml.sax.helpers.DefaultHandler
  */
+
 public class TvDbShowParser extends DefaultHandler {
 
     private String baseURL;

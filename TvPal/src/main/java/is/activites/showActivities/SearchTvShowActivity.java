@@ -33,7 +33,7 @@ import is.datacontracts.ShowData;
 import is.handlers.adapters.SearchShowAdapter;
 import is.parsers.TvDbShowParser;
 import is.tvpal.R;
-import is.utilities.BitmapProperties;
+import is.utilities.PictureTask;
 
 public class SearchTvShowActivity extends Activity implements AdapterView.OnItemClickListener
 {
@@ -254,7 +254,7 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
         {
             try
             {
-                BitmapProperties bmp = new BitmapProperties();
+                PictureTask bmp = new PictureTask();
                 byte[] bannerByteStream = bmp.getBitmapFromURL(String.format("%s%s", apiUrl, bannerUrl));
                 banner = BitmapFactory.decodeByteArray(bannerByteStream, 0, bannerByteStream.length);
                 return "Successful";

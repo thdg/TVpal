@@ -13,15 +13,18 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import is.utilities.BitmapProperties;
+import is.utilities.PictureTask;
 
 /**
+ * This class parses xml files.  It uses the Sax Parser and extends DefaultHandler.
+ * It parses a single episode data from the TheTvDB database and downloads a episode picture as a BitMap
  * Created by Arnar on 12.10.2013.
+ * @see org.xml.sax.helpers.DefaultHandler
  */
+
 public class TvDbPictureParser extends DefaultHandler {
 
     private String baseURL;
-    private String tmpValue;
     private Bitmap episodePicture;
     private StringBuilder sb;
 
@@ -74,7 +77,7 @@ public class TvDbPictureParser extends DefaultHandler {
             try
             {
                 String pictureUrl = String.format("http://thetvdb.com/banners/%s", sb.toString());
-                BitmapProperties bit = new BitmapProperties();
+                PictureTask bit = new PictureTask();
                 byte[] pictureByteStream = bit.getBitmapFromURL(pictureUrl);
                 episodePicture = BitmapFactory.decodeByteArray(pictureByteStream, 0, pictureByteStream.length);
             }

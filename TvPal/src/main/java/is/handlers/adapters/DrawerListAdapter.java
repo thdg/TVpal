@@ -13,7 +13,7 @@ import is.datacontracts.Item;
  */
 public class DrawerListAdapter extends ArrayAdapter<Item>
 {
-    private LayoutInflater _Inflater;
+    private LayoutInflater _inflater;
 
     public enum RowType {
         LIST_ITEM, HEADER_ITEM
@@ -26,13 +26,13 @@ public class DrawerListAdapter extends ArrayAdapter<Item>
     public DrawerListAdapter(Context context, List<Item> items)
     {
         super(context, 0, items);
-        _Inflater = LayoutInflater.from(context);
+        _inflater = LayoutInflater.from(context);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        return getItem(position).getView(_Inflater, convertView);
+        return getItem(position).getView(_inflater, convertView);
     }
 
     @Override

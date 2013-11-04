@@ -1,9 +1,5 @@
 package is.handlers.adapters;
 
-/**
- * Created by Arnar on 18.10.2013.
- */
-
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
@@ -12,13 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import is.handlers.database.DbShowHandler;
 import is.utilities.DateUtil;
 import is.tvpal.R;
+
+/**
+ * Created by Arnar on 18.10.2013.
+ * An adapter to show all episodes of a single season of some series
+ * It extends CursorAdapter
+ * @see android.support.v4.widget.CursorAdapter
+ */
 
 public class EpisodeAdapter extends CursorAdapter {
 

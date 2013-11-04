@@ -10,15 +10,21 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.IOException;
 import java.util.List;
-
 import is.datacontracts.EpisodeData;
 import is.datacontracts.ShowData;
 import is.handlers.database.DbShowHandler;
 import is.parsers.TvDbEpisodeParser;
 import is.tvpal.R;
+
+/**
+ * Created by Arnar on 12.10.2013.
+ * An adapter to shows from the TvDb database
+ * A user can check a show to add the show under "MyShows"
+ * It extends BaseAdapter
+ * @see android.widget.BaseAdapter
+ */
 
 public class SearchShowAdapter extends BaseAdapter
 {

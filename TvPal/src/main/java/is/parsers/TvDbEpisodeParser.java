@@ -2,7 +2,6 @@ package is.parsers;
 
 import android.content.Context;
 import android.util.Log;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -12,14 +11,17 @@ import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 import is.datacontracts.EpisodeData;
 import is.handlers.database.DbShowHandler;
-import is.utilities.BitmapProperties;
+import is.utilities.PictureTask;
 
 /**
+ * This class parses xml files.  It uses the Sax Parser and extends DefaultHandler.
+ * It parses episode data from the TheTvDB database.
  * Created by Arnar on 12.10.2013.
+ * @see org.xml.sax.helpers.DefaultHandler
  */
+
 public class TvDbEpisodeParser extends DefaultHandler {
 
     private String baseURL;
@@ -96,7 +98,7 @@ public class TvDbEpisodeParser extends DefaultHandler {
             {
                 String posterUrl = String.format("http://thetvdb.com/banners/%s", sb.toString());
 
-                BitmapProperties pic = new BitmapProperties();
+                PictureTask pic = new PictureTask();
                 byte[] thumbnailByteStream = pic.getBitmapFromURL(posterUrl);
                 DbShowHandler db = new DbShowHandler(context);
                 db.AddThumbnailToSeries(thumbnailByteStream, seriesId);

@@ -9,7 +9,7 @@ import java.net.URL;
 /**
  * Created by Arnar on 19.10.2013.
  */
-public class BitmapProperties
+public class PictureTask
 {
     public byte[] getBitmapFromURL(String link) throws IOException
     {

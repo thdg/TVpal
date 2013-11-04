@@ -12,6 +12,12 @@ import android.widget.TextView;
 import is.handlers.database.DbShowHandler;
 import is.tvpal.R;
 
+/**
+ * Created by Arnar on 12.10.2013.
+ * An adapter to shows all seasons of a given Series
+ * @see android.support.v4.widget.CursorAdapter
+ */
+
 public class SeasonAdapter extends CursorAdapter
 {
     private static final int LAYOUT = R.layout.listview_season;
