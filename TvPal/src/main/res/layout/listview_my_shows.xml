@@ -1,45 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="5dp">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout">
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+android:id="@+id/linearLayout">
 
-        <ImageView android:id="@+id/imgIcon"
-            android:layout_width="80sp"
-            android:layout_height="96sp"
-            android:layout_marginRight="3dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/tvshow"/>
+<ImageView android:id="@+id/imgIcon"
+    android:layout_width="0dp"
+    android:layout_weight="2"
+    android:layout_height="80dp"
+    android:maxHeight="80dp"
+    android:layout_margin="5dp"
+    android:layout_gravity="center_vertical"
+    android:src="@drawable/tvshow"/>
 
-        <TextView android:id="@+id/title"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:text="Þáttur"
-            android:textColor="#000000"
-            android:layout_gravity="center_vertical"/>
+<TextView android:id="@+id/title"
+    android:layout_width="0dp"
+    android:layout_weight="6"
+    android:layout_height="80dp"
+    android:layout_margin="5dp"
+    android:textStyle="bold"
+    android:textSize="20sp"
+    android:gravity="center_vertical"
+    android:text="Þáttur"
+    android:textColor="#000000"/>
 
-    </LinearLayout>
-
-    <TextView android:id="@+id/overview"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="Overview:"
-        android:textColor="#000000"
-        android:layout_below="@+id/linearLayout"
-        android:layout_alignParentLeft="true"
-        android:maxLines="3"/>
-
-
-</RelativeLayout>
+</LinearLayout>

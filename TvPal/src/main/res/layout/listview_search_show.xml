@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="5dp">
+    android:layout_margin="10dp"
+    android:background="#FFF"
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -11,33 +13,24 @@
         android:orientation="horizontal"
         android:id="@+id/linearLayout">
 
-    <ImageView android:id="@+id/imgIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="3dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/tvshow"/>
+        <TextView android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="12"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="Þáttur"
+            android:paddingRight="10dp"
+            android:textColor="#000000"
+            android:layout_gravity="center_vertical"/>
 
-    <TextView android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:text="Þáttur"
-        android:textColor="#000000"
-        android:layout_gravity="center_vertical"/>
-
-    <CheckBox
-        android:button="@drawable/eye_checkbox"
-        android:id="@+id/checkShow"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:paddingRight="10sp"
-        android:layout_gravity="center_vertical"
-        android:focusable="false" />
+        <CheckBox
+            android:button="@drawable/eye_checkbox"
+            android:id="@+id/checkShow"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:focusable="false" />
 
     </LinearLayout>
 

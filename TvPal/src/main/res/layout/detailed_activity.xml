@@ -31,7 +31,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:textColor="#DDD"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/event_duration"
@@ -40,7 +40,7 @@
                 android:layout_weight="1"
                 android:gravity="right"
                 android:textColor="#DDD"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 

@@ -6,12 +6,19 @@
     android:fadingEdge="vertical"
     android:fillViewport="true">
 
-    <RelativeLayout
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:padding="15dp"
         android:background="#222">
+
+        <ImageView
+            android:id="@+id/popupBanner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/default_episode_background"
+            android:adjustViewBounds="true"/>
 
         <TextView
             android:id="@+id/popupTitle"
@@ -19,23 +26,17 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="22sp"
+            android:padding="15dp"
+            android:layout_gravity="center"
             android:text="Title"
             android:textColor="#eee"/>
-
-        <ImageView
-            android:id="@+id/popupBanner"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/popupTitle"
-            android:layout_height="140sp"
-            android:src="@drawable/default_episode"
-            android:adjustViewBounds="true"/>
 
 
         <TextView
             android:id="@+id/popupOverview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/popupBanner"
+            android:layout_marginLeft="15dp"
             android:textSize="17sp"
             android:text="Overview"
             android:textColor="#eee"
@@ -45,7 +46,7 @@
             android:id="@+id/popupNetwork"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/popupOverview"
+            android:layout_marginLeft="15dp"
             android:textSize="17sp"
             android:text="Network"
             android:textColor="#eee"
@@ -55,7 +56,7 @@
             android:id="@+id/popupFirstAired"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/popupNetwork"
+            android:layout_marginLeft="15dp"
             android:textSize="17sp"
             android:text="First aired"
             android:textColor="#eee"
@@ -65,11 +66,11 @@
             android:id="@+id/popUpClose"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_below="@id/popupFirstAired"
+            android:layout_gravity="center"
             android:text="Close"
             android:textColor="#eee"
             android:lineSpacingMultiplier="1.3" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </ScrollView>

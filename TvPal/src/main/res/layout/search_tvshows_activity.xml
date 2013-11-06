@@ -2,26 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:padding="5sp">
+    android:layout_height="fill_parent"
+    android:background="#EEE"
+    android:padding="10dp">
 
     <EditText
         android:id="@+id/editMeh"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="40dp"
         android:hint="Search"
         android:imeOptions="actionSearch"
+        android:background="#FFF"
+        android:padding="8dp"
         android:inputType="text"/>
-
-    <TextView
-        android:id="@+id/vio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5sp"/>
 
     <ListView
         android:id="@+id/lvId"
         android:layout_width="fill_parent"
+        android:background="#EEE"
+        android:layout_marginTop="10dp"
+        android:dividerHeight="10dp"
+        android:divider="#EEE"
         android:layout_height="fill_parent" />
 
 </LinearLayout>

@@ -129,8 +129,8 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
         LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = layoutInflater.inflate(R.layout.popup_show, null);
         _popupWindow.setContentView(popupView);
-        _popupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
-        _popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        _popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        _popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
 
         TextView showTitle = (TextView) popupView.findViewById(R.id.popupTitle);
         TextView showOverview = (TextView) popupView.findViewById(R.id.popupOverview);
@@ -142,7 +142,8 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
             new DownloadBannerBitmap(show.getBanner()).execute();
 
         showTitle.setText(show.getTitle());
-        showOverview.setText(String.format("Overview: %s", show.getOverview()));
+        String overview = show.getOverview()!=null ? show.getOverview() : "";
+        showOverview.setText(overview);
         showNetwork.setText(String.format("Network: %s", show.getNetwork()));
         showFirstAired.setText(String.format("First aired: %s", show.getFirstAired()));
 

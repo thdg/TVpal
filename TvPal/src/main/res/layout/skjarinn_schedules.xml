@@ -3,7 +3,9 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:padding="5sp">
+    android:paddingLeft="5sp"
+    android:paddingRight="5sp"
+>
 
     <ListView
         android:id="@+id/schedules"

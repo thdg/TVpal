@@ -1,43 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:padding="15dp">
 
     <TextView android:id="@+id/numberOfEpisode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical"
         android:textStyle="bold"
         android:textSize="22sp"
         android:text="12:" />
 
-    <TextView android:id="@+id/episodeName"
-        android:layout_width="wrap_content"
+    <LinearLayout
         android:layout_height="wrap_content"
-        android:maxWidth="270sp"
-        android:layout_toRightOf="@+id/numberOfEpisode"
-        android:layout_toLeftOf="@+id/setEpisodeSeen"
-        android:textSize="18sp"
-        android:paddingLeft="10sp"
-        android:text="Episode:"/>
+        android:layout_width="0dp"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+        <TextView android:id="@+id/episodeName"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:maxWidth="270sp"
+            android:layout_toRightOf="@+id/numberOfEpisode"
+            android:layout_toLeftOf="@+id/setEpisodeSeen"
+            android:textSize="18sp"
+            android:paddingLeft="10sp"
+            android:text="Episode:"/>
+
+        <TextView
+            android:id="@+id/aired"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_below="@+id/episodeName"
+            android:layout_toRightOf="@+id/numberOfEpisode"
+            android:text="Aired:"
+            android:paddingLeft="10sp"/>
+
+    </LinearLayout>
 
     <CheckBox
         android:button="@drawable/eye_checkbox_small"
         android:id="@+id/setEpisodeSeen"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_height="fill_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_margin="5dp"
+        android:gravity="center_vertical"
         android:layout_alignParentRight="true"
         android:focusable="false"/>
 
-    <TextView
-        android:id="@+id/aired"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_below="@+id/episodeName"
-        android:layout_toRightOf="@+id/numberOfEpisode"
-        android:text="Aired:"
-        android:paddingLeft="10sp"/>
-
-</RelativeLayout>
+</LinearLayout>

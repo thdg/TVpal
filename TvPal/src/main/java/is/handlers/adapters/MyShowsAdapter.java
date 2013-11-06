@@ -59,7 +59,7 @@ public class MyShowsAdapter extends CursorAdapter
 
             viewHolder = new ViewHolder();
             viewHolder.title = (TextView) convertView.findViewById(R.id.title);
-            viewHolder.overview = (TextView) convertView.findViewById(R.id.overview);
+            //viewHolder.overview = (TextView) convertView.findViewById(R.id.overview);
             viewHolder.thumbnail = (ImageView) convertView.findViewById(R.id.imgIcon);
 
             convertView.setTag(viewHolder);
@@ -73,7 +73,7 @@ public class MyShowsAdapter extends CursorAdapter
 
         String strOverview = mCursor.getString(2) == null ? "" : mCursor.getString(2);
 
-        viewHolder.overview.setText(String.format("Overview: %s", strOverview));
+        //viewHolder.overview.setText(String.format("Overview: %s", strOverview));
 
         byte[] thumbnailByteStream = mCursor.getBlob(3);
         Bitmap bmp = BitmapFactory.decodeByteArray(thumbnailByteStream, 0, thumbnailByteStream.length);

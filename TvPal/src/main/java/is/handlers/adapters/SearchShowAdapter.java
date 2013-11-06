@@ -80,11 +80,13 @@ public class SearchShowAdapter extends BaseAdapter
 
         String strNetwork = dataContract.getNetwork();
         if(strNetwork == null) strNetwork = "";
-        holder.network.setText(String.format("Network: %s",strNetwork));
+        else strNetwork = String.format("Network: %s",strNetwork);
+        holder.network.setText(strNetwork);
 
         String strOverview = dataContract.getOverview();
         if(strOverview == null) strOverview = "";
-        holder.overview.setText(String.format("Overview: %s",strOverview));
+        else strOverview = String.format("%s...",strOverview.substring(0, Math.min(strOverview.length(), 50)));
+        holder.overview.setText(strOverview);
 
         holder.checkShow.setOnClickListener(new View.OnClickListener()
         {
@@ -104,7 +106,7 @@ public class SearchShowAdapter extends BaseAdapter
                         Toast.makeText(context, String.format("%s will be added to your shows", dataContract.getTitle()), Toast.LENGTH_SHORT).show();
                     }
                     else
-                        Toast.makeText(context, String.format("Series %s exist in your shows", dataContract.getTitle()), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, String.format("Series %s exists in your shows", dataContract.getTitle()), Toast.LENGTH_SHORT).show();
                 }
                 holder.checkShow.setEnabled(false);
             }

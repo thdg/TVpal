@@ -1,46 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:padding="5dp">
 
     <ImageView android:id="@+id/activityImg"
-        android:layout_width="80sp"
-        android:layout_height="96sp"
-        android:layout_marginBottom="5dp"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="80dp"
         android:src="@drawable/movie"/>
 
-    <TextView android:id="@+id/activityTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/activityImg"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:paddingLeft="10sp"
-        android:text="title"
-        android:paddingTop="10sp"
-        android:textColor="#000000"/>
 
-    <TextView android:id="@+id/activityEpisode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/activityImg"
-        android:layout_below="@+id/activityTitle"
-        android:textSize="18sp"
-        android:paddingLeft="10sp"
-        android:text="Episode"
-        android:textColor="#000000"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="6"
+        android:layout_height="80dp"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:padding="5dp">
 
-    <TextView android:id="@+id/activityAirDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/activityEpisode"
-        android:layout_toRightOf="@id/activityImg"
-        android:textSize="18sp"
-        android:text="airdate"
-        android:paddingLeft="10sp"
-        android:textColor="#000000"
-        android:maxLines="3"/>
+        <TextView android:id="@+id/activityTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_toRightOf="@+id/activityImg"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:paddingLeft="5dp"
+            android:text="title"
+            android:textColor="#000000"/>
 
-</RelativeLayout>
+        <TextView android:id="@+id/activityEpisode"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_toRightOf="@+id/activityImg"
+            android:layout_below="@+id/activityTitle"
+            android:textSize="18sp"
+            android:paddingLeft="5dp"
+            android:text="Episode"
+            android:textColor="#000000"/>
+
+        <TextView android:id="@+id/activityAirDate"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_below="@+id/activityEpisode"
+            android:layout_toRightOf="@id/activityImg"
+            android:textSize="18sp"
+            android:text="Airdate"
+            android:paddingLeft="5dp"
+            android:textColor="#000000"
+            android:maxLines="3"/>
+
+    </LinearLayout>
+
+</LinearLayout>

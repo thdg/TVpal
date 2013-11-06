@@ -109,13 +109,13 @@ public class EpisodeActivity extends Activity implements SwipeGestureFilter.Simp
             }
             else
             {
-                _episodePicture.setImageResource(R.drawable.default_episode);
+                _episodePicture.setImageResource(R.drawable.default_episode_background);
                 String apiUrl = String.format("http://thetvdb.com/api/9A96DA217CEB03E7/episodes/%s", _episode.getEpisodeId());
                 new DownloadPicture(_episode).execute(apiUrl);
             }
         }
         else
-            _episodePicture.setImageResource(R.drawable.default_episode);
+            _episodePicture.setImageResource(R.drawable.default_episode_background);
 
         TextView _episodeTitle = (TextView) findViewById(R.id.episodeTitle);
         TextView _episodeAired = (TextView) findViewById(R.id.episodeAired);
