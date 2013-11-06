@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/episodePicture"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="160sp"
             android:scaleType="centerCrop"
             android:src="@drawable/default_episode_background"/>
 
