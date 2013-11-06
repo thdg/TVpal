@@ -38,10 +38,6 @@ import is.tvpal.R;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class DisplaySkjarinnActivity extends FragmentActivity implements ActionBar.TabListener
 {
-    public static final String EXTRA_TITLE = "is.activites.TITLE";
-    public static final String EXTRA_DESCRIPTION = "is.activites.DESCRIPTION";
-    public static final String EXTRA_START = "is.activites.START";
-    public static final String EXTRA_DURATION = "is.activites.DURATION";
     public static final String skjarinnUrl = "http://www.skjarinn.is/einn/dagskrarupplysingar/?channel_id=7&weeks=1&output_format=xml";
 
     private ProgressDialog _waitingDialog;

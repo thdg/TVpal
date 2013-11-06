@@ -21,6 +21,12 @@ import java.util.List;
 import is.datacontracts.EpisodeData;
 import is.datacontracts.ShowData;
 
+/**
+ * Class to handle database actions.
+ * Create tables, insert/delete/update, get cursor etc.
+ * @author Arnar
+ */
+
 public class DbShowHandler extends SQLiteOpenHelper
 {
     //Database & table info

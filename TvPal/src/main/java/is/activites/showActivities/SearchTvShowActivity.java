@@ -35,6 +35,12 @@ import is.parsers.TvDbShowParser;
 import is.tvpal.R;
 import is.utilities.PictureTask;
 
+/**
+ * An activity to search for episodes and add them to "MyShows"
+ * @author Arnar
+ * @see is.activites.showActivities.MyShowsActivity
+ */
+
 public class SearchTvShowActivity extends Activity implements AdapterView.OnItemClickListener
 {
     private ListView _lv;

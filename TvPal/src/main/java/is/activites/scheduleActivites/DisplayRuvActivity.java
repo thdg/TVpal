@@ -41,10 +41,6 @@ import is.tvpal.R;
 public class DisplayRuvActivity extends FragmentActivity implements ActionBar.TabListener
 {
     public static final String RuvUrl = "http://muninn.ruv.is/files/xml/ruv/";
-    public static final String EXTRA_TITLE = "is.activites.TITLE";
-    public static final String EXTRA_DESCRIPTION = "is.activites.DESCRIPTION";
-    public static final String EXTRA_START = "is.activites.START";
-    public static final String EXTRA_DURATION = "is.activites.DURATION";
 
     private List<EventData> _events;
     private ProgressDialog _waitingDialog;

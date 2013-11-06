@@ -10,6 +10,11 @@ import is.handlers.adapters.ActivityAdapter;
 import is.handlers.database.DbShowHandler;
 import is.tvpal.R;
 
+/**
+ * Displays upcoming shows
+ * @author Arnar
+ */
+
 public class UpcomingShowsActivity extends Activity
 {
     private ListView _listView;

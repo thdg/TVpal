@@ -14,6 +14,11 @@ import android.widget.ListView;
 import is.handlers.adapters.SeasonAdapter;
 import is.handlers.database.DbShowHandler;
 
+/**
+* Displays all seasons of some series
+* @author Arnar
+*/
+
 public class SeasonsActivity extends ListActivity implements  AdapterView.OnItemClickListener
 {
     public static final String EXTRA_SERIESID = "is.activites.SERIESID";

@@ -10,6 +10,11 @@ import is.handlers.adapters.ActivityAdapter;
 import is.handlers.database.DbShowHandler;
 import is.tvpal.R;
 
+/**
+ * Displays all recent shows
+ * @author Arnar
+ */
+
 public class RecentShowsActivity extends Activity
 {
     private ListView _listView;

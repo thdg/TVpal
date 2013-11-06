@@ -23,6 +23,11 @@ import is.utilities.ConnectionListener;
 import is.utilities.DateUtil;
 import is.tvpal.R;
 
+/**
+ * Displays detailed information of a episode
+ * @author Arnar
+ */
+
 public class EpisodeActivity extends Activity implements SwipeGestureFilter.SimpleGestureListener
 {
     private DbShowHandler _db;

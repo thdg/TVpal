@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 /**
+ * Class to download picture from a given uri
  * Created by Arnar on 19.10.2013.
  */
 public class PictureTask

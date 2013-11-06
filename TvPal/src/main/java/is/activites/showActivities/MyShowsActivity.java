@@ -23,6 +23,11 @@ import is.handlers.database.DbShowHandler;
 import is.handlers.adapters.MyShowsAdapter;
 import is.tvpal.R;
 
+/**
+ * Displays all series that a user has added to his shows
+ * @author Arnar
+ */
+
 public class MyShowsActivity extends ListActivity implements AdapterView.OnItemClickListener
 {
     public static final String EXTRA_SERIESID = "is.activities.SERIESID";

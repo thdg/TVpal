@@ -13,6 +13,11 @@ import android.widget.ListView;
 import is.handlers.database.DbShowHandler;
 import is.handlers.adapters.EpisodeAdapter;
 
+/**
+ * Displays all episodes of a single season of some series
+ * @author Arnar
+ */
+
 public class SingleSeasonActivity extends ListActivity implements AdapterView.OnItemClickListener
 {
     public static final String EXTRA_SERIESID = "is.activites.showActivities.SERIESID";
