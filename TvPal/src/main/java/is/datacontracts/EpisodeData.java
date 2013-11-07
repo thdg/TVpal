@@ -2,10 +2,12 @@ package is.datacontracts;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
+
 /**
  * Created by Arnar on 17.10.2013.
  */
-public class EpisodeData
+public class EpisodeData implements Serializable
 {
     private String episodeId;
     private String seriesId;

@@ -11,13 +11,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import is.datacontracts.EpisodeData;
 import is.datacontracts.ShowData;
 
@@ -236,44 +232,6 @@ public class DbShowHandler extends SQLiteOpenHelper
         return Integer.parseInt(cursor.getString(7)) == 1;
     }
 
-    public List<EpisodeData> GetEpisodesBySeason(String seriesId, String seasonNumber)
-    {
-        List<EpisodeData> episodeList = new ArrayList<EpisodeData>();
-
-        String selectQuery = String.format("select * from episodes where seriesId = %s and season = %s", seriesId, seasonNumber);
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        cursor.moveToFirst();
-        while(!cursor.isAfterLast())
-        {
-            try
-            {
-                EpisodeData episode = new EpisodeData();
-
-                episode.setEpisodeId(cursor.getString(0));
-                episode.setSeriesId(cursor.getString(1));
-                episode.setSeasonNumber(cursor.getString(2));
-                episode.setEpisodeNumber(cursor.getString(3));
-                episode.setEpisodeName(cursor.getString(4));
-                episode.setAired(cursor.getString(5));
-                episode.setOverview(cursor.getString(6));
-                episode.setSeen(cursor.getString(7));
-                episode.setDirector(cursor.getString(8));
-                episode.setRating(cursor.getString(9));
-
-                episodeList.add(episode);
-                cursor.moveToNext();
-            }
-            catch (Exception ex)
-            {
-                ex.getMessage();
-            }
-        }
-
-        return episodeList;
-    }
-
     /*
     *
         Cursors
@@ -338,6 +296,18 @@ public class DbShowHandler extends SQLiteOpenHelper
     {
         String selectQuery = String.format("select seriesId as _id, name, overview, thumbnail " +
                 "from %s order by %s", TABLE_SERIES, KEY_S_NAME);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        return cursor;
+    }
+
+    public Cursor GetCursorEpisodesDetailed(String seriesId, String seasonNumber)
+    {
+        String selectQuery = String.format("select episodeId as _id, episode, episodeName, season, overview, aired, director, rating, seen " +
+                                        "from episodes where seriesId = %s and season = %s", seriesId, seasonNumber);
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

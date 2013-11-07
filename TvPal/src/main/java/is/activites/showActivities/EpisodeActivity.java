@@ -1,80 +1,49 @@
 package is.activites.showActivities;
 
+import android.annotation.TargetApi;
+import android.app.ActionBar;
+import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
+import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
-import android.app.Activity;
-import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import java.io.IOException;
-import java.util.List;
-
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import is.datacontracts.EpisodeData;
-import is.handlers.SwipeGestureFilter;
 import is.handlers.database.DbShowHandler;
-import is.parsers.TvDbPictureParser;
-import is.utilities.ConnectionListener;
-import is.utilities.DateUtil;
 import is.tvpal.R;
 
 /**
- * Displays detailed information of a episode
+ * An activity that display fragments in TabViews, each
+ * fragment holds detailed information about a show.
  * @author Arnar
+ * @see android.app.ActionBar.TabListener
  */
-
-public class EpisodeActivity extends Activity implements SwipeGestureFilter.SimpleGestureListener
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+public class EpisodeActivity extends FragmentActivity implements ActionBar.TabListener
 {
-    private DbShowHandler _db;
-    private SwipeGestureFilter _detector;
-    private List<EpisodeData> _episodes;
-    private EpisodeData _episode;
     private String _seriesId;
     private String _seasonNr;
-    private String _episodeNr;
-    private ImageView _episodePicture;
-    private CheckBox _episodeSeen;
-    private ConnectionListener _connection;
+    private int _pos;
+    private EpisodePagerAdapter mScheduleAdapter;
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.episode_activity);
+        setContentView(R.layout.tab_schedules);
 
         Initialize();
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void Initialize()
     {
-        _episodePicture = (ImageView) findViewById(R.id.episodePicture);
-        _episodeSeen = (CheckBox) findViewById(R.id.episodeSeen);
-
-        _episodeSeen.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                _db.UpdateEpisodeSeen(_episode.getEpisodeId());
-
-                String seen = "0";
-                if(_episode.getSeen().equalsIgnoreCase("0"))
-                    seen = "1";
-
-                _episode.setSeen(seen);
-            }
-        });
-
-        _connection = new ConnectionListener();
-        _db = new DbShowHandler(this);
-        _detector = new SwipeGestureFilter(this,this);
-        _episode = new EpisodeData();
-
         Intent intent = getIntent();
 
         //TODO: Find a better way to set title. (Siggi)
@@ -82,176 +51,100 @@ public class EpisodeActivity extends Activity implements SwipeGestureFilter.Simp
 
         _seriesId = intent.getStringExtra(SingleSeasonActivity.EXTRA_SERIESID);
         _seasonNr = intent.getStringExtra(SingleSeasonActivity.EXTRA_SEASONNR);
-        _episodeNr = intent.getStringExtra(SingleSeasonActivity.EXTRA_EPISODENR);
+        _pos = intent.getIntExtra(SingleSeasonActivity.EXTRA_SELECTED, 0);
 
-        _episodes = _db.GetEpisodesBySeason(_seriesId, _seasonNr);
-
-        GenerateLayout();
-
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        CreateTabViews();
     }
 
-    private void GenerateLayout()
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void CreateTabViews()
     {
-        for (EpisodeData e : _episodes)
+        DbShowHandler db = new DbShowHandler(this);
+
+        mScheduleAdapter = new EpisodePagerAdapter(getSupportFragmentManager(), db.GetCursorEpisodesDetailed(_seriesId, _seasonNr) ,this);
+
+        final ActionBar actionBar = getActionBar();
+
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mScheduleAdapter);
+        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position)
+            {
+                actionBar.setSelectedNavigationItem(position);
+            }
+        });
+
+        for (int i = 0; i < mScheduleAdapter.getCount(); i++)
         {
-            if (e.getEpisodeNumber().equalsIgnoreCase(_episodeNr))
-            {
-                _episode = e;
-                break;
-            }
+            actionBar.addTab(actionBar.newTab()
+                    .setText(mScheduleAdapter.getPageTitle(i))
+                    .setTabListener(this));
         }
-        SetTextInTextViews();
-    }
 
-    private void SetTextInTextViews()
-    {
-        if (_connection.isNetworkAvailable(this))
-        {
-            if(_episode.getPicture() != null)
-            {
-                _episodePicture.setImageBitmap(_episode.getPicture());
-            }
-            else
-            {
-                _episodePicture.setImageResource(R.drawable.default_episode_background);
-                String apiUrl = String.format("http://thetvdb.com/api/9A96DA217CEB03E7/episodes/%s", _episode.getEpisodeId());
-                new DownloadPicture(_episode).execute(apiUrl);
-            }
-        }
-        else
-            _episodePicture.setImageResource(R.drawable.default_episode_background);
-
-        TextView _episodeTitle = (TextView) findViewById(R.id.episodeTitle);
-        TextView _episodeAired = (TextView) findViewById(R.id.episodeAired);
-        TextView _episodeSeason = (TextView) findViewById(R.id.episodeSeason);
-        TextView _episodeOverview = (TextView) findViewById(R.id.episodeOverview);
-        TextView _episodeDirector = (TextView) findViewById(R.id.episodeDirector);
-        TextView _episodeRating = (TextView) findViewById(R.id.episodeRating);
-
-        _episodeTitle.setText(_episode.getEpisodeName());
-        _episodeAired.setText(String.format("Aired: %s", DateUtil.FormatDateEpisode(_episode.getAired())));
-        _episodeSeason.setText(String.format("Season %s \nEpisode: %s", _episode.getSeasonNumber(), _episode.getEpisodeNumber()));
-        _episodeOverview.setText(_episode.getOverview());
-        _episodeDirector.setText(String.format("Director: %s", _episode.getDirector()));
-        _episodeRating.setText(String.format("Rating: %s", _episode.getRating()));
-        _episodeSeen.setChecked(_episode.getSeen().equalsIgnoreCase("1"));
+        actionBar.setSelectedNavigationItem(_pos);
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent me)
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction)
     {
-        // Call onTouchEvent of SwipeGestureFilter class
-        this._detector.onTouchEvent(me);
-        return super.dispatchTouchEvent(me);
+        mViewPager.setCurrentItem(tab.getPosition());
     }
 
     @Override
-    public void onSwipe(int direction)
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
+
+    public class EpisodePagerAdapter extends FragmentStatePagerAdapter
     {
-        switch (direction)
+        private Context cxt;
+        private Cursor mCursor;
+
+        public EpisodePagerAdapter(FragmentManager fm, Cursor cursor , Context cxt)
         {
-            case SwipeGestureFilter.SWIPE_RIGHT :
-                SwipeRightEvent();
-                break;
-
-            case SwipeGestureFilter.SWIPE_LEFT :
-                SwipeLeftEvent();
-                break;
-        }
-    }
-
-    private void SwipeLeftEvent()
-    {
-        String selectedEpisodeNumber = _episode.getEpisodeNumber();
-
-        for(EpisodeData e : _episodes)
-        {
-            if (e.getEpisodeNumber().equalsIgnoreCase(selectedEpisodeNumber))
-            {
-                int episodeNumber = Integer.parseInt(_episode.getEpisodeNumber());
-                _episodeNr = Integer.toString(episodeNumber + 1);
-                GenerateLayout();
-                return;
-            }
-        }
-    }
-
-    private void SwipeRightEvent()
-    {
-        String selectedEpisodeNumber = _episode.getEpisodeNumber();
-
-        for(EpisodeData e : _episodes)
-        {
-            if (e.getEpisodeNumber().equalsIgnoreCase(selectedEpisodeNumber))
-            {
-                int episodeNumber = Integer.parseInt(_episode.getEpisodeNumber());
-                _episodeNr = Integer.toString(episodeNumber - 1);
-                GenerateLayout();
-                return;
-            }
-        }
-    }
-
-    private class DownloadPicture extends AsyncTask<String, Void, String>
-    {
-        private final EpisodeData episode;
-
-        public DownloadPicture(EpisodeData episode)
-        {
-            this.episode = episode;
+            super(fm);
+            this.cxt = cxt;
+            mCursor = cursor;
         }
 
         @Override
-        protected String doInBackground(String... urls)
+        public Fragment getItem(int position)
         {
-            try
-            {
-                return GetPicture(urls[0]);
-            }
-            catch (IOException e)
-            {
-                return "Unable to retrieve web page. URL may be invalid";
-            }
+            mCursor.moveToPosition(position);
+
+            Fragment fragment = new EpisodeFragment(cxt);
+            Bundle args = new Bundle();
+
+            EpisodeData episode = new EpisodeData();
+            episode.setEpisodeName(mCursor.getString(2));
+            episode.setSeasonNumber(mCursor.getString(3));
+            episode.setOverview(mCursor.getString(4));
+            episode.setAired(mCursor.getString(5));
+            episode.setDirector(mCursor.getString(6));
+            episode.setRating(mCursor.getString(7));
+            episode.setEpisodeId(mCursor.getString(0));
+            episode.setSeen(mCursor.getString(8));
+
+            args.putSerializable(EpisodeFragment.EPISODE_FRAGMENT, episode);
+            fragment.setArguments(args);
+            return fragment;
         }
 
         @Override
-        protected void onPostExecute(String result)
+        public int getCount()
         {
-            if(_episodeNr.equalsIgnoreCase(episode.getEpisodeNumber()))
-            {
-                _episodePicture.setImageBitmap(_episode.getPicture());
-            }
+            return mCursor.getCount();
         }
 
-        private String GetPicture(String myurl) throws IOException
+        @Override
+        public CharSequence getPageTitle(int position)
         {
-            try
-            {
-                TvDbPictureParser parser = new TvDbPictureParser(myurl);
-                Bitmap picture = parser.GetEpisodePicture();
+           mCursor.moveToPosition(position);
 
-                episode.setPicture(picture);
-            }
-            catch (Exception ex)
-            {
-                ex.getMessage();
-            }
-
-            return "Successful";
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch(item.getItemId())
-        {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+           return String.format("%s-%s", mCursor.getString(3), mCursor.getString(1));
         }
     }
 }

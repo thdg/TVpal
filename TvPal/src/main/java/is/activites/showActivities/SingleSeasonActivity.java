@@ -23,6 +23,7 @@ public class SingleSeasonActivity extends ListActivity implements AdapterView.On
     public static final String EXTRA_SERIESID = "is.activites.showActivities.SERIESID";
     public static final String EXTRA_SEASONNR = "is.activites.showActivities.SEASONNR";
     public static final String EXTRA_EPISODENR = "is.activites.showActivities.EPISODENR";
+    public static final String EXTRA_SELECTED = "is.activites.showActivities.SELECTED";
 
     private EpisodeAdapter _adapter;
     private DbShowHandler _db;
@@ -72,6 +73,7 @@ public class SingleSeasonActivity extends ListActivity implements AdapterView.On
         intent.putExtra(EXTRA_SERIESID, selectedEpisode.getString(1));
         intent.putExtra(EXTRA_SEASONNR, selectedEpisode.getString(2));
         intent.putExtra(EXTRA_EPISODENR, selectedEpisode.getString(3));
+        intent.putExtra(EXTRA_SELECTED, position);
         startActivity(intent);
     }
 
