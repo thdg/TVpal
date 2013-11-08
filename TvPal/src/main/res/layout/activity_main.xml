@@ -11,7 +11,8 @@
         android:background="@drawable/logo_background"
         android:paddingTop="16dp"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp" >
+        android:paddingRight="16dp"
+        android:clickable="true">
 
         <TextView
             android:layout_width="wrap_content"
