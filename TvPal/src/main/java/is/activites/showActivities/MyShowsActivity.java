@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,11 +15,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import java.util.Currency;
-import java.util.List;
-
-import is.datacontracts.ShowData;
 import is.handlers.database.DbShowHandler;
 import is.handlers.adapters.MyShowsAdapter;
 import is.tvpal.R;
@@ -100,7 +96,7 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
         }
         catch (Exception ex)
         {
-            ex.getMessage();
+            Log.e(getClass().getName(), ex.getMessage());
         }
     }
 

@@ -6,18 +6,20 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 import is.handlers.adapters.SeasonAdapter;
 import is.handlers.database.DbShowHandler;
+import is.tvpal.R;
 
 /**
-* Displays all seasons of some series
-* @author Arnar
-*/
+ * Displays all seasons of some series
+ * @author Arnar
+ */
 
 public class SeasonsActivity extends ListActivity implements  AdapterView.OnItemClickListener
 {
@@ -40,6 +42,11 @@ public class SeasonsActivity extends ListActivity implements  AdapterView.OnItem
     protected void onResume()
     {
         super.onResume();
+        SetListAdapter();
+    }
+
+    private void SetListAdapter()
+    {
         _adapter= new SeasonAdapter(this, _db.GetCursorSeasons(_seriesId), 0);
         setListAdapter(_adapter);
     }
@@ -57,6 +64,8 @@ public class SeasonsActivity extends ListActivity implements  AdapterView.OnItem
         ListView lv = getListView();
         lv.setOnItemClickListener(this);
 
+        registerForContextMenu(getListView());
+
         _db = new DbShowHandler(this);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -71,6 +80,38 @@ public class SeasonsActivity extends ListActivity implements  AdapterView.OnItem
         intent.putExtra(EXTRA_SERIESID, _seriesId);
         intent.putExtra(EXTRA_SEASON, selectedSeason.getString(1));
         startActivity(intent);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.season, menu);
+    }
+
+    public boolean onContextItemSelected(MenuItem item)
+    {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int position = info.position;
+
+        switch (item.getItemId())
+        {
+            case R.id.setSeasonSeen:
+                SetSeasonSeen(position);
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    private void SetSeasonSeen(int position)
+    {
+        Cursor selectedSeason = (Cursor) _adapter.getItem(position);
+
+        _db.SetSeasonSeen(selectedSeason.getString(2), selectedSeason.getString(0));
+
+        SetListAdapter();
     }
 
     @Override

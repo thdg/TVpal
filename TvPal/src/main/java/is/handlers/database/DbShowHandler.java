@@ -11,6 +11,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -206,6 +208,30 @@ public class DbShowHandler extends SQLiteOpenHelper
         }
     }
 
+    public void SetSeasonSeen(String seriesId, String seasonNumber)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try
+        {
+            if (db !=null)
+            {
+                db.beginTransaction();
+                db.execSQL(String.format("UPDATE %s SET seen = 1 WHERE seriesId = '%s' AND season = '%s'", TABLE_EPISODES, seriesId, seasonNumber));
+                db.setTransactionSuccessful();
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.e(getClass().getName(), ex.getMessage());
+        }
+        finally
+        {
+            db.endTransaction();
+        }
+
+        db.close();
+    }
+
     public void UpdateEpisodeSeen(String episodeId)
     {
         String seen = "1";
@@ -307,7 +333,7 @@ public class DbShowHandler extends SQLiteOpenHelper
     public Cursor GetCursorEpisodesDetailed(String seriesId, String seasonNumber)
     {
         String selectQuery = String.format("select episodeId as _id, episode, episodeName, season, overview, aired, director, rating, seen " +
-                                        "from episodes where seriesId = %s and season = %s", seriesId, seasonNumber);
+                "from episodes where seriesId = %s and season = %s", seriesId, seasonNumber);
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

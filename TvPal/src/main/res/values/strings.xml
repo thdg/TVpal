@@ -52,5 +52,6 @@
     <string name="recent_shows">Recent shows</string>
     <string name="shows_header">Shows</string>
     <string name="schedule_header">Dagskrá</string>
+    <string name="seen_all">Seen all shows</string>
 
 </resources>
