@@ -77,13 +77,12 @@ public class ActivityAdapter extends CursorAdapter
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.episodeName.setText(mCursor.getString(1));
-        viewHolder.episodeNumber.setText(String.format("%sx%s", mCursor.getString(4), mCursor.getString(5)));
-        viewHolder.episodeAired.setText(DateUtil.FormatDateEpisode(mCursor.getString(2)));
+        viewHolder.episodeName.setText(mCursor.getString(Episodes.EpisodeName));
+        viewHolder.episodeNumber.setText(String.format("%sx%s", mCursor.getString(Episodes.Season), mCursor.getString(Episodes.Episode)));
+        viewHolder.episodeAired.setText(DateUtil.FormatDateEpisode(mCursor.getString(Episodes.Aired)));
 
-        String seriesId = mCursor.getString(3);
+        String seriesId = mCursor.getString(Episodes.SeriesId);
 
-        //TODO: Maby this takes to much memory, look into that
         if (!pictures.containsKey(seriesId))
         {
             Bitmap bmp = db.GetSeriesThumbnail(seriesId);
@@ -96,13 +95,21 @@ public class ActivityAdapter extends CursorAdapter
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor)
-    {
-    }
+    public void bindView(View view, Context context, Cursor cursor) {}
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent)
     {
         return mLayoutInflater.inflate(LAYOUT, parent, false);
+    }
+
+    private interface Episodes
+    {
+        int EpisodeId = 0;
+        int EpisodeName = 1;
+        int Aired = 2;
+        int SeriesId = 3;
+        int Season = 4;
+        int Episode = 5;
     }
 }

@@ -10,8 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import is.handlers.adapters.SingleSeasonAdapter;
 import is.handlers.database.DbShowHandler;
-import is.handlers.adapters.EpisodeAdapter;
 
 /**
  * Displays all episodes of a single season of some series
@@ -25,7 +26,7 @@ public class SingleSeasonActivity extends ListActivity implements AdapterView.On
     public static final String EXTRA_EPISODENR = "is.activites.showActivities.EPISODENR";
     public static final String EXTRA_SELECTED = "is.activites.showActivities.SELECTED";
 
-    private EpisodeAdapter _adapter;
+    private SingleSeasonAdapter _adapter;
     private DbShowHandler _db;
     private String _seriesId;
     private String _season;
@@ -43,7 +44,7 @@ public class SingleSeasonActivity extends ListActivity implements AdapterView.On
     {
         super.onResume();
 
-        _adapter = new EpisodeAdapter(this, _db.GetCursorEpisodes(_seriesId, _season), 0, _seriesId, _season);
+        _adapter = new SingleSeasonAdapter(this, _db.GetCursorEpisodes(_seriesId, _season), 0, _seriesId, _season);
         setListAdapter(_adapter);
     }
 

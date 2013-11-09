@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import is.datacontracts.EpisodeData;
 import is.handlers.database.DbShowHandler;
 import is.tvpal.R;
 
@@ -69,10 +70,10 @@ public class SeasonAdapter extends CursorAdapter
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.seasonTitle.setText(String.format("Season %s" , mCursor.getString(mCursor.getColumnIndex("season"))));
+        viewHolder.seasonTitle.setText(String.format("Season %s" , mCursor.getString(Episodes.Season)));
 
-        String season = mCursor.getString(1);
-        String seriesId = mCursor.getString(2);
+        final String season = mCursor.getString(Episodes.Season);
+        final String seriesId = mCursor.getString(Episodes.SeriesId);
 
         int totalShows = db.GetTotalSeasonCount(seriesId, season);
         int totalShowsSeen = db.GetTotalSeasonSeen(seriesId, season);
@@ -85,13 +86,17 @@ public class SeasonAdapter extends CursorAdapter
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor)
-    {
-    }
+    public void bindView(View view, Context context, Cursor cursor) {}
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent)
     {
         return mLayoutInflater.inflate(LAYOUT, parent, false);
+    }
+
+    private interface Episodes
+    {
+        int Season = 1;
+        int SeriesId = 2;
     }
 }

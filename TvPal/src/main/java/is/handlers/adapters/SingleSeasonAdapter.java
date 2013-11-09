@@ -10,6 +10,8 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
+
+import is.datacontracts.EpisodeData;
 import is.handlers.database.DbShowHandler;
 import is.utilities.DateUtil;
 import is.tvpal.R;
@@ -21,7 +23,7 @@ import is.tvpal.R;
  * @see android.support.v4.widget.CursorAdapter
  */
 
-public class EpisodeAdapter extends CursorAdapter {
+public class SingleSeasonAdapter extends CursorAdapter {
 
     private static final int LAYOUT = R.layout.listview_episodes;
 
@@ -31,7 +33,7 @@ public class EpisodeAdapter extends CursorAdapter {
     private String seriesId;
     private String season;
 
-    public EpisodeAdapter(Context context, Cursor c, int flags, String seriesId, String season)
+    public SingleSeasonAdapter(Context context, Cursor c, int flags, String seriesId, String season)
     {
         super(context, c, flags);
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -83,7 +85,7 @@ public class EpisodeAdapter extends CursorAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        final String episodeId = mCursor.getString(0);
+        final String episodeId = mCursor.getString(Episodes.EpisodeId);
 
         viewHolder.checkShowSeen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +96,7 @@ public class EpisodeAdapter extends CursorAdapter {
             }
         });
 
-        String showSeen = mCursor.getString(6);
+        String showSeen = mCursor.getString(Episodes.Seen);
         if (showSeen.equalsIgnoreCase("1"))
         {
             mCheckedShows.set(position, true);
@@ -106,21 +108,30 @@ public class EpisodeAdapter extends CursorAdapter {
 
         viewHolder.checkShowSeen.setChecked(mCheckedShows.get(position));
 
-        viewHolder.numberOfEpisode.setText(String.format("%s:", mCursor.getString(3)));
-        viewHolder.name.setText(mCursor.getString(4));
-        viewHolder.aired.setText(DateUtil.FormatDateEpisode(mCursor.getString(5)));
+        viewHolder.numberOfEpisode.setText(String.format("%s:", mCursor.getString(Episodes.Episode)));
+        viewHolder.name.setText(mCursor.getString(Episodes.EpisodeName));
+        viewHolder.aired.setText(DateUtil.FormatDateEpisode(mCursor.getString(Episodes.Aired)));
 
         return convertView;
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor)
-    {
-    }
+    public void bindView(View view, Context context, Cursor cursor) {}
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent)
     {
         return mLayoutInflater.inflate(LAYOUT, parent, false);
+    }
+
+    private interface Episodes
+    {
+        int EpisodeId = 0;
+        int SeriesId = 1;
+        int Season = 2;
+        int Episode = 3;
+        int EpisodeName = 4;
+        int Aired = 5;
+        int Seen = 6;
     }
 }

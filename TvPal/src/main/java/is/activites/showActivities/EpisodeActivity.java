@@ -13,6 +13,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
+
 import is.datacontracts.EpisodeData;
 import is.handlers.database.DbShowHandler;
 import is.tvpal.R;
@@ -65,6 +67,7 @@ public class EpisodeActivity extends FragmentActivity implements ActionBar.TabLi
 
         final ActionBar actionBar = getActionBar();
 
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -85,6 +88,19 @@ public class EpisodeActivity extends FragmentActivity implements ActionBar.TabLi
         }
 
         actionBar.setSelectedNavigationItem(_pos);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -119,14 +135,14 @@ public class EpisodeActivity extends FragmentActivity implements ActionBar.TabLi
             Bundle args = new Bundle();
 
             EpisodeData episode = new EpisodeData();
-            episode.setEpisodeName(mCursor.getString(2));
-            episode.setSeasonNumber(mCursor.getString(3));
-            episode.setOverview(mCursor.getString(4));
-            episode.setAired(mCursor.getString(5));
-            episode.setDirector(mCursor.getString(6));
-            episode.setRating(mCursor.getString(7));
-            episode.setEpisodeId(mCursor.getString(0));
-            episode.setSeen(mCursor.getString(8));
+            episode.setEpisodeName(mCursor.getString(Episodes.EpisodeName));
+            episode.setSeasonNumber(mCursor.getString(Episodes.Season));
+            episode.setOverview(mCursor.getString(Episodes.Overview));
+            episode.setAired(mCursor.getString(Episodes.Aired));
+            episode.setDirector(mCursor.getString(Episodes.Director));
+            episode.setRating(mCursor.getString(Episodes.Rating));
+            episode.setEpisodeId(mCursor.getString(Episodes.EpisodeId));
+            episode.setSeen(mCursor.getString(Episodes.Seen));
 
             args.putSerializable(EpisodeFragment.EPISODE_FRAGMENT, episode);
             fragment.setArguments(args);
@@ -146,5 +162,18 @@ public class EpisodeActivity extends FragmentActivity implements ActionBar.TabLi
 
            return String.format("%s-%s", mCursor.getString(3), mCursor.getString(1));
         }
+    }
+
+    private interface Episodes
+    {
+        int EpisodeId = 0;
+        int Episode = 1;
+        int EpisodeName = 2;
+        int Season = 3;
+        int Overview = 4;
+        int Aired = 5;
+        int Director = 6;
+        int Rating = 7;
+        int Seen = 8;
     }
 }

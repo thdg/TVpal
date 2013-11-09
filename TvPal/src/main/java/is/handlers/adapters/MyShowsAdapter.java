@@ -71,8 +71,8 @@ public class MyShowsAdapter extends CursorAdapter
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        final String seriesId = mCursor.getString(0);
-        viewHolder.title.setText(mCursor.getString(1));
+        final String seriesId = mCursor.getString(Series.SeriesId);
+        viewHolder.title.setText(mCursor.getString(Series.Name));
 
         if(mPosters.get(seriesId) != null)
         {
@@ -80,7 +80,7 @@ public class MyShowsAdapter extends CursorAdapter
         }
         else
         {
-            byte[] thumbnailByteStream = mCursor.getBlob(2);
+            byte[] thumbnailByteStream = mCursor.getBlob(Series.Thumbnail);
             Bitmap bmp = BitmapFactory.decodeByteArray(thumbnailByteStream, 0, thumbnailByteStream.length);
             mPosters.put(seriesId, bmp);
             viewHolder.thumbnail.setImageBitmap(bmp);
@@ -98,5 +98,12 @@ public class MyShowsAdapter extends CursorAdapter
     public View newView(Context context, Cursor cursor, ViewGroup parent)
     {
         return mLayoutInflater.inflate(LAYOUT, parent, false);
+    }
+
+    private interface Series
+    {
+        int SeriesId = 0;
+        int Name = 1;
+        int Thumbnail = 2;
     }
 }
