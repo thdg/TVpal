@@ -235,7 +235,7 @@ public class DbShowHandler extends SQLiteOpenHelper
     /*
     *
         Cursors
-     *
+    *
      */
 
     public Cursor GetCursorSeasons(String seriesId)
@@ -294,7 +294,7 @@ public class DbShowHandler extends SQLiteOpenHelper
 
     public Cursor GetCursorMyShows()
     {
-        String selectQuery = String.format("select seriesId as _id, name, overview, thumbnail " +
+        String selectQuery = String.format("select seriesId as _id, name, thumbnail " +
                 "from %s order by %s", TABLE_SERIES, KEY_S_NAME);
 
         SQLiteDatabase db = this.getWritableDatabase();

@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 import is.tvpal.R;
 
 /**
@@ -25,17 +27,18 @@ public class MyShowsAdapter extends CursorAdapter
     private static final int LAYOUT = R.layout.listview_my_shows;
 
     private LayoutInflater mLayoutInflater;
+    private HashMap<String, Bitmap> mPosters;
 
     public MyShowsAdapter(Context context, Cursor c, int flags)
     {
         super(context, c, flags);
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mPosters = new HashMap<String, Bitmap>();
     }
 
     static class ViewHolder
     {
         TextView title;
-        TextView overview;
         ImageView thumbnail;
     }
 
@@ -59,7 +62,6 @@ public class MyShowsAdapter extends CursorAdapter
 
             viewHolder = new ViewHolder();
             viewHolder.title = (TextView) convertView.findViewById(R.id.title);
-            //viewHolder.overview = (TextView) convertView.findViewById(R.id.overview);
             viewHolder.thumbnail = (ImageView) convertView.findViewById(R.id.imgIcon);
 
             convertView.setTag(viewHolder);
@@ -69,15 +71,20 @@ public class MyShowsAdapter extends CursorAdapter
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+        final String seriesId = mCursor.getString(0);
         viewHolder.title.setText(mCursor.getString(1));
 
-        String strOverview = mCursor.getString(2) == null ? "" : mCursor.getString(2);
-
-        //viewHolder.overview.setText(String.format("Overview: %s", strOverview));
-
-        byte[] thumbnailByteStream = mCursor.getBlob(3);
-        Bitmap bmp = BitmapFactory.decodeByteArray(thumbnailByteStream, 0, thumbnailByteStream.length);
-        viewHolder.thumbnail.setImageBitmap(bmp);
+        if(mPosters.get(seriesId) != null)
+        {
+            viewHolder.thumbnail.setImageBitmap(mPosters.get(seriesId));
+        }
+        else
+        {
+            byte[] thumbnailByteStream = mCursor.getBlob(2);
+            Bitmap bmp = BitmapFactory.decodeByteArray(thumbnailByteStream, 0, thumbnailByteStream.length);
+            mPosters.put(seriesId, bmp);
+            viewHolder.thumbnail.setImageBitmap(bmp);
+        }
 
         return convertView;
     }
