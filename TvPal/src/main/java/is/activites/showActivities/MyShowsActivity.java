@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import is.handlers.database.DbShowHandler;
 import is.handlers.adapters.MyShowsAdapter;
+import is.thetvdb.TvDbUtil;
 import is.tvpal.R;
 
 /**
@@ -79,6 +80,9 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
             case R.id.removeShow:
                 RemoveShow(position);
                 return true;
+            case R.id.updateShow:
+                UpdateShow(position);
+                return true;
             default:
                 return super.onContextItemSelected(item);
         }
@@ -98,6 +102,14 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
         {
             Log.e(getClass().getName(), ex.getMessage());
         }
+    }
+
+    private void UpdateShow(int position)
+    {
+        Cursor show = (Cursor) _adapter.getItem(position);
+
+        TvDbUtil update = new TvDbUtil(this);
+        update.UpdateSeries(show.getString(0));
     }
 
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)

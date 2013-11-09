@@ -39,6 +39,7 @@ public class DbShowHandler extends SQLiteOpenHelper
     private static final String KEY_S_OVERVIEW = "overview";
     private static final String KEY_S_NETWORK = "network";
     private static final String KEY_S_THUMBNAIL = "thumbnail";
+    private static final String KEY_S_LASTUPDATED = "lastupdated";
 
     //Columns in episodes
     private static final String KEY_E_EPISODEID = "episodeId";
@@ -66,7 +67,8 @@ public class DbShowHandler extends SQLiteOpenHelper
                         + KEY_S_NAME + " TEXT,"
                         + KEY_S_OVERVIEW + " TEXT,"
                         + KEY_S_NETWORK + " TEXT,"
-                        + KEY_S_THUMBNAIL + " BLOB"
+                        + KEY_S_THUMBNAIL + " BLOB,"
+                        + KEY_S_LASTUPDATED + " TEXT"
                         + ")";
 
         String CREATE_EPISODE_TABLE =
@@ -153,6 +155,20 @@ public class DbShowHandler extends SQLiteOpenHelper
 
         db.update(TABLE_SERIES, values, KEY_S_SERIESID + " = " + seriesId, null);
         db.close();
+    }
+
+    public void AddLastUpdatedToSeries(String lastUpdated, String seriesId)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_S_LASTUPDATED, lastUpdated);
+
+        if(db != null)
+        {
+            db.update(TABLE_SERIES, values, KEY_S_SERIESID + " = " + seriesId, null);
+            db.close();
+        }
     }
 
     public Bitmap GetSeriesThumbnail(String seriesId)
@@ -368,5 +384,17 @@ public class DbShowHandler extends SQLiteOpenHelper
 
         cursor.moveToFirst();
         return cursor.getInt(0);
+    }
+
+    public String GetSeriesLastUpdate(String seriesId)
+    {
+        String selectQuery = String.format("select seriesId as _id, lastupdated from series where seriesId = '%s'", seriesId);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        assert db != null;
+        Cursor cursor = db.rawQuery(selectQuery ,null);
+
+        cursor.moveToFirst();
+        return cursor.getString(1);
     }
 }

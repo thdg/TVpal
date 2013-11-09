@@ -3,4 +3,8 @@
         android:title="@string/menuRemoveShow"
         android:orderInCategory="100"
         android:showAsAction="never" />
+    <item android:id="@+id/updateShow"
+        android:title="@string/update_show"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
 </menu>
