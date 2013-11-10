@@ -9,7 +9,6 @@ import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 import is.datacontracts.EventData;
 
 /**
@@ -33,34 +32,17 @@ public class RuvScheduleParser extends DefaultHandler
         this.events = new ArrayList<EventData>();
     }
 
-    public List<EventData> GetSchedules()
+    public List<EventData> GetSchedules() throws IOException, SAXException, ParserConfigurationException
     {
         parseDocument();
-
         return this.events;
     }
 
-    private void parseDocument()
+    private void parseDocument() throws ParserConfigurationException, SAXException, IOException
     {
         SAXParserFactory factory = SAXParserFactory.newInstance();
-
-        try
-        {
-            SAXParser parser = factory.newSAXParser();
-            parser.parse(baseURL, this);
-        }
-        catch (ParserConfigurationException e)
-        {
-            e.printStackTrace();
-        }
-        catch (SAXException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        SAXParser parser = factory.newSAXParser();
+        parser.parse(baseURL, this);
     }
 
     @Override

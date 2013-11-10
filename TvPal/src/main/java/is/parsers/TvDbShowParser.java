@@ -9,7 +9,6 @@ import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 import is.datacontracts.ShowData;
 
 /**
@@ -32,34 +31,17 @@ public class TvDbShowParser extends DefaultHandler {
         this.shows = new ArrayList<ShowData>();
     }
 
-    public List<ShowData> GetShows()
+    public List<ShowData> GetShows() throws IOException, SAXException, ParserConfigurationException
     {
         parseDocument();
-
         return this.shows;
     }
 
-    private void parseDocument()
+    private void parseDocument() throws ParserConfigurationException, SAXException, IOException
     {
         SAXParserFactory factory = SAXParserFactory.newInstance();
-
-        try
-        {
-            SAXParser parser = factory.newSAXParser();
-            parser.parse(baseURL, this);
-        }
-        catch (ParserConfigurationException e)
-        {
-            e.printStackTrace();
-        }
-        catch (SAXException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        SAXParser parser = factory.newSAXParser();
+        parser.parse(baseURL, this);
     }
 
     @Override

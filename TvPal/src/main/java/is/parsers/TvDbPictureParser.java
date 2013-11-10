@@ -3,16 +3,13 @@ package is.parsers;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import java.io.IOException;
-
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 import is.utilities.PictureTask;
 
 /**
@@ -33,34 +30,17 @@ public class TvDbPictureParser extends DefaultHandler {
         this.baseURL = baseUrl;
     }
 
-    public Bitmap GetEpisodePicture()
+    public Bitmap GetEpisodePicture() throws IOException, SAXException, ParserConfigurationException
     {
         parseDocument();
-
         return this.episodePicture;
     }
 
-    private void parseDocument()
+    private void parseDocument() throws ParserConfigurationException, SAXException, IOException
     {
         SAXParserFactory factory = SAXParserFactory.newInstance();
-
-        try
-        {
-            SAXParser parser = factory.newSAXParser();
-            parser.parse(baseURL, this);
-        }
-        catch (ParserConfigurationException e)
-        {
-            e.printStackTrace();
-        }
-        catch (SAXException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+        SAXParser parser = factory.newSAXParser();
+        parser.parse(baseURL, this);
     }
 
     @Override
