@@ -181,7 +181,7 @@ public class DisplayRuvActivity extends FragmentActivity implements ActionBar.Ta
         }
     }
 
-    private class DownloadRuvSchedules extends AsyncTask<String, Void, String>
+    private class DownloadRuvSchedules extends AsyncTask<String, Void, Boolean>
     {
         private Context ctx;
 
@@ -191,7 +191,7 @@ public class DisplayRuvActivity extends FragmentActivity implements ActionBar.Ta
         }
 
         @Override
-        protected String doInBackground(String... urls)
+        protected Boolean doInBackground(String... urls)
         {
             try
             {
@@ -200,7 +200,7 @@ public class DisplayRuvActivity extends FragmentActivity implements ActionBar.Ta
             catch (IOException e)
             {
                 Log.e(getClass().getName(), e.getMessage());
-                return "Unable to retrieve web page. URL may be invalid";
+                return false;
             }
         }
 
@@ -214,13 +214,17 @@ public class DisplayRuvActivity extends FragmentActivity implements ActionBar.Ta
         }
 
         @Override
-        protected void onPostExecute(String result)
+        protected void onPostExecute(Boolean successful)
         {
-            CreateTabViews();
-            _waitingDialog.dismiss();
+            if (successful)
+            {
+                CreateTabViews();
+                _waitingDialog.dismiss();
+            }
+            //Todo: Return some error message for the user
         }
 
-        private String GetSchedules(String myurl) throws IOException
+        private boolean GetSchedules(String myurl) throws IOException
         {
             try
             {
@@ -228,13 +232,15 @@ public class DisplayRuvActivity extends FragmentActivity implements ActionBar.Ta
                 _events = parser.GetSchedules();
 
                 _workingDate = _events.get(0).getEventDate();
+
+                return true;
             }
             catch (Exception ex)
             {
                 Log.e(getClass().getName(), ex.getMessage());
             }
 
-            return "Successful";
+            return false;
         }
     }
 }

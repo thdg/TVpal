@@ -27,6 +27,8 @@ public class ScheduleFragment extends Fragment implements AdapterView.OnItemClic
         this.cxt = cxt;
     }
 
+    public ScheduleFragment() {}
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {

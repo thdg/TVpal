@@ -445,10 +445,12 @@ public class DbShowHandler extends SQLiteOpenHelper
             for (EpisodeData e : episodes)
             {
                 if (!DoesEpisodeExist(db, e.getEpisodeId())) {
-                     AddEpisode(db, e);
+                    AddEpisode(db, e);
+                    Log.d(getClass().getName(), "Updating episode: " + e.getEpisodeName());
                 }
                 else {
-                     UpdateEpisode(db, e);
+                    UpdateEpisode(db, e);
+                    Log.d(getClass().getName(), "Updating episode: " + e.getEpisodeName());
                 }
             }
 
