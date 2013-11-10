@@ -24,14 +24,16 @@ public class TvDbUpdateParser extends DefaultHandler {
     private List<EpisodeData> episodes;
     private EpisodeData episodeTmp;
     private StringBuilder sb;
-    private int lastUpdate;
+    private int latestLocalUpdate;
     private boolean needToUpdate;
+    public String latestSeriesUpdate;
+    public String getLatestSeriesUpdate() { return this.latestSeriesUpdate; }
 
     public TvDbUpdateParser(String baseUrl, int lastUpdate)
     {
         this.baseURL = baseUrl;
         this.episodes = new ArrayList<EpisodeData>();
-        this.lastUpdate = lastUpdate;
+        this.latestLocalUpdate = lastUpdate;
         this.needToUpdate = false;
     }
 
@@ -60,8 +62,13 @@ public class TvDbUpdateParser extends DefaultHandler {
     @Override
     public void endElement(String s, String s1, String element) throws SAXException
     {
-        //A check to make sure we are inside a Episode element, not Series
-        if (episodeTmp == null) return;
+        //A check to make sure we are inside the series node not Episode
+        if (episodeTmp == null)
+        {
+            if(element.equalsIgnoreCase("lastupdated"))
+                latestSeriesUpdate = sb.toString();
+            return;
+        }
 
         if (element.equalsIgnoreCase("Episode") && needToUpdate)
         {
@@ -71,9 +78,9 @@ public class TvDbUpdateParser extends DefaultHandler {
 
         if (element.equalsIgnoreCase("lastupdated"))
         {
-            int episodeLastUpdated = Integer.parseInt(sb.toString());
+            int latestTvDbUpdate = Integer.parseInt(sb.toString());
 
-            if (episodeLastUpdated > lastUpdate) {
+            if (latestTvDbUpdate > latestLocalUpdate) {
                 needToUpdate = true; }
         }
 

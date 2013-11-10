@@ -85,7 +85,7 @@ public class SearchShowAdapter extends BaseAdapter
 
         String strOverview = dataContract.getOverview();
         if(strOverview == null) strOverview = "";
-        else strOverview = String.format("%s...",strOverview.substring(0, Math.min(strOverview.length(), 50)));
+        else strOverview = String.format("%s...",strOverview.substring(0, Math.min(strOverview.length(), 60)));
         holder.overview.setText(strOverview);
 
         holder.checkShow.setOnClickListener(new View.OnClickListener()

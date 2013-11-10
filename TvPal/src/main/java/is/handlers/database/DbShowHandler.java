@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.widget.CursorAdapter;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
@@ -224,6 +225,30 @@ public class DbShowHandler extends SQLiteOpenHelper
         }
     }
 
+    public void AddEpisode(SQLiteDatabase db, EpisodeData episode)
+    {
+        try
+        {
+            ContentValues values = new ContentValues();
+            values.put(KEY_E_EPISODEID, episode.getEpisodeId());
+            values.put(KEY_S_SERIESID, episode.getSeriesId());
+            values.put(KEY_E_SEASON, episode.getSeasonNumber());
+            values.put(KEY_E_EPISODE, episode.getEpisodeNumber());
+            values.put(KEY_E_EPISODENAME, episode.getEpisodeName());
+            values.put(KEY_E_AIRED, episode.getAired());
+            values.put(KEY_S_OVERVIEW, episode.getOverview());
+            values.put(KEY_E_SEEN, "0");
+            values.put(KEY_E_DIRECTOR, episode.getDirector());
+            values.put(KEY_E_RATING, episode.getRating());
+
+            db.insert(TABLE_EPISODES, null, values);
+        }
+        catch (Exception ex)
+        {
+            Log.e(getClass().getName(), ex.getMessage());
+        }
+    }
+
     public void SetSeasonSeen(String seriesId, String seasonNumber)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -396,5 +421,77 @@ public class DbShowHandler extends SQLiteOpenHelper
 
         cursor.moveToFirst();
         return cursor.getString(1);
+    }
+
+    public boolean DoesEpisodeExist(SQLiteDatabase db, String episodeId)
+    {
+        String selectQuery = String.format("select episodeId as _id from episodes where episodeId = '%s'", episodeId);
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        return cursor.getCount() == 1;
+    }
+
+    /**
+     * Update episodes section
+     */
+
+    public void UpdateEpisodes(List<EpisodeData> episodes, String latestUpdate, String seriesId)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+
+        try
+        {
+            for (EpisodeData e : episodes)
+            {
+                if (!DoesEpisodeExist(db, e.getEpisodeId())) {
+                     AddEpisode(db, e);
+                }
+                else {
+                     UpdateEpisode(db, e);
+                }
+            }
+
+            //Only update latestUpdate column if we have episodes to update
+            if (episodes.size() > 0)
+            {
+                //Finally update latest update column in seriesTable
+                ContentValues values = new ContentValues();
+                values.put(KEY_S_LASTUPDATED, latestUpdate);
+                db.update(TABLE_SERIES, values, KEY_S_SERIESID + " = " + seriesId, null);
+            }
+
+            db.setTransactionSuccessful();
+        }
+        catch (Exception ex)
+        {
+            Log.e(getClass().getName(), ex.getMessage());
+        }
+        finally
+        {
+            db.endTransaction();
+        }
+    }
+
+    public void UpdateEpisode(SQLiteDatabase db, EpisodeData episode)
+    {
+        try
+        {
+            ContentValues values = new ContentValues();
+            values.put(KEY_E_EPISODEID, episode.getEpisodeId());
+            values.put(KEY_S_SERIESID, episode.getSeriesId());
+            values.put(KEY_E_SEASON, episode.getSeasonNumber());
+            values.put(KEY_E_EPISODE, episode.getEpisodeNumber());
+            values.put(KEY_E_EPISODENAME, episode.getEpisodeName());
+            values.put(KEY_E_AIRED, episode.getAired());
+            values.put(KEY_S_OVERVIEW, episode.getOverview());
+            values.put(KEY_E_DIRECTOR, episode.getDirector());
+            values.put(KEY_E_RATING, episode.getRating());
+
+            db.update(TABLE_EPISODES, values, KEY_E_EPISODEID + " = " + episode.getEpisodeId(), null);
+        }
+        catch (Exception ex)
+        {
+            Log.e(getClass().getName(), ex.getMessage());
+        }
     }
 }

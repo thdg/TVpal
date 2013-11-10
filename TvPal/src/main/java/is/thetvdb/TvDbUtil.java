@@ -30,7 +30,7 @@ public class TvDbUtil
 
         int lastUpdate = Integer.parseInt(db.GetSeriesLastUpdate(seriesId));
 
-        new DownloadEpisodes(context, lastUpdate).execute(String.format("%s%s/all/en.xml", ApiUrl, seriesId));
+        new DownloadEpisodes(context, lastUpdate, seriesId).execute(String.format("%s%s/all/en.xml", ApiUrl, seriesId));
 
         return true;
     }
@@ -39,11 +39,13 @@ public class TvDbUtil
     {
         private Context context;
         private int lastUpdate;
+        private String seriesId;
 
-        public DownloadEpisodes(Context context, int lastUpdate)
+        public DownloadEpisodes(Context context, int lastUpdate, String seriesId)
         {
             this.context = context;
             this.lastUpdate = lastUpdate;
+            this.seriesId = seriesId;
         }
 
         @Override
@@ -62,16 +64,22 @@ public class TvDbUtil
         @Override
         protected void onPostExecute(String result)
         {
-            Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+            if (!result.equalsIgnoreCase("error"))
+                Toast.makeText(context, "Updated show, " + result, Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(context, "Whoops, something went wrong...", Toast.LENGTH_SHORT).show();
         }
 
         private String UpdateEpisodes(String myurl) throws IOException
         {
             try
             {
+                DbShowHandler db = new DbShowHandler(context);
                 TvDbUpdateParser parser = new TvDbUpdateParser(myurl, lastUpdate);
 
                 List<EpisodeData> episodes = parser.GetEpisodes();
+
+                db.UpdateEpisodes(episodes, parser.getLatestSeriesUpdate(), seriesId);
 
                 return Integer.toString(episodes.size());
             }
