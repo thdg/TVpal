@@ -24,15 +24,17 @@ public class TvDbUtil
         this.context = context;
     }
 
-    public boolean UpdateSeries(String seriesId)
+    public void UpdateSeries(String seriesId)
     {
         DbShowHandler db = new DbShowHandler(context);
-
         int lastUpdate = Integer.parseInt(db.GetSeriesLastUpdate(seriesId));
-
         new DownloadEpisodes(context, lastUpdate, seriesId).execute(String.format("%s%s/all/en.xml", ApiUrl, seriesId));
+    }
 
-        return true;
+    public void UpdateAllSeries()
+    {
+        DbShowHandler db = new DbShowHandler(context);
+        db.UpdateAllSeries();
     }
 
     private class DownloadEpisodes extends AsyncTask<String, Void, String>
@@ -79,7 +81,7 @@ public class TvDbUtil
 
                 List<EpisodeData> episodes = parser.GetEpisodes();
 
-                db.UpdateEpisodes(episodes, parser.getLatestSeriesUpdate(), seriesId);
+                db.UpdateSingleSeries(episodes, parser.getLatestSeriesUpdate(), seriesId);
 
                 return Integer.toString(episodes.size());
             }

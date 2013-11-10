@@ -15,6 +15,7 @@ import android.support.v4.widget.CursorAdapter;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import is.datacontracts.EpisodeData;
@@ -434,7 +435,7 @@ public class DbShowHandler extends SQLiteOpenHelper
      * Update episodes section
      */
 
-    public void UpdateEpisodes(List<EpisodeData> episodes, String latestUpdate, String seriesId)
+    public void UpdateSingleSeries(List<EpisodeData> episodes, String latestUpdate, String seriesId)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.beginTransaction();
@@ -470,6 +471,18 @@ public class DbShowHandler extends SQLiteOpenHelper
         {
             db.endTransaction();
         }
+
+        db.close();
+    }
+
+    public void UpdateAllSeries()
+    {
+        List<String> seriesIds = GetAllSeriesIds();
+
+        for (String series : seriesIds)
+        {
+            //TODO: Call parser to get the episodes to update & getLatestUpdate & call UpdateSingleSeries
+        }
     }
 
     public void UpdateEpisode(SQLiteDatabase db, EpisodeData episode)
@@ -493,5 +506,25 @@ public class DbShowHandler extends SQLiteOpenHelper
         {
             Log.e(getClass().getName(), ex.getMessage());
         }
+    }
+
+    public List<String> GetAllSeriesIds()
+    {
+        List<String> seriesIds = new ArrayList<String>();
+
+        String selectQuery = "select seriesId as _id from series";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast())
+        {
+            seriesIds.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+        db.close();
+
+        return seriesIds;
     }
 }

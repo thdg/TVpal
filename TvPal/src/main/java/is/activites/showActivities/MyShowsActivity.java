@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -67,7 +68,7 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
     {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.my_shows, menu);
+        inflater.inflate(R.menu.my_shows_context_menu, menu);
     }
 
     public boolean onContextItemSelected(MenuItem item)
@@ -131,8 +132,25 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
             case android.R.id.home:
                 finish();
                 return true;
+            case R.id.updateAllShows:
+                UpdateAllShows();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void UpdateAllShows()
+    {
+        TvDbUtil tv = new TvDbUtil(this);
+        tv.UpdateAllSeries();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.my_shows_menu, menu);
+        return true;
     }
 }
