@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,10 +90,10 @@ public class EpisodeFragment extends Fragment
         return rootView;
     }
 
-    private class DownloadPicture extends AsyncTask<String, Void, String>
+    private class DownloadPicture extends AsyncTask<String, Void, Boolean>
     {
         @Override
-        protected String doInBackground(String... urls)
+        protected Boolean doInBackground(String... urls)
         {
             try
             {
@@ -100,17 +101,18 @@ public class EpisodeFragment extends Fragment
             }
             catch (IOException e)
             {
-                return "Unable to retrieve web page. URL may be invalid";
+                return false;
             }
         }
 
         @Override
-        protected void onPostExecute(String result)
+        protected void onPostExecute(Boolean successful)
         {
-            poster.setImageBitmap(bmp);
+            if (successful)
+                poster.setImageBitmap(bmp);
         }
 
-        private String GetPicture(String myurl) throws IOException
+        private Boolean GetPicture(String myurl) throws IOException
         {
             try
             {
@@ -119,10 +121,10 @@ public class EpisodeFragment extends Fragment
             }
             catch (Exception ex)
             {
-                ex.getMessage();
+                Log.e(getClass().getName(), ex.getMessage());
             }
 
-            return "Successful";
+            return bmp != null;
         }
     }
 }
