@@ -3,4 +3,8 @@
         android:title="@string/seen_all"
         android:orderInCategory="100"
         android:showAsAction="never" />
+    <item android:id="@+id/setSeasonNotSeen"
+        android:title="@string/seen_none"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
 </menu>

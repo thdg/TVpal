@@ -98,19 +98,19 @@ public class SeasonsActivity extends ListActivity implements  AdapterView.OnItem
         switch (item.getItemId())
         {
             case R.id.setSeasonSeen:
-                SetSeasonSeen(position);
+                SetSeasonSeenStatus(position, "1");
                 return true;
+            case R.id.setSeasonNotSeen:
+                SetSeasonSeenStatus(position, "0");
             default:
                 return super.onContextItemSelected(item);
         }
     }
 
-    private void SetSeasonSeen(int position)
+    private void SetSeasonSeenStatus(int position, String seenStatus)
     {
         Cursor selectedSeason = (Cursor) _adapter.getItem(position);
-
-        _db.SetSeasonSeen(selectedSeason.getString(2), selectedSeason.getString(0));
-
+        _db.UpdateSeasonSeenStatus(selectedSeason.getString(2), selectedSeason.getString(0), seenStatus);
         SetListAdapter();
     }
 

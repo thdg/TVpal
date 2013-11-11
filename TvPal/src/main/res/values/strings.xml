@@ -21,7 +21,7 @@
     <string name="drawer_open">Opna tjald</string>
     <string name="drawer_close">Loka tjaldi</string>
     <string name="welcome_text">Verið velkomin! \n\nSlide-ið til hægri til að sjá lista yfir sjónvarpsstöðvar</string>
-    <string name="menuRemoveShow">Remove show</string>
+    <string name="menu_remove_show">Remove Show</string>
     <string name="ruv">Rúv</string>
     <string name="stod_2">Stöð 2</string>
     <string name="stod_2_bio">Stöð 2 Bíó</string>
@@ -52,8 +52,10 @@
     <string name="recent_shows">Recent shows</string>
     <string name="shows_header">Shows</string>
     <string name="schedule_header">Dagskrá</string>
-    <string name="seen_all">Seen all shows</string>
+    <string name="seen_all">Seen All Shows</string>
     <string name="update_show">Update Show</string>
     <string name="update_all">Update All Shows</string>
+    <string name="seen_all_episodes">Seen All Episodes</string>
+    <string name="seen_none">Seen None Shows</string>
 
 </resources>

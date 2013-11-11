@@ -37,6 +37,12 @@ public class TvDbUtil
         new UpdateAllSeriesTask(context).execute();
     }
 
+    public void SetAllEpisodesOfSeriesSeen(String seriesId)
+    {
+        DbShowHandler db = new DbShowHandler(context);
+        db.SetSeriesSeen(seriesId);
+    }
+
     private class UpdateSingleSeriesTask extends AsyncTask<String, Void, String>
     {
         private Context context;

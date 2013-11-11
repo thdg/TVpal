@@ -84,6 +84,9 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
             case R.id.updateShow:
                 UpdateShow(position);
                 return true;
+            case R.id.seenAllEpisodes:
+                SeenAllEpisodes(position);
+                return true;
             default:
                 return super.onContextItemSelected(item);
         }
@@ -111,6 +114,14 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
 
         TvDbUtil update = new TvDbUtil(this);
         update.UpdateSeries(show.getString(0));
+    }
+
+    private void SeenAllEpisodes(int position)
+    {
+        Cursor cursor = (Cursor) _adapter.getItem(position);
+
+        TvDbUtil tvdb = new TvDbUtil(this);
+        tvdb.SetAllEpisodesOfSeriesSeen(cursor.getString(0));
     }
 
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)

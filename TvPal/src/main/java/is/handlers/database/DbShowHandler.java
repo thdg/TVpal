@@ -250,7 +250,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         }
     }
 
-    public void SetSeasonSeen(String seriesId, String seasonNumber)
+    public void UpdateSeasonSeenStatus(String seriesId, String seasonNumber, String seenStatus)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         try
@@ -258,7 +258,31 @@ public class DbShowHandler extends SQLiteOpenHelper
             if (db !=null)
             {
                 db.beginTransaction();
-                db.execSQL(String.format("UPDATE %s SET seen = 1 WHERE seriesId = '%s' AND season = '%s'", TABLE_EPISODES, seriesId, seasonNumber));
+                db.execSQL(String.format("UPDATE %s SET seen = %s WHERE seriesId = '%s' AND season = '%s'", TABLE_EPISODES, seenStatus , seriesId, seasonNumber));
+                db.setTransactionSuccessful();
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.e(getClass().getName(), ex.getMessage());
+        }
+        finally
+        {
+            db.endTransaction();
+        }
+
+        db.close();
+    }
+
+    public void SetSeriesSeen(String seriesId)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        try
+        {
+            if (db !=null)
+            {
+                db.beginTransaction();
+                db.execSQL(String.format("UPDATE %s SET seen = 1 WHERE seriesId = '%s'", TABLE_EPISODES, seriesId));
                 db.setTransactionSuccessful();
             }
         }
