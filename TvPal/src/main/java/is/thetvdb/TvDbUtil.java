@@ -136,10 +136,12 @@ public class TvDbUtil
         @Override
         protected void onPostExecute(String result)
         {
-            if (!result.equalsIgnoreCase("error"))
-                Toast.makeText(context, "Updated all shows, " + result, Toast.LENGTH_SHORT).show();
-            else
+            if (result.equalsIgnoreCase("error"))
                 Toast.makeText(context, "Whoops, something went wrong...", Toast.LENGTH_SHORT).show();
+            else if (result.equalsIgnoreCase("noshows"))
+                Toast.makeText(context, "No shows to update", Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(context, "Updated all shows, " + result, Toast.LENGTH_SHORT).show();
         }
 
         private String UpdateEpisodesOfSeries() throws IOException
@@ -149,6 +151,9 @@ public class TvDbUtil
                 DbShowHandler db = new DbShowHandler(context);
                 ConnectionListener network = new ConnectionListener(context);
                 List<String> seriesIds = db.GetAllSeriesIds();
+
+                if (seriesIds.size() == 0)
+                    return "noshows";
 
                 for(String seriesId : seriesIds)
                 {
