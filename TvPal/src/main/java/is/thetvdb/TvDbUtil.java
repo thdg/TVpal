@@ -9,6 +9,7 @@ import java.util.List;
 import is.datacontracts.EpisodeData;
 import is.handlers.database.DbShowHandler;
 import is.parsers.TvDbUpdateParser;
+import is.utilities.ConnectionListener;
 
 /**
  * Created by Arnar on 9.11.2013.
@@ -28,22 +29,21 @@ public class TvDbUtil
     {
         DbShowHandler db = new DbShowHandler(context);
         int lastUpdate = Integer.parseInt(db.GetSeriesLastUpdate(seriesId));
-        new DownloadEpisodes(context, lastUpdate, seriesId).execute(String.format("%s%s/all/en.xml", ApiUrl, seriesId));
+        new UpdateSingleSeriesTask(context, lastUpdate, seriesId).execute(String.format("%s%s/all/en.xml", ApiUrl, seriesId));
     }
 
     public void UpdateAllSeries()
     {
-        DbShowHandler db = new DbShowHandler(context);
-        db.UpdateAllSeries();
+        new UpdateAllSeriesTask(context).execute();
     }
 
-    private class DownloadEpisodes extends AsyncTask<String, Void, String>
+    private class UpdateSingleSeriesTask extends AsyncTask<String, Void, String>
     {
         private Context context;
         private int lastUpdate;
         private String seriesId;
 
-        public DownloadEpisodes(Context context, int lastUpdate, String seriesId)
+        public UpdateSingleSeriesTask(Context context, int lastUpdate, String seriesId)
         {
             this.context = context;
             this.lastUpdate = lastUpdate;
@@ -55,7 +55,7 @@ public class TvDbUtil
         {
             try
             {
-                return UpdateEpisodes(urls[0]);
+                return UpdateEpisodesOfSeries(urls[0]);
             }
             catch (IOException e)
             {
@@ -72,18 +72,95 @@ public class TvDbUtil
                 Toast.makeText(context, "Whoops, something went wrong...", Toast.LENGTH_SHORT).show();
         }
 
-        private String UpdateEpisodes(String myurl) throws IOException
+        private String UpdateEpisodesOfSeries(String myurl) throws IOException
+        {
+            try
+            {
+                ConnectionListener network = new ConnectionListener(context);
+                DbShowHandler db = new DbShowHandler(context);
+
+                if (network.isNetworkAvailable())
+                {
+                    TvDbUpdateParser parser = new TvDbUpdateParser(myurl, lastUpdate);
+
+                    List<EpisodeData> episodes = parser.GetEpisodes();
+
+                    db.UpdateSingleSeries(episodes, parser.getLatestSeriesUpdate(), seriesId);
+
+                    return Integer.toString(episodes.size());
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.e(getClass().getName(), ex.getMessage());
+            }
+
+            return "error";
+        }
+    }
+
+    private class UpdateAllSeriesTask extends AsyncTask<String, Void, String>
+    {
+        private Context context;
+
+        public UpdateAllSeriesTask(Context context)
+        {
+            this.context = context;
+        }
+
+        @Override
+        protected String doInBackground(String... urls)
+        {
+            try
+            {
+                return UpdateEpisodesOfSeries();
+            }
+            catch (IOException e)
+            {
+                return "Unable to retrieve web page. URL may be invalid";
+            }
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            Toast.makeText(context, "Updating shows", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onPostExecute(String result)
+        {
+            if (!result.equalsIgnoreCase("error"))
+                Toast.makeText(context, "Updated all shows, " + result, Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(context, "Whoops, something went wrong...", Toast.LENGTH_SHORT).show();
+        }
+
+        private String UpdateEpisodesOfSeries() throws IOException
         {
             try
             {
                 DbShowHandler db = new DbShowHandler(context);
-                TvDbUpdateParser parser = new TvDbUpdateParser(myurl, lastUpdate);
+                ConnectionListener network = new ConnectionListener(context);
+                List<String> seriesIds = db.GetAllSeriesIds();
 
-                List<EpisodeData> episodes = parser.GetEpisodes();
+                for(String seriesId : seriesIds)
+                {
+                    if (network.isNetworkAvailable())
+                    {
+                        String apiUrl = String.format("%s%s/all/en.xml", ApiUrl, seriesId);
+                        String latestUpdate = db.GetSeriesLastUpdate(seriesId);
 
-                db.UpdateSingleSeries(episodes, parser.getLatestSeriesUpdate(), seriesId);
+                        TvDbUpdateParser parser = new TvDbUpdateParser(apiUrl, Integer.parseInt(latestUpdate));
 
-                return Integer.toString(episodes.size());
+                        List<EpisodeData> episodes = parser.GetEpisodes();
+
+                        db.UpdateSingleSeries(episodes, parser.getLatestSeriesUpdate(), seriesId);
+                    }
+                }
+
+                db.close();
+                return Integer.toString(seriesIds.size());
             }
             catch (Exception ex)
             {

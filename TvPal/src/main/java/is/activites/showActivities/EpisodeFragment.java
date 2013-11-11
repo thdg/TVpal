@@ -38,7 +38,7 @@ public class EpisodeFragment extends Fragment
     public EpisodeFragment(Context cxt)
     {
         this.cxt = cxt;
-        this._network = new ConnectionListener();
+        this._network = new ConnectionListener(cxt);
         this.db = new DbShowHandler(cxt);
     }
 
@@ -79,7 +79,7 @@ public class EpisodeFragment extends Fragment
             poster = (ImageView) rootView.findViewById(R.id.episodePicture);
 
             //TODO: Implement better bitmap cache, perhaps save the picture on the sd card
-            if (bmp == null && _network.isNetworkAvailable(cxt))
+            if (bmp == null && _network.isNetworkAvailable())
             {
                 String apiUrl = String.format("http://thetvdb.com/api/9A96DA217CEB03E7/episodes/%s", episode.getEpisodeId());
                 new DownloadPicture().execute(apiUrl);

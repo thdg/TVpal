@@ -60,7 +60,7 @@ public class MainActivity extends Activity
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void Initialize()
     {
-        _connectivityListener = new ConnectionListener();
+        _connectivityListener = new ConnectionListener(this);
 
         _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         _drawerList = (ListView) findViewById(R.id.left_drawer);
@@ -139,7 +139,7 @@ public class MainActivity extends Activity
     {
         try
         {
-            boolean networkAvailable = _connectivityListener.isNetworkAvailable(this);
+            boolean networkAvailable = _connectivityListener.isNetworkAvailable();
             Intent intent = null;
 
             if((position >= 1 && position < 9))

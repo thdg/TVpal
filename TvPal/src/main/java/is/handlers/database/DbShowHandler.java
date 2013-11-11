@@ -421,6 +421,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(selectQuery ,null);
 
         cursor.moveToFirst();
+        db.close();
         return cursor.getString(1);
     }
 
@@ -475,16 +476,6 @@ public class DbShowHandler extends SQLiteOpenHelper
         }
 
         db.close();
-    }
-
-    public void UpdateAllSeries()
-    {
-        List<String> seriesIds = GetAllSeriesIds();
-
-        for (String series : seriesIds)
-        {
-            //TODO: Call parser to get the episodes to update & getLatestUpdate & call UpdateSingleSeries
-        }
     }
 
     public void UpdateEpisode(SQLiteDatabase db, EpisodeData episode)
