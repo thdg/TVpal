@@ -38,7 +38,7 @@ public class EpisodeActivity extends FragmentActivity implements ActionBar.TabLi
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tab_schedules);
+        setContentView(R.layout.tab_swipe_view);
 
         Initialize();
     }
@@ -143,6 +143,7 @@ public class EpisodeActivity extends FragmentActivity implements ActionBar.TabLi
             episode.setRating(mCursor.getString(Episodes.Rating));
             episode.setEpisodeId(mCursor.getString(Episodes.EpisodeId));
             episode.setSeen(mCursor.getString(Episodes.Seen));
+            episode.setGuestStars(mCursor.getString(Episodes.GuestStars));
 
             args.putSerializable(EpisodeFragment.EPISODE_FRAGMENT, episode);
             fragment.setArguments(args);
@@ -175,5 +176,6 @@ public class EpisodeActivity extends FragmentActivity implements ActionBar.TabLi
         int Director = 6;
         int Rating = 7;
         int Seen = 8;
+        int GuestStars = 9;
     }
 }

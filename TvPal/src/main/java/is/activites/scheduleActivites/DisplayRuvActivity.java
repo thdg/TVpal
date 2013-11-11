@@ -15,7 +15,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -54,7 +53,7 @@ public class DisplayRuvActivity extends FragmentActivity implements ActionBar.Ta
         try
         {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.tab_schedules);
+            setContentView(R.layout.tab_swipe_view);
 
             Initialize();
         }

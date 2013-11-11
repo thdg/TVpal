@@ -20,6 +20,7 @@ public class EpisodeData implements Serializable
     private Bitmap picture;
     private String director;
     private String rating;
+    private String guestStars;
 
     public String getEpisodeId() { return episodeId; }
     public void setEpisodeId(String episodeId) { this.episodeId = episodeId;}
@@ -53,4 +54,7 @@ public class EpisodeData implements Serializable
 
     public String getRating() { return rating; }
     public void setRating(String rating) { this.rating = rating;}
+
+    public String getGuestStars() { return guestStars; }
+    public void setGuestStars(String guestStars) { this.guestStars = guestStars; }
 }

@@ -53,7 +53,7 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
         try
         {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.tab_schedules);
+            setContentView(R.layout.tab_swipe_view);
 
             Initialize();
         }

@@ -51,7 +51,7 @@ public class DisplayStod2Activity extends FragmentActivity implements ActionBar.
         try
         {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.tab_schedules);
+            setContentView(R.layout.tab_swipe_view);
 
             Initialize();
         }

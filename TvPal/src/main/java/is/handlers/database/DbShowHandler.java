@@ -54,6 +54,7 @@ public class DbShowHandler extends SQLiteOpenHelper
     private static final String KEY_E_SEEN = "seen";
     private static final String KEY_E_DIRECTOR = "director";
     private static final String KEY_E_RATING = "rating";
+    private static final String KEY_E_GUESTSTARS = "guestStars";
 
     public DbShowHandler(Context context)
     {
@@ -84,7 +85,8 @@ public class DbShowHandler extends SQLiteOpenHelper
                         + KEY_E_OVERVIEW + " TEXT,"
                         + KEY_E_SEEN + " TEXT,"
                         + KEY_E_DIRECTOR + " TEXT,"
-                        + KEY_E_RATING + " TEXT"
+                        + KEY_E_RATING + " TEXT, "
+                        + KEY_E_GUESTSTARS + " TEXT"
                         + ")";
 
         db.execSQL(CREATE_SERIES_TABLE);
@@ -207,6 +209,7 @@ public class DbShowHandler extends SQLiteOpenHelper
                     values.put(KEY_E_SEEN, "0");
                     values.put(KEY_E_DIRECTOR, episode.getDirector());
                     values.put(KEY_E_RATING, episode.getRating());
+                    values.put(KEY_E_GUESTSTARS, episode.getGuestStars());
 
                     db.insert(TABLE_EPISODES, null, values);
                 }
@@ -215,7 +218,7 @@ public class DbShowHandler extends SQLiteOpenHelper
             }
             catch (Exception ex)
             {
-                //TODO: Implement error handling
+                Log.e(getClass().getName(), ex.getMessage());
             }
             finally
             {
@@ -241,6 +244,7 @@ public class DbShowHandler extends SQLiteOpenHelper
             values.put(KEY_E_SEEN, "0");
             values.put(KEY_E_DIRECTOR, episode.getDirector());
             values.put(KEY_E_RATING, episode.getRating());
+            values.put(KEY_E_GUESTSTARS, episode.getGuestStars());
 
             db.insert(TABLE_EPISODES, null, values);
         }
@@ -398,7 +402,7 @@ public class DbShowHandler extends SQLiteOpenHelper
 
     public Cursor GetCursorEpisodesDetailed(String seriesId, String seasonNumber)
     {
-        String selectQuery = String.format("select episodeId as _id, episode, episodeName, season, overview, aired, director, rating, seen " +
+        String selectQuery = String.format("select episodeId as _id, episode, episodeName, season, overview, aired, director, rating, seen, guestStars " +
                 "from episodes where seriesId = %s and season = %s", seriesId, seasonNumber);
 
         SQLiteDatabase db = this.getWritableDatabase();

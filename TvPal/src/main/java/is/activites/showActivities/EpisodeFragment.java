@@ -69,6 +69,8 @@ public class EpisodeFragment extends Fragment
                 }
             });
 
+            final String guestStars = episode.getGuestStars().equals("") ? "Guest Stars: None" : String.format("Guest Stars: %s", episode.getGuestStars());
+
             episodeSeenCbx.setChecked(episode.getSeen().equalsIgnoreCase("1"));
 
             ((TextView) rootView.findViewById(R.id.episodeTitle)).setText(episode.getEpisodeName());
@@ -77,6 +79,7 @@ public class EpisodeFragment extends Fragment
             ((TextView) rootView.findViewById(R.id.episodeOverview)).setText(episode.getOverview());
             ((TextView) rootView.findViewById(R.id.episodeDirector)).setText(String.format("Director: %s", episode.getDirector()));
             ((TextView) rootView.findViewById(R.id.episodeRating)).setText(String.format("Rating: %s", episode.getRating()));
+            ((TextView) rootView.findViewById(R.id.episodeGuestStars)).setText(guestStars);
             poster = (ImageView) rootView.findViewById(R.id.episodePicture);
 
             //TODO: Implement better bitmap cache, perhaps save the picture on the sd card

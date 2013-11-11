@@ -126,6 +126,11 @@ public class TvDbEpisodeParser extends DefaultHandler {
             seriesNode = false;
         }
 
+        if (element.equalsIgnoreCase("GuestStars"))
+        {
+            episodeTmp.setGuestStars(ArrayToString(sb.toString()));
+        }
+
         sb = null;
     }
 
@@ -138,5 +143,21 @@ public class TvDbEpisodeParser extends DefaultHandler {
                 sb.append(ac[k]);
             }
         }
+    }
+
+    private String ArrayToString(String guestStars)
+    {
+        String[] temp = guestStars.split("(?!^)\\|");
+
+        StringBuilder sb = new StringBuilder();
+
+        for (String s : temp)
+        {
+            sb.append(s.replaceFirst("\\|", "") + ", ");
+        }
+
+        String actors = sb.toString();
+        int length = actors.lastIndexOf(",");
+        return actors.substring(0, length);//Remove last comma
     }
 }
