@@ -30,50 +30,6 @@ public class DateUtil
         return String.format("%s/%s/", dateToday, dateAfterWeek);
     }
 
-    public static String AddOneDayToDate(String workingDate)
-    {
-        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date date = null;
-        try
-        {
-            date = dt.parse(workingDate);
-        }
-        catch (ParseException e)
-        {
-            e.printStackTrace();
-        }
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar c = Calendar.getInstance();
-        c.setTime(date); // Now use working date.
-        c.add(Calendar.DATE, 1); // Add 1 day
-
-        return sdf.format(c.getTime());
-    }
-
-    public static String MinusOneDayToDate(String workingDate)
-    {
-        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date date = null;
-        try
-        {
-            date = dt.parse(workingDate);
-        }
-        catch (ParseException e)
-        {
-            e.printStackTrace();
-        }
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar c = Calendar.getInstance();
-        c.setTime(date); // Now use working date.
-        c.add(Calendar.DATE, -1); // Add -1 day
-
-        return sdf.format(c.getTime());
-    }
-
     public static String AddDaysToDate(String workingDate, int daysToAdd)
     {
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
@@ -94,32 +50,6 @@ public class DateUtil
         c.add(Calendar.DATE, daysToAdd);
 
         return sdf.format(c.getTime());
-    }
-
-    public static String SetICEDayFormat(Context cxt, String workingDate)
-    {
-        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date date = null;
-        try
-        {
-            date = dt.parse(workingDate);
-        }
-        catch (ParseException e)
-        {
-            e.printStackTrace();
-        }
-
-        SimpleDateFormat sdfDay = new SimpleDateFormat("EEEE");
-        String day = GetCorrectDayFormat(cxt, sdfDay.format(date));
-
-        SimpleDateFormat sdfMonth = new SimpleDateFormat("MMM");
-        String month = sdfMonth.format(date);
-
-        SimpleDateFormat sdfDayNumber = new SimpleDateFormat("d");
-        String dayNumber = sdfDayNumber.format(date);
-
-        return String.format("%s %s %s",day, dayNumber, month);
     }
 
     private static String GetCorrectDayFormat(Context cxt, String day)
