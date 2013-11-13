@@ -28,17 +28,17 @@
         <activity
             android:name="is.activites.scheduleActivites.DisplayStod2Activity"
             android:label="@string/title_activity_display_stod2"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="is.activites.scheduleActivites.DisplayRuvActivity"
             android:label="@string/title_activity_display_ruv"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="is.activites.scheduleActivites.DisplaySkjarinnActivity"
             android:label="@string/title_activity_display_skjarinn"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="is.activites.scheduleActivites.DetailedEventActivity"
@@ -51,10 +51,6 @@
         <activity
             android:name="is.activites.showActivities.MyShowsActivity"
             android:label="@string/title_activity_my_shows" >
-        </activity>
-        <activity
-            android:name="is.activites.showActivities.SeasonsActivity"
-            android:label="@string/title_activity_season" >
         </activity>
         <activity
             android:name="is.activites.showActivities.SingleSeasonActivity"
@@ -71,6 +67,10 @@
         <activity
             android:name="is.activites.showActivities.RecentShowsActivity"
             android:label="@string/title_activity_recent_shows" >
+        </activity>
+        <activity
+            android:name="is.activites.showActivities.SeriesActivity"
+            android:label="@string/title_activity_show" >
         </activity>
     </application>
 

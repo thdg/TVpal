@@ -57,5 +57,6 @@
     <string name="update_all">Update All Shows</string>
     <string name="seen_all_episodes">Seen All Episodes</string>
     <string name="seen_none">Seen None Shows</string>
+    <string name="title_activity_show">ShowActivity</string>
 
 </resources>

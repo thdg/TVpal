@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:text="Seasons"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp" />

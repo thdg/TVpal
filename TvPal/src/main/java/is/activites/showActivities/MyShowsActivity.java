@@ -28,8 +28,8 @@ import is.tvpal.R;
 
 public class MyShowsActivity extends ListActivity implements AdapterView.OnItemClickListener
 {
-    public static final String EXTRA_SERIESID = "is.activities.SERIESID";
-    public static final String EXTRA_SERIESNUMBER = "is.activities.SERIESNUMBER";
+    public static final String EXTRA_SERIESID = "is.activities.showActivities.SERIESID";
+    public static final String EXTRA_NAME = "is.actvities.showActivities.SERIESNAME";
 
     private DbShowHandler _db;
     private ListView _lv;
@@ -128,10 +128,9 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
     {
         Cursor show = (Cursor) _adapter.getItem(position);
 
-        Intent intent = new Intent(this, SeasonsActivity.class);
+        Intent intent = new Intent(this, SeriesActivity.class);
         intent.putExtra(EXTRA_SERIESID, show.getString(0));
-        intent.putExtra(EXTRA_SERIESNUMBER, show.getString(1));
-
+        intent.putExtra(EXTRA_NAME, show.getString(1));
         startActivity(intent);
     }
 

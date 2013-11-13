@@ -7,9 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v4.widget.CursorAdapter;
 import android.util.Log;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -400,6 +398,18 @@ public class DbShowHandler extends SQLiteOpenHelper
     {
         String selectQuery = String.format("select episodeId as _id, episode, episodeName, season, overview, aired, director, rating, seen, guestStars " +
                 "from episodes where seriesId = %s and season = %s", seriesId, seasonNumber);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        cursor.moveToFirst();
+        return cursor;
+    }
+
+    public Cursor GetCursorOverview(String seriesId)
+    {
+        String selectQuery = String.format("select seriesId as _id, overview, name, network " +
+                                           "from series where seriesId = '%s'", seriesId);
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

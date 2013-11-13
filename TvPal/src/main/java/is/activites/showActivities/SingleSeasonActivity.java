@@ -54,8 +54,8 @@ public class SingleSeasonActivity extends ListActivity implements AdapterView.On
         _db = new DbShowHandler(this);
 
         Intent intent = getIntent();
-        _seriesId = intent.getStringExtra(SeasonsActivity.EXTRA_SERIESID);
-        _season   = intent.getStringExtra(SeasonsActivity.EXTRA_SEASON);
+        _seriesId = intent.getStringExtra(SeasonFragment.EXTRA_SERIESID);
+        _season   = intent.getStringExtra(SeasonFragment.EXTRA_SEASON);
 
         setTitle(String.format("Season %s", _season));
 
