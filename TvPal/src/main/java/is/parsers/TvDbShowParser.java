@@ -9,7 +9,8 @@ import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import is.datacontracts.ShowData;
+
+import is.datacontracts.SeriesData;
 
 /**
  * This class parses xml files.  It uses the Sax Parser and extends DefaultHandler.
@@ -21,17 +22,17 @@ import is.datacontracts.ShowData;
 public class TvDbShowParser extends DefaultHandler {
 
     private String baseURL;
-    private List<ShowData> shows;
-    private ShowData showTmp;
+    private List<SeriesData> shows;
+    private SeriesData showTmp;
     private StringBuilder sb;
 
     public TvDbShowParser(String baseUrl)
     {
         this.baseURL = baseUrl;
-        this.shows = new ArrayList<ShowData>();
+        this.shows = new ArrayList<SeriesData>();
     }
 
-    public List<ShowData> GetShows() throws IOException, SAXException, ParserConfigurationException
+    public List<SeriesData> GetShows() throws IOException, SAXException, ParserConfigurationException
     {
         parseDocument();
         return this.shows;
@@ -48,7 +49,7 @@ public class TvDbShowParser extends DefaultHandler {
     public void startElement(String s, String s1, String element, Attributes attributes) throws SAXException
     {
         if (element.equalsIgnoreCase("Series"))
-            showTmp = new ShowData();
+            showTmp = new SeriesData();
 
         sb = new StringBuilder();
     }

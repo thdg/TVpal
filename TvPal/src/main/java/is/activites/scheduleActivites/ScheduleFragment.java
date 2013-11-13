@@ -32,7 +32,7 @@ public class ScheduleFragment extends Fragment implements AdapterView.OnItemClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View rootView = inflater.inflate(R.layout.skjarinn_schedules, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_events, container, false);
         Bundle args = getArguments();
         //Todo: Some type checking
         ArrayList<EventData> _todaySchedule = (ArrayList<EventData>)args.getSerializable(ARG_SCHEDULE_DAY);

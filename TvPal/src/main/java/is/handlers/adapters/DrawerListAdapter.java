@@ -6,12 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import java.util.List;
-import is.datacontracts.Item;
+
+import is.datacontracts.IDrawerItem;
 
 /**
  * Created by Þorsteinn on 14.10.2013.
  */
-public class DrawerListAdapter extends ArrayAdapter<Item>
+public class DrawerListAdapter extends ArrayAdapter<IDrawerItem>
 {
     private LayoutInflater _inflater;
 
@@ -23,7 +24,7 @@ public class DrawerListAdapter extends ArrayAdapter<Item>
      @param context This is the current context of the application activity
      @param items List of items to add to ListView
      */
-    public DrawerListAdapter(Context context, List<Item> items)
+    public DrawerListAdapter(Context context, List<IDrawerItem> items)
     {
         super(context, 0, items);
         _inflater = LayoutInflater.from(context);

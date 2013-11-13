@@ -46,7 +46,7 @@ public class EpisodeFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View rootView = inflater.inflate(R.layout.episode_activity, container, false);
+        View rootView = inflater.inflate(R.layout.activity_episode, container, false);
         Bundle args = getArguments();
         final EpisodeData episode = (EpisodeData) args.getSerializable(EPISODE_FRAGMENT);
 

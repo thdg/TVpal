@@ -33,7 +33,7 @@ public class UpcomingShowsActivity extends Activity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shows_activity);
+        setContentView(R.layout.activity_upcoming_recent);
 
         Initialize();
     }

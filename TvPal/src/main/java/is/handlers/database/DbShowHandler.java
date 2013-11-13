@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import is.datacontracts.EpisodeData;
-import is.datacontracts.ShowData;
+import is.datacontracts.SeriesData;
 
 /**
  * Class to handle database actions.
@@ -94,7 +94,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         //Add functionality when database is updated
     }
 
-    public void AddSeries(ShowData series)
+    public void AddSeries(SeriesData series)
     {
         SQLiteDatabase db = this.getWritableDatabase();
 

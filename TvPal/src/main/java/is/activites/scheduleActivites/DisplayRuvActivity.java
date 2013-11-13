@@ -53,7 +53,7 @@ public class DisplayRuvActivity extends FragmentActivity implements ActionBar.Ta
         try
         {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.tab_swipe_view);
+            setContentView(R.layout.swipe_events);
 
             Initialize();
         }

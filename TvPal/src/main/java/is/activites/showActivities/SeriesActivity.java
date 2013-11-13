@@ -27,7 +27,7 @@ public class SeriesActivity extends FragmentActivity implements ActionBar.TabLis
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.swipe_overview);
+        setContentView(R.layout.swipe_series);
 
         Initialize();
     }

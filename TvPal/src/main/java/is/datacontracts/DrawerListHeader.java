@@ -2,7 +2,6 @@ package is.datacontracts;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import is.handlers.adapters.DrawerListAdapter;
@@ -11,7 +10,7 @@ import is.tvpal.R;
 /**
  * Created by thorsteinn on 11/2/13.
  */
-public class DrawerListHeader implements Item
+public class DrawerListHeader implements IDrawerItem
 {
     private final String name;
 

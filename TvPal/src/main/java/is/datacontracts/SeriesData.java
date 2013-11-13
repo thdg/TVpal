@@ -3,7 +3,7 @@ package is.datacontracts;
 /**
  * Created by Arnar on 12.10.2013.
  */
-public class ShowData
+public class SeriesData
 {
     private String seriesId;
     private String title;

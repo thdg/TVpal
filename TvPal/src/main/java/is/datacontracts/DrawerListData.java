@@ -2,7 +2,6 @@ package is.datacontracts;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,7 +11,7 @@ import is.tvpal.R;
 /**
  * Created by Þorsteinn on 14.10.2013.
  */
-public class DrawerListData implements Item
+public class DrawerListData implements IDrawerItem
 {
     private final String name;
     private final int iconId;

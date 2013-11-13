@@ -31,7 +31,7 @@ public class OverviewFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View rootView = inflater.inflate(R.layout.overview_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_overview, container, false);
 
         DbShowHandler db = new DbShowHandler(context);
 

@@ -24,7 +24,7 @@ import is.activites.showActivities.SearchTvShowActivity;
 import is.activites.showActivities.UpcomingShowsActivity;
 import is.datacontracts.DrawerListData;
 import is.datacontracts.DrawerListHeader;
-import is.datacontracts.Item;
+import is.datacontracts.IDrawerItem;
 import is.handlers.adapters.DrawerListAdapter;
 import is.utilities.ConnectionListener;
 import is.tvpal.R;
@@ -65,7 +65,7 @@ public class MainActivity extends Activity
         _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         _drawerList = (ListView) findViewById(R.id.left_drawer);
 
-        List<Item> items = new ArrayList<Item>();
+        List<IDrawerItem> items = new ArrayList<IDrawerItem>();
         items.add(new DrawerListHeader(getResources().getString(R.string.schedule_header)));
         items.add(new DrawerListData(getResources().getString(R.string.ruv), R.drawable.ruv_svartur_64));
         items.add(new DrawerListData(getResources().getString(R.string.stod_2), R.drawable.stod2_64));

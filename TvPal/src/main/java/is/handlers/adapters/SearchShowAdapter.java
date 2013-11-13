@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
 import is.datacontracts.EpisodeData;
-import is.datacontracts.ShowData;
+import is.datacontracts.SeriesData;
 import is.handlers.database.DbShowHandler;
 import is.parsers.TvDbEpisodeParser;
 import is.tvpal.R;
@@ -32,9 +32,9 @@ public class SearchShowAdapter extends BaseAdapter
 
     private Context context;
     private int layoutResourceId;
-    private List<ShowData> shows;
+    private List<SeriesData> shows;
 
-    public SearchShowAdapter(Context context, int layoutResourceId, List<ShowData> shows)
+    public SearchShowAdapter(Context context, int layoutResourceId, List<SeriesData> shows)
     {
         this.context = context;
         this.layoutResourceId = layoutResourceId;
@@ -74,7 +74,7 @@ public class SearchShowAdapter extends BaseAdapter
             holder = (ShowHolder)row.getTag();
         }
 
-        final ShowData dataContract = shows.get(position);
+        final SeriesData dataContract = shows.get(position);
 
         holder.title.setText(dataContract.getTitle());
 
@@ -118,9 +118,9 @@ public class SearchShowAdapter extends BaseAdapter
     private class DownloadEpisodes extends AsyncTask<String, Void, String>
     {
         private Context ctx;
-        private ShowData show;
+        private SeriesData show;
 
-        public DownloadEpisodes(Context context, ShowData show)
+        public DownloadEpisodes(Context context, SeriesData show)
         {
             this.ctx = context;
             this.show = show;
@@ -179,7 +179,7 @@ public class SearchShowAdapter extends BaseAdapter
     }
 
     @Override
-    public ShowData getItem(int position)
+    public SeriesData getItem(int position)
     {
         return shows.get(position);
     }

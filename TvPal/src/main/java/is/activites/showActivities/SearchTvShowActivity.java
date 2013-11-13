@@ -29,7 +29,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
 
-import is.datacontracts.ShowData;
+import is.datacontracts.SeriesData;
 import is.handlers.adapters.SearchShowAdapter;
 import is.parsers.TvDbShowParser;
 import is.tvpal.R;
@@ -45,7 +45,7 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
 {
     private ListView _lv;
     private EditText _editSearch;
-    private List<ShowData> _shows;
+    private List<SeriesData> _shows;
     private ProgressDialog _waitingDialog;
     private SearchShowAdapter _adapterView;
     private PopupWindow _popupWindow;
@@ -55,7 +55,7 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_tvshows_activity);
+        setContentView(R.layout.activity_search_shows);
 
         Initialize();
     }
@@ -125,12 +125,12 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
     {
-        ShowData show = _adapterView.getItem(i);
+        SeriesData show = _adapterView.getItem(i);
 
         CreatePopupWindow(show);
     }
 
-    private void CreatePopupWindow(ShowData show)
+    private void CreatePopupWindow(SeriesData show)
     {
         LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = layoutInflater.inflate(R.layout.popup_show, null);

@@ -55,7 +55,7 @@ public class SeasonFragment extends Fragment implements AdapterView.OnItemClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View rootView = inflater.inflate(R.layout.seasons_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_seasons, container, false);
 
         listView = (ListView) rootView.findViewById(R.id.listviewSeasons);
         listView.setOnItemClickListener(this);
