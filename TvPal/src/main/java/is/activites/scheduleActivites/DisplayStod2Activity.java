@@ -33,7 +33,6 @@ import is.tvpal.R;
  * This class handles the activity to show Stöð 2 events.
  * It extends ListActivity to show it as a List.
  * It implements ItemClickListener to handle click events.
- * It implements SwipeGestureFilter.SimpleGestureListener to handle swipe events.
  * @see android.app.ListActivity
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
