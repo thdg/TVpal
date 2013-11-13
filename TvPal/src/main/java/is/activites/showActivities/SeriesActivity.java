@@ -5,18 +5,15 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import is.datacontracts.EpisodeData;
 import is.handlers.database.DbShowHandler;
 import is.tvpal.R;
 
@@ -43,7 +40,7 @@ public class SeriesActivity extends FragmentActivity implements ActionBar.TabLis
         setTitle(intent.getStringExtra(MyShowsActivity.EXTRA_NAME));
         seriesId = intent.getStringExtra(MyShowsActivity.EXTRA_SERIESID);
 
-        EpisodePagerAdapter mScheduleAdapter = new EpisodePagerAdapter(getSupportFragmentManager(), this);
+        SeriesPagerAdapter mScheduleAdapter = new SeriesPagerAdapter(getSupportFragmentManager(), this);
 
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -79,11 +76,11 @@ public class SeriesActivity extends FragmentActivity implements ActionBar.TabLis
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
 
-    public class EpisodePagerAdapter extends FragmentStatePagerAdapter
+    public class SeriesPagerAdapter extends FragmentStatePagerAdapter
     {
         private Context context;
 
-        public EpisodePagerAdapter(FragmentManager fm, Context context)
+        public SeriesPagerAdapter(FragmentManager fm, Context context)
         {
             super(fm);
             this.context = context;
