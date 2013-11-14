@@ -181,14 +181,16 @@ public class DbShowHandler extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         //Returns true if series doesn't exist
+        db.close();
         return cursor.getCount() != 0;
     }
 
     public void RemoveShow(String seriesId)
     {
-        SQLiteDatabase database = this.getWritableDatabase();
-        database.delete(TABLE_SERIES, KEY_S_SERIESID + " = " + seriesId, null);
-        database.delete(TABLE_EPISODES, KEY_E_SERIESID + " = " + seriesId, null);
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_SERIES, KEY_S_SERIESID + " = " + seriesId, null);
+        db.delete(TABLE_EPISODES, KEY_E_SERIESID + " = " + seriesId, null);
+        db.close();
     }
 
     public Bitmap GetSeriesThumbnail(String seriesId)
@@ -201,6 +203,7 @@ public class DbShowHandler extends SQLiteOpenHelper
 
         byte[] thumbnailByteStream = cursor.getBlob(0);
         Bitmap bmp = BitmapFactory.decodeByteArray(thumbnailByteStream, 0, thumbnailByteStream.length);
+        db.close();
         return bmp;
     }
 
@@ -290,6 +293,7 @@ public class DbShowHandler extends SQLiteOpenHelper
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.update(TABLE_EPISODES, values, KEY_E_EPISODEID + " = " + episodeId, null);
+        db.close();
     }
 
     public boolean GetShowSeen(String episodeId)
@@ -299,7 +303,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
-
+        db.close();
         return Integer.parseInt(cursor.getString(7)) == 1;
     }
 
@@ -317,7 +321,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
-
+        db.close();
         return cursor;
     }
 
@@ -330,6 +334,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
+        db.close();
         return cursor;
     }
 
@@ -345,6 +350,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
+        db.close();
         return cursor;
     }
 
@@ -360,6 +366,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
+        db.close();
         return cursor;
     }
 
@@ -372,6 +379,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
+        db.close();
         return cursor;
     }
 
@@ -384,6 +392,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
+        db.close();
         return cursor;
     }
 
@@ -396,6 +405,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
+        db.close();
         return cursor;
     }
 
@@ -412,6 +422,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
+        db.close();
         return cursor.getInt(0);
     }
 
@@ -424,6 +435,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
+        db.close();
         return cursor.getInt(0);
     }
 
