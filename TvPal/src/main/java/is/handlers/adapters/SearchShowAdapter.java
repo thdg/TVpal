@@ -74,19 +74,16 @@ public class SearchShowAdapter extends BaseAdapter
             holder = (ShowHolder)row.getTag();
         }
 
-        final SeriesData dataContract = shows.get(position);
+        final SeriesData series = shows.get(position);
 
-        holder.title.setText(dataContract.getTitle());
+        holder.title.setText(series.getTitle());
 
-        String strNetwork = dataContract.getNetwork();
-        if(strNetwork == null) strNetwork = "";
-        else strNetwork = String.format("Network: %s",strNetwork);
-        holder.network.setText(strNetwork);
+        String network = series.getNetwork() == null ? "" : String.format("Network: %s",series.getNetwork());
+        holder.network.setText(network);
 
-        String strOverview = dataContract.getOverview();
-        if(strOverview == null) strOverview = "";
-        else strOverview = String.format("%s...",strOverview.substring(0, Math.min(strOverview.length(), 60)));
-        holder.overview.setText(strOverview);
+        String overview = series.getOverview();
+        overview = overview == null ? "" : String.format("%s...",overview.substring(0, Math.min(overview.length(), 60)));
+        holder.overview.setText(overview);
 
         holder.checkShow.setOnClickListener(new View.OnClickListener()
         {
@@ -97,16 +94,16 @@ public class SearchShowAdapter extends BaseAdapter
                 {
                     DbShowHandler db = new DbShowHandler(context);
 
-                    boolean exists = db.CheckIfSeriesExist(dataContract.getSeriesId());
+                    boolean exists = db.CheckIfSeriesExist(series.getSeriesId());
 
                     if (!exists)
                     {
-                        String tvDbUrl = String.format("http://thetvdb.com/api/%s/series/%s/all/en.xml", ApiKey, dataContract.getSeriesId());
-                        new DownloadEpisodes(context, dataContract).execute(tvDbUrl);
-                        Toast.makeText(context, String.format("%s will be added to your shows", dataContract.getTitle()), Toast.LENGTH_SHORT).show();
+                        String tvDbUrl = String.format("http://thetvdb.com/api/%s/series/%s/all/en.xml", ApiKey, series.getSeriesId());
+                        new DownloadEpisodes(context, series).execute(tvDbUrl);
+                        Toast.makeText(context, String.format("%s will be added to your shows", series.getTitle()), Toast.LENGTH_SHORT).show();
                     }
                     else
-                        Toast.makeText(context, String.format("Series %s exists in your shows", dataContract.getTitle()), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, String.format("Series %s exists in your shows", series.getTitle()), Toast.LENGTH_SHORT).show();
                 }
                 holder.checkShow.setEnabled(false);
             }
@@ -154,12 +151,12 @@ public class SearchShowAdapter extends BaseAdapter
 
             try
             {
+                //TODO: Simplify logic
                 db.AddSeries(show);
 
                 TvDbEpisodeParser parser = new TvDbEpisodeParser(myurl, context, show.getSeriesId());
                 List<EpisodeData> episodes = parser.GetEpisodes();
 
-                db.AddSeries(show);
                 db.AddEpisodes(episodes);
             }
             catch (Exception ex)
