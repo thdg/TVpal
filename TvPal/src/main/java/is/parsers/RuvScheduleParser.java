@@ -9,7 +9,8 @@ import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import is.datacontracts.EventData;
+import is.contracts.datacontracts.EventData;
+import is.contracts.servicecontracts.IScheduleService;
 
 /**
  * This class to parse xml files.  It uses the Sax Parser and extends DefaultHandler.
@@ -18,7 +19,7 @@ import is.datacontracts.EventData;
  * Created by Arnar
  * @see org.xml.sax.helpers.DefaultHandler
  */
-public class RuvScheduleParser extends DefaultHandler
+public class RuvScheduleParser extends DefaultHandler implements IScheduleService
 {
     private String baseURL;
     private List<EventData> events;

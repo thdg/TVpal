@@ -1,4 +1,4 @@
-package is.datacontracts;
+package is.contracts.datacontracts;
 
 import android.view.LayoutInflater;
 import android.view.View;

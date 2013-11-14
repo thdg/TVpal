@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import is.datacontracts.EventData;
+import is.contracts.datacontracts.EventData;
 import is.tvpal.R;
 
 /**

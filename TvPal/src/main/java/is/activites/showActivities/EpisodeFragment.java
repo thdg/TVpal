@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
-import is.datacontracts.EpisodeData;
+import is.contracts.datacontracts.EpisodeData;
 import is.handlers.database.DbShowHandler;
 import is.parsers.TvDbPictureParser;
 import is.tvpal.R;

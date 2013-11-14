@@ -11,7 +11,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import is.datacontracts.EpisodeData;
 import is.handlers.database.DbShowHandler;
 import is.utilities.DateUtil;
 import is.tvpal.R;

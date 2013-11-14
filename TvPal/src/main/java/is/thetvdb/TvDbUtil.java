@@ -6,7 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
-import is.datacontracts.EpisodeData;
+import is.contracts.datacontracts.EpisodeData;
 import is.handlers.database.DbShowHandler;
 import is.parsers.TvDbUpdateParser;
 import is.utilities.ConnectionListener;

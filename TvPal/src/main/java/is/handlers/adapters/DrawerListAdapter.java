@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import java.util.List;
 
-import is.datacontracts.IDrawerItem;
+import is.contracts.datacontracts.IDrawerItem;
 
 /**
  * Created by Þorsteinn on 14.10.2013.

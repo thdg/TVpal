@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import is.activites.MainActivity;
-import is.datacontracts.EventData;
+import is.contracts.datacontracts.EventData;
 import is.parsers.Stod2ScheduleParser;
 import is.utilities.DateUtil;
 import is.tvpal.R;

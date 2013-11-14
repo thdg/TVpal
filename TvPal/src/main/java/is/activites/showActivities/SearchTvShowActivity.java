@@ -29,7 +29,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
 
-import is.datacontracts.SeriesData;
+import is.contracts.datacontracts.SeriesData;
 import is.handlers.adapters.SearchShowAdapter;
 import is.parsers.TvDbShowParser;
 import is.tvpal.R;

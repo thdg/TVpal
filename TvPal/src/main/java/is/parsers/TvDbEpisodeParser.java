@@ -10,8 +10,8 @@ import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import is.datacontracts.EpisodeData;
-import is.datacontracts.SeriesData;
+import is.contracts.datacontracts.EpisodeData;
+import is.contracts.datacontracts.SeriesData;
 import is.utilities.PictureTask;
 
 /**

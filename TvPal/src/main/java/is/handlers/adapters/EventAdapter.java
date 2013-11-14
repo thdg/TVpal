@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import is.datacontracts.EventData;
+import is.contracts.datacontracts.EventData;
 import is.tvpal.R;
 
 /**

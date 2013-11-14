@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import is.datacontracts.EpisodeData;
 import is.handlers.database.DbShowHandler;
 import is.tvpal.R;
 

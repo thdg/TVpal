@@ -12,8 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import is.datacontracts.EpisodeData;
-import is.datacontracts.SeriesData;
+import is.contracts.datacontracts.EpisodeData;
+import is.contracts.datacontracts.SeriesData;
 
 /**
  * Class to handle database actions.

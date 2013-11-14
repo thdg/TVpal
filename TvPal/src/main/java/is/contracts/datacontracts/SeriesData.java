@@ -1,4 +1,4 @@
-package is.datacontracts;
+package is.contracts.datacontracts;
 
 /**
  * Created by Arnar on 12.10.2013.

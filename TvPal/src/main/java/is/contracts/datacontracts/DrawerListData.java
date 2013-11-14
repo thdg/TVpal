@@ -1,43 +1,46 @@
-package is.datacontracts;
+package is.contracts.datacontracts;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import is.handlers.adapters.DrawerListAdapter;
 import is.tvpal.R;
 
 /**
- * Created by thorsteinn on 11/2/13.
+ * Created by Þorsteinn on 14.10.2013.
  */
-public class DrawerListHeader implements IDrawerItem
+public class DrawerListData implements IDrawerItem
 {
     private final String name;
+    private final int iconId;
 
-    public DrawerListHeader(String name)
+    public DrawerListData(String name, int iconId)
     {
         this.name = name;
+        this.iconId = iconId;
     }
-
-    public String getName() { return this.name; }
 
     @Override
     public int getViewType() {
-        return DrawerListAdapter.RowType.HEADER_ITEM.ordinal();
+        return DrawerListAdapter.RowType.LIST_ITEM.ordinal();
     }
 
     @Override
     public View getView(LayoutInflater inflater, View convertView) {
         View view;
         if (convertView == null) {
-            view = (View) inflater.inflate(R.layout.navigation_drawer_header, null);
+            view = (View) inflater.inflate(R.layout.navigation_drawer, null);
             // Do some initialization
         } else {
             view = convertView;
         }
 
-        TextView text = (TextView) view.findViewById(R.id.separator);
-        text.setText(name);
+        ImageView icon = (ImageView) view.findViewById(R.id.drawer_list_icon);
+        TextView title = (TextView) view.findViewById(R.id.drawer_list_title);
+        icon.setImageResource(iconId);
+        title.setText(name);
 
         return view;
     }

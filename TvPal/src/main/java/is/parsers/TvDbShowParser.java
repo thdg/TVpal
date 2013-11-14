@@ -10,7 +10,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import is.datacontracts.SeriesData;
+import is.contracts.datacontracts.SeriesData;
 
 /**
  * This class parses xml files.  It uses the Sax Parser and extends DefaultHandler.
