@@ -151,17 +151,14 @@ public class SearchShowAdapter extends BaseAdapter
 
             try
             {
-                //TODO: Simplify logic
-                db.AddSeries(show);
-
-                TvDbEpisodeParser parser = new TvDbEpisodeParser(myurl, context, show.getSeriesId());
+                TvDbEpisodeParser parser = new TvDbEpisodeParser(myurl, show);
                 List<EpisodeData> episodes = parser.GetEpisodes();
+                show = parser.getSeries();
 
-                db.AddEpisodes(episodes);
+                db.InsertFullSeriesInfo(episodes, show);
             }
             catch (Exception ex)
             {
-                db.RemoveShow(show.getSeriesId());
                 return "Problem";
             }
 

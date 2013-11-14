@@ -36,6 +36,7 @@ public class DbShowHandler extends SQLiteOpenHelper
     private static final String KEY_S_NETWORK = "network";
     private static final String KEY_S_THUMBNAIL = "thumbnail";
     private static final String KEY_S_LASTUPDATED = "lastupdated";
+    private static final String KEY_S_GENRES = "genres";
 
     //Columns in episodes
     private static final String KEY_E_EPISODEID = "episodeId";
@@ -65,7 +66,8 @@ public class DbShowHandler extends SQLiteOpenHelper
                         + KEY_S_OVERVIEW + " TEXT,"
                         + KEY_S_NETWORK + " TEXT,"
                         + KEY_S_THUMBNAIL + " BLOB,"
-                        + KEY_S_LASTUPDATED + " TEXT"
+                        + KEY_S_LASTUPDATED + " TEXT, "
+                        + KEY_S_GENRES + " TEXT"
                         + ")";
 
         String CREATE_EPISODE_TABLE =
@@ -94,35 +96,80 @@ public class DbShowHandler extends SQLiteOpenHelper
         //Add functionality when database is updated
     }
 
-    public void AddSeries(SeriesData series)
+    public void InsertFullSeriesInfo(List<EpisodeData> episodes, SeriesData series)
     {
         SQLiteDatabase db = this.getWritableDatabase();
 
         if (db != null)
         {
             db.beginTransaction();
+
             try
             {
-                ContentValues values = new ContentValues();
-                values.put(KEY_S_SERIESID, series.getSeriesId());
-                values.put(KEY_S_NAME, series.getTitle());
-                values.put(KEY_S_OVERVIEW, series.getOverview());
-                values.put(KEY_S_NETWORK, series.getNetwork());
+                AddSeries(series, db);
+                AddEpisodes(episodes, db);
 
-                db.insert(TABLE_SERIES, null, values);
                 db.setTransactionSuccessful();
             }
             catch (Exception ex)
             {
-                //TODO: Implement error handling
+                Log.e(getClass().getName(), ex.getMessage());
             }
             finally
             {
                 db.endTransaction();
             }
+            db.close();
         }
+    }
 
-        db.close();
+    public void AddSeries(SeriesData series, SQLiteDatabase db)
+    {
+        try
+        {
+            ContentValues values = new ContentValues();
+            values.put(KEY_S_SERIESID, series.getSeriesId());
+            values.put(KEY_S_NAME, series.getTitle());
+            values.put(KEY_S_NETWORK, series.getNetwork());
+            values.put(KEY_S_OVERVIEW, series.getOverview());
+            values.put(KEY_S_THUMBNAIL, series.getPosterStream());
+            values.put(KEY_S_LASTUPDATED, series.getLastUpdated());
+            values.put(KEY_S_GENRES, series.getGenres());
+
+            db.insert(TABLE_SERIES, null, values);
+        }
+        catch (Exception ex)
+        {
+            Log.e(getClass().getName(), ex.getMessage());
+        }
+    }
+
+    public void AddEpisodes(List<EpisodeData> episodes, SQLiteDatabase db)
+    {
+        try
+        {
+            for (EpisodeData episode : episodes)
+            {
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_EPISODEID, episode.getEpisodeId());
+                values.put(KEY_S_SERIESID, episode.getSeriesId());
+                values.put(KEY_E_SEASON, episode.getSeasonNumber());
+                values.put(KEY_E_EPISODE, episode.getEpisodeNumber());
+                values.put(KEY_E_EPISODENAME, episode.getEpisodeName());
+                values.put(KEY_E_AIRED, episode.getAired());
+                values.put(KEY_S_OVERVIEW, episode.getOverview());
+                values.put(KEY_E_SEEN, "0");
+                values.put(KEY_E_DIRECTOR, episode.getDirector());
+                values.put(KEY_E_RATING, episode.getRating());
+                values.put(KEY_E_GUESTSTARS, episode.getGuestStars());
+
+                db.insert(TABLE_EPISODES, null, values);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.e(getClass().getName(), ex.getMessage());
+        }
     }
 
     public boolean CheckIfSeriesExist(String seriesId)
@@ -140,33 +187,8 @@ public class DbShowHandler extends SQLiteOpenHelper
     public void RemoveShow(String seriesId)
     {
         SQLiteDatabase database = this.getWritableDatabase();
-        database.delete(TABLE_SERIES, KEY_S_SERIESID + " = " + seriesId , null);
+        database.delete(TABLE_SERIES, KEY_S_SERIESID + " = " + seriesId, null);
         database.delete(TABLE_EPISODES, KEY_E_SERIESID + " = " + seriesId, null);
-    }
-
-    public void AddThumbnailToSeries(byte[] byteStream, String seriesId)
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_S_THUMBNAIL, byteStream);
-
-        db.update(TABLE_SERIES, values, KEY_S_SERIESID + " = " + seriesId, null);
-        db.close();
-    }
-
-    public void AddLastUpdatedToSeries(String lastUpdated, String seriesId)
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_S_LASTUPDATED, lastUpdated);
-
-        if(db != null)
-        {
-            db.update(TABLE_SERIES, values, KEY_S_SERIESID + " = " + seriesId, null);
-            db.close();
-        }
     }
 
     public Bitmap GetSeriesThumbnail(String seriesId)
@@ -180,47 +202,6 @@ public class DbShowHandler extends SQLiteOpenHelper
         byte[] thumbnailByteStream = cursor.getBlob(0);
         Bitmap bmp = BitmapFactory.decodeByteArray(thumbnailByteStream, 0, thumbnailByteStream.length);
         return bmp;
-    }
-
-    public void AddEpisodes(List<EpisodeData> episodes)
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        if (db != null)
-        {
-            db.beginTransaction();
-            try
-            {
-                for (EpisodeData episode : episodes)
-                {
-                    ContentValues values = new ContentValues();
-                    values.put(KEY_E_EPISODEID, episode.getEpisodeId());
-                    values.put(KEY_S_SERIESID, episode.getSeriesId());
-                    values.put(KEY_E_SEASON, episode.getSeasonNumber());
-                    values.put(KEY_E_EPISODE, episode.getEpisodeNumber());
-                    values.put(KEY_E_EPISODENAME, episode.getEpisodeName());
-                    values.put(KEY_E_AIRED, episode.getAired());
-                    values.put(KEY_S_OVERVIEW, episode.getOverview());
-                    values.put(KEY_E_SEEN, "0");
-                    values.put(KEY_E_DIRECTOR, episode.getDirector());
-                    values.put(KEY_E_RATING, episode.getRating());
-                    values.put(KEY_E_GUESTSTARS, episode.getGuestStars());
-
-                    db.insert(TABLE_EPISODES, null, values);
-                }
-
-                db.setTransactionSuccessful();
-            }
-            catch (Exception ex)
-            {
-                Log.e(getClass().getName(), ex.getMessage());
-            }
-            finally
-            {
-                db.endTransaction();
-            }
-
-            db.close();
-        }
     }
 
     public void AddEpisode(SQLiteDatabase db, EpisodeData episode)

@@ -1,6 +1,5 @@
 package is.parsers;
 
-import android.content.Context;
 import android.util.Log;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -12,7 +11,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import is.datacontracts.EpisodeData;
-import is.handlers.database.DbShowHandler;
+import is.datacontracts.SeriesData;
 import is.utilities.PictureTask;
 
 /**
@@ -28,17 +27,15 @@ public class TvDbEpisodeParser extends DefaultHandler {
     private List<EpisodeData> episodes;
     private EpisodeData episodeTmp;
     private StringBuilder sb;
-    private Context context;
-    private String seriesId;
+    public SeriesData series;
     private boolean seriesNode;
 
-    public TvDbEpisodeParser(String baseUrl, Context context, String seriesId)
+    public TvDbEpisodeParser(String baseUrl, SeriesData series)
     {
         this.baseURL = baseUrl;
         this.episodes = new ArrayList<EpisodeData>();
         episodeTmp = new EpisodeData();
-        this.context = context;
-        this.seriesId = seriesId;
+        this.series = series;
         this.seriesNode = true;
     }
 
@@ -48,6 +45,8 @@ public class TvDbEpisodeParser extends DefaultHandler {
 
         return this.episodes;
     }
+
+    public SeriesData getSeries() { return this.series; }
 
     private void parseDocument() throws ParserConfigurationException, SAXException, IOException
     {
@@ -62,9 +61,7 @@ public class TvDbEpisodeParser extends DefaultHandler {
         sb = new StringBuilder();
 
         if (element.equalsIgnoreCase("Episode"))
-        {
             episodeTmp = new EpisodeData();
-        }
 
         sb = new StringBuilder();
     }
@@ -72,6 +69,8 @@ public class TvDbEpisodeParser extends DefaultHandler {
     @Override
     public void endElement(String s, String s1, String element) throws SAXException
     {
+        //Episode info below
+
         if(element.equalsIgnoreCase("id"))
             episodeTmp.setEpisodeId(sb.toString());
 
@@ -93,23 +92,6 @@ public class TvDbEpisodeParser extends DefaultHandler {
         if(element.equalsIgnoreCase("EpisodeName"))
             episodeTmp.setEpisodeName(sb.toString());
 
-        if(element.equalsIgnoreCase("poster"))
-        {
-            try
-            {
-                String posterUrl = String.format("http://thetvdb.com/banners/%s", sb.toString());
-
-                PictureTask pic = new PictureTask();
-                byte[] thumbnailByteStream = pic.getBitmapFromURL(posterUrl);
-                DbShowHandler db = new DbShowHandler(context);
-                db.AddThumbnailToSeries(thumbnailByteStream, seriesId);
-            }
-            catch (Exception ex)
-            {
-                Log.e(getClass().getName(), ex.getMessage());
-            }
-        }
-
         if(element.equalsIgnoreCase("Rating"))
             episodeTmp.setRating(sb.toString());
 
@@ -119,16 +101,34 @@ public class TvDbEpisodeParser extends DefaultHandler {
         if(element.equalsIgnoreCase("Episode"))
             episodes.add(episodeTmp);
 
-        if(element.equalsIgnoreCase("lastupdated") && seriesNode)
+        if (element.equalsIgnoreCase("GuestStars"))
+            episodeTmp.setGuestStars(ArrayToString(sb.toString()));
+
+        //Series info below
+
+        if(element.equalsIgnoreCase("poster"))
         {
-            DbShowHandler db = new DbShowHandler(context);
-            db.AddLastUpdatedToSeries(sb.toString(), seriesId);
-            seriesNode = false;
+            try
+            {
+                String posterUrl = String.format("http://thetvdb.com/banners/%s", sb.toString());
+
+                PictureTask pic = new PictureTask();
+                byte[] posterByteStream = pic.getBitmapFromURL(posterUrl);
+                series.setPosterStream(posterByteStream);
+            }
+            catch (Exception ex)
+            {
+                Log.e(getClass().getName(), ex.getMessage());
+            }
         }
 
-        if (element.equalsIgnoreCase("GuestStars"))
+        if (element.equalsIgnoreCase("Genre"))
+            series.setGenres(ArrayToString(sb.toString()));
+
+        if(element.equalsIgnoreCase("lastupdated") && seriesNode)
         {
-            episodeTmp.setGuestStars(ArrayToString(sb.toString()));
+            series.setLastUpdated(sb.toString());
+            seriesNode = false;
         }
 
         sb = null;
