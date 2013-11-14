@@ -47,17 +47,10 @@ public class DisplayStod2Activity extends FragmentActivity implements ActionBar.
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        try
-        {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.swipe_events);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.swipe_events);
 
-            Initialize();
-        }
-        catch (Exception ex)
-        {
-            Log.e(getClass().getName(), ex.getMessage());
-        }
+        Initialize();
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)

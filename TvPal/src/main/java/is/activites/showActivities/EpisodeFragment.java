@@ -43,6 +43,13 @@ public class EpisodeFragment extends Fragment
         this.db = new DbShowHandler(cxt);
     }
 
+    public EpisodeFragment() {}
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {

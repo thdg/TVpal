@@ -28,17 +28,17 @@
         <activity
             android:name="is.activites.scheduleActivites.DisplayStod2Activity"
             android:label="@string/title_activity_display_stod2"
-            android:screenOrientation="portrait" >
+            android:configChanges="keyboardHidden|orientation|screenSize" >
         </activity>
         <activity
             android:name="is.activites.scheduleActivites.DisplayRuvActivity"
             android:label="@string/title_activity_display_ruv"
-            android:screenOrientation="portrait" >
+            android:configChanges="keyboardHidden|orientation|screenSize" >
         </activity>
         <activity
             android:name="is.activites.scheduleActivites.DisplaySkjarinnActivity"
             android:label="@string/title_activity_display_skjarinn"
-            android:screenOrientation="portrait" >
+            android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>
         <activity
             android:name="is.activites.scheduleActivites.DetailedEventActivity"
@@ -46,7 +46,8 @@
         </activity>
         <activity
             android:name="is.activites.showActivities.SearchTvShowActivity"
-            android:label="@string/title_activity_tv_show" >
+            android:label="@string/title_activity_tv_show"
+            android:configChanges="keyboardHidden|orientation|screenSize" >
         </activity>
         <activity
             android:name="is.activites.showActivities.MyShowsActivity"
@@ -58,6 +59,7 @@
         </activity>
         <activity
             android:name="is.activites.showActivities.EpisodeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_episode" >
         </activity>
         <activity
@@ -70,6 +72,7 @@
         </activity>
         <activity
             android:name="is.activites.showActivities.SeriesActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_show" >
         </activity>
     </application>

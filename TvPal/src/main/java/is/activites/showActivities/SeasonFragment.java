@@ -39,6 +39,8 @@ public class SeasonFragment extends Fragment implements AdapterView.OnItemClickL
         db = new DbShowHandler(context);
     }
 
+    public SeasonFragment() {}
+
     @Override
     public void onResume()
     {

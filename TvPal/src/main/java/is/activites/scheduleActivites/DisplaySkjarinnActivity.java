@@ -50,17 +50,10 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        try
-        {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.swipe_events);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.swipe_events);
 
-            Initialize();
-        }
-        catch (Exception ex)
-        {
-            Log.e(getClass().getName(), ex.getMessage());
-        }
+        Initialize();
     }
 
     private void Initialize()
