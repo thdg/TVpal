@@ -17,7 +17,7 @@ import is.tvpal.R;
 public class ScheduleFragment extends Fragment implements AdapterView.OnItemClickListener
 {
     public static final String EXTRA_EVENT = "is.activites.scheduleActivites.EVENT";
-    public static final String ARG_SCHEDULE_DAY = "schedule_day";
+    public static final String EXTRA_SCHEDULE_DAY = "is.activites.scheduleActivites.SCHEDULE_DAY";
 
     private EventAdapter _adapterView;
     private Context cxt;
@@ -35,7 +35,7 @@ public class ScheduleFragment extends Fragment implements AdapterView.OnItemClic
         View rootView = inflater.inflate(R.layout.fragment_events, container, false);
         Bundle args = getArguments();
         //Todo: Some type checking
-        ArrayList<EventData> _todaySchedule = (ArrayList<EventData>)args.getSerializable(ARG_SCHEDULE_DAY);
+        ArrayList<EventData> _todaySchedule = (ArrayList<EventData>)args.getSerializable(EXTRA_SCHEDULE_DAY);
 
         _adapterView = new EventAdapter(inflater.getContext(), R.layout.listview_event, _todaySchedule);
 

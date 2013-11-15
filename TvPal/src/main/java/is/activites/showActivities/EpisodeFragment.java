@@ -28,7 +28,7 @@ import is.utilities.ConnectionListener;
  */
 public class EpisodeFragment extends Fragment
 {
-    public static final String EPISODE_FRAGMENT = "episode_fragment";
+    public static final String EPISODE_FRAGMENT = "is.activites.showActivities.episode_fragment";
 
     private Context cxt;
     private Bitmap bmp;

@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import is.contracts.datacontracts.EventData;
-import is.contracts.servicecontracts.IScheduleService;
 import is.parsers.RuvScheduleParser;
 import is.utilities.DateUtil;
 import is.tvpal.R;
@@ -148,7 +147,7 @@ public class DisplayRuvActivity extends FragmentActivity implements ActionBar.Ta
                     _todaySchedule.add(e);
             }
 
-            args.putSerializable(ScheduleFragment.ARG_SCHEDULE_DAY, _todaySchedule);
+            args.putSerializable(ScheduleFragment.EXTRA_SCHEDULE_DAY, _todaySchedule);
             fragment.setArguments(args);
             return fragment;
         }

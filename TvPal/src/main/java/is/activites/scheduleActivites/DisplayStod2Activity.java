@@ -136,7 +136,7 @@ public class DisplayStod2Activity extends FragmentActivity implements ActionBar.
                     _todaySchedule.add(e);
             }
 
-            args.putSerializable(ScheduleFragment.ARG_SCHEDULE_DAY, _todaySchedule);
+            args.putSerializable(ScheduleFragment.EXTRA_SCHEDULE_DAY, _todaySchedule);
             fragment.setArguments(args);
             return fragment;
         }

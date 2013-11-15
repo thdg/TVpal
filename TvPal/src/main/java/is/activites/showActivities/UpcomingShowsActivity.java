@@ -21,12 +21,6 @@ import is.tvpal.R;
 
 public class UpcomingShowsActivity extends Activity implements AdapterView.OnItemClickListener
 {
-    public static final String EXTRA_SERIESID = "is.activites.showActivities.SERIESID";
-    public static final String EXTRA_SEASONNR = "is.activites.showActivities.SEASONNR";
-    public static final String EXTRA_SELECTED = "is.activites.showActivities.SELECTED";
-
-    private ListView _listView;
-    private DbShowHandler _db;
     private UpcomingRecentAdapter _adapter;
 
     @Override
@@ -41,9 +35,9 @@ public class UpcomingShowsActivity extends Activity implements AdapterView.OnIte
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void Initialize()
     {
-        _db = new DbShowHandler(this);
+        DbShowHandler _db = new DbShowHandler(this);
 
-        _listView = (ListView) findViewById(R.id.overviewShows);
+        ListView _listView = (ListView) findViewById(R.id.overviewShows);
         _listView.setOnItemClickListener(this);
 
         _adapter = new UpcomingRecentAdapter(this, _db.GetCursorUpcoming(), 0);
@@ -71,9 +65,9 @@ public class UpcomingShowsActivity extends Activity implements AdapterView.OnIte
         Cursor episode = (Cursor) _adapter.getItem(position);
 
         Intent intent = new Intent(this, EpisodeActivity.class);
-        intent.putExtra(EXTRA_SERIESID, episode.getInt(3));
-        intent.putExtra(EXTRA_SEASONNR, episode.getInt(4));
-        intent.putExtra(EXTRA_SELECTED, episode.getInt(5)-1);  //Fuck ugly hack to set correct episode
+        intent.putExtra(SingleSeasonActivity.EXTRA_SERIESID, episode.getInt(3));
+        intent.putExtra(SingleSeasonActivity.EXTRA_SEASONNR, episode.getInt(4));
+        intent.putExtra(SingleSeasonActivity.EXTRA_SELECTED, episode.getInt(5)-1);  //Fuck ugly hack to set correct episode
 
         startActivity(intent);
     }

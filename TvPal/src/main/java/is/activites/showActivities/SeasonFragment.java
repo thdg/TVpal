@@ -23,8 +23,8 @@ import is.tvpal.R;
  */
 public class SeasonFragment extends Fragment implements AdapterView.OnItemClickListener
 {
-    public static final String EXTRA_SERIESID = "is.activites.SERIESID";
-    public static final String EXTRA_SEASON = "is.activites.SEASON";
+    public static final String EXTRA_SERIESID = "is.activites.showActivities.SERIESID";
+    public static final String EXTRA_SEASON = "is.activites.showActivities.SEASON";
 
     private Context mContext;
     private SeasonAdapter mAdapter;

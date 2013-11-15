@@ -133,7 +133,7 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
                     _todaySchedule.add(e);
             }
 
-            args.putSerializable(ScheduleFragment.ARG_SCHEDULE_DAY, _todaySchedule);
+            args.putSerializable(ScheduleFragment.EXTRA_SCHEDULE_DAY, _todaySchedule);
             fragment.setArguments(args);
             return fragment;
         }
