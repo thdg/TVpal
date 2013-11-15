@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.support.v4.widget.CursorAdapter;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,19 +22,19 @@ import is.tvpal.R;
  * @see android.support.v4.widget.CursorAdapter
  */
 
-public class ActivityAdapter extends CursorAdapter
+public class UpcomingRecentAdapter extends CursorAdapter
 {
     private static final int LAYOUT = R.layout.listview_activity;
 
     private LayoutInflater mLayoutInflater;
     private DbShowHandler db;
-    private HashMap<String, Bitmap> pictures;
+    private SparseArray<Bitmap> pictures;
 
-    public ActivityAdapter(Context context, Cursor c, int flags)
+    public UpcomingRecentAdapter(Context context, Cursor c, int flags)
     {
         super(context, c, flags);
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.pictures = new HashMap<String, Bitmap>();
+        this.pictures = new SparseArray<Bitmap>();
         this.db = new DbShowHandler(context);
     }
 
@@ -78,12 +79,12 @@ public class ActivityAdapter extends CursorAdapter
         }
 
         viewHolder.episodeName.setText(mCursor.getString(Episodes.EpisodeName));
-        viewHolder.episodeNumber.setText(String.format("%sx%s", mCursor.getString(Episodes.Season), mCursor.getString(Episodes.Episode)));
+        viewHolder.episodeNumber.setText(String.format("%dx%d", mCursor.getInt(Episodes.Season), mCursor.getInt(Episodes.Episode)));
         viewHolder.episodeAired.setText(DateUtil.FormatDateEpisode(mCursor.getString(Episodes.Aired)));
 
-        String seriesId = mCursor.getString(Episodes.SeriesId);
+        final int seriesId = mCursor.getInt(Episodes.SeriesId);
 
-        if (!pictures.containsKey(seriesId))
+        if (pictures.get(seriesId) == null)
         {
             Bitmap bmp = db.GetSeriesThumbnail(seriesId);
             pictures.put(seriesId, bmp);

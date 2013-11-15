@@ -39,7 +39,7 @@ public class OverviewFragment extends Fragment
 
         if (rootView != null)
         {
-            Bitmap poster = db.GetSeriesThumbnail(mCursor.getString(Series.SeriesId));
+            Bitmap poster = db.GetSeriesThumbnail(mCursor.getInt(Series.SeriesId));
             ((ImageView) rootView.findViewById(R.id.overviewPicture)).setImageBitmap(poster);
             ((TextView) rootView.findViewById(R.id.overviewTitle)).setText(mCursor.getString(Series.Name));
             ((TextView) rootView.findViewById(R.id.overviewText)).setText(mCursor.getString(Series.Overview));

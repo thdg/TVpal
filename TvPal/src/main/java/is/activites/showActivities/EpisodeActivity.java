@@ -28,8 +28,8 @@ import is.tvpal.R;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class EpisodeActivity extends FragmentActivity implements ActionBar.TabListener
 {
-    private String _seriesId;
-    private String _seasonNr;
+    private int _seriesId;
+    private int _seasonNr;
     private int _pos;
     private EpisodePagerAdapter mScheduleAdapter;
     private ViewPager mViewPager;
@@ -51,8 +51,8 @@ public class EpisodeActivity extends FragmentActivity implements ActionBar.TabLi
         //TODO: Find a better way to set title. (Siggi)
         setTitle(String.format("%s",""));
 
-        _seriesId = intent.getStringExtra(SingleSeasonActivity.EXTRA_SERIESID);
-        _seasonNr = intent.getStringExtra(SingleSeasonActivity.EXTRA_SEASONNR);
+        _seriesId = intent.getIntExtra(SingleSeasonActivity.EXTRA_SERIESID, 0);
+        _seasonNr = intent.getIntExtra(SingleSeasonActivity.EXTRA_SEASONNR, 0);
         _pos = intent.getIntExtra(SingleSeasonActivity.EXTRA_SELECTED, 0);
 
         CreateTabViews();
@@ -136,13 +136,13 @@ public class EpisodeActivity extends FragmentActivity implements ActionBar.TabLi
 
             EpisodeData episode = new EpisodeData();
             episode.setEpisodeName(mCursor.getString(Episodes.EpisodeName));
-            episode.setSeasonNumber(mCursor.getString(Episodes.Season));
+            episode.setSeasonNumber(mCursor.getInt(Episodes.Season));
             episode.setOverview(mCursor.getString(Episodes.Overview));
             episode.setAired(mCursor.getString(Episodes.Aired));
             episode.setDirector(mCursor.getString(Episodes.Director));
             episode.setRating(mCursor.getString(Episodes.Rating));
-            episode.setEpisodeId(mCursor.getString(Episodes.EpisodeId));
-            episode.setSeen(mCursor.getString(Episodes.Seen));
+            episode.setEpisodeId(mCursor.getInt(Episodes.EpisodeId));
+            episode.setSeen(mCursor.getInt(Episodes.Seen));
             episode.setGuestStars(mCursor.getString(Episodes.GuestStars));
 
             args.putSerializable(EpisodeFragment.EPISODE_FRAGMENT, episode);
@@ -161,7 +161,7 @@ public class EpisodeActivity extends FragmentActivity implements ActionBar.TabLi
         {
            mCursor.moveToPosition(position);
 
-           return String.format("%s-%s", mCursor.getString(3), mCursor.getString(1));
+           return String.format("%d-%d", mCursor.getInt(Episodes.Season), mCursor.getInt(Episodes.Episode));
         }
     }
 

@@ -144,7 +144,7 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
         TextView showFirstAired = (TextView) popupView.findViewById(R.id.popupFirstAired);
         Button showClose = (Button) popupView.findViewById(R.id.popUpClose);
         _popupBanner = (ImageView) popupView.findViewById(R.id.popupBanner);
-        if (show.getSeriesId() != null)
+        if (show.getBanner() != null)
             new DownloadBannerBitmap(show.getBanner()).execute();
 
         showTitle.setText(show.getTitle());

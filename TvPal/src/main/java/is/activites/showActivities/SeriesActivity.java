@@ -21,7 +21,7 @@ import is.tvpal.R;
 public class SeriesActivity extends FragmentActivity implements ActionBar.TabListener
 {
     private ViewPager mViewPager;
-    private String seriesId;
+    private int seriesId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,7 +38,7 @@ public class SeriesActivity extends FragmentActivity implements ActionBar.TabLis
         Intent intent = getIntent();
 
         setTitle(intent.getStringExtra(MyShowsActivity.EXTRA_NAME));
-        seriesId = intent.getStringExtra(MyShowsActivity.EXTRA_SERIESID);
+        seriesId = intent.getIntExtra(MyShowsActivity.EXTRA_SERIESID, 0);
 
         SeriesPagerAdapter mScheduleAdapter = new SeriesPagerAdapter(getSupportFragmentManager(), this);
 

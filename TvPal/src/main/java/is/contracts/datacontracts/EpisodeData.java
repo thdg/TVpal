@@ -9,27 +9,27 @@ import java.io.Serializable;
  */
 public class EpisodeData implements Serializable
 {
-    private String episodeId;
-    private String seriesId;
-    private String seasonNumber;
-    private String episodeNumber;
+    private int episodeId;
+    private int seriesId;
+    private int  seasonNumber;
+    private int  episodeNumber;
     private String episodeName;
     private String aired;
     private String overview;
-    private String seen;
+    private int seen;
     private Bitmap picture;
     private String director;
     private String rating;
     private String guestStars;
 
-    public String getEpisodeId() { return episodeId; }
-    public void setEpisodeId(String episodeId) { this.episodeId = episodeId;}
+    public int getEpisodeId() { return episodeId; }
+    public void setEpisodeId(int episodeId) { this.episodeId = episodeId;}
 
-    public String getSeasonNumber() { return seasonNumber; }
-    public void setSeasonNumber(String seasonNumber) { this.seasonNumber = seasonNumber; }
+    public int getSeasonNumber() { return seasonNumber; }
+    public void setSeasonNumber(int seasonNumber) { this.seasonNumber = seasonNumber; }
 
-    public String getEpisodeNumber() { return episodeNumber; }
-    public void setEpisodeNumber(String episodeNumber) { this.episodeNumber = episodeNumber; }
+    public int getEpisodeNumber() { return episodeNumber; }
+    public void setEpisodeNumber(int episodeNumber) { this.episodeNumber = episodeNumber; }
 
     public String getAired() { return aired; }
     public void setAired(String aired) { this.aired = aired; }
@@ -37,14 +37,14 @@ public class EpisodeData implements Serializable
     public String getOverview() { return overview; }
     public void setOverview(String overview) { this.overview = overview; }
 
-    public String getSeriesId() { return seriesId; }
-    public void setSeriesId(String seriesId) { this.seriesId = seriesId; }
+    public int getSeriesId() { return seriesId; }
+    public void setSeriesId(int seriesId) { this.seriesId = seriesId; }
 
     public String getEpisodeName() { return episodeName; }
     public void setEpisodeName(String episodeName) { this.episodeName = episodeName; }
 
-    public String getSeen() { return seen; }
-    public void setSeen(String seen){ this.seen = seen; }
+    public int getSeen() { return seen; }
+    public void setSeen(int seen){ this.seen = seen; }
 
     public Bitmap getPicture() { return picture; }
     public void setPicture(Bitmap picture) { this.picture = picture;}

@@ -28,8 +28,8 @@ public class SingleSeasonActivity extends ListActivity implements AdapterView.On
 
     private SingleSeasonAdapter _adapter;
     private DbShowHandler _db;
-    private String _seriesId;
-    private String _season;
+    private int _seriesId;
+    private int _season;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -54,8 +54,8 @@ public class SingleSeasonActivity extends ListActivity implements AdapterView.On
         _db = new DbShowHandler(this);
 
         Intent intent = getIntent();
-        _seriesId = intent.getStringExtra(SeasonFragment.EXTRA_SERIESID);
-        _season   = intent.getStringExtra(SeasonFragment.EXTRA_SEASON);
+        _seriesId = intent.getIntExtra(SeasonFragment.EXTRA_SERIESID, 0);
+        _season   = intent.getIntExtra(SeasonFragment.EXTRA_SEASON, 0);
 
         setTitle(String.format("Season %s", _season));
 
@@ -71,9 +71,9 @@ public class SingleSeasonActivity extends ListActivity implements AdapterView.On
         Cursor selectedEpisode = (Cursor) _adapter.getItem(position);
 
         Intent intent = new Intent(this, EpisodeActivity.class);
-        intent.putExtra(EXTRA_SERIESID, selectedEpisode.getString(1));
-        intent.putExtra(EXTRA_SEASONNR, selectedEpisode.getString(2));
-        intent.putExtra(EXTRA_EPISODENR, selectedEpisode.getString(3));
+        intent.putExtra(EXTRA_SERIESID, selectedEpisode.getInt(1));
+        intent.putExtra(EXTRA_SEASONNR, selectedEpisode.getInt(2));
+        intent.putExtra(EXTRA_EPISODENR, selectedEpisode.getInt(3));
         intent.putExtra(EXTRA_SELECTED, position);
         startActivity(intent);
     }

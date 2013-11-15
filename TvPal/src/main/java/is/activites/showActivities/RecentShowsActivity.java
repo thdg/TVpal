@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import is.handlers.adapters.ActivityAdapter;
+import is.handlers.adapters.UpcomingRecentAdapter;
 import is.handlers.database.DbShowHandler;
 import is.tvpal.R;
 
@@ -27,7 +27,7 @@ public class RecentShowsActivity extends Activity implements AdapterView.OnItemC
 
     private ListView _listView;
     private DbShowHandler _db;
-    private ActivityAdapter _adapter;
+    private UpcomingRecentAdapter _adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -46,7 +46,7 @@ public class RecentShowsActivity extends Activity implements AdapterView.OnItemC
         _listView = (ListView) findViewById(R.id.overviewShows);
         _listView.setOnItemClickListener(this);
 
-        _adapter = new ActivityAdapter(this, _db.GetCursorRecent(), 0);
+        _adapter = new UpcomingRecentAdapter(this, _db.GetCursorRecent(), 0);
         _listView.setAdapter(_adapter);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -71,9 +71,9 @@ public class RecentShowsActivity extends Activity implements AdapterView.OnItemC
         Cursor episode = (Cursor) _adapter.getItem(position);
 
         Intent intent = new Intent(this, EpisodeActivity.class);
-        intent.putExtra(EXTRA_SERIESID, episode.getString(3));
-        intent.putExtra(EXTRA_SEASONNR, episode.getString(4));
-        intent.putExtra(EXTRA_SELECTED, Integer.parseInt(episode.getString(5))-1);  //Fuck ugly hack to set correct episode
+        intent.putExtra(EXTRA_SERIESID, episode.getInt(3));
+        intent.putExtra(EXTRA_SEASONNR, episode.getInt(4));
+        intent.putExtra(EXTRA_SELECTED, episode.getInt(5)-1);  //Fuck ugly hack to set correct episode
 
         startActivity(intent);
     }

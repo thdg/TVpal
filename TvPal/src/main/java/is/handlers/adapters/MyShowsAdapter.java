@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.widget.CursorAdapter;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,13 +28,13 @@ public class MyShowsAdapter extends CursorAdapter
     private static final int LAYOUT = R.layout.listview_my_shows;
 
     private LayoutInflater mLayoutInflater;
-    private HashMap<String, Bitmap> mPosters;
+    private SparseArray<Bitmap> mPosters;
 
     public MyShowsAdapter(Context context, Cursor c, int flags)
     {
         super(context, c, flags);
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mPosters = new HashMap<String, Bitmap>();
+        mPosters = new SparseArray<Bitmap>();
     }
 
     static class ViewHolder
@@ -71,7 +72,7 @@ public class MyShowsAdapter extends CursorAdapter
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        final String seriesId = mCursor.getString(Series.SeriesId);
+        final int seriesId = mCursor.getInt(Series.SeriesId);
         viewHolder.title.setText(mCursor.getString(Series.Name));
 
         if(mPosters.get(seriesId) != null)

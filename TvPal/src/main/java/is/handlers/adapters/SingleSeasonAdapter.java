@@ -29,10 +29,10 @@ public class SingleSeasonAdapter extends CursorAdapter {
     private LayoutInflater mLayoutInflater;
     private DbShowHandler db;
     private List<Boolean> mCheckedShows = new ArrayList<Boolean>();
-    private String seriesId;
-    private String season;
+    private int seriesId;
+    private int season;
 
-    public SingleSeasonAdapter(Context context, Cursor c, int flags, String seriesId, String season)
+    public SingleSeasonAdapter(Context context, Cursor c, int flags, int seriesId, int season)
     {
         super(context, c, flags);
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -84,7 +84,7 @@ public class SingleSeasonAdapter extends CursorAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        final String episodeId = mCursor.getString(Episodes.EpisodeId);
+        final int episodeId = mCursor.getInt(Episodes.EpisodeId);
 
         viewHolder.checkShowSeen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,8 +95,8 @@ public class SingleSeasonAdapter extends CursorAdapter {
             }
         });
 
-        String showSeen = mCursor.getString(Episodes.Seen);
-        if (showSeen.equalsIgnoreCase("1"))
+        int showSeen = mCursor.getInt(Episodes.Seen);
+        if (showSeen == 1)
         {
             mCheckedShows.set(position, true);
         }
@@ -107,7 +107,7 @@ public class SingleSeasonAdapter extends CursorAdapter {
 
         viewHolder.checkShowSeen.setChecked(mCheckedShows.get(position));
 
-        viewHolder.numberOfEpisode.setText(String.format("%s:", mCursor.getString(Episodes.Episode)));
+        viewHolder.numberOfEpisode.setText(String.format("%d:", mCursor.getInt(Episodes.Episode)));
         viewHolder.name.setText(mCursor.getString(Episodes.EpisodeName));
         viewHolder.aired.setText(DateUtil.FormatDateEpisode(mCursor.getString(Episodes.Aired)));
 

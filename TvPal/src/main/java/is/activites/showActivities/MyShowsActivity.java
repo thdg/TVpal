@@ -98,7 +98,7 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
 
         try
         {
-            _db.RemoveShow(show.getString(0));
+            _db.RemoveShow(show.getInt(0));
             SetListAdapterMyShows();
             Toast.makeText(this, String.format("Removed %s from your shows", show.getString(1)), Toast.LENGTH_SHORT).show();
         }
@@ -113,7 +113,7 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
         Cursor show = (Cursor) _adapter.getItem(position);
 
         TvDbUtil update = new TvDbUtil(this);
-        update.UpdateSeries(show.getString(0));
+        update.UpdateSeries(show.getInt(0));
     }
 
     private void SeenAllEpisodes(int position)
@@ -121,7 +121,7 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
         Cursor cursor = (Cursor) _adapter.getItem(position);
 
         TvDbUtil tvdb = new TvDbUtil(this);
-        tvdb.SetAllEpisodesOfSeriesSeen(cursor.getString(0));
+        tvdb.SetAllEpisodesOfSeriesSeen(cursor.getInt(0));
     }
 
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
@@ -129,7 +129,7 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
         Cursor show = (Cursor) _adapter.getItem(position);
 
         Intent intent = new Intent(this, SeriesActivity.class);
-        intent.putExtra(EXTRA_SERIESID, show.getString(0));
+        intent.putExtra(EXTRA_SERIESID, show.getInt(0));
         intent.putExtra(EXTRA_NAME, show.getString(1));
         startActivity(intent);
     }

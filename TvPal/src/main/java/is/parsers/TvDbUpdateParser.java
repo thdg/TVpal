@@ -26,8 +26,8 @@ public class TvDbUpdateParser extends DefaultHandler {
     private StringBuilder sb;
     private int latestLocalUpdate;
     private boolean needToUpdate;
-    public String latestSeriesUpdate;
-    public String getLatestSeriesUpdate() { return this.latestSeriesUpdate; }
+    public int latestSeriesUpdate;
+    public int getLatestSeriesUpdate() { return this.latestSeriesUpdate; }
 
     public TvDbUpdateParser(String baseUrl, int lastUpdate)
     {
@@ -66,7 +66,7 @@ public class TvDbUpdateParser extends DefaultHandler {
         if (episodeTmp == null)
         {
             if(element.equalsIgnoreCase("lastupdated"))
-                latestSeriesUpdate = sb.toString();
+                latestSeriesUpdate = Integer.parseInt(sb.toString());
             return;
         }
 
@@ -85,13 +85,13 @@ public class TvDbUpdateParser extends DefaultHandler {
         }
 
         if(element.equalsIgnoreCase("id"))
-            episodeTmp.setEpisodeId(sb.toString());
+            episodeTmp.setEpisodeId(Integer.parseInt(sb.toString()));
 
         if(element.equalsIgnoreCase("SeasonNumber"))
-            episodeTmp.setSeasonNumber(sb.toString());
+            episodeTmp.setSeasonNumber(Integer.parseInt(sb.toString()));
 
         if(element.equalsIgnoreCase("EpisodeNumber"))
-            episodeTmp.setEpisodeNumber(sb.toString());
+            episodeTmp.setEpisodeNumber(Integer.parseInt(sb.toString()));
 
         if(element.equalsIgnoreCase("FirstAired"))
             episodeTmp.setAired(sb.toString());
@@ -100,7 +100,7 @@ public class TvDbUpdateParser extends DefaultHandler {
             episodeTmp.setOverview(sb.toString());
 
         if(element.equalsIgnoreCase("seriesid"))
-            episodeTmp.setSeriesId(sb.toString());
+            episodeTmp.setSeriesId(Integer.parseInt(sb.toString()));
 
         if(element.equalsIgnoreCase("EpisodeName"))
             episodeTmp.setEpisodeName(sb.toString());

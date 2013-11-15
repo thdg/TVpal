@@ -68,9 +68,9 @@ public class EpisodeFragment extends Fragment
                 {
                     db.UpdateEpisodeSeen(episode.getEpisodeId());
 
-                    String seen = "0";
-                    if(episode.getSeen().equalsIgnoreCase("0"))
-                        seen = "1";
+                    int seen = 0;
+                    if(episode.getSeen() == 0)
+                        seen = 1;
 
                     episode.setSeen(seen);
                 }
@@ -78,7 +78,7 @@ public class EpisodeFragment extends Fragment
 
             final String guestStars = episode.getGuestStars().equals("") ? "Guest Stars: None" : String.format("Guest Stars: %s", episode.getGuestStars());
 
-            episodeSeenCbx.setChecked(episode.getSeen().equalsIgnoreCase("1"));
+            episodeSeenCbx.setChecked(episode.getSeen() == 1);
 
             ((TextView) rootView.findViewById(R.id.episodeTitle)).setText(episode.getEpisodeName());
             ((TextView) rootView.findViewById(R.id.episodeAired)).setText(String.format("Aired: %s", episode.getAired()));
@@ -92,7 +92,7 @@ public class EpisodeFragment extends Fragment
             //TODO: Implement better bitmap cache, perhaps save the picture on the sd card
             if (bmp == null && _network.isNetworkAvailable())
             {
-                String apiUrl = String.format("http://thetvdb.com/api/9A96DA217CEB03E7/episodes/%s", episode.getEpisodeId());
+                String apiUrl = String.format("http://thetvdb.com/api/9A96DA217CEB03E7/episodes/%d", episode.getEpisodeId());
                 new DownloadPicture().execute(apiUrl);
             }
         }

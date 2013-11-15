@@ -29,10 +29,10 @@ public class SeasonFragment extends Fragment implements AdapterView.OnItemClickL
     private Context mContext;
     private SeasonAdapter mAdapter;
     private DbShowHandler db;
-    private String mSeriesId;
+    private int mSeriesId;
     private ListView listView;
 
-    public SeasonFragment(Context context, String seriesId)
+    public SeasonFragment(Context context, int seriesId)
     {
         this.mContext = context;
         this.mSeriesId = seriesId;
@@ -79,7 +79,7 @@ public class SeasonFragment extends Fragment implements AdapterView.OnItemClickL
 
         Intent intent = new Intent(mContext, SingleSeasonActivity.class);
         intent.putExtra(EXTRA_SERIESID, mSeriesId);
-        intent.putExtra(EXTRA_SEASON, selectedSeason.getString(1));
+        intent.putExtra(EXTRA_SEASON, selectedSeason.getInt(1));
         startActivity(intent);
     }
 
@@ -99,19 +99,19 @@ public class SeasonFragment extends Fragment implements AdapterView.OnItemClickL
         switch (item.getItemId())
         {
             case R.id.setSeasonSeen:
-                SetSeasonSeenStatus(position, "1");
+                SetSeasonSeenStatus(position, 1);
                 return true;
             case R.id.setSeasonNotSeen:
-                SetSeasonSeenStatus(position, "0");
+                SetSeasonSeenStatus(position, 0);
             default:
                 return super.onContextItemSelected(item);
         }
     }
 
-    private void SetSeasonSeenStatus(int position, String seenStatus)
+    private void SetSeasonSeenStatus(int position, int seenStatus)
     {
         Cursor selectedSeason = (Cursor) mAdapter.getItem(position);
-        db.UpdateSeasonSeenStatus(selectedSeason.getString(2), selectedSeason.getString(0), seenStatus);
+        db.UpdateSeasonSeenStatus(selectedSeason.getInt(2), selectedSeason.getInt(0), seenStatus);
         SetListAdapter();
     }
 }

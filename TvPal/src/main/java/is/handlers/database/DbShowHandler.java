@@ -41,7 +41,7 @@ public class DbShowHandler extends SQLiteOpenHelper
     //Columns in episodes
     private static final String KEY_E_EPISODEID = "episodeId";
     private static final String KEY_E_SERIESID = "seriesId";
-    public static final String KEY_E_SEASON = "season";
+    private static final String KEY_E_SEASON = "season";
     private static final String KEY_E_EPISODE = "episode";
     private static final String KEY_E_EPISODENAME = "episodeName";
     private static final String KEY_E_OVERVIEW = "overview";
@@ -61,25 +61,25 @@ public class DbShowHandler extends SQLiteOpenHelper
     {
         String CREATE_SERIES_TABLE =
                 "CREATE TABLE " + TABLE_SERIES + "("
-                        + KEY_S_SERIESID + " TEXT PRIMARY KEY,"
+                        + KEY_S_SERIESID + " INTEGER PRIMARY KEY,"
                         + KEY_S_NAME + " TEXT,"
                         + KEY_S_OVERVIEW + " TEXT,"
                         + KEY_S_NETWORK + " TEXT,"
                         + KEY_S_THUMBNAIL + " BLOB,"
-                        + KEY_S_LASTUPDATED + " TEXT, "
+                        + KEY_S_LASTUPDATED + " INTEGER, "
                         + KEY_S_GENRES + " TEXT"
                         + ")";
 
         String CREATE_EPISODE_TABLE =
                 "CREATE TABLE " + TABLE_EPISODES + "("
-                        + KEY_E_EPISODEID + " TEXT PRIMARY KEY,"
-                        + KEY_E_SERIESID + " TEXT,"
-                        + KEY_E_SEASON + " TEXT,"
-                        + KEY_E_EPISODE + " TEXT,"
+                        + KEY_E_EPISODEID + " INTEGER PRIMARY KEY,"
+                        + KEY_E_SERIESID + " INTEGER,"
+                        + KEY_E_SEASON + " INTEGER,"
+                        + KEY_E_EPISODE + " INTEGER,"
                         + KEY_E_EPISODENAME  + " TEXT,"
                         + KEY_E_AIRED + " TEXT,"
                         + KEY_E_OVERVIEW + " TEXT,"
-                        + KEY_E_SEEN + " TEXT,"
+                        + KEY_E_SEEN + " INTEGER,"
                         + KEY_E_DIRECTOR + " TEXT,"
                         + KEY_E_RATING + " TEXT, "
                         + KEY_E_GUESTSTARS + " TEXT"
@@ -172,30 +172,28 @@ public class DbShowHandler extends SQLiteOpenHelper
         }
     }
 
-    public boolean CheckIfSeriesExist(String seriesId)
+    public boolean CheckIfSeriesExist(int seriesId)
     {
-        String selectClause = "SELECT * FROM " + TABLE_SERIES;
-        String whereClause  = "WHERE " + KEY_S_SERIESID + " = " + seriesId;
-        String selectQuery  = String.format("%s %s", selectClause, whereClause);
+        String selectQuery  = String.format("select * from series where seriesId = %d", seriesId);
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
+
         //Returns true if series doesn't exist
-        db.close();
         return cursor.getCount() != 0;
     }
 
-    public void RemoveShow(String seriesId)
+    public void RemoveShow(int seriesId)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_SERIES, KEY_S_SERIESID + " = " + seriesId, null);
-        db.delete(TABLE_EPISODES, KEY_E_SERIESID + " = " + seriesId, null);
+        db.delete(TABLE_EPISODES, KEY_E_SERIESID + " = " + Integer.toString(seriesId), null);
         db.close();
     }
 
-    public Bitmap GetSeriesThumbnail(String seriesId)
+    public Bitmap GetSeriesThumbnail(int seriesId)
     {
-        String selectQuery = String.format("SELECT thumbnail from %s where seriesId = %s", TABLE_SERIES, seriesId);
+        String selectQuery = String.format("SELECT thumbnail from series where seriesId = %d", seriesId);
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
@@ -219,7 +217,7 @@ public class DbShowHandler extends SQLiteOpenHelper
             values.put(KEY_E_EPISODENAME, episode.getEpisodeName());
             values.put(KEY_E_AIRED, episode.getAired());
             values.put(KEY_S_OVERVIEW, episode.getOverview());
-            values.put(KEY_E_SEEN, "0");
+            values.put(KEY_E_SEEN, 0);
             values.put(KEY_E_DIRECTOR, episode.getDirector());
             values.put(KEY_E_RATING, episode.getRating());
             values.put(KEY_E_GUESTSTARS, episode.getGuestStars());
@@ -232,7 +230,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         }
     }
 
-    public void UpdateSeasonSeenStatus(String seriesId, String seasonNumber, String seenStatus)
+    public void UpdateSeasonSeenStatus(int seriesId, int seasonNumber, int seenStatus)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         try
@@ -240,7 +238,7 @@ public class DbShowHandler extends SQLiteOpenHelper
             if (db !=null)
             {
                 db.beginTransaction();
-                db.execSQL(String.format("UPDATE %s SET seen = %s WHERE seriesId = '%s' AND season = '%s'", TABLE_EPISODES, seenStatus , seriesId, seasonNumber));
+                db.execSQL(String.format("UPDATE %s SET seen = %d WHERE seriesId = %d AND season = %d", TABLE_EPISODES, seenStatus , seriesId, seasonNumber));
                 db.setTransactionSuccessful();
             }
         }
@@ -256,7 +254,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         db.close();
     }
 
-    public void SetSeriesSeen(String seriesId)
+    public void SetSeriesSeen(int seriesId)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         try
@@ -264,7 +262,7 @@ public class DbShowHandler extends SQLiteOpenHelper
             if (db !=null)
             {
                 db.beginTransaction();
-                db.execSQL(String.format("UPDATE %s SET seen = 1 WHERE seriesId = '%s'", TABLE_EPISODES, seriesId));
+                db.execSQL(String.format("UPDATE %s SET seen = 1 WHERE seriesId = %d", TABLE_EPISODES, seriesId));
                 db.setTransactionSuccessful();
             }
         }
@@ -280,12 +278,12 @@ public class DbShowHandler extends SQLiteOpenHelper
         db.close();
     }
 
-    public void UpdateEpisodeSeen(String episodeId)
+    public void UpdateEpisodeSeen(int episodeId)
     {
-        String seen = "1";
+        int seen = 1;
 
         if (GetShowSeen(episodeId))
-            seen = "0";
+            seen = 0;
 
         ContentValues values = new ContentValues();
 
@@ -296,14 +294,14 @@ public class DbShowHandler extends SQLiteOpenHelper
         db.close();
     }
 
-    public boolean GetShowSeen(String episodeId)
+    public boolean GetShowSeen(int episodeId)
     {
-        String selectQuery = String.format("select * from episodes where episodeId = " + episodeId);
+        String selectQuery = String.format("select * from episodes where episodeId = %d", episodeId);
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
-        db.close();
+
         return Integer.parseInt(cursor.getString(7)) == 1;
     }
 
@@ -313,28 +311,27 @@ public class DbShowHandler extends SQLiteOpenHelper
     *
      */
 
-    public Cursor GetCursorSeasons(String seriesId)
+    public Cursor GetCursorSeasons(int seriesId)
     {
-        String selectQuery = "SELECT distinct season as _id, season, seriesId FROM " + TABLE_EPISODES + " WHERE seriesId = " + seriesId + " order by season+0 desc";
+        String selectQuery = "SELECT distinct season as _id, season, seriesId FROM " + TABLE_EPISODES + " WHERE seriesId = " + seriesId + " order by season desc";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
-        db.close();
         return cursor;
     }
 
-    public Cursor GetCursorEpisodes(String seriesId, String seasonNumber)
+    public Cursor GetCursorEpisodes(int seriesId, int seasonNumber)
     {
         String selectQuery = String.format("select episodeId as _id, seriesId, season, episode, episodeName, aired, seen " +
-                "from episodes where seriesId = %s and season = %s", seriesId, seasonNumber);
+                "from episodes where seriesId = %d and season = %d" +
+                " order by 0+episode", seriesId, seasonNumber);
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
-        db.close();
         return cursor;
     }
 
@@ -350,7 +347,6 @@ public class DbShowHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
-        db.close();
         return cursor;
     }
 
@@ -366,46 +362,43 @@ public class DbShowHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
-        db.close();
         return cursor;
     }
 
     public Cursor GetCursorMyShows()
     {
         String selectQuery = String.format("select seriesId as _id, name, thumbnail " +
-                "from %s order by %s", TABLE_SERIES, KEY_S_NAME);
+                "from series order by name");
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
-        db.close();
         return cursor;
     }
 
-    public Cursor GetCursorEpisodesDetailed(String seriesId, String seasonNumber)
+    public Cursor GetCursorEpisodesDetailed(int seriesId, int seasonNumber)
     {
         String selectQuery = String.format("select episodeId as _id, episode, episodeName, season, overview, aired, director, rating, seen, guestStars " +
-                "from episodes where seriesId = %s and season = %s", seriesId, seasonNumber);
+                "from episodes where seriesId = %d and season = %d" +
+                " order by 0+episode", seriesId, seasonNumber);
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
-        db.close();
         return cursor;
     }
 
-    public Cursor GetCursorOverview(String seriesId)
+    public Cursor GetCursorOverview(int seriesId)
     {
         String selectQuery = String.format("select seriesId as _id, overview, name, network " +
-                                           "from series where seriesId = '%s'", seriesId);
+                                           "from series where seriesId = %d", seriesId);
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
-        db.close();
         return cursor;
     }
 
@@ -413,48 +406,45 @@ public class DbShowHandler extends SQLiteOpenHelper
         Database queries
      */
 
-    public int GetTotalSeasonCount(String seriesId, String season)
+    public int GetTotalSeasonCount(int seriesId, int season)
     {
         String selectQuery = String.format("select count(*) from %s " +
-                "where seriesId = '%s' and season = '%s'", TABLE_EPISODES, seriesId, season);
+                "where seriesId = %d and season = %d", TABLE_EPISODES, seriesId, season);
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
-        db.close();
         return cursor.getInt(0);
     }
 
-    public int GetTotalSeasonSeen(String seriesId, String season)
+    public int GetTotalSeasonSeen(int seriesId, int season)
     {
         String selectQuery = String.format("select count(*) from %s " +
-                "where seriesId = '%s' and season = '%s' and seen = '1'", TABLE_EPISODES, seriesId, season);
+                "where seriesId = %d and season = %d and seen = 1", TABLE_EPISODES, seriesId, season);
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
-        db.close();
         return cursor.getInt(0);
     }
 
-    public String GetSeriesLastUpdate(String seriesId)
+    public String GetSeriesLastUpdate(int seriesId)
     {
-        String selectQuery = String.format("select seriesId as _id, lastupdated from series where seriesId = '%s'", seriesId);
+        String selectQuery = String.format("select seriesId as _id, lastupdated from series where seriesId = %d", seriesId);
 
         SQLiteDatabase db = this.getWritableDatabase();
-        assert db != null;
+
         Cursor cursor = db.rawQuery(selectQuery ,null);
 
         cursor.moveToFirst();
-        db.close();
         return cursor.getString(1);
     }
 
-    public boolean DoesEpisodeExist(SQLiteDatabase db, String episodeId)
+    public boolean DoesEpisodeExist(SQLiteDatabase db, int episodeId)
     {
-        String selectQuery = String.format("select episodeId as _id from episodes where episodeId = '%s'", episodeId);
+        String selectQuery = String.format("select episodeId as _id from episodes where episodeId = %d", episodeId);
         Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor.getCount() == 1;
     }
@@ -463,7 +453,7 @@ public class DbShowHandler extends SQLiteOpenHelper
      * Update episodes section
      */
 
-    public void UpdateSingleSeries(List<EpisodeData> episodes, String latestUpdate, String seriesId)
+    public void UpdateSingleSeries(List<EpisodeData> episodes, int latestUpdate, int seriesId)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.beginTransaction();
@@ -528,9 +518,9 @@ public class DbShowHandler extends SQLiteOpenHelper
         }
     }
 
-    public List<String> GetAllSeriesIds()
+    public List<Integer> GetAllSeriesIds()
     {
-        List<String> seriesIds = new ArrayList<String>();
+        List<Integer> seriesIds = new ArrayList<Integer>();
 
         String selectQuery = "select seriesId as _id from series";
 
@@ -540,7 +530,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         cursor.moveToFirst();
         while(!cursor.isAfterLast())
         {
-            seriesIds.add(cursor.getString(0));
+            seriesIds.add(Integer.parseInt(cursor.getString(0)));
             cursor.moveToNext();
         }
         db.close();

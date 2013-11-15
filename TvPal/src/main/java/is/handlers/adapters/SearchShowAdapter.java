@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
@@ -98,7 +99,7 @@ public class SearchShowAdapter extends BaseAdapter
 
                     if (!exists)
                     {
-                        String tvDbUrl = String.format("http://thetvdb.com/api/%s/series/%s/all/en.xml", ApiKey, series.getSeriesId());
+                        String tvDbUrl = String.format("http://thetvdb.com/api/%s/series/%d/all/en.xml", ApiKey, series.getSeriesId());
                         new DownloadEpisodes(context, series).execute(tvDbUrl);
                         Toast.makeText(context, String.format("%s will be added to your shows", series.getTitle()), Toast.LENGTH_SHORT).show();
                     }

@@ -72,13 +72,13 @@ public class TvDbEpisodeParser extends DefaultHandler {
         //Episode info below
 
         if(element.equalsIgnoreCase("id"))
-            episodeTmp.setEpisodeId(sb.toString());
+            episodeTmp.setEpisodeId(Integer.parseInt(sb.toString()));
 
         if(element.equalsIgnoreCase("SeasonNumber"))
-            episodeTmp.setSeasonNumber(sb.toString());
+            episodeTmp.setSeasonNumber(Integer.parseInt(sb.toString()));
 
         if(element.equalsIgnoreCase("EpisodeNumber"))
-            episodeTmp.setEpisodeNumber(sb.toString());
+            episodeTmp.setEpisodeNumber(Integer.parseInt(sb.toString()));
 
         if(element.equalsIgnoreCase("FirstAired"))
             episodeTmp.setAired(sb.toString());
@@ -87,7 +87,7 @@ public class TvDbEpisodeParser extends DefaultHandler {
             episodeTmp.setOverview(sb.toString());
 
         if(element.equalsIgnoreCase("seriesid"))
-            episodeTmp.setSeriesId(sb.toString());
+            episodeTmp.setSeriesId(Integer.parseInt(sb.toString()));
 
         if(element.equalsIgnoreCase("EpisodeName"))
             episodeTmp.setEpisodeName(sb.toString());
@@ -127,7 +127,7 @@ public class TvDbEpisodeParser extends DefaultHandler {
 
         if(element.equalsIgnoreCase("lastupdated") && seriesNode)
         {
-            series.setLastUpdated(sb.toString());
+            series.setLastUpdated(Integer.parseInt(sb.toString()));
             seriesNode = false;
         }
 

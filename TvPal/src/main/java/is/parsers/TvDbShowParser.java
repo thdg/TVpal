@@ -61,7 +61,7 @@ public class TvDbShowParser extends DefaultHandler {
             shows.add(showTmp);
 
         if (element.equalsIgnoreCase("seriesid"))
-            showTmp.setSeriesId(sb.toString());
+            showTmp.setSeriesId(Integer.parseInt(sb.toString()));
 
         if (element.equalsIgnoreCase("SeriesName"))
             showTmp.setTitle(sb.toString());

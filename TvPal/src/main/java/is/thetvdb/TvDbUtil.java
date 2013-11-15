@@ -25,7 +25,7 @@ public class TvDbUtil
         this.context = context;
     }
 
-    public void UpdateSeries(String seriesId)
+    public void UpdateSeries(int seriesId)
     {
         DbShowHandler db = new DbShowHandler(context);
         int lastUpdate = Integer.parseInt(db.GetSeriesLastUpdate(seriesId));
@@ -37,7 +37,7 @@ public class TvDbUtil
         new UpdateAllSeriesTask(context).execute();
     }
 
-    public void SetAllEpisodesOfSeriesSeen(String seriesId)
+    public void SetAllEpisodesOfSeriesSeen(int seriesId)
     {
         DbShowHandler db = new DbShowHandler(context);
         db.SetSeriesSeen(seriesId);
@@ -47,9 +47,9 @@ public class TvDbUtil
     {
         private Context context;
         private int lastUpdate;
-        private String seriesId;
+        private int seriesId;
 
-        public UpdateSingleSeriesTask(Context context, int lastUpdate, String seriesId)
+        public UpdateSingleSeriesTask(Context context, int lastUpdate, int seriesId)
         {
             this.context = context;
             this.lastUpdate = lastUpdate;
@@ -150,12 +150,12 @@ public class TvDbUtil
             {
                 DbShowHandler db = new DbShowHandler(context);
                 ConnectionListener network = new ConnectionListener(context);
-                List<String> seriesIds = db.GetAllSeriesIds();
+                List<Integer> seriesIds = db.GetAllSeriesIds();
 
                 if (seriesIds.size() == 0)
                     return "noshows";
 
-                for(String seriesId : seriesIds)
+                for(Integer seriesId : seriesIds)
                 {
                     if (network.isNetworkAvailable())
                     {

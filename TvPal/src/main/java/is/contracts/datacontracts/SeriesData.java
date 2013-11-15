@@ -5,7 +5,7 @@ package is.contracts.datacontracts;
  */
 public class SeriesData
 {
-    private String seriesId;
+    private int seriesId;
     private String title;
     private String overview;
     private String network;
@@ -13,10 +13,10 @@ public class SeriesData
     private String banner;
     private byte[] posterStream;
     private String genres;
-    private String lastUpdated;
+    private int lastUpdated;
 
-    public String getSeriesId() { return this.seriesId; }
-    public void setSeriesId(String seriesId) { this.seriesId = seriesId; }
+    public int getSeriesId() { return this.seriesId; }
+    public void setSeriesId(int seriesId) { this.seriesId = seriesId; }
 
     public String getTitle()  {return this.title; }
     public void setTitle(String title) { this.title = title; }
@@ -39,8 +39,8 @@ public class SeriesData
     public String getGenres() { return genres; }
     public void setGenres(String genres) { this.genres = genres;}
 
-    public String getLastUpdated() { return lastUpdated; }
-    public void setLastUpdated(String lastUpdated) { this.lastUpdated = lastUpdated; }
+    public int getLastUpdated() { return lastUpdated; }
+    public void setLastUpdated(int lastUpdated) { this.lastUpdated = lastUpdated; }
 
     @Override
     public String toString()

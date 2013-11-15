@@ -69,10 +69,10 @@ public class SeasonAdapter extends CursorAdapter
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.seasonTitle.setText(String.format("Season %s" , mCursor.getString(Episodes.Season)));
+        viewHolder.seasonTitle.setText(String.format("Season %d" , mCursor.getInt(Episodes.Season)));
 
-        final String season = mCursor.getString(Episodes.Season);
-        final String seriesId = mCursor.getString(Episodes.SeriesId);
+        final int season = mCursor.getInt(Episodes.Season);
+        final int seriesId = mCursor.getInt(Episodes.SeriesId);
 
         int totalShows = db.GetTotalSeasonCount(seriesId, season);
         int totalShowsSeen = db.GetTotalSeasonSeen(seriesId, season);
