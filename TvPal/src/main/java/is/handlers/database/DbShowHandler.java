@@ -85,8 +85,11 @@ public class DbShowHandler extends SQLiteOpenHelper
                         + KEY_E_GUESTSTARS + " TEXT"
                         + ")";
 
+        String indexEpisodeId = "CREATE UNIQUE INDEX episodeId ON episodes(episodeId ASC)";
+
         db.execSQL(CREATE_SERIES_TABLE);
         db.execSQL(CREATE_EPISODE_TABLE);
+        db.execSQL(indexEpisodeId);
     }
 
     // Upgrading database
