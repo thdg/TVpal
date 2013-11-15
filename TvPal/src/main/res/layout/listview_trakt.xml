@@ -5,11 +5,20 @@
     android:layout_height="fill_parent"
     android:layout_margin="10dp"
     android:background="#FFF"
-    android:padding="10dp">
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/traktPoster"
+        android:layout_width="64sp"
+        android:layout_height="64sp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_episode"/>
 
     <TextView android:id="@+id/traktTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/traktPoster"
+        android:paddingLeft="10sp"
         android:textSize="25sp"
         android:text="Show:"
         android:textColor="#000000"/>

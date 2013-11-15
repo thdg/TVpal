@@ -1,6 +1,8 @@
 package is.activites.showActivities;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,6 +24,7 @@ import is.contracts.datacontracts.TraktData;
 import is.handlers.adapters.TraktAdapter;
 import is.parsers.trakt.HttpUtil;
 import is.tvpal.R;
+import is.utilities.PictureTask;
 
 public class TraktFragment extends Fragment implements AdapterView.OnItemClickListener
 {
