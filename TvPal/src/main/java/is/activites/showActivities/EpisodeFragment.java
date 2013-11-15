@@ -17,7 +17,7 @@ import java.io.IOException;
 
 import is.contracts.datacontracts.EpisodeData;
 import is.handlers.database.DbShowHandler;
-import is.parsers.TvDbPictureParser;
+import is.parsers.tvdb.TvDbPictureParser;
 import is.tvpal.R;
 import is.utilities.ConnectionListener;
 

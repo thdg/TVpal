@@ -31,7 +31,7 @@ import java.util.List;
 
 import is.contracts.datacontracts.SeriesData;
 import is.handlers.adapters.SearchShowAdapter;
-import is.parsers.TvDbShowParser;
+import is.parsers.tvdb.TvDbShowParser;
 import is.tvpal.R;
 import is.utilities.PictureTask;
 

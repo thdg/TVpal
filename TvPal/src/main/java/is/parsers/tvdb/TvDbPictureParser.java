@@ -1,4 +1,4 @@
-package is.parsers;
+package is.parsers.tvdb;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

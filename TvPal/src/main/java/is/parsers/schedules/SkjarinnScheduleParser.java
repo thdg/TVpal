@@ -1,4 +1,4 @@
-package is.parsers;
+package is.parsers.schedules;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -9,25 +9,25 @@ import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 import is.contracts.datacontracts.EventData;
 import is.contracts.servicecontracts.IScheduleService;
 
 /**
  * This class to parse xml files.  It uses the Sax Parser and extends DefaultHandler.
- * It parses Stöð 2 schedules.
+ * It parses Skjárinn schedules.
  *
- * Created by Arnar
+ * @Created by Arnar
  * @see org.xml.sax.helpers.DefaultHandler
  */
-public class Stod2ScheduleParser extends DefaultHandler implements IScheduleService
+public class SkjarinnScheduleParser extends DefaultHandler implements IScheduleService
 {
     private String baseURL;
     private List<EventData> events;
     private EventData eventTmp;
+    private String serviceName;
     private StringBuilder sb;
 
-    public Stod2ScheduleParser(String baseUrl)
+    public SkjarinnScheduleParser(String baseUrl)
     {
         this.baseURL = baseUrl;
         this.events = new ArrayList<EventData>();
@@ -52,15 +52,19 @@ public class Stod2ScheduleParser extends DefaultHandler implements IScheduleServ
         if (elementName.equalsIgnoreCase("event"))
         {
             eventTmp = new EventData();
-            eventTmp.setStartTime(attributes.getValue("starttime"));
+            eventTmp.setStartTime(String.format("%s:00",attributes.getValue("start-time")));
+            eventTmp.setEventDate(String.format("%s:00", attributes.getValue("start-time")));
             eventTmp.setDuration(attributes.getValue("duration"));
-            eventTmp.setEventDate(attributes.getValue("starttime"));
         }
 
-        if(elementName.equalsIgnoreCase("series"))
+        if(elementName.equalsIgnoreCase("episode"))
         {
-            eventTmp.setCurrentEpisode(attributes.getValue("episode"));
+            eventTmp.setCurrentEpisode(attributes.getValue("number"));
+            eventTmp.setNumberOfEpisodes(attributes.getValue("number-of-episodes"));
         }
+
+        if(elementName.equalsIgnoreCase("service"))
+            serviceName = attributes.getValue("service-name");
 
         sb = new StringBuilder();
     }
@@ -69,6 +73,7 @@ public class Stod2ScheduleParser extends DefaultHandler implements IScheduleServ
     public void endElement(String s, String s1, String element) throws SAXException
     {
         if (element.equals("event")) {
+            eventTmp.setServiceName(serviceName);
             events.add(eventTmp);
         }
         if (element.equalsIgnoreCase("title")){
@@ -79,11 +84,9 @@ public class Stod2ScheduleParser extends DefaultHandler implements IScheduleServ
             eventTmp.setDescription(sb.toString());
         }
 
-        if (element.equalsIgnoreCase("service")) {
-            eventTmp.setServiceName(sb.toString());
+        if(element.equalsIgnoreCase("subtitle")) {
+            eventTmp.setSubtitles(sb.toString());
         }
-
-        sb = null;
     }
     @Override
     public void characters(char[] ac, int i, int j) throws SAXException

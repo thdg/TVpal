@@ -1,4 +1,4 @@
-package is.parsers;
+package is.parsers.schedules;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

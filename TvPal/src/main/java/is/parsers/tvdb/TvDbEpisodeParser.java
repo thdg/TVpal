@@ -1,4 +1,4 @@
-package is.parsers;
+package is.parsers.tvdb;
 
 import android.util.Log;
 import org.xml.sax.Attributes;

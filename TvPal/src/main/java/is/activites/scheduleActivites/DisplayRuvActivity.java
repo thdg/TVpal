@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import is.contracts.datacontracts.EventData;
-import is.parsers.RuvScheduleParser;
+import is.parsers.schedules.RuvScheduleParser;
 import is.utilities.DateUtil;
 import is.tvpal.R;
 
