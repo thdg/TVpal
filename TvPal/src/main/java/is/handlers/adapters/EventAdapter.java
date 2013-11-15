@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.List;
-
 import is.contracts.datacontracts.EventData;
 import is.tvpal.R;
 
@@ -74,9 +72,9 @@ public class EventAdapter extends BaseAdapter
             holder = (EventHolder)row.getTag();
         }
 
-        EventData dataContract = schedule.get(position);
+        EventData schedule = this.schedule.get(position);
 
-        String serviceName = dataContract.getServiceName();
+        String serviceName = schedule.getServiceName();
 
         if (serviceName.equalsIgnoreCase("Skjar Einn")) {
             holder.imgIcon.setImageResource(R.drawable.skjareinn_64);
@@ -97,9 +95,9 @@ public class EventAdapter extends BaseAdapter
             holder.imgIcon.setImageResource(R.drawable.stod2bio_64);
         }
 
-        holder.title.setText(dataContract.getTitle());
-        holder.startTime.setText(String.format("Byrjar: %s",dataContract.getStartTime()));
-        holder.duration.setText(String.format("Lengd: %s", dataContract.getDuration()));
+        holder.title.setText(schedule.getTitle());
+        holder.startTime.setText(String.format("Byrjar: %s",schedule.getStartTime()));
+        holder.duration.setText(String.format("Lengd: %s", schedule.getDuration()));
 
         return row;
     }
