@@ -17,7 +17,7 @@ import is.contracts.datacontracts.SeriesData;
 
 /**
  * Class to handle database actions.
- * Create tables, insert/delete/update, get cursor etc.
+ * Create tables, insert/delete/update data, get cursors etc.
  * @author Arnar
  */
 
@@ -107,7 +107,9 @@ public class DbShowHandler extends SQLiteOpenHelper
             try
             {
                 AddSeries(series, db);
-                AddEpisodes(episodes, db);
+
+                for (EpisodeData e : episodes)
+                    AddEpisode(db, e);
 
                 db.setTransactionSuccessful();
             }
@@ -144,27 +146,24 @@ public class DbShowHandler extends SQLiteOpenHelper
         }
     }
 
-    public void AddEpisodes(List<EpisodeData> episodes, SQLiteDatabase db)
+    public void AddEpisode(SQLiteDatabase db, EpisodeData episode)
     {
         try
         {
-            for (EpisodeData episode : episodes)
-            {
-                ContentValues values = new ContentValues();
-                values.put(KEY_E_EPISODEID, episode.getEpisodeId());
-                values.put(KEY_S_SERIESID, episode.getSeriesId());
-                values.put(KEY_E_SEASON, episode.getSeasonNumber());
-                values.put(KEY_E_EPISODE, episode.getEpisodeNumber());
-                values.put(KEY_E_EPISODENAME, episode.getEpisodeName());
-                values.put(KEY_E_AIRED, episode.getAired());
-                values.put(KEY_S_OVERVIEW, episode.getOverview());
-                values.put(KEY_E_SEEN, "0");
-                values.put(KEY_E_DIRECTOR, episode.getDirector());
-                values.put(KEY_E_RATING, episode.getRating());
-                values.put(KEY_E_GUESTSTARS, episode.getGuestStars());
+            ContentValues values = new ContentValues();
+            values.put(KEY_E_EPISODEID, episode.getEpisodeId());
+            values.put(KEY_S_SERIESID, episode.getSeriesId());
+            values.put(KEY_E_SEASON, episode.getSeasonNumber());
+            values.put(KEY_E_EPISODE, episode.getEpisodeNumber());
+            values.put(KEY_E_EPISODENAME, episode.getEpisodeName());
+            values.put(KEY_E_AIRED, episode.getAired());
+            values.put(KEY_S_OVERVIEW, episode.getOverview());
+            values.put(KEY_E_SEEN, 0);
+            values.put(KEY_E_DIRECTOR, episode.getDirector());
+            values.put(KEY_E_RATING, episode.getRating());
+            values.put(KEY_E_GUESTSTARS, episode.getGuestStars());
 
-                db.insert(TABLE_EPISODES, null, values);
-            }
+            db.insert(TABLE_EPISODES, null, values);
         }
         catch (Exception ex)
         {
@@ -205,31 +204,6 @@ public class DbShowHandler extends SQLiteOpenHelper
         return bmp;
     }
 
-    public void AddEpisode(SQLiteDatabase db, EpisodeData episode)
-    {
-        try
-        {
-            ContentValues values = new ContentValues();
-            values.put(KEY_E_EPISODEID, episode.getEpisodeId());
-            values.put(KEY_S_SERIESID, episode.getSeriesId());
-            values.put(KEY_E_SEASON, episode.getSeasonNumber());
-            values.put(KEY_E_EPISODE, episode.getEpisodeNumber());
-            values.put(KEY_E_EPISODENAME, episode.getEpisodeName());
-            values.put(KEY_E_AIRED, episode.getAired());
-            values.put(KEY_S_OVERVIEW, episode.getOverview());
-            values.put(KEY_E_SEEN, 0);
-            values.put(KEY_E_DIRECTOR, episode.getDirector());
-            values.put(KEY_E_RATING, episode.getRating());
-            values.put(KEY_E_GUESTSTARS, episode.getGuestStars());
-
-            db.insert(TABLE_EPISODES, null, values);
-        }
-        catch (Exception ex)
-        {
-            Log.e(getClass().getName(), ex.getMessage());
-        }
-    }
-
     public void UpdateSeasonSeenStatus(int seriesId, int seasonNumber, int seenStatus)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -238,7 +212,7 @@ public class DbShowHandler extends SQLiteOpenHelper
             if (db !=null)
             {
                 db.beginTransaction();
-                db.execSQL(String.format("UPDATE %s SET seen = %d WHERE seriesId = %d AND season = %d", TABLE_EPISODES, seenStatus , seriesId, seasonNumber));
+                db.execSQL(String.format("UPDATE episodes SET seen = %d WHERE seriesId = %d AND season = %d", seenStatus , seriesId, seasonNumber));
                 db.setTransactionSuccessful();
             }
         }
@@ -301,8 +275,7 @@ public class DbShowHandler extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         cursor.moveToFirst();
-
-        return Integer.parseInt(cursor.getString(7)) == 1;
+        return cursor.getInt(7) == 1;
     }
 
     /*
@@ -313,7 +286,8 @@ public class DbShowHandler extends SQLiteOpenHelper
 
     public Cursor GetCursorSeasons(int seriesId)
     {
-        String selectQuery = "SELECT distinct season as _id, season, seriesId FROM " + TABLE_EPISODES + " WHERE seriesId = " + seriesId + " order by season desc";
+        String selectQuery = "SELECT distinct season as _id, seriesId FROM episodes " +
+                             "WHERE seriesId = " + seriesId + " order by season desc";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -408,8 +382,8 @@ public class DbShowHandler extends SQLiteOpenHelper
 
     public int GetTotalSeasonCount(int seriesId, int season)
     {
-        String selectQuery = String.format("select count(*) from %s " +
-                "where seriesId = %d and season = %d", TABLE_EPISODES, seriesId, season);
+        String selectQuery = String.format("select count(*) from episodes " +
+                "where seriesId = %d and season = %d", seriesId, season);
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

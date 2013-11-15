@@ -79,7 +79,7 @@ public class SeasonFragment extends Fragment implements AdapterView.OnItemClickL
 
         Intent intent = new Intent(mContext, SingleSeasonActivity.class);
         intent.putExtra(EXTRA_SERIESID, mSeriesId);
-        intent.putExtra(EXTRA_SEASON, selectedSeason.getInt(1));
+        intent.putExtra(EXTRA_SEASON, selectedSeason.getInt(0));
         startActivity(intent);
     }
 
@@ -111,7 +111,7 @@ public class SeasonFragment extends Fragment implements AdapterView.OnItemClickL
     private void SetSeasonSeenStatus(int position, int seenStatus)
     {
         Cursor selectedSeason = (Cursor) mAdapter.getItem(position);
-        db.UpdateSeasonSeenStatus(selectedSeason.getInt(2), selectedSeason.getInt(0), seenStatus);
+        db.UpdateSeasonSeenStatus(selectedSeason.getInt(1), selectedSeason.getInt(0), seenStatus);
         SetListAdapter();
     }
 }

@@ -95,7 +95,7 @@ public class SeasonAdapter extends CursorAdapter
 
     private interface Episodes
     {
-        int Season = 1;
-        int SeriesId = 2;
+        int Season = 0;
+        int SeriesId = 1;
     }
 }
