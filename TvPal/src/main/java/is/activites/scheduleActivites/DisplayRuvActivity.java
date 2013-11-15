@@ -212,8 +212,8 @@ public class DisplayRuvActivity extends FragmentActivity implements ActionBar.Ta
             if (successful)
             {
                 CreateTabViews();
-                _waitingDialog.dismiss();
             }
+            _waitingDialog.dismiss();
             //Todo: Return some error message for the user
         }
 

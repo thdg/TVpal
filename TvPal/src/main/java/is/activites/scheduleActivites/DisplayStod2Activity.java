@@ -196,7 +196,9 @@ public class DisplayStod2Activity extends FragmentActivity implements ActionBar.
         @Override
         protected void onPostExecute(String result)
         {
-            CreateTabViews();
+            if (result.equalsIgnoreCase("Successful"))
+                CreateTabViews();
+
             _waitingDialog.dismiss();
         }
 
@@ -208,13 +210,15 @@ public class DisplayStod2Activity extends FragmentActivity implements ActionBar.
                 _events = parser.GetSchedules();
 
                 _workingDate = _events.get(0).getEventDate();
+
+                return "Successful";
             }
             catch (Exception ex)
             {
                 Log.e(getClass().getName(), ex.getMessage());
             }
 
-            return "Successful";
+            return "Error";
         }
     }
 
