@@ -20,7 +20,7 @@ import is.activites.scheduleActivites.DisplaySkjarinnActivity;
 import is.activites.scheduleActivites.DisplayStod2Activity;
 import is.activites.showActivities.MyShowsActivity;
 import is.activites.showActivities.RecentShowsActivity;
-import is.activites.showActivities.SearchTvShowActivity;
+import is.activites.showActivities.SearchShowsActivity;
 import is.activites.showActivities.UpcomingShowsActivity;
 import is.contracts.datacontracts.DrawerListData;
 import is.contracts.datacontracts.DrawerListHeader;
@@ -175,7 +175,7 @@ public class MainActivity extends Activity
                             intent = new Intent(this, DisplaySkjarinnActivity.class);
                             break;
                         case 8:
-                            intent = new Intent(this, SearchTvShowActivity.class);
+                            intent = new Intent(this, SearchShowsActivity.class);
                             break;
                     }
                 }

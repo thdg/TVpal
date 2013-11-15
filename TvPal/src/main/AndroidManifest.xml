@@ -27,27 +27,22 @@
         </activity>
         <activity
             android:name="is.activites.scheduleActivites.DisplayStod2Activity"
-            android:label="@string/title_activity_display_stod2"
-            android:configChanges="keyboardHidden|orientation|screenSize" >
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_display_stod2" >
         </activity>
         <activity
             android:name="is.activites.scheduleActivites.DisplayRuvActivity"
-            android:label="@string/title_activity_display_ruv"
-            android:configChanges="keyboardHidden|orientation|screenSize" >
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_display_ruv" >
         </activity>
         <activity
             android:name="is.activites.scheduleActivites.DisplaySkjarinnActivity"
-            android:label="@string/title_activity_display_skjarinn"
-            android:configChanges="keyboardHidden|orientation|screenSize">
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_display_skjarinn" >
         </activity>
         <activity
             android:name="is.activites.scheduleActivites.DetailedEventActivity"
             android:label="@string/title_activity_detailed_event" >
-        </activity>
-        <activity
-            android:name="is.activites.showActivities.SearchTvShowActivity"
-            android:label="@string/title_activity_tv_show"
-            android:configChanges="keyboardHidden|orientation|screenSize" >
         </activity>
         <activity
             android:name="is.activites.showActivities.MyShowsActivity"
@@ -74,6 +69,11 @@
             android:name="is.activites.showActivities.SeriesActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_show" >
+        </activity>
+        <activity
+            android:name="is.activites.showActivities.SearchShowsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_search_shows" >
         </activity>
     </application>
 

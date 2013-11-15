@@ -1,4 +1,4 @@
-package is.utilities;
+package is.parsers.trakt;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.net.URL;
 /**
  * Created by Arnar on 15.11.2013.
  */
-public class JsonImport
+public class HttpUtil
 {
     public String downloadJSONString(String myurl) throws IOException
     {
@@ -30,7 +30,7 @@ public class JsonImport
 
             // Convert the InputStream into a string
             String jsonString = convertStreamToString(is);
-            return formatTrendingShows(jsonString);
+            return jsonString;
         }
         finally
         {
@@ -39,11 +39,6 @@ public class JsonImport
                 is.close();
             }
         }
-    }
-
-    private String formatTrendingShows(String jsonString)
-    {
-        return null;
     }
 
     // Reads an InputStream and converts it to a String.

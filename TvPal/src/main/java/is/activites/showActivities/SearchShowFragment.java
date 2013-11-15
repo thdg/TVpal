@@ -1,20 +1,19 @@
 package is.activites.showActivities;
 
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -28,7 +27,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
-
 import is.contracts.datacontracts.SeriesData;
 import is.handlers.adapters.SearchShowAdapter;
 import is.parsers.tvdb.TvDbShowParser;
@@ -41,7 +39,7 @@ import is.utilities.PictureTask;
  * @see is.activites.showActivities.MyShowsActivity
  */
 
-public class SearchTvShowActivity extends Activity implements AdapterView.OnItemClickListener
+public class SearchShowFragment extends Fragment implements AdapterView.OnItemClickListener
 {
     private ListView _lv;
     private EditText _editSearch;
@@ -50,52 +48,45 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
     private SearchShowAdapter _adapterView;
     private PopupWindow _popupWindow;
     private ImageView _popupBanner;
+    private Context context;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState)
+    public SearchShowFragment(Context context)
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_shows);
-
-        Initialize();
+        this.context = context;
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
+    public void onActivityCreated(Bundle savedInstanceState)
     {
-        if (keyCode == KeyEvent.KEYCODE_BACK)
-        {
-            if (_popupWindow.isShowing())
-            {
-                _popupWindow.dismiss();
-                return true;
-            }
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+        super.onActivityCreated(savedInstanceState);
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private void Initialize()
-    {
-        _editSearch = (EditText) findViewById(R.id.editMeh);
+        _editSearch = (EditText) getView().findViewById(R.id.editMeh);
         _popupWindow = new PopupWindow();
 
-        _lv = (ListView) findViewById(R.id.lvId);
+        _lv = (ListView) getView().findViewById(R.id.lvId);
         _lv.setOnItemClickListener(this);
 
         InitializeEditTextSearch();
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        return inflater.inflate(R.layout.fragment_search_shows, container, false);
     }
 
     private void InitializeEditTextSearch()
     {
-        _editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        _editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener()
+        {
             @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent)
+            {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH)
+                {
                     performSearch();
 
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0); //Close the keyboard
 
                     return true;
@@ -109,17 +100,19 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
     {
         String userEntry = null;
 
-        try {
+        try
+        {
             userEntry = _editSearch.getText().toString();
-            userEntry = userEntry.replace(" ", "%20"); //Delete whitespaces and instert %20 to set correct urlFormat for the API
+            userEntry = userEntry.replace(" ", "%20"); //Delete whitespaces and insert %20 to set correct urlFormat for the API
         }
-        catch(Exception ex) {
-            ex.getMessage();
+        catch(Exception ex)
+        {
+            Log.e(getClass().getName(), ex.getMessage());
         }
 
         String searchUrl = String.format("%s%s", getResources().getString(R.string.tvdbBaseUrl), userEntry);
 
-        new DownloadShows(this).execute(searchUrl);
+        new DownloadShows(context).execute(searchUrl);
     }
 
     @Override
@@ -132,7 +125,7 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
 
     private void CreatePopupWindow(SeriesData show)
     {
-        LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View popupView = layoutInflater.inflate(R.layout.popup_show, null);
         _popupWindow.setContentView(popupView);
         _popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
@@ -272,19 +265,6 @@ public class SearchTvShowActivity extends Activity implements AdapterView.OnItem
             }
 
             return "Errrrrrrrrrrrrrror";
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch(item.getItemId())
-        {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 }
