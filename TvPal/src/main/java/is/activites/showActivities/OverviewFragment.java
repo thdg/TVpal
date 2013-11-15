@@ -44,6 +44,7 @@ public class OverviewFragment extends Fragment
             ((TextView) rootView.findViewById(R.id.overviewTitle)).setText(mCursor.getString(Series.Name));
             ((TextView) rootView.findViewById(R.id.overviewText)).setText(mCursor.getString(Series.Overview));
             ((TextView) rootView.findViewById(R.id.overviewNetwork)).setText(String.format("Network: %s", mCursor.getString(Series.Network)));
+            ((TextView) rootView.findViewById(R.id.overviewGenres)).setText(String.format("Genres: %s", mCursor.getString(Series.Genres)));
         }
 
         return rootView;
@@ -55,5 +56,6 @@ public class OverviewFragment extends Fragment
         int Overview = 1;
         int Name = 2;
         int Network = 3;
+        int Genres = 4;
     }
 }

@@ -37,10 +37,19 @@
             android:paddingTop="10sp"/>
 
         <TextView
-            android:id="@+id/overviewNetwork"
+            android:id="@+id/overviewGenres"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/overviewText"
+            android:paddingTop="10sp"
+            android:text="Genres"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/overviewNetwork"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/overviewGenres"
             android:paddingTop="10sp"
             android:text="Le networkz"
             android:textSize="16sp"/>

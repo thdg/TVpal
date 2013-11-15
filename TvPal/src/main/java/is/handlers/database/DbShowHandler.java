@@ -392,7 +392,7 @@ public class DbShowHandler extends SQLiteOpenHelper
 
     public Cursor GetCursorOverview(int seriesId)
     {
-        String selectQuery = String.format("select seriesId as _id, overview, name, network " +
+        String selectQuery = String.format("select seriesId as _id, overview, name, network, genres " +
                                            "from series where seriesId = %d", seriesId);
 
         SQLiteDatabase db = this.getWritableDatabase();
