@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import java.util.List;
 import is.contracts.datacontracts.TraktData;
@@ -45,6 +44,7 @@ public class TraktAdapter extends BaseAdapter
     {
         TextView title;
         ImageView poster;
+        int position;
     }
 
     @Override
@@ -71,10 +71,11 @@ public class TraktAdapter extends BaseAdapter
 
         TraktData show = this.shows.get(position);
 
+        holder.position = position;
         holder.title.setText(show.getTitle());
         holder.poster.setImageBitmap(null);
         final String posterUrl = show.getPoster();
-        new GetPosterShow(posterUrl, holder.poster).execute();
+        new GetPosterShow(posterUrl, position).execute(holder);
 
         return row;
     }
@@ -97,28 +98,33 @@ public class TraktAdapter extends BaseAdapter
         return shows.indexOf(getItem(position));
     }
 
-    private class GetPosterShow extends AsyncTask<Bitmap, Void, Bitmap>
+    private class GetPosterShow extends AsyncTask<TraktHolder, Void, Bitmap>
     {
         private String posterUrl;
-        private ImageView m;
+        private TraktHolder holder;
+        private int position;
 
-        public GetPosterShow(String posterUrl, ImageView im)
+        public GetPosterShow(String posterUrl, int position)
         {
             this.posterUrl = posterUrl;
-            this.m = im;
+            this.position = position;
         }
 
         @Override
 
-        protected Bitmap doInBackground(Bitmap... view)
+        protected Bitmap doInBackground(TraktHolder... view)
         {
+            holder = view[0];
             return GetPoster();
         }
 
         @Override
-        protected void onPostExecute(Bitmap bitmap) {
-
-            m.setImageBitmap(bitmap);
+        protected void onPostExecute(Bitmap bitmap)
+        {
+            if (holder.position == position)
+            {
+                holder.poster.setImageBitmap(bitmap);
+            }
         }
 
         private Bitmap GetPoster()
@@ -126,8 +132,9 @@ public class TraktAdapter extends BaseAdapter
             try
             {
                 PictureTask task = new PictureTask();
-                byte[] bannerByteStream = task.getBitmapFromURL(posterUrl);
-                return BitmapFactory.decodeByteArray(bannerByteStream, 0, bannerByteStream.length);
+                //byte[] bannerByteStream = task.getBitmapFromURL(posterUrl);
+                //return BitmapFactory.decodeByteArray(bannerByteStream, 0, bannerByteStream.length);
+                return task.getBitmapFromURL2(posterUrl);
             }
             catch (Exception ex)
             {
