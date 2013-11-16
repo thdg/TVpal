@@ -255,7 +255,7 @@ public class SearchShowFragment extends Fragment implements AdapterView.OnItemCl
             try
             {
                 PictureTask bmp = new PictureTask();
-                byte[] bannerByteStream = bmp.getBitmapFromURL(String.format("%s%s", apiUrl, bannerUrl));
+                byte[] bannerByteStream = bmp.getByteStreamFromUrl(String.format("%s%s", apiUrl, bannerUrl));
                 banner = BitmapFactory.decodeByteArray(bannerByteStream, 0, bannerByteStream.length);
                 return "Successful";
             }

@@ -12,9 +12,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.io.IOException;
-
 import is.contracts.datacontracts.EpisodeData;
 import is.handlers.database.DbShowHandler;
 import is.parsers.tvdb.TvDbPictureParser;
@@ -46,7 +44,8 @@ public class EpisodeFragment extends Fragment
     public EpisodeFragment() {}
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
     }
 

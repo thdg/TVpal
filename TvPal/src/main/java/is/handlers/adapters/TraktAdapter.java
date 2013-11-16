@@ -3,7 +3,6 @@ package is.handlers.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,6 +42,7 @@ public class TraktAdapter extends BaseAdapter
     static class TraktHolder
     {
         TextView title;
+        TextView overview;
         ImageView poster;
         int position;
     }
@@ -60,6 +60,7 @@ public class TraktAdapter extends BaseAdapter
 
             holder = new TraktHolder();
             holder.title = (TextView) row.findViewById(R.id.traktTitle);
+            holder.overview = (TextView) row.findViewById(R.id.traktOverview);
             holder.poster = (ImageView) row.findViewById(R.id.traktPoster);
 
             row.setTag(holder);
@@ -73,29 +74,13 @@ public class TraktAdapter extends BaseAdapter
 
         holder.position = position;
         holder.title.setText(show.getTitle());
+        holder.overview.setText(show.getOverview());
+
         holder.poster.setImageBitmap(null);
         final String posterUrl = show.getPoster();
         new GetPosterShow(posterUrl, position).execute(holder);
 
         return row;
-    }
-
-    @Override
-    public int getCount()
-    {
-        return (shows == null) ? 0 : shows.size();
-    }
-
-    @Override
-    public TraktData getItem(int position)
-    {
-        return shows.get(position);
-    }
-
-    @Override
-    public long getItemId(int position)
-    {
-        return shows.indexOf(getItem(position));
     }
 
     private class GetPosterShow extends AsyncTask<TraktHolder, Void, Bitmap>
@@ -132,9 +117,7 @@ public class TraktAdapter extends BaseAdapter
             try
             {
                 PictureTask task = new PictureTask();
-                //byte[] bannerByteStream = task.getBitmapFromURL(posterUrl);
-                //return BitmapFactory.decodeByteArray(bannerByteStream, 0, bannerByteStream.length);
-                return task.getBitmapFromURL2(posterUrl);
+                return task.getBitmapFromUrl(posterUrl);
             }
             catch (Exception ex)
             {
@@ -143,5 +126,23 @@ public class TraktAdapter extends BaseAdapter
 
             return null;
         }
+    }
+
+    @Override
+    public int getCount()
+    {
+        return (shows == null) ? 0 : shows.size();
+    }
+
+    @Override
+    public TraktData getItem(int position)
+    {
+        return shows.get(position);
+    }
+
+    @Override
+    public long getItemId(int position)
+    {
+        return shows.indexOf(getItem(position));
     }
 }

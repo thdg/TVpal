@@ -113,7 +113,7 @@ public class TvDbEpisodeParser extends DefaultHandler {
                 String posterUrl = String.format("http://thetvdb.com/banners/%s", sb.toString());
 
                 PictureTask pic = new PictureTask();
-                byte[] posterByteStream = pic.getBitmapFromURL(posterUrl);
+                byte[] posterByteStream = pic.getByteStreamFromUrl(posterUrl);
                 series.setPosterStream(posterByteStream);
             }
             catch (Exception ex)

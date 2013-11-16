@@ -2,6 +2,7 @@ package is.utilities;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -16,10 +17,9 @@ import java.net.URL;
  */
 public class PictureTask
 {
-    //This method seems to be alot slower to download bitmaps than getBitmapFromURL2
-    public byte[] getBitmapFromURL(String link) throws IOException
+    public byte[] getByteStreamFromUrl(String src) throws IOException
     {
-        URL url = new URL(link);
+        URL url = new URL(src);
         InputStream in = new BufferedInputStream(url.openStream());
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         byte[] buf = new byte[1024];
@@ -34,8 +34,7 @@ public class PictureTask
         return out.toByteArray();
     }
 
-    //Use this badboy method to download bitmaps
-    public Bitmap getBitmapFromURL2(String src)
+    public Bitmap getBitmapFromUrl(String src)
     {
         try
         {
@@ -48,7 +47,7 @@ public class PictureTask
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            Log.e(getClass().getName(), e.getMessage());
             return null;
         }
     }

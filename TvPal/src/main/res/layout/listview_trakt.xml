@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/traktPoster"
         android:layout_width="64sp"
-        android:layout_height="64sp"
+        android:layout_height="86sp"
         android:scaleType="centerCrop"
         android:src="@drawable/default_episode"/>
 
@@ -19,8 +19,20 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/traktPoster"
         android:paddingLeft="10sp"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:text="Show:"
         android:textColor="#000000"/>
+
+    <TextView
+        android:id="@+id/traktOverview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="overviewtexti bwioh"
+        android:layout_below="@+id/traktTitle"
+        android:layout_toRightOf="@+id/traktPoster"
+        android:paddingLeft="10sp"
+        android:textSize="16sp"
+        android:maxLines="3"
+        android:lineSpacingMultiplier="1.2"/>
 
 </RelativeLayout>

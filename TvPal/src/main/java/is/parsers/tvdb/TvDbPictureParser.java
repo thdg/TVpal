@@ -1,7 +1,6 @@
 package is.parsers.tvdb;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -57,9 +56,8 @@ public class TvDbPictureParser extends DefaultHandler {
             try
             {
                 String pictureUrl = String.format("http://thetvdb.com/banners/%s", sb.toString());
-                PictureTask bit = new PictureTask();
-                byte[] pictureByteStream = bit.getBitmapFromURL(pictureUrl);
-                episodePicture = BitmapFactory.decodeByteArray(pictureByteStream, 0, pictureByteStream.length);
+                PictureTask task = new PictureTask();
+                episodePicture = task.getBitmapFromUrl(pictureUrl);
             }
             catch (Exception ex)
             {
