@@ -29,8 +29,8 @@ public class HttpUtil
             is = conn.getInputStream();
 
             // Convert the InputStream into a string
-            String jsonString = convertStreamToString(is);
-            return jsonString;
+            String responseString = convertStreamToString(is);
+            return responseString;
         }
         finally
         {
