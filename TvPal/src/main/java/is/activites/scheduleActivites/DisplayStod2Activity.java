@@ -3,7 +3,6 @@ package is.activites.scheduleActivites;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -16,6 +15,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,10 +40,10 @@ import is.tvpal.R;
 public class DisplayStod2Activity extends FragmentActivity implements ActionBar.TabListener
 {
     private List<EventData> _events;
-    private ProgressDialog _waitingDialog;
     private String _workingDate;
     private SchedulePagerAdapter mScheduleAdapter;
     private ViewPager mViewPager;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,9 +58,10 @@ public class DisplayStod2Activity extends FragmentActivity implements ActionBar.
     private void Initialize()
     {
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        mProgressBar = (ProgressBar) findViewById(R.id.progressSchedules);
 
         Intent intent = getIntent();
-        new DownloadStod2Schedules(this).execute(intent.getStringExtra(MainActivity.EXTRA_STOD2));
+        new DownloadStod2Schedules().execute(intent.getStringExtra(MainActivity.EXTRA_STOD2));
 
         setTitle(intent.getStringExtra(MainActivity.EXTRA_TITLE));
 
@@ -164,13 +166,6 @@ public class DisplayStod2Activity extends FragmentActivity implements ActionBar.
 
     private class DownloadStod2Schedules extends AsyncTask<String, Void, String>
     {
-        private Context ctx;
-
-        public DownloadStod2Schedules(Context context)
-        {
-            this.ctx = context;
-        }
-
         @Override
         protected String doInBackground(String... urls)
         {
@@ -187,10 +182,7 @@ public class DisplayStod2Activity extends FragmentActivity implements ActionBar.
         @Override
         protected void onPreExecute()
         {
-            _waitingDialog = new ProgressDialog(ctx);
-            _waitingDialog.setMessage(ctx.getString(R.string.loadingSchedule));
-            _waitingDialog.setCancelable(false);
-            _waitingDialog.show();
+            mProgressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -199,7 +191,8 @@ public class DisplayStod2Activity extends FragmentActivity implements ActionBar.
             if (result.equalsIgnoreCase("Successful"))
                 CreateTabViews();
 
-            _waitingDialog.dismiss();
+            //Return error message if doInBackground fails
+            mProgressBar.setVisibility(View.GONE);
         }
 
         private String GetSchedules(String myurl) throws IOException

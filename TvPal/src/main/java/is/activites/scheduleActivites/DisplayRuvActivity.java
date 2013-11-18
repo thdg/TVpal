@@ -15,6 +15,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -42,10 +44,10 @@ public class DisplayRuvActivity extends FragmentActivity implements ActionBar.Ta
     public static final String RuvUrl = "http://muninn.ruv.is/files/xml/ruv/";
 
     private List<EventData> _events;
-    private ProgressDialog _waitingDialog;
     private String _workingDate;
     private SchedulePagerAdapter mScheduleAdapter;
     private ViewPager mViewPager;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -59,8 +61,9 @@ public class DisplayRuvActivity extends FragmentActivity implements ActionBar.Ta
     private void Initialize()
     {
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        mProgressBar = (ProgressBar) findViewById(R.id.progressSchedules);
         String ruvUrl = String.format("%s%s", RuvUrl, DateUtil.GetCorrectRuvUrlFormat());
-        new DownloadRuvSchedules(this).execute(ruvUrl);
+        new DownloadRuvSchedules().execute(ruvUrl);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -175,13 +178,6 @@ public class DisplayRuvActivity extends FragmentActivity implements ActionBar.Ta
 
     private class DownloadRuvSchedules extends AsyncTask<String, Void, Boolean>
     {
-        private Context ctx;
-
-        public DownloadRuvSchedules(Context context)
-        {
-            this.ctx = context;
-        }
-
         @Override
         protected Boolean doInBackground(String... urls)
         {
@@ -199,21 +195,17 @@ public class DisplayRuvActivity extends FragmentActivity implements ActionBar.Ta
         @Override
         protected void onPreExecute()
         {
-            _waitingDialog = new ProgressDialog(ctx);
-            _waitingDialog.setMessage(ctx.getString(R.string.loadingSchedule));
-            _waitingDialog.setCancelable(false);
-            _waitingDialog.show();
+            mProgressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
         protected void onPostExecute(Boolean successful)
         {
             if (successful)
-            {
                 CreateTabViews();
-            }
-            _waitingDialog.dismiss();
-            //Todo: Return some error message for the user
+
+            //Return error message if doInBackground fails
+            mProgressBar.setVisibility(View.GONE);
         }
 
         private boolean GetSchedules(String myurl) throws IOException

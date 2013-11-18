@@ -15,6 +15,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -40,12 +42,11 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
 {
     public static final String skjarinnUrl = "http://www.skjarinn.is/einn/dagskrarupplysingar/?channel_id=7&weeks=1&output_format=xml";
 
-    private ProgressDialog _waitingDialog;
     private static List<EventData> _events;
     private String _workingDate;
-
     private SchedulePagerAdapter mScheduleAdapter;
     private ViewPager mViewPager;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -59,7 +60,8 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
     private void Initialize()
     {
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        new DownloadSkjarinnSchedules(this).execute(skjarinnUrl);
+        mProgressBar = (ProgressBar) findViewById(R.id.progressSchedules);
+        new DownloadSkjarinnSchedules().execute(skjarinnUrl);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -161,13 +163,6 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
 
     private class DownloadSkjarinnSchedules extends AsyncTask<String, Void, String>
     {
-        private Context ctx;
-
-        public DownloadSkjarinnSchedules(Context context)
-        {
-            this.ctx = context;
-        }
-
         @Override
         protected String doInBackground(String... urls)
         {
@@ -185,10 +180,7 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
         @Override
         protected void onPreExecute()
         {
-            _waitingDialog = new ProgressDialog(ctx);
-            _waitingDialog.setMessage(ctx.getString(R.string.loadingSchedule));
-            _waitingDialog.setCancelable(false);
-            _waitingDialog.show();
+            mProgressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -197,7 +189,8 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
             if (result.equalsIgnoreCase("Successful"))
                 CreateTabViews();
 
-            _waitingDialog.dismiss();
+            //Return error message if doInBackground fails
+            mProgressBar.setVisibility(View.GONE);
         }
 
         private String GetSchedules(String myurl) throws IOException
