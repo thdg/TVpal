@@ -38,7 +38,7 @@ public class EpisodeActivity extends FragmentActivity implements ActionBar.TabLi
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.swipe_events);
+        setContentView(R.layout.swipe_series);
 
         Initialize();
     }
