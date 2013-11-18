@@ -486,6 +486,7 @@ public class DbShowHandler extends SQLiteOpenHelper
             values.put(KEY_S_OVERVIEW, episode.getOverview());
             values.put(KEY_E_DIRECTOR, episode.getDirector());
             values.put(KEY_E_RATING, episode.getRating());
+            values.put(KEY_E_GUESTSTARS, episode.getGuestStars());
 
             db.update(TABLE_EPISODES, values, KEY_E_EPISODEID + " = " + episode.getEpisodeId(), null);
         }

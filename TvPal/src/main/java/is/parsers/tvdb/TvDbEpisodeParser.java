@@ -13,6 +13,7 @@ import javax.xml.parsers.SAXParserFactory;
 import is.contracts.datacontracts.EpisodeData;
 import is.contracts.datacontracts.SeriesData;
 import is.utilities.PictureTask;
+import is.utilities.StringUtil;
 
 /**
  * This class parses xml files.  It uses the Sax Parser and extends DefaultHandler.
@@ -42,7 +43,6 @@ public class TvDbEpisodeParser extends DefaultHandler {
     public List<EpisodeData> GetEpisodes() throws IOException, SAXException, ParserConfigurationException
     {
         parseDocument();
-
         return this.episodes;
     }
 
@@ -102,7 +102,7 @@ public class TvDbEpisodeParser extends DefaultHandler {
             episodes.add(episodeTmp);
 
         if (element.equalsIgnoreCase("GuestStars"))
-            episodeTmp.setGuestStars(ArrayToString(sb.toString()));
+            episodeTmp.setGuestStars(StringUtil.ArrayToString(sb.toString()));
 
         //Series info below
 
@@ -123,7 +123,7 @@ public class TvDbEpisodeParser extends DefaultHandler {
         }
 
         if (element.equalsIgnoreCase("Genre"))
-            series.setGenres(ArrayToString(sb.toString()));
+            series.setGenres(StringUtil.ArrayToString(sb.toString()));
 
         if(element.equalsIgnoreCase("lastupdated") && seriesNode)
         {
@@ -143,21 +143,5 @@ public class TvDbEpisodeParser extends DefaultHandler {
                 sb.append(ac[k]);
             }
         }
-    }
-
-    private String ArrayToString(String guestStars)
-    {
-        String[] temp = guestStars.split("(?!^)\\|");
-
-        StringBuilder sb = new StringBuilder();
-
-        for (String s : temp)
-        {
-            sb.append(s.replaceFirst("\\|", "") + ", ");
-        }
-
-        String actors = sb.toString();
-        int length = actors.lastIndexOf(",");
-        return actors.substring(0, length);//Remove last comma
     }
 }

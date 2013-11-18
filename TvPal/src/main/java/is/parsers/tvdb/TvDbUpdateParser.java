@@ -10,6 +10,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import is.contracts.datacontracts.EpisodeData;
+import is.utilities.StringUtil;
 
 /**
  * This class parses xml files.  It uses the Sax Parser and extends DefaultHandler.
@@ -110,6 +111,9 @@ public class TvDbUpdateParser extends DefaultHandler {
 
         if(element.equalsIgnoreCase("Director"))
             episodeTmp.setDirector(sb.toString());
+
+        if(element.equalsIgnoreCase("GuestStars"))
+            episodeTmp.setGuestStars(StringUtil.ArrayToString(sb.toString()));
 
         sb = null;
     }
