@@ -70,7 +70,7 @@ public class TraktAdapter extends BaseAdapter
             holder = (TraktHolder)row.getTag();
         }
 
-        TraktData show = this.shows.get(position);
+        TraktData show = getItem(position);
 
         holder.position = position;
         holder.title.setText(show.getTitle());

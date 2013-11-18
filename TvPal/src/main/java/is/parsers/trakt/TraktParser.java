@@ -20,7 +20,7 @@ public class TraktParser
     {
         try
         {
-            HttpUtil http = new HttpUtil();
+            RestClient http = new RestClient();
             String json = http.downloadJSONString(TraktUrl);
 
             Type listType = new TypeToken<ArrayList<TraktData>>() {}.getType();

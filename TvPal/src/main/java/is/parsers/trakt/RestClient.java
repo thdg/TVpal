@@ -10,7 +10,7 @@ import java.net.URL;
 /**
  * Created by Arnar on 15.11.2013.
  */
-public class HttpUtil
+public class RestClient
 {
     public String downloadJSONString(String myurl) throws IOException
     {
