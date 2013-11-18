@@ -4,13 +4,19 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadPoolExecutor;
+
 import is.contracts.datacontracts.TraktData;
 import is.handlers.adapters.TraktAdapter;
 import is.parsers.trakt.TraktParser;
@@ -21,6 +27,7 @@ public class TraktFragment extends Fragment implements AdapterView.OnItemClickLi
     private Context mContext;
     private ListView mListView;
     private TraktAdapter mAdapter;
+    private ProgressBar mProgessBar;
 
     public TraktFragment(Context context)
     {
@@ -33,10 +40,16 @@ public class TraktFragment extends Fragment implements AdapterView.OnItemClickLi
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
+        mProgessBar = (ProgressBar) getView().findViewById(R.id.progressIndicator);
         mListView = (ListView) getView().findViewById(R.id.trendingTrakt);
         mListView.setOnItemClickListener(this);
 
+        mProgessBar.setVisibility(View.VISIBLE);
+
         new GetTrendingShows().execute();
+
+        //Execute multiple AsyncTasks parallely
+        //new GetTrendingShows().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -49,7 +62,6 @@ public class TraktFragment extends Fragment implements AdapterView.OnItemClickLi
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
     {
         TraktData show = mAdapter.getItem(position);
-
         Toast.makeText(mContext, show.getTvdbId(), Toast.LENGTH_SHORT).show();
     }
 
@@ -58,7 +70,13 @@ public class TraktFragment extends Fragment implements AdapterView.OnItemClickLi
         @Override
         protected List<TraktData> doInBackground(String... strings)
         {
-            return new TraktParser().GetTrendingShows();
+            try {
+                return new TraktParser().GetTrendingShows();
+            }
+            catch (Exception ex)
+            {
+                return new ArrayList<TraktData>();
+            }
         }
 
         @Override
@@ -66,6 +84,8 @@ public class TraktFragment extends Fragment implements AdapterView.OnItemClickLi
         {
             mAdapter = new TraktAdapter(mContext, R.layout.listview_trakt, shows);
             mListView.setAdapter(mAdapter);
+
+            mProgessBar.setVisibility(View.GONE);
         }
     }
 }

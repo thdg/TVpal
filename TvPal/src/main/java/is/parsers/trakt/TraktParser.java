@@ -25,13 +25,11 @@ public class TraktParser
 
             Type listType = new TypeToken<ArrayList<TraktData>>() {}.getType();
 
-            List<TraktData> data = new Gson().fromJson(json, listType);
-
-            return data;
+            return new Gson().fromJson(json, listType);
         }
         catch (Exception ex)
         {
-            Log.e(getClass().getName(), ex.getMessage());
+            Log.e(getClass().getName(), "Error downloading trending shows");
         }
 
         return null;
