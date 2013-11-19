@@ -33,12 +33,14 @@ public class SearchShowAdapter extends BaseAdapter
     private Context context;
     private int layoutResourceId;
     private List<SeriesData> shows;
+    private List<Integer> seriesIds;
 
     public SearchShowAdapter(Context context, int layoutResourceId, List<SeriesData> shows)
     {
         this.context = context;
         this.layoutResourceId = layoutResourceId;
         this.shows = shows;
+        this.seriesIds = new DbShowHandler(context).GetAllSeriesIds();
     }
 
     static class ShowHolder
@@ -86,7 +88,7 @@ public class SearchShowAdapter extends BaseAdapter
         holder.overview.setText(overview);
 
         holder.checkShow.setChecked(false);
-        holder.checkShow.setVisibility(series.getAlreadyAdded() ? View.INVISIBLE : View.VISIBLE);
+        holder.checkShow.setVisibility(seriesIds.contains(series.getSeriesId()) ? View.INVISIBLE : View.VISIBLE);
 
         holder.checkShow.setOnClickListener(new View.OnClickListener()
         {
@@ -108,9 +110,8 @@ public class SearchShowAdapter extends BaseAdapter
                     else
                         Toast.makeText(context, String.format("Series %s exists in your shows", series.getTitle()), Toast.LENGTH_SHORT).show();
                 }
-                //holder.checkShow.setEnabled(false);
                 holder.checkShow.setVisibility(View.INVISIBLE);
-                series.setAlreadyAdded(true);
+                seriesIds.add(series.getSeriesId());
             }
         });
 
