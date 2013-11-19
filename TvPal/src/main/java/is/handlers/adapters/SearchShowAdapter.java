@@ -16,6 +16,7 @@ import is.contracts.datacontracts.EpisodeData;
 import is.contracts.datacontracts.SeriesData;
 import is.handlers.database.DbShowHandler;
 import is.parsers.tvdb.TvDbEpisodeParser;
+import is.thetvdb.TvDbUtil;
 import is.tvpal.R;
 
 /**
@@ -97,10 +98,12 @@ public class SearchShowAdapter extends BaseAdapter
             {
                 if (((CheckBox) view).isChecked())
                 {
-                    if (!seriesIds.contains(series.getSeriesId()))                    {
+                    if (!seriesIds.contains(series.getSeriesId()))
+                    {
                         String tvDbUrl = String.format("http://thetvdb.com/api/%s/series/%d/all/en.xml", ApiKey, series.getSeriesId());
-                        new DownloadEpisodes(context, series.getTitle()).execute(tvDbUrl);
-                        Toast.makeText(context, String.format("%s will be added to your shows", series.getTitle()), Toast.LENGTH_SHORT).show();
+                        TvDbUtil tvdb = new TvDbUtil(context);
+                        tvdb.GetEpisodesBySeason(tvDbUrl, series.getTitle());
+
                         seriesIds.add(series.getSeriesId());
                     }
                     else
@@ -111,60 +114,6 @@ public class SearchShowAdapter extends BaseAdapter
         });
 
         return row;
-    }
-
-    private class DownloadEpisodes extends AsyncTask<String, Void, String>
-    {
-        private Context ctx;
-        private String seriesTitle;
-
-        public DownloadEpisodes(Context context, String seriesTitle)
-        {
-            this.ctx = context;
-            this.seriesTitle = seriesTitle;
-        }
-
-        @Override
-        protected String doInBackground(String... urls)
-        {
-            try
-            {
-                return GetEpisodes(urls[0]);
-            }
-            catch (IOException e)
-            {
-                return "Unable to retrieve web page. URL may be invalid";
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result)
-        {
-            if (result.equalsIgnoreCase("Successful"))
-                Toast.makeText(ctx, String.format("Added %s your shows", seriesTitle), Toast.LENGTH_SHORT).show();
-            else if (result.equalsIgnoreCase("Problem"))
-                Toast.makeText(ctx, "Whoops, something went wrong", Toast.LENGTH_SHORT).show();
-        }
-
-        private String GetEpisodes(String myurl) throws IOException
-        {
-            DbShowHandler db = new DbShowHandler(ctx);
-
-            try
-            {
-                TvDbEpisodeParser parser = new TvDbEpisodeParser(myurl);
-                List<EpisodeData> episodes = parser.GetEpisodes();
-                SeriesData show = parser.getSeries();
-
-                db.InsertFullSeriesInfo(episodes, show);
-            }
-            catch (Exception ex)
-            {
-                return "Problem";
-            }
-
-            return "Successful";
-        }
     }
 
     @Override

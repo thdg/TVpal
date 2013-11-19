@@ -7,12 +7,15 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
 import is.contracts.datacontracts.EpisodeData;
+import is.contracts.datacontracts.SeriesData;
 import is.handlers.database.DbShowHandler;
+import is.parsers.tvdb.TvDbEpisodeParser;
 import is.parsers.tvdb.TvDbUpdateParser;
 import is.utilities.ConnectionListener;
 
 /**
- * Created by Arnar on 9.11.2013.
+ * A class to handle Network operations for thetvdb api.
+ * @author Arnar
  */
 public class TvDbUtil
 {
@@ -43,12 +46,99 @@ public class TvDbUtil
         db.SetSeriesSeen(seriesId);
     }
 
+    public void GetEpisodesBySeason(String apiUrl, String title)
+    {
+        new DownloadEpisodes(context, title).execute(apiUrl);
+    }
+
+    /**
+     * A class to download episodes for some series.
+     * It creates an new thread to handle network communication
+     * @author Arnar
+     * @see android.os.AsyncTask
+     */
+    private class DownloadEpisodes extends AsyncTask<String, Void, Boolean>
+    {
+        private Context ctx;
+        private String seriesTitle;
+
+        /**
+         *
+         * @param context The current application context
+         * @param seriesTitle The title of the series to be downloaded
+         */
+        public DownloadEpisodes(Context context, String seriesTitle)
+        {
+            this.ctx = context;
+            this.seriesTitle = seriesTitle;
+        }
+
+        @Override
+        protected Boolean doInBackground(String... urls)
+        {
+            try
+            {
+                return GetEpisodes(urls[0]);
+            }
+            catch (IOException e)
+            {
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            Toast.makeText(context, String.format("%s will be added to your shows", seriesTitle), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result)
+        {
+            if (result)
+                Toast.makeText(ctx, String.format("Added %s your shows", seriesTitle), Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(ctx, "Whoops, something went wrong", Toast.LENGTH_SHORT).show();
+        }
+
+        private Boolean GetEpisodes(String myurl) throws IOException
+        {
+            DbShowHandler db = new DbShowHandler(ctx);
+
+            try
+            {
+                TvDbEpisodeParser parser = new TvDbEpisodeParser(myurl);
+                List<EpisodeData> episodes = parser.GetEpisodes();
+                SeriesData show = parser.getSeries();
+
+                db.InsertFullSeriesInfo(episodes, show);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            return true;
+        }
+    }
+
+    /**
+     * A class to update single series
+     * It creates a new thread to handle network communications
+     * @author Arnar
+     * @see android.os.AsyncTask
+     */
     private class UpdateSingleSeriesTask extends AsyncTask<String, Void, String>
     {
         private Context context;
         private int lastUpdate;
         private int seriesId;
 
+        /**
+         * @param context The current application context
+         * @param lastUpdate The latest time the series was updated, stored as unix time
+         * @param seriesId The id of the series to be updated
+         */
         public UpdateSingleSeriesTask(Context context, int lastUpdate, int seriesId)
         {
             this.context = context;

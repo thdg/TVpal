@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.util.List;
 import is.contracts.datacontracts.TraktData;
 import is.handlers.database.DbShowHandler;
+import is.thetvdb.TvDbUtil;
 import is.tvpal.R;
 import is.utilities.PictureTask;
 
@@ -28,10 +29,12 @@ import is.utilities.PictureTask;
  * and Spinner (by implementing the specialized SpinnerAdapter interface.
  * It extends BaseAdapter.
  *
- * @see    android.widget.BaseAdapter
+ * @see android.widget.BaseAdapter
  */
 public class TraktAdapter extends BaseAdapter
 {
+    public static final String ApiKey = "9A96DA217CEB03E7";
+
     private Context context;
     private int layoutResourceId;
     private List<TraktData> shows;
@@ -78,14 +81,14 @@ public class TraktAdapter extends BaseAdapter
             holder = (TraktHolder)row.getTag();
         }
 
-        TraktData show = getItem(position);
+        final TraktData show = getItem(position);
 
         holder.position = position;
         holder.title.setText(show.getTitle());
         holder.overview.setText(show.getOverview());
 
         holder.addShow.setChecked(false);
-        holder.addShow.setVisibility(seriesIds.contains(show.getTvdbId()) ? View.INVISIBLE : View.VISIBLE);
+        holder.addShow.setVisibility(seriesIds.contains(show.getSeriesId()) ? View.INVISIBLE : View.VISIBLE);
 
         holder.addShow.setOnClickListener(new View.OnClickListener()
         {
@@ -94,7 +97,16 @@ public class TraktAdapter extends BaseAdapter
             {
                 if (((CheckBox) view).isChecked())
                 {
-                    //TODO: Refactor insertshow method so it can also be used by trakt shows
+                    if (!seriesIds.contains(show.getSeriesId()))
+                    {
+                        String tvDbUrl = String.format("http://thetvdb.com/api/%s/series/%d/all/en.xml", ApiKey, show.getSeriesId());
+                        TvDbUtil tvdb = new TvDbUtil(context);
+                        tvdb.GetEpisodesBySeason(tvDbUrl, show.getTitle());
+
+                        seriesIds.add(show.getSeriesId());
+                    }
+                    else //This should never happen
+                        Toast.makeText(context, String.format("Series %s exists in your shows", show.getTitle()), Toast.LENGTH_SHORT).show();
                 }
                 holder.addShow.setVisibility(View.INVISIBLE);
             }

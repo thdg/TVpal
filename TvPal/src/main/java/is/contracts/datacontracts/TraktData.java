@@ -15,7 +15,7 @@ public class TraktData
     public String overview;
 
     @SerializedName("tvdb_id")
-    public int tvdbId;
+    public int seriesId;
 
     @SerializedName("poster")
     public String poster;
@@ -26,8 +26,8 @@ public class TraktData
     public String getOverview() { return this.overview; }
     public void setOverview(String overview) { this.overview = overview; }
 
-    public int getTvdbId() { return this.tvdbId; }
-    public void setTvdbId(String tvdbid) { this.tvdbId = Integer.parseInt(tvdbid); }
+    public int getSeriesId() { return this.seriesId; }
+    public void setSeriesId(String tvdbid) { this.seriesId = Integer.parseInt(tvdbid); }
 
     public String getPoster() { return this.poster; }
     public void setPoster(String poster) { this.poster = poster; }

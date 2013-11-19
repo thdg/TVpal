@@ -58,7 +58,7 @@ public class TraktFragment extends Fragment implements AdapterView.OnItemClickLi
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
     {
         TraktData show = mAdapter.getItem(position);
-        Toast.makeText(mContext, String.format("%d",show.getTvdbId()), Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, String.format("%d",show.getSeriesId()), Toast.LENGTH_SHORT).show();
     }
 
     private class GetTrendingShows extends AsyncTask<String, Void, List<TraktData>>
