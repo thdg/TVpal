@@ -43,9 +43,6 @@ public class TraktFragment extends Fragment implements AdapterView.OnItemClickLi
         mProgessBar.setVisibility(View.VISIBLE);
 
         new GetTrendingShows().execute();
-
-        //Execute multiple AsyncTasks parallely
-        //new GetTrendingShows().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

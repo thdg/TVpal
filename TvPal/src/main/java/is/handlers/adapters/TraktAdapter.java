@@ -112,12 +112,11 @@ public class TraktAdapter extends BaseAdapter
             }
         });
 
-        //TODO:
-        //Look into using GridView and not listview to show TraktShows, will perform better with
-        //loading bitmaps to the view.
         holder.poster.setImageBitmap(null);
         final String posterUrl = show.getPoster();
-        new GetPosterShow(posterUrl, position).execute(holder);
+
+        //Execute Async Tasks parallely to improve bitmap download.
+        new GetPosterShow(posterUrl, position).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, holder);
 
         return row;
     }
