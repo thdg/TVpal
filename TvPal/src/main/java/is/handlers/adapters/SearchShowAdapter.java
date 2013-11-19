@@ -76,7 +76,7 @@ public class SearchShowAdapter extends BaseAdapter
             holder = (ShowHolder)row.getTag();
         }
 
-        final SeriesData series = shows.get(position);
+        final SeriesData series = getItem(position);
 
         holder.title.setText(series.getTitle());
 

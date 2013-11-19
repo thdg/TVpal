@@ -92,9 +92,9 @@ public class SeriesActivity extends FragmentActivity implements ActionBar.TabLis
             {
                 case 0:
                     DbShowHandler db = new DbShowHandler(context);
-                    return new OverviewFragment(context, db.GetCursorOverview(seriesId));
+                    return OverviewFragment.newInstance(context, db.GetCursorOverview(seriesId));
                 case 1:
-                    return new SeasonFragment(context, seriesId);
+                    return SeasonFragment.newInstance(context, seriesId);
             }
             return null;
         }

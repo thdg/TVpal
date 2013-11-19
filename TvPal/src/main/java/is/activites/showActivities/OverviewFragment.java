@@ -28,7 +28,10 @@ public class OverviewFragment extends Fragment
         this.mCursor = cursor;
     }
 
-    public OverviewFragment() {}
+    public static OverviewFragment newInstance(Context context, Cursor cursor)
+    {
+        return new OverviewFragment(context, cursor);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
