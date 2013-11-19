@@ -189,7 +189,7 @@ public class DbShowHandler extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_SERIES, KEY_S_SERIESID + " = " + seriesId, null);
-        db.delete(TABLE_EPISODES, KEY_E_SERIESID + " = " + Integer.toString(seriesId), null);
+        db.delete(TABLE_EPISODES, KEY_E_SERIESID + " = " + seriesId, null);
         db.close();
     }
 
