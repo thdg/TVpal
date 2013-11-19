@@ -44,6 +44,8 @@ public class SeasonFragment extends Fragment implements AdapterView.OnItemClickL
         return new SeasonFragment(context, seriesId);
     }
 
+    public SeasonFragment() {}
+
     @Override
     public void onResume()
     {
