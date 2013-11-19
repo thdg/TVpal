@@ -31,12 +31,11 @@ public class TvDbEpisodeParser extends DefaultHandler {
     public SeriesData series;
     private boolean seriesNode;
 
-    public TvDbEpisodeParser(String baseUrl, SeriesData series)
+    public TvDbEpisodeParser(String baseUrl)
     {
         this.baseURL = baseUrl;
         this.episodes = new ArrayList<EpisodeData>();
         episodeTmp = new EpisodeData();
-        this.series = series;
         this.seriesNode = true;
     }
 
@@ -62,6 +61,9 @@ public class TvDbEpisodeParser extends DefaultHandler {
 
         if (element.equalsIgnoreCase("Episode"))
             episodeTmp = new EpisodeData();
+
+        if (element.equalsIgnoreCase("Series"))
+            series = new SeriesData();
 
         sb = new StringBuilder();
     }
@@ -106,29 +108,46 @@ public class TvDbEpisodeParser extends DefaultHandler {
 
         //Series info below
 
-        if(element.equalsIgnoreCase("poster"))
-        {
-            try
-            {
-                String posterUrl = String.format("http://thetvdb.com/banners/%s", sb.toString());
-
-                PictureTask pic = new PictureTask();
-                byte[] posterByteStream = pic.getByteStreamFromUrl(posterUrl);
-                series.setPosterStream(posterByteStream);
-            }
-            catch (Exception ex)
-            {
-                Log.e(getClass().getName(), ex.getMessage());
-            }
-        }
-
-        if (element.equalsIgnoreCase("Genre"))
-            series.setGenres(StringUtil.ArrayToString(sb.toString()));
-
-        if(element.equalsIgnoreCase("lastupdated") && seriesNode)
-        {
-            series.setLastUpdated(Integer.parseInt(sb.toString()));
+        if (element.equalsIgnoreCase("Series"))
             seriesNode = false;
+
+        if (seriesNode)
+        {
+            if(element.equalsIgnoreCase("network"))
+                series.setNetwork(sb.toString());
+
+            if(element.equalsIgnoreCase("overview"))
+                series.setOverview(sb.toString());
+
+            if (element.equalsIgnoreCase("Genre"))
+                series.setGenres(StringUtil.ArrayToString(sb.toString()));
+
+            if (element.equalsIgnoreCase("SeriesName"))
+                series.setTitle(sb.toString());
+
+            if (element.equalsIgnoreCase("ID"))
+                series.setSeriesId(Integer.parseInt(sb.toString()));
+
+            if(element.equalsIgnoreCase("poster"))
+            {
+                try
+                {
+                    String posterUrl = String.format("http://thetvdb.com/banners/%s", sb.toString());
+
+                    PictureTask pic = new PictureTask();
+                    byte[] posterByteStream = pic.getByteStreamFromUrl(posterUrl);
+                    series.setPosterStream(posterByteStream);
+                }
+                catch (Exception ex)
+                {
+                    Log.e(getClass().getName(), ex.getMessage());
+                }
+            }
+
+            if(element.equalsIgnoreCase("lastupdated") && seriesNode)
+            {
+                series.setLastUpdated(Integer.parseInt(sb.toString()));
+            }
         }
 
         sb = null;

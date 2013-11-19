@@ -97,21 +97,16 @@ public class SearchShowAdapter extends BaseAdapter
             {
                 if (((CheckBox) view).isChecked())
                 {
-                    DbShowHandler db = new DbShowHandler(context);
-
-                    boolean exists = db.CheckIfSeriesExist(series.getSeriesId());
-
-                    if (!exists)
-                    {
+                    if (!seriesIds.contains(series.getSeriesId()))                    {
                         String tvDbUrl = String.format("http://thetvdb.com/api/%s/series/%d/all/en.xml", ApiKey, series.getSeriesId());
-                        new DownloadEpisodes(context, series).execute(tvDbUrl);
+                        new DownloadEpisodes(context, series.getTitle()).execute(tvDbUrl);
                         Toast.makeText(context, String.format("%s will be added to your shows", series.getTitle()), Toast.LENGTH_SHORT).show();
+                        seriesIds.add(series.getSeriesId());
                     }
                     else
                         Toast.makeText(context, String.format("Series %s exists in your shows", series.getTitle()), Toast.LENGTH_SHORT).show();
                 }
                 holder.checkShow.setVisibility(View.INVISIBLE);
-                seriesIds.add(series.getSeriesId());
             }
         });
 
@@ -121,12 +116,12 @@ public class SearchShowAdapter extends BaseAdapter
     private class DownloadEpisodes extends AsyncTask<String, Void, String>
     {
         private Context ctx;
-        private SeriesData show;
+        private String seriesTitle;
 
-        public DownloadEpisodes(Context context, SeriesData show)
+        public DownloadEpisodes(Context context, String seriesTitle)
         {
             this.ctx = context;
-            this.show = show;
+            this.seriesTitle = seriesTitle;
         }
 
         @Override
@@ -146,7 +141,7 @@ public class SearchShowAdapter extends BaseAdapter
         protected void onPostExecute(String result)
         {
             if (result.equalsIgnoreCase("Successful"))
-                Toast.makeText(ctx, String.format("Added %s your shows", show.getTitle()), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ctx, String.format("Added %s your shows", seriesTitle), Toast.LENGTH_SHORT).show();
             else if (result.equalsIgnoreCase("Problem"))
                 Toast.makeText(ctx, "Whoops, something went wrong", Toast.LENGTH_SHORT).show();
         }
@@ -157,9 +152,9 @@ public class SearchShowAdapter extends BaseAdapter
 
             try
             {
-                TvDbEpisodeParser parser = new TvDbEpisodeParser(myurl, show);
+                TvDbEpisodeParser parser = new TvDbEpisodeParser(myurl);
                 List<EpisodeData> episodes = parser.GetEpisodes();
-                show = parser.getSeries();
+                SeriesData show = parser.getSeries();
 
                 db.InsertFullSeriesInfo(episodes, show);
             }
