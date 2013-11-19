@@ -14,6 +14,7 @@ public class SeriesData
     private byte[] posterStream;
     private String genres;
     private int lastUpdated;
+    private boolean alreadyAdded;
 
     public int getSeriesId() { return this.seriesId; }
     public void setSeriesId(int seriesId) { this.seriesId = seriesId; }
@@ -41,6 +42,9 @@ public class SeriesData
 
     public int getLastUpdated() { return lastUpdated; }
     public void setLastUpdated(int lastUpdated) { this.lastUpdated = lastUpdated; }
+
+    public boolean getAlreadyAdded() {  return this.alreadyAdded; }
+    public void setAlreadyAdded(boolean alreadyAdded) { this.alreadyAdded = alreadyAdded;}
 
     @Override
     public String toString()

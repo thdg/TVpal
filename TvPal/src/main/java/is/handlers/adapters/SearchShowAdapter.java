@@ -85,6 +85,9 @@ public class SearchShowAdapter extends BaseAdapter
         overview = overview == null ? "" : String.format("%s...",overview.substring(0, Math.min(overview.length(), 60)));
         holder.overview.setText(overview);
 
+        holder.checkShow.setChecked(false);
+        holder.checkShow.setVisibility(series.getAlreadyAdded() ? View.INVISIBLE : View.VISIBLE);
+
         holder.checkShow.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -105,7 +108,9 @@ public class SearchShowAdapter extends BaseAdapter
                     else
                         Toast.makeText(context, String.format("Series %s exists in your shows", series.getTitle()), Toast.LENGTH_SHORT).show();
                 }
-                holder.checkShow.setEnabled(false);
+                //holder.checkShow.setEnabled(false);
+                holder.checkShow.setVisibility(View.INVISIBLE);
+                series.setAlreadyAdded(true);
             }
         });
 
