@@ -195,10 +195,18 @@ public class TvDbUtil
         }
     }
 
+    /**
+     * A class to update episodes of all Series
+     * @author Arnar
+     * @see android.os.AsyncTask
+     */
     private class UpdateAllSeriesTask extends AsyncTask<String, Void, String>
     {
         private Context context;
 
+        /**
+         * @param context The current application context
+         */
         public UpdateAllSeriesTask(Context context)
         {
             this.context = context;

@@ -13,7 +13,6 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.List;
 import is.contracts.datacontracts.TraktData;
 import is.handlers.database.DbShowHandler;
@@ -121,12 +120,21 @@ public class TraktAdapter extends BaseAdapter
         return row;
     }
 
+    /**
+     * A class to download bitmaps and load them in ViewHolders
+     * @author Arnar
+     * @see android.os.AsyncTask
+     */
     private class GetPosterShow extends AsyncTask<TraktHolder, Void, Bitmap>
     {
         private String posterUrl;
         private TraktHolder holder;
         private int position;
 
+        /**
+         * @param posterUrl The url of a picture to download
+         * @param position The position of the ViewHolder
+         */
         public GetPosterShow(String posterUrl, int position)
         {
             this.posterUrl = posterUrl;

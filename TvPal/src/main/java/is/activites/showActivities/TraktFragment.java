@@ -18,6 +18,11 @@ import is.handlers.adapters.TraktAdapter;
 import is.parsers.trakt.TraktParser;
 import is.tvpal.R;
 
+/**
+ * A class which displays Trending Shows from Trakt Web Service
+ * @author Arnar
+ * @see android.support.v4.app.Fragment
+ */
 public class TraktFragment extends Fragment implements AdapterView.OnItemClickListener
 {
     private Context mContext;
