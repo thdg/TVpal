@@ -9,10 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.List;
 import is.contracts.datacontracts.TraktData;
+import is.handlers.database.DbShowHandler;
 import is.tvpal.R;
 import is.utilities.PictureTask;
 
@@ -31,12 +35,14 @@ public class TraktAdapter extends BaseAdapter
     private Context context;
     private int layoutResourceId;
     private List<TraktData> shows;
+    private List<Integer> seriesIds;
 
     public TraktAdapter(Context context, int layoutResourceId, List<TraktData> shows)
     {
         this.context = context;
         this.layoutResourceId = layoutResourceId;
         this.shows = shows;
+        this.seriesIds = new DbShowHandler(context).GetAllSeriesIds();
     }
 
     static class TraktHolder
@@ -44,6 +50,7 @@ public class TraktAdapter extends BaseAdapter
         TextView title;
         TextView overview;
         ImageView poster;
+        CheckBox addShow;
         int position;
     }
 
@@ -51,7 +58,7 @@ public class TraktAdapter extends BaseAdapter
     public View getView(int position, View convertView, ViewGroup parent)
     {
         View row = convertView;
-        TraktHolder holder;
+        final TraktHolder holder;
 
         if(row == null)
         {
@@ -62,6 +69,7 @@ public class TraktAdapter extends BaseAdapter
             holder.title = (TextView) row.findViewById(R.id.traktTitle);
             holder.overview = (TextView) row.findViewById(R.id.traktOverview);
             holder.poster = (ImageView) row.findViewById(R.id.traktPoster);
+            holder.addShow = (CheckBox) row.findViewById(R.id.traktAddShow);
 
             row.setTag(holder);
         }
@@ -75,6 +83,23 @@ public class TraktAdapter extends BaseAdapter
         holder.position = position;
         holder.title.setText(show.getTitle());
         holder.overview.setText(show.getOverview());
+
+        holder.addShow.setChecked(false);
+        holder.addShow.setVisibility(seriesIds.contains(show.getTvdbId()) ? View.INVISIBLE : View.VISIBLE);
+
+        holder.addShow.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if (((CheckBox) view).isChecked())
+                {
+                    //TODO: Refactor insertshow method so it can also be used by trakt shows
+                }
+                holder.addShow.setVisibility(View.INVISIBLE);
+            }
+        });
+
         //TODO:
         //Look into using GridView and not listview to show TraktShows, will perform better with
         //loading bitmaps to the view.

@@ -18,8 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/traktPoster"
-        android:paddingLeft="10sp"
-        android:textSize="20sp"
+        android:paddingLeft="6sp"
+        android:textSize="18sp"
         android:text="Show:"
         android:textColor="#000000"/>
 
@@ -27,12 +27,22 @@
         android:id="@+id/traktOverview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="overviewtexti bwioh"
+        android:text="overviewtexti bwasdfasdsdfasdfsioh"
         android:layout_below="@+id/traktTitle"
         android:layout_toRightOf="@+id/traktPoster"
-        android:paddingLeft="10sp"
-        android:textSize="16sp"
+        android:layout_toLeftOf="@+id/traktAddShow"
+        android:paddingLeft="6sp"
+        android:textSize="14sp"
         android:maxLines="3"
         android:lineSpacingMultiplier="1.2"/>
+
+    <CheckBox
+        android:button="@drawable/eye_checkbox"
+        android:id="@+id/traktAddShow"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:focusable="false"
+        android:paddingRight="12sp"/>
 
 </RelativeLayout>
