@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * DataContract to hold information about Trakt shows
  * @author Arnar
  */
-public class TraktData
+public class TraktEpisodeData
 {
     @SerializedName("title")
     public String title;

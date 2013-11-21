@@ -63,5 +63,7 @@
     <string name="title_activity_cinema">Bíó sýningar</string>
     <string name="cinemaText">Bíó</string>
     <string name="cinemaSchedules">Bíó sýningar</string>
+    <string name="title_activity_trending_movies">Trending Movies</string>
+    <string name="trakt_search_movies">Search Movies</string>
 
 </resources>

@@ -5,16 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-
 import java.util.List;
-
 import is.contracts.datacontracts.Cinema.CinemaMovie;
 import is.handlers.adapters.CinemaAdapter;
-import is.handlers.adapters.TraktAdapter;
 import is.parsers.cinema.CinemaParser;
 import is.tvpal.R;
 
@@ -38,7 +36,10 @@ public class CinemaActivity extends Activity implements AdapterView.OnItemClickL
     private void Initialize()
     {
         mListView = (ListView) findViewById(R.id.cinemaSchedules);
+        mListView.setOnItemClickListener(this);
         mProgressBar = (ProgressBar) findViewById(R.id.progressIndicator);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         new GetMovieScedules(this).execute();
     }
@@ -90,6 +91,19 @@ public class CinemaActivity extends Activity implements AdapterView.OnItemClickL
         {
             CinemaParser parser = new CinemaParser();
             return parser.GetMovieSchedules();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

@@ -1,18 +1,20 @@
 package is.activites.showActivities;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.view.MenuItem;
+
 import is.tvpal.R;
 
-public class SearchShowsActivity extends FragmentActivity implements ActionBar.TabListener
+public class SearchMoviesActivity extends FragmentActivity implements ActionBar.TabListener
 {
     private ViewPager mViewPager;
 
@@ -20,7 +22,7 @@ public class SearchShowsActivity extends FragmentActivity implements ActionBar.T
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.swipe_series);
+        setContentView(R.layout.swipe_search);
 
         Initialize();
     }
@@ -59,11 +61,10 @@ public class SearchShowsActivity extends FragmentActivity implements ActionBar.T
     }
 
     @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction)
-    {}
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
+
     @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction)
-    {}
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
 
     public class SearchPagerAdapter extends FragmentStatePagerAdapter
     {
@@ -81,9 +82,7 @@ public class SearchShowsActivity extends FragmentActivity implements ActionBar.T
             switch (position)
             {
                 case 0:
-                    return new SearchShowFragment(context);
-                case 1:
-                    return new TrendingEpisodesFragment(context);
+                    return new TrendingMoviesFragment(context);
             }
             return null;
         }
@@ -91,13 +90,13 @@ public class SearchShowsActivity extends FragmentActivity implements ActionBar.T
         @Override
         public int getCount()
         {
-            return 2;
+            return 1;
         }
 
         @Override
         public CharSequence getPageTitle(int position)
         {
-            return position == 0 ? "Search" : "Trending";
+            return "Trending";
         }
     }
 

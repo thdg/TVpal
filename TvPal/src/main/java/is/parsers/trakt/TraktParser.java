@@ -1,13 +1,13 @@
 package is.parsers.trakt;
 
 import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import is.contracts.datacontracts.TraktData;
+import is.contracts.datacontracts.TraktEpisodeData;
+import is.contracts.datacontracts.TraktMovieData;
 import is.webservices.RestClient;
 
 /**
@@ -15,22 +15,42 @@ import is.webservices.RestClient;
  */
 public class TraktParser
 {
-    private String TraktUrl = "http://api.trakt.tv/shows/trending.json/f0e3af66061e47b3243e25ed7b6443ca";
+    private static final String TraktEpisodeUrl = "http://api.trakt.tv/shows/trending.json/f0e3af66061e47b3243e25ed7b6443ca";
+    private static final String TraktMoviesUrl = "http://api.trakt.tv/movies/trending.json/f0e3af66061e47b3243e25ed7b6443ca";
 
-    public List<TraktData> GetTrendingShows()
+    public List<TraktEpisodeData> GetTrendingShows()
     {
         try
         {
             RestClient http = new RestClient();
-            String json = http.downloadJSONString(TraktUrl);
+            String json = http.downloadJSONString(TraktEpisodeUrl);
 
-            Type listType = new TypeToken<ArrayList<TraktData>>() {}.getType();
+            Type listType = new TypeToken<ArrayList<TraktEpisodeData>>() {}.getType();
 
             return new Gson().fromJson(json, listType);
         }
         catch (Exception ex)
         {
             Log.e(getClass().getName(), "Error downloading trending shows");
+        }
+
+        return null;
+    }
+
+    public List<TraktMovieData> GetTrendingMovies()
+    {
+        try
+        {
+            RestClient http = new RestClient();
+            String json = http.downloadJSONString(TraktMoviesUrl);
+
+            Type listType = new TypeToken<ArrayList<TraktMovieData>>() {}.getType();
+
+            return new Gson().fromJson(json, listType);
+        }
+        catch (Exception ex)
+        {
+            Log.e(getClass().getName(), "Error downloading trending movies");
         }
 
         return null;

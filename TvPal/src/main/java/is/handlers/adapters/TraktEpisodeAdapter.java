@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.List;
-import is.contracts.datacontracts.TraktData;
+import is.contracts.datacontracts.TraktEpisodeData;
 import is.handlers.database.DbShowHandler;
 import is.thetvdb.TvDbUtil;
 import is.tvpal.R;
@@ -30,16 +30,16 @@ import is.utilities.PictureTask;
  *
  * @see android.widget.BaseAdapter
  */
-public class TraktAdapter extends BaseAdapter
+public class TraktEpisodeAdapter extends BaseAdapter
 {
     public static final String ApiKey = "9A96DA217CEB03E7";
 
     private Context context;
     private int layoutResourceId;
-    private List<TraktData> shows;
+    private List<TraktEpisodeData> shows;
     private List<Integer> seriesIds;
 
-    public TraktAdapter(Context context, int layoutResourceId, List<TraktData> shows)
+    public TraktEpisodeAdapter(Context context, int layoutResourceId, List<TraktEpisodeData> shows)
     {
         this.context = context;
         this.layoutResourceId = layoutResourceId;
@@ -80,7 +80,7 @@ public class TraktAdapter extends BaseAdapter
             holder = (TraktHolder)row.getTag();
         }
 
-        final TraktData show = getItem(position);
+        final TraktEpisodeData show = getItem(position);
 
         holder.position = position;
         holder.title.setText(show.getTitle());
@@ -115,7 +115,7 @@ public class TraktAdapter extends BaseAdapter
         final String posterUrl = show.getPoster();
 
         //Execute Async Tasks parallely to improve bitmap download.
-        new GetPosterShow(posterUrl, position).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, holder);
+        new GetPosterShow(posterUrl, position).execute(holder);
 
         return row;
     }
@@ -181,7 +181,7 @@ public class TraktAdapter extends BaseAdapter
     }
 
     @Override
-    public TraktData getItem(int position)
+    public TraktEpisodeData getItem(int position)
     {
         return shows.get(position);
     }

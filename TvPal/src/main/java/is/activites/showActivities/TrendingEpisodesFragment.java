@@ -13,8 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
-import is.contracts.datacontracts.TraktData;
-import is.handlers.adapters.TraktAdapter;
+import is.contracts.datacontracts.TraktEpisodeData;
+import is.handlers.adapters.TraktEpisodeAdapter;
 import is.parsers.trakt.TraktParser;
 import is.tvpal.R;
 
@@ -23,19 +23,19 @@ import is.tvpal.R;
  * @author Arnar
  * @see android.support.v4.app.Fragment
  */
-public class TraktTrendingFragment extends Fragment implements AdapterView.OnItemClickListener
+public class TrendingEpisodesFragment extends Fragment implements AdapterView.OnItemClickListener
 {
     private Context mContext;
     private ListView mListView;
-    private TraktAdapter mAdapter;
+    private TraktEpisodeAdapter mAdapter;
     private ProgressBar mProgessBar;
 
-    public TraktTrendingFragment(Context context)
+    public TrendingEpisodesFragment(Context context)
     {
         this.mContext = context;
     }
 
-    public TraktTrendingFragment() {}
+    public TrendingEpisodesFragment() {}
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
@@ -59,28 +59,28 @@ public class TraktTrendingFragment extends Fragment implements AdapterView.OnIte
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
     {
-        TraktData show = mAdapter.getItem(position);
+        TraktEpisodeData show = mAdapter.getItem(position);
         Toast.makeText(mContext, String.format("%d",show.getSeriesId()), Toast.LENGTH_SHORT).show();
     }
 
-    private class GetTrendingShows extends AsyncTask<String, Void, List<TraktData>>
+    private class GetTrendingShows extends AsyncTask<String, Void, List<TraktEpisodeData>>
     {
         @Override
-        protected List<TraktData> doInBackground(String... strings)
+        protected List<TraktEpisodeData> doInBackground(String... strings)
         {
             try {
                 return new TraktParser().GetTrendingShows();
             }
             catch (Exception ex)
             {
-                return new ArrayList<TraktData>();
+                return new ArrayList<TraktEpisodeData>();
             }
         }
 
         @Override
-        protected void onPostExecute(List<TraktData> shows)
+        protected void onPostExecute(List<TraktEpisodeData> shows)
         {
-            mAdapter = new TraktAdapter(mContext, R.layout.listview_trakt, shows);
+            mAdapter = new TraktEpisodeAdapter(mContext, R.layout.listview_trakt_episodes, shows);
             mListView.setAdapter(mAdapter);
 
             mProgessBar.setVisibility(View.GONE);

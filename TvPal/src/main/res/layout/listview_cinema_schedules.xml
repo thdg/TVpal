@@ -11,8 +11,7 @@
         android:layout_height="80dp"
         android:maxHeight="80dp"
         android:layout_margin="5dp"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/movie"/>
+        android:layout_gravity="center_vertical"/>
 
     <RelativeLayout
         android:layout_width="0dp"
