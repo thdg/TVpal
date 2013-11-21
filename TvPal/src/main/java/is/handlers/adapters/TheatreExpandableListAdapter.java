@@ -21,7 +21,8 @@ public class TheatreExpandableListAdapter extends BaseExpandableListAdapter {
     private Context _context;
 
     public TheatreExpandableListAdapter(Context context, List<CinemaShowtimes> showtimes) {
-
+        this._context = context;
+        this._showtimes = showtimes;
     }
 
     @Override
