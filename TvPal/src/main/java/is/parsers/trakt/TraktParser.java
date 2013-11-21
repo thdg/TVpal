@@ -8,6 +8,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import is.contracts.datacontracts.TraktData;
+import is.webservices.RestClient;
 
 /**
  * Created by Arnar on 16.11.2013.

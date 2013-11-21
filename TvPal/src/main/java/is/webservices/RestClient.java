@@ -1,4 +1,4 @@
-package is.parsers.trakt;
+package is.webservices;
 
 import java.io.BufferedReader;
 import java.io.IOException;

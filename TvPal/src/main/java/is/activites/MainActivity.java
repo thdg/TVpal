@@ -15,6 +15,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
+
+import is.activites.cinemaActivities.CinemaActivity;
 import is.activites.scheduleActivites.DisplayRuvActivity;
 import is.activites.scheduleActivites.DisplaySkjarinnActivity;
 import is.activites.scheduleActivites.DisplayStod2Activity;
@@ -78,6 +80,8 @@ public class MainActivity extends Activity
         items.add(new DrawerListData(getResources().getString(R.string.my_shows), R.drawable.eye_64));
         items.add(new DrawerListData(getString(R.string.upcoming_shows), R.drawable.calendar_64));
         items.add(new DrawerListData(getString(R.string.recent_shows), R.drawable.recent_64));
+        items.add(new DrawerListHeader(getString(R.string.cinemaText)));
+        items.add(new DrawerListData(getString(R.string.cinemaSchedules), R.drawable.cinema));
 
         _drawerList.setAdapter(
                 new DrawerListAdapter(this, items)
@@ -196,6 +200,9 @@ public class MainActivity extends Activity
                     break;
                 case 11:
                     intent = new Intent(this, RecentShowsActivity.class);
+                    break;
+                case 13: //Todo: This should not be here
+                    intent = new Intent(this, CinemaActivity.class);
                     break;
             }
 
