@@ -1,15 +1,24 @@
 package is.activites.cinemaActivities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.ListView;
+
 import java.util.List;
-import is.contracts.datacontracts.Cinema.CinemaMovies;
+
+import is.contracts.datacontracts.Cinema.CinemaMovie;
+import is.handlers.adapters.CinemaAdapter;
+import is.handlers.adapters.TraktAdapter;
 import is.parsers.cinema.CinemaParser;
 import is.tvpal.R;
 
 public class CinemaActivity extends Activity
 {
+    private CinemaAdapter mAdapter;
+    private ListView mListView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -21,13 +30,26 @@ public class CinemaActivity extends Activity
 
     private void Initialize()
     {
-        new GetMovieScedules().execute();
+        mListView = (ListView) findViewById(R.id.cinemaSchedules);
+
+        new GetMovieScedules(this).execute();
     }
 
-    private class GetMovieScedules extends AsyncTask<String, Void, List<CinemaMovies>>
+    /**
+     * A class which creates a new thread to Download Cinema Data
+     * @author Arnar
+     */
+    private class GetMovieScedules extends AsyncTask<String, Void, List<CinemaMovie>>
     {
+        private Context mContext;
+
+        public GetMovieScedules(Context context)
+        {
+            this.mContext = context;
+        }
+
         @Override
-        protected List<CinemaMovies> doInBackground(String... strings)
+        protected List<CinemaMovie> doInBackground(String... strings)
         {
             return getMovies();
         }
@@ -39,12 +61,14 @@ public class CinemaActivity extends Activity
         }
 
         @Override
-        protected void onPostExecute(List<CinemaMovies> movies)
+        protected void onPostExecute(List<CinemaMovie> movies)
         {
-            //TODO:set movies adapter & close progress bar
+            mAdapter = new CinemaAdapter(mContext, R.layout.listview_cinema_schedules, movies);
+            mListView.setAdapter(mAdapter);
+            //Todo: Close progressbar
         }
 
-        public List<CinemaMovies> getMovies()
+        public List<CinemaMovie> getMovies()
         {
             CinemaParser parser = new CinemaParser();
             return parser.GetMovieSchedules();

@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  *  Datacontract to store information about movies
  *  @author Arnar
  */
-public class CinemaMovies
+public class CinemaMovie
 {
     @SerializedName("title")
     public String title;

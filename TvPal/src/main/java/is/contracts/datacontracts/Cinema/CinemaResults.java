@@ -10,7 +10,7 @@ import java.util.List;
 public class CinemaResults
 {
     @SerializedName("results")
-    public List<CinemaMovies> movies;
+    public List<CinemaMovie> movies;
 
-    public List<CinemaMovies> getMovies() { return this.movies; }
+    public List<CinemaMovie> getMovies() { return this.movies; }
 }
