@@ -81,7 +81,7 @@ public class MainActivity extends Activity
         items.add(new DrawerListData(getString(R.string.upcoming_shows), R.drawable.calendar_64));
         items.add(new DrawerListData(getString(R.string.recent_shows), R.drawable.recent_64));
         items.add(new DrawerListHeader(getString(R.string.cinemaText)));
-        items.add(new DrawerListData(getString(R.string.cinemaSchedules), R.drawable.cinema));
+        items.add(new DrawerListData(getString(R.string.cinemaSchedules), R.drawable.cinema_64));
 
         _drawerList.setAdapter(
                 new DrawerListAdapter(this, items)
