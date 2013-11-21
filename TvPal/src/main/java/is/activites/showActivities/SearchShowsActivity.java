@@ -83,7 +83,7 @@ public class SearchShowsActivity extends FragmentActivity implements ActionBar.T
                 case 0:
                     return new SearchShowFragment(context);
                 case 1:
-                    return new TraktFragment(context);
+                    return new TraktTrendingFragment(context);
             }
             return null;
         }

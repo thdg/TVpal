@@ -23,19 +23,19 @@ import is.tvpal.R;
  * @author Arnar
  * @see android.support.v4.app.Fragment
  */
-public class TraktFragment extends Fragment implements AdapterView.OnItemClickListener
+public class TraktTrendingFragment extends Fragment implements AdapterView.OnItemClickListener
 {
     private Context mContext;
     private ListView mListView;
     private TraktAdapter mAdapter;
     private ProgressBar mProgessBar;
 
-    public TraktFragment(Context context)
+    public TraktTrendingFragment(Context context)
     {
         this.mContext = context;
     }
 
-    public TraktFragment() {}
+    public TraktTrendingFragment() {}
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
