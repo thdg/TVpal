@@ -31,30 +31,30 @@ public class TheatreExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public int getChildrenCount(int i) {
-        CinemaShowtimes group = (CinemaShowtimes) this.getGroup(i);
+    public int getChildrenCount(int groupPos) {
+        CinemaShowtimes group = (CinemaShowtimes) this.getGroup(groupPos);
         return group.getSchedule().size();
     }
 
     @Override
-    public Object getGroup(int i) {
-        return this._showtimes.get(i);
+    public Object getGroup(int groupPos) {
+        return this._showtimes.get(groupPos);
     }
 
     @Override
-    public Object getChild(int i, int i2) {
-        CinemaShowtimes group = (CinemaShowtimes) this.getGroup(i);
-        return group.getSchedule().get(i);
+    public Object getChild(int groupPos, int childPos) {
+        CinemaShowtimes group = (CinemaShowtimes) this.getGroup(groupPos);
+        return group.getSchedule().get(childPos);
     }
 
     @Override
-    public long getGroupId(int i) {
-        return i;
+    public long getGroupId(int groupPos) {
+        return groupPos;
     }
 
     @Override
-    public long getChildId(int i, int i2) {
-        return i2;
+    public long getChildId(int groupPos, int childPos) {
+        return childPos;
     }
 
     @Override
