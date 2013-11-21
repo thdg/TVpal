@@ -5,6 +5,8 @@
     android:id="@+id/expandleMovie"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:divider="#333"
+    android:dividerHeight="1dp"
+    android:childDivider="#666"
     android:background="@drawable/logo_background">
-
 </ExpandableListView>
