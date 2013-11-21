@@ -33,4 +33,13 @@
         android:text="runtime"
         android:textColor="#fff"/>
 
+    <TextView
+        android:id="@+id/traktGenres"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/traktRunTime"
+        android:text="genres"
+        android:textColor="#fff"
+        android:lineSpacingMultiplier="1.2"/>
+
 </RelativeLayout>

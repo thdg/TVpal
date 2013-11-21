@@ -49,6 +49,7 @@ public class TraktMoviesAdapter extends BaseAdapter
         TextView title;
         TextView overview;
         TextView runtime;
+        TextView genres;
     }
 
     @Override
@@ -66,6 +67,7 @@ public class TraktMoviesAdapter extends BaseAdapter
             holder.title = (TextView) row.findViewById(R.id.traktMovieTitle);
             holder.overview = (TextView) row.findViewById(R.id.traktMovieOverview);
             holder.runtime = (TextView) row.findViewById(R.id.traktRunTime);
+            holder.genres = (TextView) row.findViewById(R.id.traktGenres);
 
             row.setTag(holder);
         }
@@ -80,7 +82,22 @@ public class TraktMoviesAdapter extends BaseAdapter
         holder.overview.setText(movie.getOverview());
         holder.runtime.setText(String.format("Runtime: %s minutes", movie.getRuntime()));
 
+        String genres = joinToString(movie.getGenres());
+        holder.genres.setText(String.format("Genres: %s", genres));
+
         return row;
+    }
+
+    private String joinToString(List<String> strings)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        for (String s : strings)
+        {
+            sb.append(s).append(",");
+        }
+        
+        return sb.toString();
     }
 
     @Override
