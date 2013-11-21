@@ -15,7 +15,7 @@
         android:src="@drawable/movie"/>
 
     <RelativeLayout
-        android:layout_width="0"
+        android:layout_width="0dp"
         android:layout_weight="6"
         android:layout_height="wrap_content">
 
@@ -23,7 +23,7 @@
             android:id="@+id/cinemaTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
+            android:paddingTop="10dp"
             android:textStyle="bold"
             android:textSize="22sp"
             android:text="Movie"
@@ -43,7 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="Bönnuð innan"/>
+            android:text="Bönnuð innan"
+            android:paddingBottom="10dp"/>
 
     </RelativeLayout>
 
