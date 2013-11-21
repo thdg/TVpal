@@ -2,13 +2,14 @@ package is.contracts.datacontracts.Cinema;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *  Datacontract to store information about movies
  *  @author Arnar
  */
-public class CinemaMovie
+public class CinemaMovie implements Serializable
 {
     @SerializedName("title")
     public String title;

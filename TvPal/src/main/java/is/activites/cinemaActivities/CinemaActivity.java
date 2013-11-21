@@ -2,9 +2,11 @@ package is.activites.cinemaActivities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -16,8 +18,10 @@ import is.handlers.adapters.TraktAdapter;
 import is.parsers.cinema.CinemaParser;
 import is.tvpal.R;
 
-public class CinemaActivity extends Activity
+public class CinemaActivity extends Activity implements AdapterView.OnItemClickListener
 {
+    public static final String EXTRA_MOVIE = "is.activites.cinemaActivities.MOVIE";
+
     private CinemaAdapter mAdapter;
     private ListView mListView;
     private ProgressBar mProgressBar;
@@ -37,6 +41,16 @@ public class CinemaActivity extends Activity
         mProgressBar = (ProgressBar) findViewById(R.id.progressIndicator);
 
         new GetMovieScedules(this).execute();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
+    {
+        CinemaMovie movie = mAdapter.getItem(position);
+
+        Intent intent = new Intent(this, DetailedMovieActivity.class);
+        intent.putExtra(EXTRA_MOVIE, movie);
+        startActivity(intent);
     }
 
     /**

@@ -81,6 +81,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_cinema" >
         </activity>
+        <activity
+            android:name="is.activites.cinemaActivities.DetailedMovieActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_cinema" >
+        </activity>
     </application>
 
 </manifest>
