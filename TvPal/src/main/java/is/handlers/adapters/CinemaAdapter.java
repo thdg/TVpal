@@ -48,6 +48,9 @@ public class CinemaAdapter extends BaseAdapter
     {
         TextView title;
         ImageView image;
+        TextView imdb;
+        TextView restricted;
+        int position;
     }
 
     @Override
@@ -64,6 +67,8 @@ public class CinemaAdapter extends BaseAdapter
             holder = new CinemaHolder();
             holder.title = (TextView) row.findViewById(R.id.cinemaTitle);
             holder.image = (ImageView) row.findViewById(R.id.cinemaPicture);
+            holder.imdb = (TextView) row.findViewById(R.id.cinemaImdbScore);
+            holder.restricted = (TextView) row.findViewById(R.id.cinemaRestricted);
 
             row.setTag(holder);
         }
@@ -72,13 +77,17 @@ public class CinemaAdapter extends BaseAdapter
             holder = (CinemaHolder)row.getTag();
         }
 
-        final CinemaMovie show = getItem(position);
+        final CinemaMovie movie = getItem(position);
 
-        holder.title.setText(show.getTitle());
+        holder.position = position;
+        holder.title.setText(movie.getTitle());
+        holder.imdb.setText(movie.getImdb());
+        holder.restricted.setText(movie.getRestricted());
 
         if (images.get(position) == null)
         {
-            new GetMoviePoster(show.getImageUrl(), position).execute(holder.image);
+            holder.image.setVisibility(View.INVISIBLE);
+            new GetMoviePoster(movie.getImageUrl(), position).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, holder);
         }
         else
         {
@@ -88,10 +97,10 @@ public class CinemaAdapter extends BaseAdapter
         return row;
     }
 
-    private class GetMoviePoster extends AsyncTask<ImageView, Void, Bitmap>
+    private class GetMoviePoster extends AsyncTask<CinemaHolder, Void, Bitmap>
     {
         private String posterUrl;
-        private ImageView imageView;
+        private CinemaHolder holder;
         private int position;
 
         /**
@@ -104,9 +113,9 @@ public class CinemaAdapter extends BaseAdapter
         }
 
         @Override
-        protected Bitmap doInBackground(ImageView... view)
+        protected Bitmap doInBackground(CinemaHolder... view)
         {
-            imageView = view[0];
+            holder = view[0];
             return GetPoster();
         }
 
@@ -116,7 +125,11 @@ public class CinemaAdapter extends BaseAdapter
             if (bitmap != null)
             {
                 images.put(position, bitmap);
-                imageView.setImageBitmap(bitmap);
+                if (holder.position == position)
+                {
+                    holder.image.setImageBitmap(bitmap);
+                    holder.image.setVisibility(View.VISIBLE);
+                }
             }
         }
 

@@ -15,7 +15,7 @@
         android:src="@drawable/movie"/>
 
     <RelativeLayout
-        android:layout_width="0"
+        android:layout_width="0dp"
         android:layout_weight="6"
         android:layout_height="wrap_content">
 
