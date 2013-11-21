@@ -60,7 +60,7 @@
     <string name="title_activity_show">ShowActivity</string>
     <string name="title_activity_trakt">TraktActivity</string>
     <string name="title_activity_search_shows">Search TV Shows</string>
-    <string name="title_activity_cinema">Bíó</string>
+    <string name="title_activity_cinema">Bíó sýningar</string>
     <string name="cinemaText">Bíó</string>
     <string name="cinemaSchedules">Bíó sýningar</string>
 

@@ -128,8 +128,8 @@ public class CinemaAdapter extends BaseAdapter
                 if (holder.position == position)
                 {
                     holder.image.setImageBitmap(bitmap);
-                    holder.image.setVisibility(View.VISIBLE);
                 }
+                holder.image.setVisibility(View.VISIBLE);
             }
         }
 
