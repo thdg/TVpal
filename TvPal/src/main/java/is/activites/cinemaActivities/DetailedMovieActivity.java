@@ -7,7 +7,7 @@ import is.contracts.datacontracts.Cinema.CinemaMovie;
 import is.tvpal.R;
 
 /**
- * Created by Arnar on 21.11.2013.
+ * Created by thorsteinn on 21.11.2013.
  */
 public class DetailedMovieActivity extends Activity
 {
