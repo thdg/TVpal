@@ -20,7 +20,7 @@ public class CinemaMovie
     public String imdb;
 
     @SerializedName("image")
-    public String image;
+    public String imageUrl;
 
     @SerializedName("showtimes")
     public List<CinemaShowtimes> showtimes;
@@ -28,6 +28,6 @@ public class CinemaMovie
     public String getTitle() { return this.title; }
     public String getRestricted() { return this.restricted; }
     public String getImdb() { return this.imdb; }
-    public String getImage() { return this.image; }
+    public String getImageUrl() { return this.imageUrl; }
     public List<CinemaShowtimes> getShowtimes() { return this.showtimes; }
 }
