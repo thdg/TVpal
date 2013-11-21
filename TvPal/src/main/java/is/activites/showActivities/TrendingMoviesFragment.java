@@ -13,7 +13,6 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 import java.util.List;
 import is.contracts.datacontracts.TraktMovieData;
-import is.handlers.adapters.TraktEpisodeAdapter;
 import is.handlers.adapters.TraktMoviesAdapter;
 import is.parsers.trakt.TraktParser;
 import is.tvpal.R;
@@ -48,7 +47,7 @@ public class TrendingMoviesFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.fragment_trakt, container, false);
+        return inflater.inflate(R.layout.fragment_trakt_movies, container, false);
     }
 
     private class GetTrendingMovies extends AsyncTask<String, Void, List<TraktMovieData>>

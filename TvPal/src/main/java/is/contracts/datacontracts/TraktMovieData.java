@@ -16,11 +16,7 @@ public class TraktMovieData
     @SerializedName("overview")
     public String overview;
 
-    @SerializedName("poster")
-    public String poster;
-
     public String getTitle() { return this.title; }
     public int getRuntime() { return this.runtime; }
     public String getOverview() { return this.overview; }
-    public String getPoster() { return this.poster; }
 }

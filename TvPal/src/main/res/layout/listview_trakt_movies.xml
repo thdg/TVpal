@@ -3,16 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_margin="10dp"
-    android:background="#FFF"
-    android:padding="5dp">
+    android:background="#222"
+    android:padding="10dp">
 
     <TextView android:id="@+id/traktMovieTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="22sp"
         android:text="Show:"
-        android:textColor="#000000"/>
+        android:textColor="#fff"/>
 
     <TextView
         android:id="@+id/traktMovieOverview"
@@ -21,7 +20,17 @@
         android:text="overviewtexti bwasdfasdsdfasdfsioh"
         android:layout_below="@+id/traktMovieTitle"
         android:textSize="14sp"
+        android:textColor="#fff"
         android:maxLines="3"
         android:lineSpacingMultiplier="1.2"/>
+
+    <TextView
+        android:id="@+id/traktRunTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/traktMovieOverview"
+        android:textSize="14sp"
+        android:text="runtime"
+        android:textColor="#fff"/>
 
 </RelativeLayout>

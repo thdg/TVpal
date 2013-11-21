@@ -53,7 +53,7 @@ public class TrendingEpisodesFragment extends Fragment implements AdapterView.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.fragment_trakt, container, false);
+        return inflater.inflate(R.layout.fragment_trakt_episodes, container, false);
     }
 
     @Override
