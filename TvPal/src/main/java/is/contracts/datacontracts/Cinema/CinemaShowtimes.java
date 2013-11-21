@@ -2,12 +2,13 @@ package is.contracts.datacontracts.Cinema;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Arnar on 21.11.2013.
  */
-public class CinemaShowtimes
+public class CinemaShowtimes implements Serializable
 {
     @SerializedName("theater")
     public String theater;

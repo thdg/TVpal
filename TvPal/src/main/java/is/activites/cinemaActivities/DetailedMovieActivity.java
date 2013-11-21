@@ -3,7 +3,10 @@ package is.activites.cinemaActivities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ExpandableListView;
+
 import is.contracts.datacontracts.Cinema.CinemaMovie;
+import is.handlers.adapters.TheatreExpandableListAdapter;
 import is.tvpal.R;
 
 /**
@@ -15,7 +18,7 @@ public class DetailedMovieActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cinema);
+        setContentView(R.layout.activity_cinema_theatres);
 
         Initialize();
     }
@@ -25,5 +28,9 @@ public class DetailedMovieActivity extends Activity
         Intent intent = getIntent();
 
         CinemaMovie movie = (CinemaMovie) intent.getSerializableExtra(CinemaActivity.EXTRA_MOVIE);
+
+        ExpandableListView adapter = (ExpandableListView) findViewById(R.id.expandleMovie);
+
+        adapter.setAdapter(new TheatreExpandableListAdapter(this, movie.getShowtimes()));
     }
 }
