@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class CinemaActivity extends Activity
 {
     private CinemaAdapter mAdapter;
     private ListView mListView;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,6 +34,7 @@ public class CinemaActivity extends Activity
     private void Initialize()
     {
         mListView = (ListView) findViewById(R.id.cinemaSchedules);
+        mProgressBar = (ProgressBar) findViewById(R.id.progressIndicator);
 
         new GetMovieScedules(this).execute();
     }
@@ -57,7 +61,7 @@ public class CinemaActivity extends Activity
         @Override
         protected void onPreExecute()
         {
-            //TODO:Initialize the progress bar
+            mProgressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -65,7 +69,7 @@ public class CinemaActivity extends Activity
         {
             mAdapter = new CinemaAdapter(mContext, R.layout.listview_cinema_schedules, movies);
             mListView.setAdapter(mAdapter);
-            //Todo: Close progressbar
+            mProgressBar.setVisibility(View.GONE);
         }
 
         public List<CinemaMovie> getMovies()
