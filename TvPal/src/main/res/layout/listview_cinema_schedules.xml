@@ -14,16 +14,37 @@
         android:layout_gravity="center_vertical"
         android:src="@drawable/movie"/>
 
-    <TextView
-        android:id="@+id/cinemaTitle"
-        android:layout_width="0dp"
+    <RelativeLayout
+        android:layout_width="0"
         android:layout_weight="6"
-        android:layout_height="80dp"
-        android:layout_margin="5dp"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:gravity="center_vertical"
-        android:text="Movie"
-        android:textColor="#000000"/>
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/cinemaTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:text="Movie"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:id="@+id/cinemaImdbScore"
+            android:layout_below="@+id/cinemaTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="IMDB"/>
+
+        <TextView
+            android:id="@+id/cinemaRestricted"
+            android:layout_below="@+id/cinemaImdbScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Bönnuð innan"/>
+
+    </RelativeLayout>
 
 </LinearLayout>
