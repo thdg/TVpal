@@ -10,9 +10,11 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import is.activites.baseActivities.BaseFragmentActivity;
 import is.tvpal.R;
 
-public class SearchShowsActivity extends FragmentActivity implements ActionBar.TabListener
+public class SearchShowsActivity extends BaseFragmentActivity implements ActionBar.TabListener
 {
     private ViewPager mViewPager;
 
@@ -98,19 +100,6 @@ public class SearchShowsActivity extends FragmentActivity implements ActionBar.T
         public CharSequence getPageTitle(int position)
         {
             return position == 0 ? "Search" : "Trending";
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch(item.getItemId())
-        {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 }

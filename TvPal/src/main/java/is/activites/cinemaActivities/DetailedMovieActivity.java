@@ -1,9 +1,9 @@
 package is.activites.cinemaActivities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ExpandableListView;
+import is.activites.baseActivities.BaseActivity;
 import is.contracts.datacontracts.Cinema.CinemaMovie;
 import is.handlers.adapters.TheatreExpandableListAdapter;
 import is.tvpal.R;
@@ -11,7 +11,7 @@ import is.tvpal.R;
 /**
  * Created by Arnar on 21.11.2013.
  */
-public class DetailedMovieActivity extends Activity
+public class DetailedMovieActivity extends BaseActivity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -24,6 +24,8 @@ public class DetailedMovieActivity extends Activity
 
     private void Initialize()
     {
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
         Intent intent = getIntent();
         CinemaMovie movie = (CinemaMovie) intent.getSerializableExtra(CinemaActivity.EXTRA_MOVIE);
 

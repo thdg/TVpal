@@ -3,26 +3,23 @@ package is.activites.scheduleActivites;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import is.activites.baseActivities.BaseFragmentActivity;
 import is.contracts.datacontracts.EventData;
 import is.parsers.schedules.SkjarinnScheduleParser;
 import is.utilities.DateUtil;
@@ -38,7 +35,7 @@ import is.tvpal.R;
  * @see import android.support.v4.app.FragmentActivity;
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class DisplaySkjarinnActivity extends FragmentActivity implements ActionBar.TabListener
+public class DisplaySkjarinnActivity extends BaseFragmentActivity implements ActionBar.TabListener
 {
     public static final String skjarinnUrl = "http://www.skjarinn.is/einn/dagskrarupplysingar/?channel_id=7&weeks=1&output_format=xml";
 
@@ -210,19 +207,6 @@ public class DisplaySkjarinnActivity extends FragmentActivity implements ActionB
             }
 
             return "Error";
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch(item.getItemId())
-        {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 }

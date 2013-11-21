@@ -9,12 +9,10 @@ import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.MenuItem;
-
+import is.activites.baseActivities.BaseFragmentActivity;
 import is.contracts.datacontracts.EpisodeData;
 import is.handlers.database.DbShowHandler;
 import is.tvpal.R;
@@ -26,7 +24,7 @@ import is.tvpal.R;
  * @see android.app.ActionBar.TabListener
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class EpisodeActivity extends FragmentActivity implements ActionBar.TabListener
+public class EpisodeActivity extends BaseFragmentActivity implements ActionBar.TabListener
 {
     private int _seriesId;
     private int _seasonNr;
@@ -88,19 +86,6 @@ public class EpisodeActivity extends FragmentActivity implements ActionBar.TabLi
         }
 
         actionBar.setSelectedNavigationItem(_pos);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch(item.getItemId())
-        {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     @Override

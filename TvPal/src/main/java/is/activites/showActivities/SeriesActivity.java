@@ -7,17 +7,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.MenuItem;
+import is.activites.baseActivities.BaseFragmentActivity;
 import is.handlers.database.DbShowHandler;
 import is.tvpal.R;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class SeriesActivity extends FragmentActivity implements ActionBar.TabListener
+public class SeriesActivity extends BaseFragmentActivity implements ActionBar.TabListener
 {
     private ViewPager mViewPager;
     private int seriesId;
@@ -109,19 +108,6 @@ public class SeriesActivity extends FragmentActivity implements ActionBar.TabLis
         public CharSequence getPageTitle(int position)
         {
             return position == 0 ? "Overview" : "Seasons";
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch(item.getItemId())
-        {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 }

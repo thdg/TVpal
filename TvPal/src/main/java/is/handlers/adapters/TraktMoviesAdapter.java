@@ -96,7 +96,7 @@ public class TraktMoviesAdapter extends BaseAdapter
         {
             sb.append(s).append(",");
         }
-        
+
         return sb.toString();
     }
 

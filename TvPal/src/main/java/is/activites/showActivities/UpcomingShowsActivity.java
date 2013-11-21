@@ -5,11 +5,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Activity;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import is.activites.baseActivities.BaseActivity;
 import is.handlers.adapters.UpcomingRecentAdapter;
 import is.handlers.database.DbShowHandler;
 import is.tvpal.R;
@@ -19,7 +18,7 @@ import is.tvpal.R;
  * @author Arnar
  */
 
-public class UpcomingShowsActivity extends Activity implements AdapterView.OnItemClickListener
+public class UpcomingShowsActivity extends BaseActivity implements AdapterView.OnItemClickListener
 {
     private UpcomingRecentAdapter _adapter;
 
@@ -44,19 +43,6 @@ public class UpcomingShowsActivity extends Activity implements AdapterView.OnIte
         _listView.setAdapter(_adapter);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch(item.getItemId())
-        {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     @Override

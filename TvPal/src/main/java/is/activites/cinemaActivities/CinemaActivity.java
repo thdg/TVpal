@@ -1,22 +1,21 @@
 package is.activites.cinemaActivities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import java.util.List;
+import is.activites.baseActivities.BaseActivity;
 import is.contracts.datacontracts.Cinema.CinemaMovie;
 import is.handlers.adapters.CinemaAdapter;
 import is.parsers.cinema.CinemaParser;
 import is.tvpal.R;
 
-public class CinemaActivity extends Activity implements AdapterView.OnItemClickListener
+public class CinemaActivity extends BaseActivity implements AdapterView.OnItemClickListener
 {
     public static final String EXTRA_MOVIE = "is.activites.cinemaActivities.MOVIE";
 
@@ -91,19 +90,6 @@ public class CinemaActivity extends Activity implements AdapterView.OnItemClickL
         {
             CinemaParser parser = new CinemaParser();
             return parser.GetMovieSchedules();
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch(item.getItemId())
-        {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 }

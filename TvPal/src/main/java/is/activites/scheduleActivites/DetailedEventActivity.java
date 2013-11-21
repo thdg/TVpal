@@ -1,13 +1,12 @@
 package is.activites.scheduleActivites;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.TextView;
 
+import is.activites.baseActivities.BaseActivity;
 import is.contracts.datacontracts.EventData;
 import is.tvpal.R;
 
@@ -17,7 +16,7 @@ import is.tvpal.R;
  * This class handles the activity to show detailed event information
  * when an event has been selected.
  */
-public class DetailedEventActivity extends Activity {
+public class DetailedEventActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,19 +51,6 @@ public class DetailedEventActivity extends Activity {
         if (!event.getDuration().equals("")) {
             TextView eventDuration = (TextView) findViewById(R.id.event_duration);
             eventDuration.setText(String.format("%s: %s", getResources().getString(R.string.duration), event.getDuration()));
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch(item.getItemId())
-        {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 }

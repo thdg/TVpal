@@ -1,20 +1,17 @@
 package is.activites.showActivities;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.MenuItem;
-
+import is.activites.baseActivities.BaseFragmentActivity;
 import is.tvpal.R;
 
-public class SearchMoviesActivity extends FragmentActivity implements ActionBar.TabListener
+public class SearchMoviesActivity extends BaseFragmentActivity implements ActionBar.TabListener
 {
     private ViewPager mViewPager;
 
@@ -97,19 +94,6 @@ public class SearchMoviesActivity extends FragmentActivity implements ActionBar.
         public CharSequence getPageTitle(int position)
         {
             return "Trending";
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch(item.getItemId())
-        {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 }
