@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import java.util.List;
 import is.contracts.datacontracts.TraktMovieData;
@@ -33,6 +34,7 @@ public class SearchMovieFragment extends Fragment
     private Context mContext;
     private TraktMoviesAdapter mAdapter;
     private ListView mListView;
+    private ProgressBar mProgressBar;
 
     public SearchMovieFragment(Context context)
     {
@@ -46,6 +48,7 @@ public class SearchMovieFragment extends Fragment
 
         mEditSearch = (EditText) getView().findViewById(R.id.traktSearchMovie);
         mListView = (ListView) getView().findViewById(R.id.traktMovieResults);
+        mProgressBar = (ProgressBar) getView().findViewById(R.id.traktProgressIndicator);
 
         InitializeEditTextSearch();
     }
@@ -100,11 +103,19 @@ public class SearchMovieFragment extends Fragment
         }
 
         @Override
+        protected void onPreExecute()
+        {
+            mListView.setAdapter(null);
+            mProgressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected void onPostExecute(List<TraktMovieData> movies)
         {
             mAdapter = new TraktMoviesAdapter(mContext, R.layout.listview_trakt_movies, movies);
 
             mListView.setAdapter(mAdapter);
+            mProgressBar.setVisibility(View.GONE);
         }
 
         private List<TraktMovieData> searchMovie(String movie)
