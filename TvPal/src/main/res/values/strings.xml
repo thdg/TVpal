@@ -46,8 +46,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_episode">Episodes</string>
     <string name="emptyShows">You have not added any shows</string>
-    <string name="title_activity_upcoming_shows">Upcoming shows</string>
-    <string name="upcoming_shows">Upcoming shows</string>
+    <string name="title_activity_upcoming_shows">Upcoming &amp; Recent shows</string>
+    <string name="upcoming_shows">Upcoming/Recent</string>
     <string name="title_activity_recent_shows">Recent shows</string>
     <string name="recent_shows">Recent shows</string>
     <string name="shows_header">Shows</string>

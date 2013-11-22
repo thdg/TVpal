@@ -58,12 +58,9 @@
             android:label="@string/title_activity_episode" >
         </activity>
         <activity
-            android:name="is.activites.showActivities.UpcomingShowsActivity"
+            android:name="is.activites.showActivities.UpcomingRecentActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_upcoming_shows" >
-        </activity>
-        <activity
-            android:name="is.activites.showActivities.RecentShowsActivity"
-            android:label="@string/title_activity_recent_shows" >
         </activity>
         <activity
             android:name="is.activites.showActivities.SeriesActivity"

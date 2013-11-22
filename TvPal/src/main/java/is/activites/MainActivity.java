@@ -21,10 +21,9 @@ import is.activites.scheduleActivites.DisplayRuvActivity;
 import is.activites.scheduleActivites.DisplaySkjarinnActivity;
 import is.activites.scheduleActivites.DisplayStod2Activity;
 import is.activites.showActivities.MyShowsActivity;
-import is.activites.showActivities.RecentShowsActivity;
 import is.activites.movieActivities.SearchMoviesActivity;
 import is.activites.showActivities.SearchShowsActivity;
-import is.activites.showActivities.UpcomingShowsActivity;
+import is.activites.showActivities.UpcomingRecentActivity;
 import is.contracts.datacontracts.DrawerListData;
 import is.contracts.datacontracts.DrawerListHeader;
 import is.contracts.datacontracts.IDrawerItem;
@@ -80,7 +79,6 @@ public class MainActivity extends Activity
         items.add(new DrawerListData(getResources().getString(R.string.search_show), R.drawable.m_glass_64));
         items.add(new DrawerListData(getResources().getString(R.string.my_shows), R.drawable.eye_64));
         items.add(new DrawerListData(getString(R.string.upcoming_shows), R.drawable.calendar_64));
-        items.add(new DrawerListData(getString(R.string.recent_shows), R.drawable.recent_64));
         items.add(new DrawerListHeader(getString(R.string.cinemaText)));
         items.add(new DrawerListData(getString(R.string.cinemaSchedules), R.drawable.cinema_64));
         items.add(new DrawerListData(getString(R.string.trakt_search_movies), R.drawable.m_glass_64));
@@ -148,7 +146,7 @@ public class MainActivity extends Activity
             boolean networkAvailable = _connectivityListener.isNetworkAvailable();
             Intent intent = null;
 
-            if((position >= 1 && position < 9))
+            if((position >= 1 && position < 8))
             {
                 if(networkAvailable)
                 {
@@ -198,15 +196,12 @@ public class MainActivity extends Activity
                     intent = new Intent(this, MyShowsActivity.class);
                     break;
                 case 10:
-                    intent = new Intent(this, UpcomingShowsActivity.class);
+                    intent = new Intent(this, UpcomingRecentActivity.class);
                     break;
-                case 11:
-                    intent = new Intent(this, RecentShowsActivity.class);
-                    break;
-                case 13: //Todo: This should not be here
+                case 12: //Todo: This should not be here
                     intent = new Intent(this, CinemaActivity.class);
                     break;
-                case 14:
+                case 13: //TODO: This should also not be here
                     intent = new Intent(this, SearchMoviesActivity.class);
                     break;
             }
