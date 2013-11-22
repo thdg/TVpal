@@ -32,7 +32,7 @@ public class SearchMoviesActivity extends BaseFragmentActivity implements Action
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (ViewPager) findViewById(R.id.pagerSearch);
         mViewPager.setAdapter(mScheduleAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener()
         {

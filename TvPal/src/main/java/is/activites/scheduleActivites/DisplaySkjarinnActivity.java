@@ -71,7 +71,7 @@ public class DisplaySkjarinnActivity extends BaseFragmentActivity implements Act
 
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (ViewPager) findViewById(R.id.pagerSchedules);
         mViewPager.setAdapter(mScheduleAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override

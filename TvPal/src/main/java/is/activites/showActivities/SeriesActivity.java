@@ -44,7 +44,7 @@ public class SeriesActivity extends BaseFragmentActivity implements ActionBar.Ta
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (ViewPager) findViewById(R.id.pagerSeries);
         mViewPager.setAdapter(mScheduleAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener()
         {

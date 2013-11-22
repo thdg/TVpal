@@ -68,7 +68,7 @@ public class EpisodeActivity extends BaseFragmentActivity implements ActionBar.T
         getActionBar().setDisplayHomeAsUpEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (ViewPager) findViewById(R.id.pagerSeries);
         mViewPager.setAdapter(mScheduleAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override

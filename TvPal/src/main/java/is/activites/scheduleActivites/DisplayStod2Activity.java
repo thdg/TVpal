@@ -76,7 +76,7 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
 
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (ViewPager) findViewById(R.id.pagerSchedules);
         mViewPager.setAdapter(mScheduleAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
