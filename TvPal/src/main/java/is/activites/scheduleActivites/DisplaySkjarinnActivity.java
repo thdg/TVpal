@@ -14,6 +14,8 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,6 +46,7 @@ public class DisplaySkjarinnActivity extends BaseFragmentActivity implements Act
     private SchedulePagerAdapter mScheduleAdapter;
     private ViewPager mViewPager;
     private ProgressBar mProgressBar;
+    private TextView mNoResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,6 +61,7 @@ public class DisplaySkjarinnActivity extends BaseFragmentActivity implements Act
     {
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         mProgressBar = (ProgressBar) findViewById(R.id.progressSchedules);
+        mNoResults = (TextView) findViewById(R.id.noSchedules);
         new DownloadSkjarinnSchedules().execute(skjarinnUrl);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -158,10 +162,10 @@ public class DisplaySkjarinnActivity extends BaseFragmentActivity implements Act
         }
     }
 
-    private class DownloadSkjarinnSchedules extends AsyncTask<String, Void, String>
+    private class DownloadSkjarinnSchedules extends AsyncTask<String, Void, Boolean>
     {
         @Override
-        protected String doInBackground(String... urls)
+        protected Boolean doInBackground(String... urls)
         {
             try
             {
@@ -170,7 +174,7 @@ public class DisplaySkjarinnActivity extends BaseFragmentActivity implements Act
             catch (IOException e)
             {
                 Log.e(getClass().getName(), e.getMessage());
-                return "Unable to retrieve web page. URL may be invalid";
+                return false;
             }
         }
 
@@ -181,16 +185,21 @@ public class DisplaySkjarinnActivity extends BaseFragmentActivity implements Act
         }
 
         @Override
-        protected void onPostExecute(String result)
+        protected void onPostExecute(Boolean result)
         {
-            if (result.equalsIgnoreCase("Successful"))
+            if (result)
+            {
                 CreateTabViews();
+            }
+            else
+            {
+                mNoResults.setVisibility(View.VISIBLE);
+            }
 
-            //Return error message if doInBackground fails
             mProgressBar.setVisibility(View.GONE);
         }
 
-        private String GetSchedules(String myurl) throws IOException
+        private Boolean GetSchedules(String myurl) throws IOException
         {
             try
             {
@@ -199,14 +208,14 @@ public class DisplaySkjarinnActivity extends BaseFragmentActivity implements Act
 
                 _workingDate = _events.get(0).getEventDate();
 
-                return "Successful";
+                return true;
             }
             catch (Exception ex)
             {
                 Log.e(getClass().getName(), ex.getMessage());
             }
 
-            return "Error";
+            return false;
         }
     }
 }

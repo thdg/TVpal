@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -44,9 +45,9 @@ public class DisplayRuvActivity extends BaseFragmentActivity implements ActionBa
 
     private List<EventData> _events;
     private String _workingDate;
-    private SchedulePagerAdapter mScheduleAdapter;
     private ViewPager mViewPager;
     private ProgressBar mProgressBar;
+    private TextView mNoResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -61,6 +62,7 @@ public class DisplayRuvActivity extends BaseFragmentActivity implements ActionBa
     {
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         mProgressBar = (ProgressBar) findViewById(R.id.progressSchedules);
+        mNoResults = (TextView) findViewById(R.id.noSchedules);
         String ruvUrl = String.format("%s%s", RuvUrl, DateUtil.GetCorrectRuvUrlFormat());
         new DownloadRuvSchedules().execute(ruvUrl);
 
@@ -70,7 +72,7 @@ public class DisplayRuvActivity extends BaseFragmentActivity implements ActionBa
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void CreateTabViews()
     {
-        mScheduleAdapter = new SchedulePagerAdapter(getSupportFragmentManager(), this);
+        SchedulePagerAdapter mScheduleAdapter = new SchedulePagerAdapter(getSupportFragmentManager(), this);
 
         final ActionBar actionBar = getActionBar();
 
@@ -188,9 +190,14 @@ public class DisplayRuvActivity extends BaseFragmentActivity implements ActionBa
         protected void onPostExecute(Boolean successful)
         {
             if (successful)
+            {
                 CreateTabViews();
+            }
+            else
+            {
+                mNoResults.setVisibility(View.VISIBLE);
+            }
 
-            //Return error message if doInBackground fails
             mProgressBar.setVisibility(View.GONE);
         }
 

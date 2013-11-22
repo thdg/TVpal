@@ -142,55 +142,39 @@ public class MainActivity extends Activity
     {
         try
         {
-            boolean networkAvailable = _connectivityListener.isNetworkAvailable();
             Intent intent = null;
-
-            if((position >= 1 && position < 9))
-            {
-                if(networkAvailable)
-                {
-                    switch (position)
-                    {
-                        case 1:
-                            intent = new Intent(this, DisplayRuvActivity.class);
-                            break;
-                        case 2:
-                            intent = new Intent(this, DisplayStod2Activity.class);
-                            intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BaseUrl));
-                            intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_2));
-                            break;
-                        case 3:
-                            intent = new Intent(this, DisplayStod2Activity.class);
-                            intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2SportBaseUrl));
-                            intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_2_sport));
-                            break;
-                        case 4:
-                            intent = new Intent(this, DisplayStod2Activity.class);
-                            intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BioBaseUrl));
-                            intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_2_bio));
-                            break;
-                        case 5:
-                            intent = new Intent(this, DisplayStod2Activity.class);
-                            intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod3BaseUrl));
-                            intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_3));
-                            break;
-                        case 6:
-                            intent = new Intent(this, DisplaySkjarinnActivity.class);
-                            break;
-                        case 8:
-                            intent = new Intent(this, SearchShowsActivity.class);
-                            break;
-                    }
-                }
-                else
-                {
-                    DialogUtil.showNetworkAlertDialog(this);
-                    return; //So the navigation bar stays open
-                }
-            }
 
             switch (position)
             {
+                case 1:
+                    intent = new Intent(this, DisplayRuvActivity.class);
+                    break;
+                case 2:
+                    intent = new Intent(this, DisplayStod2Activity.class);
+                    intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BaseUrl));
+                    intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_2));
+                    break;
+                case 3:
+                    intent = new Intent(this, DisplayStod2Activity.class);
+                    intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2SportBaseUrl));
+                    intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_2_sport));
+                    break;
+                case 4:
+                    intent = new Intent(this, DisplayStod2Activity.class);
+                    intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BioBaseUrl));
+                    intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_2_bio));
+                    break;
+                case 5:
+                    intent = new Intent(this, DisplayStod2Activity.class);
+                    intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod3BaseUrl));
+                    intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_3));
+                    break;
+                case 6:
+                    intent = new Intent(this, DisplaySkjarinnActivity.class);
+                    break;
+                case 8:
+                    intent = new Intent(this, SearchShowsActivity.class);
+                    break;
                 case 9:
                     intent = new Intent(this, MyShowsActivity.class);
                     break;
@@ -200,7 +184,7 @@ public class MainActivity extends Activity
                 case 12:
                     intent = new Intent(this, CinemaActivity.class);
                     break;
-                case 13: 
+                case 13:
                     intent = new Intent(this, SearchMoviesActivity.class);
                     break;
             }

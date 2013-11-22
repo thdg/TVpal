@@ -68,5 +68,6 @@
     <string name="cinema_no_results">Fann engar sýningar, eitthvað fór úrskeiðis</string>
     <string name="trakt_nomovies">Couldn\'t load trending movies</string>
     <string name="trakt_noshows">Couldn\'t load trending shows</string>
+    <string name="schedules_empty">Gat ekki hlaðið dagskrá</string>
 
 </resources>

@@ -15,6 +15,8 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
     private SchedulePagerAdapter mScheduleAdapter;
     private ViewPager mViewPager;
     private ProgressBar mProgressBar;
+    private TextView mNoResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,6 +61,7 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
     {
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         mProgressBar = (ProgressBar) findViewById(R.id.progressSchedules);
+        mNoResults = (TextView) findViewById(R.id.noSchedules);
 
         Intent intent = getIntent();
         new DownloadStod2Schedules().execute(intent.getStringExtra(MainActivity.EXTRA_STOD2));
@@ -163,10 +167,10 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
         }
     }
 
-    private class DownloadStod2Schedules extends AsyncTask<String, Void, String>
+    private class DownloadStod2Schedules extends AsyncTask<String, Void, Boolean>
     {
         @Override
-        protected String doInBackground(String... urls)
+        protected Boolean doInBackground(String... urls)
         {
             try
             {
@@ -174,7 +178,7 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
             }
             catch (IOException e)
             {
-                return "Unable to retrieve web page. URL may be invalid";
+                return false;
             }
         }
 
@@ -185,16 +189,21 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
         }
 
         @Override
-        protected void onPostExecute(String result)
+        protected void onPostExecute(Boolean result)
         {
-            if (result.equalsIgnoreCase("Successful"))
+            if (result)
+            {
                 CreateTabViews();
+            }
+            else
+            {
+                mNoResults.setVisibility(View.VISIBLE);
+            }
 
-            //Return error message if doInBackground fails
             mProgressBar.setVisibility(View.GONE);
         }
 
-        private String GetSchedules(String myurl) throws IOException
+        private Boolean GetSchedules(String myurl) throws IOException
         {
             try
             {
@@ -203,14 +212,14 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
 
                 _workingDate = _events.get(0).getEventDate();
 
-                return "Successful";
+                return true;
             }
             catch (Exception ex)
             {
                 Log.e(getClass().getName(), ex.getMessage());
             }
 
-            return "Error";
+            return false;
         }
     }
 }
