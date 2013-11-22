@@ -126,8 +126,9 @@ public class TraktMoviesAdapter extends BaseAdapter
         {
             try
             {
+                String formattedPosterUrl = formatPosterUrl(posterUrl);
                 PictureTask task = new PictureTask();
-                return task.getResizedBitmap(posterUrl, 160, 160);
+                return task.getBitmapFromUrl(formattedPosterUrl);
             }
             catch (Exception ex)
             {
@@ -135,6 +136,17 @@ public class TraktMoviesAdapter extends BaseAdapter
             }
 
             return null;
+        }
+
+        private String formatPosterUrl(String poster)
+        {
+            int posterLength = poster.length();
+            int index = poster.lastIndexOf(".");
+
+            String firstPart = poster.substring(0, index);
+            String secondPart = poster.substring(index, posterLength);
+
+            return String.format("%s-138%s", firstPart, secondPart);
         }
     }
 

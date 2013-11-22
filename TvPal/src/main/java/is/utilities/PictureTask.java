@@ -54,7 +54,7 @@ public class PictureTask
         }
     }
 
-    //A method to severely reduce the size of an bitmap
+    //Use this method when bitmaps are really large in size
     public Bitmap getResizedBitmap(String posterUrl, int newHeight, int newWidth)
     {
         Bitmap image = getBitmapFromUrl(posterUrl);
