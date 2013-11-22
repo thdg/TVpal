@@ -1,4 +1,4 @@
-package is.activites.showActivities;
+package is.activites.movieActivities;
 
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;

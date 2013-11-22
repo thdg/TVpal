@@ -1,4 +1,4 @@
-package is.activites.cinemaActivities;
+package is.activites.movieActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import is.tvpal.R;
 /**
  * Created by Arnar on 21.11.2013.
  */
-public class DetailedMovieActivity extends BaseActivity
+public class DetailedCinemaActivity extends BaseActivity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState)

@@ -1,4 +1,4 @@
-package is.activites.cinemaActivities;
+package is.activites.movieActivities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -51,7 +51,7 @@ public class CinemaActivity extends BaseActivity implements AdapterView.OnItemCl
     {
         CinemaMovie movie = mAdapter.getItem(position);
 
-        Intent intent = new Intent(this, DetailedMovieActivity.class);
+        Intent intent = new Intent(this, DetailedCinemaActivity.class);
         intent.putExtra(EXTRA_MOVIE, movie);
         startActivity(intent);
     }

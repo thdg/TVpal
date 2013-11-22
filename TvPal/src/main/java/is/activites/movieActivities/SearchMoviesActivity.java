@@ -1,4 +1,4 @@
-package is.activites.showActivities;
+package is.activites.movieActivities;
 
 import android.content.Context;
 import android.os.Bundle;

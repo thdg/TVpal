@@ -77,17 +77,17 @@
             android:windowSoftInputMode="stateHidden|adjustResize" >
         </activity>
         <activity
-            android:name="is.activites.cinemaActivities.CinemaActivity"
+            android:name="is.activites.movieActivities.CinemaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_cinema" >
         </activity>
         <activity
-            android:name="is.activites.cinemaActivities.DetailedMovieActivity"
+            android:name="is.activites.movieActivities.DetailedCinemaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_cinema" >
         </activity>
         <activity
-            android:name="is.activites.showActivities.SearchMoviesActivity"
+            android:name="is.activites.movieActivities.SearchMoviesActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:label="@string/title_activity_trending_movies" >

@@ -16,13 +16,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import is.activites.cinemaActivities.CinemaActivity;
+import is.activites.movieActivities.CinemaActivity;
 import is.activites.scheduleActivites.DisplayRuvActivity;
 import is.activites.scheduleActivites.DisplaySkjarinnActivity;
 import is.activites.scheduleActivites.DisplayStod2Activity;
 import is.activites.showActivities.MyShowsActivity;
 import is.activites.showActivities.RecentShowsActivity;
-import is.activites.showActivities.SearchMoviesActivity;
+import is.activites.movieActivities.SearchMoviesActivity;
 import is.activites.showActivities.SearchShowsActivity;
 import is.activites.showActivities.UpcomingShowsActivity;
 import is.contracts.datacontracts.DrawerListData;
