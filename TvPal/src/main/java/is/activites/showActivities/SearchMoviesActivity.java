@@ -79,6 +79,8 @@ public class SearchMoviesActivity extends BaseFragmentActivity implements Action
             switch (position)
             {
                 case 0:
+                    return new SearchMovieFragment(context);
+                case 1:
                     return new TrendingMoviesFragment(context);
             }
             return null;
@@ -87,13 +89,13 @@ public class SearchMoviesActivity extends BaseFragmentActivity implements Action
         @Override
         public int getCount()
         {
-            return 1;
+            return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position)
         {
-            return "Trending";
+            return position == 0 ? "Search" : "Trending";
         }
     }
 }

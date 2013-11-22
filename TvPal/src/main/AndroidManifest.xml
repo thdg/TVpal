@@ -89,6 +89,7 @@
         <activity
             android:name="is.activites.showActivities.SearchMoviesActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:label="@string/title_activity_trending_movies" >
         </activity>
     </application>
