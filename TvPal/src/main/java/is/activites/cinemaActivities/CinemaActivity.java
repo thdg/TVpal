@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import java.util.List;
 import is.activites.baseActivities.BaseActivity;
 import is.contracts.datacontracts.Cinema.CinemaMovie;
@@ -22,6 +23,7 @@ public class CinemaActivity extends BaseActivity implements AdapterView.OnItemCl
     private CinemaAdapter mAdapter;
     private ListView mListView;
     private ProgressBar mProgressBar;
+    private TextView mNoResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,6 +39,7 @@ public class CinemaActivity extends BaseActivity implements AdapterView.OnItemCl
         mListView = (ListView) findViewById(R.id.cinemaSchedules);
         mListView.setOnItemClickListener(this);
         mProgressBar = (ProgressBar) findViewById(R.id.progressIndicator);
+        mNoResults = (TextView) findViewById(R.id.cinemaNoResults);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -81,9 +84,18 @@ public class CinemaActivity extends BaseActivity implements AdapterView.OnItemCl
         @Override
         protected void onPostExecute(List<CinemaMovie> movies)
         {
-            mAdapter = new CinemaAdapter(mContext, R.layout.listview_cinema_schedules, movies);
-            mListView.setAdapter(mAdapter);
-            mProgressBar.setVisibility(View.GONE);
+            if (movies.size() == 0)
+            {
+                mNoResults.setVisibility(View.VISIBLE);
+                mProgressBar.setVisibility(View.GONE);
+            }
+            else
+            {
+                mAdapter = new CinemaAdapter(mContext, R.layout.listview_cinema_schedules, movies);
+                mListView.setAdapter(mAdapter);
+                mProgressBar.setVisibility(View.GONE);
+                mNoResults.setVisibility(View.GONE);
+            }
         }
 
         public List<CinemaMovie> getMovies()

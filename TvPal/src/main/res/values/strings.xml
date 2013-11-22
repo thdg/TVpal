@@ -65,5 +65,6 @@
     <string name="cinemaSchedules">Bíó sýningar</string>
     <string name="title_activity_trending_movies">Trending Movies</string>
     <string name="trakt_search_movies">Search Movies</string>
+    <string name="cinema_no_results">Fann engar sýningar, eitthvað fór úrskeiðis</string>
 
 </resources>
