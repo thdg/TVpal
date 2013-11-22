@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -24,6 +25,7 @@ import java.util.List;
 import is.activites.baseActivities.BaseFragmentActivity;
 import is.contracts.datacontracts.EventData;
 import is.parsers.schedules.SkjarinnScheduleParser;
+import is.utilities.ConnectionListener;
 import is.utilities.DateUtil;
 import is.tvpal.R;
 
@@ -62,7 +64,7 @@ public class DisplaySkjarinnActivity extends BaseFragmentActivity implements Act
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         mProgressBar = (ProgressBar) findViewById(R.id.progressSchedules);
         mNoResults = (TextView) findViewById(R.id.noSchedules);
-        new DownloadSkjarinnSchedules().execute(skjarinnUrl);
+        new DownloadSkjarinnSchedules(this).execute(skjarinnUrl);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -164,6 +166,13 @@ public class DisplaySkjarinnActivity extends BaseFragmentActivity implements Act
 
     private class DownloadSkjarinnSchedules extends AsyncTask<String, Void, Boolean>
     {
+        private Context mContext;
+
+        public DownloadSkjarinnSchedules(Context context)
+        {
+            this.mContext = context;
+        }
+
         @Override
         protected Boolean doInBackground(String... urls)
         {
@@ -194,6 +203,11 @@ public class DisplaySkjarinnActivity extends BaseFragmentActivity implements Act
             else
             {
                 mNoResults.setVisibility(View.VISIBLE);
+
+                boolean networkStatus = new ConnectionListener(mContext).isNetworkAvailable();
+
+                if (!networkStatus)
+                    Toast.makeText(mContext, "Turn on network", Toast.LENGTH_SHORT).show();
             }
 
             mProgressBar.setVisibility(View.GONE);

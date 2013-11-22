@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -25,6 +26,7 @@ import java.util.List;
 import is.activites.baseActivities.BaseFragmentActivity;
 import is.contracts.datacontracts.EventData;
 import is.parsers.schedules.RuvScheduleParser;
+import is.utilities.ConnectionListener;
 import is.utilities.DateUtil;
 import is.tvpal.R;
 
@@ -64,7 +66,7 @@ public class DisplayRuvActivity extends BaseFragmentActivity implements ActionBa
         mProgressBar = (ProgressBar) findViewById(R.id.progressSchedules);
         mNoResults = (TextView) findViewById(R.id.noSchedules);
         String ruvUrl = String.format("%s%s", RuvUrl, DateUtil.GetCorrectRuvUrlFormat());
-        new DownloadRuvSchedules().execute(ruvUrl);
+        new DownloadRuvSchedules(this).execute(ruvUrl);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -166,6 +168,13 @@ public class DisplayRuvActivity extends BaseFragmentActivity implements ActionBa
 
     private class DownloadRuvSchedules extends AsyncTask<String, Void, Boolean>
     {
+        private Context mContext;
+
+        public DownloadRuvSchedules(Context context)
+        {
+            this.mContext = context;
+        }
+
         @Override
         protected Boolean doInBackground(String... urls)
         {
@@ -196,6 +205,10 @@ public class DisplayRuvActivity extends BaseFragmentActivity implements ActionBa
             else
             {
                 mNoResults.setVisibility(View.VISIBLE);
+                boolean networkStatus = new ConnectionListener(mContext).isNetworkAvailable();
+
+                if (!networkStatus)
+                    Toast.makeText(mContext, "Turn on network", Toast.LENGTH_SHORT).show();
             }
 
             mProgressBar.setVisibility(View.GONE);

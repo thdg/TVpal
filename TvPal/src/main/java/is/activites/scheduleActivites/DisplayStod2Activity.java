@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -26,6 +27,7 @@ import is.activites.baseActivities.BaseFragmentActivity;
 import is.activites.MainActivity;
 import is.contracts.datacontracts.EventData;
 import is.parsers.schedules.Stod2ScheduleParser;
+import is.utilities.ConnectionListener;
 import is.utilities.DateUtil;
 import is.tvpal.R;
 
@@ -64,7 +66,7 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
         mNoResults = (TextView) findViewById(R.id.noSchedules);
 
         Intent intent = getIntent();
-        new DownloadStod2Schedules().execute(intent.getStringExtra(MainActivity.EXTRA_STOD2));
+        new DownloadStod2Schedules(this).execute(intent.getStringExtra(MainActivity.EXTRA_STOD2));
 
         setTitle(intent.getStringExtra(MainActivity.EXTRA_TITLE));
 
@@ -169,6 +171,13 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
 
     private class DownloadStod2Schedules extends AsyncTask<String, Void, Boolean>
     {
+        private Context mContext;
+
+        public DownloadStod2Schedules(Context context)
+        {
+            this.mContext = context;
+        }
+
         @Override
         protected Boolean doInBackground(String... urls)
         {
@@ -198,6 +207,11 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
             else
             {
                 mNoResults.setVisibility(View.VISIBLE);
+
+                boolean networkStatus = new ConnectionListener(mContext).isNetworkAvailable();
+
+                if (!networkStatus)
+                    Toast.makeText(mContext, "Turn on network", Toast.LENGTH_SHORT).show();
             }
 
             mProgressBar.setVisibility(View.GONE);
