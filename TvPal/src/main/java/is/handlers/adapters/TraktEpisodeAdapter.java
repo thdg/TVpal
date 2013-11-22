@@ -19,6 +19,7 @@ import is.handlers.database.DbShowHandler;
 import is.thetvdb.TvDbUtil;
 import is.tvpal.R;
 import is.utilities.PictureTask;
+import is.utilities.StringUtil;
 
 /**
  * Created by Arnar
@@ -162,8 +163,9 @@ public class TraktEpisodeAdapter extends BaseAdapter
         {
             try
             {
+                String formattedPosterUrl = StringUtil.formatTrendingPosterUrl(posterUrl);
                 PictureTask task = new PictureTask();
-                return task.getBitmapFromUrl(posterUrl);
+                return task.getBitmapFromUrl(formattedPosterUrl);
             }
             catch (Exception ex)
             {

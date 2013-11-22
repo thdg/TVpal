@@ -20,6 +20,7 @@ import is.handlers.database.DbShowHandler;
 import is.thetvdb.TvDbUtil;
 import is.tvpal.R;
 import is.utilities.PictureTask;
+import is.utilities.StringUtil;
 
 /**
  * Created by Arnar
@@ -126,7 +127,7 @@ public class TraktMoviesAdapter extends BaseAdapter
         {
             try
             {
-                String formattedPosterUrl = formatPosterUrl(posterUrl);
+                String formattedPosterUrl = StringUtil.formatTrendingPosterUrl(posterUrl);
                 PictureTask task = new PictureTask();
                 return task.getBitmapFromUrl(formattedPosterUrl);
             }
@@ -136,17 +137,6 @@ public class TraktMoviesAdapter extends BaseAdapter
             }
 
             return null;
-        }
-
-        private String formatPosterUrl(String poster)
-        {
-            int posterLength = poster.length();
-            int index = poster.lastIndexOf(".");
-
-            String firstPart = poster.substring(0, index);
-            String secondPart = poster.substring(index, posterLength);
-
-            return String.format("%s-138%s", firstPart, secondPart);
         }
     }
 
