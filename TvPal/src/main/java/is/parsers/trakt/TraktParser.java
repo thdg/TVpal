@@ -17,6 +17,7 @@ public class TraktParser
 {
     private static final String TraktEpisodeUrl = "http://api.trakt.tv/shows/trending.json/f0e3af66061e47b3243e25ed7b6443ca";
     private static final String TraktMoviesUrl = "http://api.trakt.tv/movies/trending.json/f0e3af66061e47b3243e25ed7b6443ca";
+    private static final String TraktBaseUrlWithApiKey = "http://api.trakt.tv/search/movies.json/f0e3af66061e47b3243e25ed7b6443ca/";
 
     public List<TraktEpisodeData> GetTrendingShows()
     {
@@ -53,6 +54,25 @@ public class TraktParser
             Log.e(getClass().getName(), "Error downloading trending movies");
         }
 
+        return null;
+    }
+
+    public List<TraktMovieData> SearchMovie(String movie)
+    {
+        try
+        {
+            RestClient client = new RestClient();
+            String json = client.downloadJSONString(String.format("%s%s", TraktBaseUrlWithApiKey, movie));
+
+            Type listType = new TypeToken<ArrayList<TraktMovieData>>() {}.getType();
+
+            return new Gson().fromJson(json, listType);
+        }
+        catch (Exception ex)
+        {
+            Log.e(getClass().getName(), ex.getMessage());
+        }
+        
         return null;
     }
 }
