@@ -10,40 +10,41 @@
         android:layout_weight="2"
         android:layout_height="80dp"
         android:maxHeight="80dp"
-        android:layout_margin="5dp"
         android:layout_gravity="center_vertical"/>
 
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_weight="6"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_list_selector">
 
         <TextView
             android:id="@+id/cinemaTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
-            android:textStyle="bold"
             android:textSize="22sp"
             android:text="Movie"
-            android:textColor="#000000"/>
+            android:textColor="#fff"/>
 
         <TextView
             android:id="@+id/cinemaImdbScore"
             android:layout_below="@+id/cinemaTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="IMDB"/>
+            android:textSize="16sp"
+            android:text="IMDB"
+            android:textColor="#fff"/>
 
         <TextView
             android:id="@+id/cinemaRestricted"
             android:layout_below="@+id/cinemaImdbScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:text="Bönnuð innan"
-            android:paddingBottom="10dp"/>
+            android:paddingBottom="10dp"
+            android:textColor="#fff"/>
 
     </RelativeLayout>
 

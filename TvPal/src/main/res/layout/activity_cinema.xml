@@ -2,13 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:background="#222"
+    android:padding="15sp">
 
     <ListView
         android:id="@+id/cinemaSchedules"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:listSelector="@drawable/custom_list_selector"
+        android:choiceMode="singleChoice"
+        android:cacheColorHint="#222"
+        android:dividerHeight="0.7dp"
+        android:divider="#aaa"/>
 
     <ProgressBar
         android:id="@+id/progressIndicator"
