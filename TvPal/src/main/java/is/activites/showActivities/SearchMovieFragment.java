@@ -1,9 +1,11 @@
 package is.activites.showActivities;
 
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,23 +13,30 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
+import java.util.List;
+import is.contracts.datacontracts.TraktMovieData;
+import is.handlers.adapters.TraktMoviesAdapter;
+import is.parsers.trakt.TraktParser;
 import is.tvpal.R;
 
 /**
- * An activity to search for episodes and add them to "MyShows"
+ * An fragment to search for movies
  * @author Arnar
  * @see is.activites.showActivities.MyShowsActivity
  */
 
 public class SearchMovieFragment extends Fragment
 {
-    private EditText _editSearch;
-    private Context context;
+    private EditText mEditSearch;
+    private Context mContext;
+    private TraktMoviesAdapter mAdapter;
+    private ListView mListView;
 
     public SearchMovieFragment(Context context)
     {
-        this.context = context;
+        this.mContext = context;
     }
 
     @Override
@@ -35,7 +44,8 @@ public class SearchMovieFragment extends Fragment
     {
         super.onActivityCreated(savedInstanceState);
 
-        _editSearch = (EditText) getView().findViewById(R.id.traktSearchMovie);
+        mEditSearch = (EditText) getView().findViewById(R.id.traktSearchMovie);
+        mListView = (ListView) getView().findViewById(R.id.traktMovieResults);
 
         InitializeEditTextSearch();
     }
@@ -48,16 +58,13 @@ public class SearchMovieFragment extends Fragment
 
     private void InitializeEditTextSearch()
     {
-        _editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener()
-        {
+        mEditSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent)
-            {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH)
-                {
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     performSearch();
 
-                    InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0); //Close the keyboard
 
                     return true;
@@ -69,5 +76,50 @@ public class SearchMovieFragment extends Fragment
 
     private void performSearch()
     {
+        String userEntry = null;
+
+        try
+        {
+            userEntry = mEditSearch.getText().toString();
+            userEntry = userEntry.replace(" ", "%20"); //Delete whitespaces and insert %20 to set correct urlFormat for the API
+        }
+        catch(Exception ex)
+        {
+            Log.e(getClass().getName(), ex.getMessage());
+        }
+
+        new SearchMovieTask().execute(userEntry);
+    }
+
+    private class SearchMovieTask extends AsyncTask<String, Void, List<TraktMovieData>>
+    {
+        @Override
+        protected List<TraktMovieData> doInBackground(String... strings)
+        {
+            return searchMovie(strings[0]);
+        }
+
+        @Override
+        protected void onPostExecute(List<TraktMovieData> movies)
+        {
+            mAdapter = new TraktMoviesAdapter(mContext, R.layout.listview_trakt_movies, movies);
+
+            mListView.setAdapter(mAdapter);
+        }
+
+        private List<TraktMovieData> searchMovie(String movie)
+        {
+            try
+            {
+                TraktParser trakt = new TraktParser();
+
+                return trakt.SearchMovie(movie);
+            }
+            catch (Exception ex)
+            {
+                Log.e(getClass().getName(), ex.getMessage());
+            }
+            return null;
+        }
     }
 }

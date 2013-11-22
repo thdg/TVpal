@@ -72,7 +72,7 @@ public class TraktParser
         {
             Log.e(getClass().getName(), ex.getMessage());
         }
-        
+
         return null;
     }
 }

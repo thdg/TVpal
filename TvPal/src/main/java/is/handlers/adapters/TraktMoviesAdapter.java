@@ -81,8 +81,8 @@ public class TraktMoviesAdapter extends BaseAdapter
         holder.title.setText(movie.getTitle());
         holder.overview.setText(movie.getOverview());
 
-        holder.poster.setImageBitmap(null); //Silly way to preserve memory because bitmaps are friggin large
-        final String posterUrl = movie.getPoster();
+        holder.poster.setImageBitmap(null);
+        final String posterUrl = movie.getImage().getPoster();
 
         //Execute Async Tasks parallely to improve bitmap download.
         new GetPosterShow(posterUrl, position).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, holder);

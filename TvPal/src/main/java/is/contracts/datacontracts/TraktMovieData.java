@@ -11,13 +11,13 @@ public class TraktMovieData
     @SerializedName("title")
     public String title;
 
-    @SerializedName("poster")
-    public String poster;
-
     @SerializedName("overview")
     public String overview;
 
+    @SerializedName("images")
+    public TraktImage image;
+
     public String getTitle() { return this.title; }
-    public String getPoster() { return this.poster; }
     public String getOverview() { return this.overview; }
+    public TraktImage getImage() { return this.image; }
 }
