@@ -15,7 +15,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
-
 import is.activites.movieActivities.CinemaActivity;
 import is.activites.scheduleActivites.DisplayRuvActivity;
 import is.activites.scheduleActivites.DisplaySkjarinnActivity;
@@ -146,7 +145,7 @@ public class MainActivity extends Activity
             boolean networkAvailable = _connectivityListener.isNetworkAvailable();
             Intent intent = null;
 
-            if((position >= 1 && position < 8))
+            if((position >= 1 && position < 9))
             {
                 if(networkAvailable)
                 {
