@@ -115,7 +115,7 @@ public class TraktEpisodeAdapter extends BaseAdapter
         final String posterUrl = show.getPoster();
 
         //Execute Async Tasks parallely to improve bitmap download.
-        new GetPosterShow(posterUrl, position).execute(holder);
+        new GetPosterShow(posterUrl, position).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, holder);
 
         return row;
     }

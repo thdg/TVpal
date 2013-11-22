@@ -48,8 +48,8 @@ public class TraktMoviesAdapter extends BaseAdapter
     {
         TextView title;
         TextView overview;
-        TextView runtime;
-        TextView genres;
+        ImageView poster;
+        int position;
     }
 
     @Override
@@ -66,9 +66,7 @@ public class TraktMoviesAdapter extends BaseAdapter
             holder = new TraktHolder();
             holder.title = (TextView) row.findViewById(R.id.traktMovieTitle);
             holder.overview = (TextView) row.findViewById(R.id.traktMovieOverview);
-            holder.runtime = (TextView) row.findViewById(R.id.traktRunTime);
-            holder.genres = (TextView) row.findViewById(R.id.traktGenres);
-
+            holder.poster = (ImageView) row.findViewById(R.id.traktMoviePoster);
             row.setTag(holder);
         }
         else
@@ -78,26 +76,66 @@ public class TraktMoviesAdapter extends BaseAdapter
 
         final TraktMovieData movie = getItem(position);
 
+        holder.position = position;
         holder.title.setText(movie.getTitle());
         holder.overview.setText(movie.getOverview());
-        holder.runtime.setText(String.format("Runtime: %s minutes", movie.getRuntime()));
 
-        String genres = joinToString(movie.getGenres());
-        holder.genres.setText(String.format("Genres: %s", genres));
+        holder.poster.setImageBitmap(null); //Silly way to preserve memory because bitmaps are friggin large
+        final String posterUrl = movie.getPoster();
+
+        //Execute Async Tasks parallely to improve bitmap download.
+        new GetPosterShow(posterUrl, position).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, holder);
 
         return row;
     }
 
-    private String joinToString(List<String> strings)
+    private class GetPosterShow extends AsyncTask<TraktHolder, Void, Bitmap>
     {
-        StringBuilder sb = new StringBuilder();
+        private String posterUrl;
+        private TraktHolder holder;
+        private int position;
 
-        for (String s : strings)
+        /**
+         * @param posterUrl The url of a picture to download
+         * @param position The position of the ViewHolder
+         */
+        public GetPosterShow(String posterUrl, int position)
         {
-            sb.append(s).append(",");
+            this.posterUrl = posterUrl;
+            this.position = position;
         }
 
-        return sb.toString();
+        @Override
+
+        protected Bitmap doInBackground(TraktHolder... view)
+        {
+            holder = view[0];
+            return GetPoster();
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap)
+        {
+            if (holder.position == position)
+            {
+                holder.poster.setImageBitmap(bitmap);
+            }
+        }
+
+        private Bitmap GetPoster()
+        {
+            try
+            {
+                PictureTask task = new PictureTask();
+                return task.getResizedBitmap(posterUrl, 160, 160);
+            }
+            catch (Exception ex)
+            {
+                Log.e(getClass().getName(), ex.getMessage());
+            }
+
+            return null;
+        }
     }
 
     @Override

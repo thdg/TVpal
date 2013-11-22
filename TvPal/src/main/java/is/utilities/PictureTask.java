@@ -2,6 +2,7 @@ package is.utilities;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
@@ -43,6 +44,7 @@ public class PictureTask
             connection.setDoInput(true);
             connection.connect();
             InputStream input = connection.getInputStream();
+
             return BitmapFactory.decodeStream(input);
         }
         catch (IOException e)
@@ -50,5 +52,24 @@ public class PictureTask
             Log.e(getClass().getName(), e.getMessage());
             return null;
         }
+    }
+
+    //A method to severely reduce the size of an bitmap
+    public Bitmap getResizedBitmap(String posterUrl, int newHeight, int newWidth)
+    {
+        Bitmap image = getBitmapFromUrl(posterUrl);
+
+        int width = image.getWidth();
+        int height = image.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+
+        // create a matrix for the manipulation
+        Matrix matrix = new Matrix();
+        // resize the bit map
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        // recreate the new Bitmap
+        return Bitmap.createBitmap(image, 0, 0, width, height, matrix, false);
     }
 }

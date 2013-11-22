@@ -6,11 +6,20 @@
     android:background="#222"
     android:padding="10dp">
 
+    <ImageView
+        android:id="@+id/traktMoviePoster"
+        android:layout_width="64sp"
+        android:layout_height="86sp"
+        android:scaleType="centerCrop"
+        />
+
     <TextView android:id="@+id/traktMovieTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/traktMoviePoster"
         android:textSize="22sp"
         android:text="Show:"
+        android:paddingLeft="10sp"
         android:textColor="#fff"/>
 
     <TextView
@@ -19,27 +28,11 @@
         android:layout_height="wrap_content"
         android:text="overviewtexti bwasdfasdsdfasdfsioh"
         android:layout_below="@+id/traktMovieTitle"
+        android:layout_toRightOf="@+id/traktMoviePoster"
         android:textSize="14sp"
         android:textColor="#fff"
         android:maxLines="3"
-        android:lineSpacingMultiplier="1.2"/>
-
-    <TextView
-        android:id="@+id/traktRunTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/traktMovieOverview"
-        android:textSize="14sp"
-        android:text="runtime"
-        android:textColor="#fff"/>
-
-    <TextView
-        android:id="@+id/traktGenres"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/traktRunTime"
-        android:text="genres"
-        android:textColor="#fff"
+        android:paddingLeft="10sp"
         android:lineSpacingMultiplier="1.2"/>
 
 </RelativeLayout>
