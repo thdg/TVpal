@@ -1,16 +1,14 @@
 package is.activites.showActivities;
 
 import android.annotation.TargetApi;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
+import is.activites.baseActivities.BaseListActivity;
 import is.handlers.adapters.SingleSeasonAdapter;
 import is.handlers.database.DbShowHandler;
 
@@ -19,7 +17,7 @@ import is.handlers.database.DbShowHandler;
  * @author Arnar
  */
 
-public class SingleSeasonActivity extends ListActivity implements AdapterView.OnItemClickListener
+public class SingleSeasonActivity extends BaseListActivity implements AdapterView.OnItemClickListener
 {
     public static final String EXTRA_SERIESID = "is.activites.showActivities.SERIESID";
     public static final String EXTRA_SEASONNR = "is.activites.showActivities.SEASONNR";
@@ -76,18 +74,5 @@ public class SingleSeasonActivity extends ListActivity implements AdapterView.On
         intent.putExtra(EXTRA_EPISODENR, selectedEpisode.getInt(3));
         intent.putExtra(EXTRA_SELECTED, position);
         startActivity(intent);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch(item.getItemId())
-        {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 }
