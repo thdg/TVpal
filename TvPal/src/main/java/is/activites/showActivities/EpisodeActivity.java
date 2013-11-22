@@ -36,7 +36,7 @@ public class EpisodeActivity extends BaseFragmentActivity implements ActionBar.T
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.swipe_series);
+        setContentView(R.layout.swipe_tabs);
 
         Initialize();
     }
@@ -68,7 +68,7 @@ public class EpisodeActivity extends BaseFragmentActivity implements ActionBar.T
         getActionBar().setDisplayHomeAsUpEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        mViewPager = (ViewPager) findViewById(R.id.pagerSeries);
+        mViewPager = (ViewPager) findViewById(R.id.pagerTabs);
         mViewPager.setAdapter(mScheduleAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override

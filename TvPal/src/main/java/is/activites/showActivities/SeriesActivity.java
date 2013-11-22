@@ -1,8 +1,6 @@
 package is.activites.showActivities;
 
 import android.annotation.TargetApi;
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -16,7 +14,7 @@ import is.handlers.database.DbShowHandler;
 import is.tvpal.R;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class SeriesActivity extends BaseFragmentActivity implements ActionBar.TabListener
+public class SeriesActivity extends BaseFragmentActivity
 {
     private ViewPager mViewPager;
     private int seriesId;
@@ -25,7 +23,7 @@ public class SeriesActivity extends BaseFragmentActivity implements ActionBar.Ta
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.swipe_series);
+        setContentView(R.layout.swipe_pager_view);
 
         Initialize();
     }
@@ -40,39 +38,19 @@ public class SeriesActivity extends BaseFragmentActivity implements ActionBar.Ta
 
         SeriesPagerAdapter mScheduleAdapter = new SeriesPagerAdapter(getSupportFragmentManager(), this);
 
-        final ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mViewPager = (ViewPager) findViewById(R.id.pagerSeries);
+        mViewPager = (ViewPager) findViewById(R.id.pagerView);
         mViewPager.setAdapter(mScheduleAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener()
         {
             @Override
             public void onPageSelected(int position)
             {
-                actionBar.setSelectedNavigationItem(position);
+                mViewPager.setCurrentItem(position);
             }
         });
-
-        for (int i = 0; i < mScheduleAdapter.getCount(); i++)
-        {
-            actionBar.addTab(actionBar.newTab()
-                    .setText(mScheduleAdapter.getPageTitle(i))
-                    .setTabListener(this));
-        }
     }
-
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction)
-    {
-        mViewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
 
     public class SeriesPagerAdapter extends FragmentStatePagerAdapter
     {

@@ -17,7 +17,7 @@ public class SearchShowsActivity extends BaseFragmentActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.swipe_search);
+        setContentView(R.layout.swipe_pager_view);
 
         Initialize();
     }
@@ -28,7 +28,7 @@ public class SearchShowsActivity extends BaseFragmentActivity
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mViewPager = (ViewPager) findViewById(R.id.pagerSearch);
+        mViewPager = (ViewPager) findViewById(R.id.pagerView);
         mViewPager.setAdapter(mScheduleAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener()
         {
