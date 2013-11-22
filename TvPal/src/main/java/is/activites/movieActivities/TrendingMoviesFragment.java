@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class TrendingMoviesFragment extends Fragment
     private ListView mListView;
     private TraktMoviesAdapter mAdapter;
     private ProgressBar mProgressBar;
+    private TextView mNoResults;
 
     public TrendingMoviesFragment(Context context)
     {
@@ -40,6 +42,7 @@ public class TrendingMoviesFragment extends Fragment
         super.onActivityCreated(savedInstanceState);
         mListView = (ListView) getView().findViewById(R.id.trendingTrakt);
         mProgressBar = (ProgressBar) getView().findViewById(R.id.progressIndicator);
+        mNoResults = (TextView) getView().findViewById(R.id.traktNoResults);
 
         new GetTrendingMovies().execute();
     }
@@ -73,9 +76,18 @@ public class TrendingMoviesFragment extends Fragment
         @Override
         protected void onPostExecute(List<TraktMovieData> movies)
         {
-            mAdapter = new TraktMoviesAdapter(mContext, R.layout.listview_trakt_movies, movies);
-            mListView.setAdapter(mAdapter);
-            mProgressBar.setVisibility(View.INVISIBLE);
+            if (movies == null)
+            {
+                mNoResults.setVisibility(View.VISIBLE);
+                mProgressBar.setVisibility(View.GONE);
+            }
+            else
+            {
+                mAdapter = new TraktMoviesAdapter(mContext, R.layout.listview_trakt_movies, movies);
+                mListView.setAdapter(mAdapter);
+                mProgressBar.setVisibility(View.INVISIBLE);
+                mNoResults.setVisibility(View.GONE);
+            }
         }
     }
 }

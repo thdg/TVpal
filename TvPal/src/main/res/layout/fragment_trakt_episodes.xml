@@ -19,4 +19,14 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
 
+    <TextView
+        android:id="@+id/traktNoResults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/trakt_noshows"
+        android:layout_centerInParent="true"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:visibility="gone"/>
+
 </RelativeLayout>

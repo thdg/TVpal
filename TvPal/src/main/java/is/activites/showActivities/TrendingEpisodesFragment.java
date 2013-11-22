@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class TrendingEpisodesFragment extends Fragment implements AdapterView.On
     private ListView mListView;
     private TraktEpisodeAdapter mAdapter;
     private ProgressBar mProgessBar;
+    private TextView mNoResults;
 
     public TrendingEpisodesFragment(Context context)
     {
@@ -42,10 +44,9 @@ public class TrendingEpisodesFragment extends Fragment implements AdapterView.On
     {
         super.onActivityCreated(savedInstanceState);
         mProgessBar = (ProgressBar) getView().findViewById(R.id.progressIndicator);
+        mNoResults = (TextView) getView().findViewById(R.id.traktNoResults);
         mListView = (ListView) getView().findViewById(R.id.trendingTrakt);
         mListView.setOnItemClickListener(this);
-
-        mProgessBar.setVisibility(View.VISIBLE);
 
         new GetTrendingShows().execute();
     }
@@ -78,12 +79,27 @@ public class TrendingEpisodesFragment extends Fragment implements AdapterView.On
         }
 
         @Override
+        protected void onPreExecute()
+        {
+            mProgessBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected void onPostExecute(List<TraktEpisodeData> shows)
         {
-            mAdapter = new TraktEpisodeAdapter(mContext, R.layout.listview_trakt_episodes, shows);
-            mListView.setAdapter(mAdapter);
+            if (shows == null)
+            {
+                mProgessBar.setVisibility(View.GONE);
+                mNoResults.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                mAdapter = new TraktEpisodeAdapter(mContext, R.layout.listview_trakt_episodes, shows);
+                mListView.setAdapter(mAdapter);
+                mProgessBar.setVisibility(View.GONE);
+                mNoResults.setVisibility(View.GONE);
+            }
 
-            mProgessBar.setVisibility(View.GONE);
         }
     }
 }

@@ -66,5 +66,7 @@
     <string name="title_activity_trending_movies">Search Movies</string>
     <string name="trakt_search_movies">Search Movies</string>
     <string name="cinema_no_results">Fann engar sýningar, eitthvað fór úrskeiðis</string>
+    <string name="trakt_nomovies">Couldn\'t load trending movies</string>
+    <string name="trakt_noshows">Couldn\'t load trending shows</string>
 
 </resources>

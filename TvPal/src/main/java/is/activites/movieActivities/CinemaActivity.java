@@ -84,7 +84,7 @@ public class CinemaActivity extends BaseActivity implements AdapterView.OnItemCl
         @Override
         protected void onPostExecute(List<CinemaMovie> movies)
         {
-            if (movies.size() == 0)
+            if (movies == null)
             {
                 mNoResults.setVisibility(View.VISIBLE);
                 mProgressBar.setVisibility(View.GONE);

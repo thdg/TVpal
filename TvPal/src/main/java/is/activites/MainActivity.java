@@ -197,10 +197,10 @@ public class MainActivity extends Activity
                 case 10:
                     intent = new Intent(this, UpcomingRecentActivity.class);
                     break;
-                case 12: //Todo: This should not be here
+                case 12:
                     intent = new Intent(this, CinemaActivity.class);
                     break;
-                case 13: //TODO: This should also not be here
+                case 13: 
                     intent = new Intent(this, SearchMoviesActivity.class);
                     break;
             }

@@ -30,6 +30,7 @@
         android:text="@string/cinema_no_results"
         android:layout_centerInParent="true"
         android:textSize="20sp"
+        android:textColor="#fff"
         android:visibility="gone"
         android:paddingLeft="30sp"
         android:paddingRight="30sp"/>
