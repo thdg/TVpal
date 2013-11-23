@@ -49,6 +49,11 @@ public class DetailedMovieActivity extends BaseActivity
 
         String movieId = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEID);
         String moviePoster = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEPOSTER);
+
+        //TODO: Return some error message
+        if(movieId == null)
+            return;
+
         new GetMovieDetailed().execute(movieId);
         new GetPosterShow().execute(moviePoster);
     }

@@ -12,7 +12,7 @@ import java.net.URL;
  */
 public class RestClient
 {
-    public String downloadJSONString(String myurl) throws IOException
+    public String downloadJSONString(String myurl) throws Exception
     {
         InputStream is = null;
 
@@ -42,7 +42,7 @@ public class RestClient
     }
 
     // Reads an InputStream and converts it to a String.
-    private String convertStreamToString(InputStream stream) throws IOException
+    private String convertStreamToString(InputStream stream) throws Exception
     {
         StringBuilder sb = new StringBuilder();
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));

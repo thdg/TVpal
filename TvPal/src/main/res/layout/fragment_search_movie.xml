@@ -22,7 +22,7 @@
         android:layout_below="@+id/traktSearchMovie"
         android:layout_marginTop="10dp"
         android:dividerHeight="1dp"
-        android:divider="#EEE"
+        android:divider="#33b5e5"
         android:layout_height="fill_parent"/>
 
     <ProgressBar

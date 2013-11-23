@@ -73,7 +73,7 @@ public class TraktParser
         }
         catch (Exception ex)
         {
-            Log.e(getClass().getName(), ex.getMessage());
+            Log.e(getClass().getName(), "Error searching for movies");
         }
 
         return null;
@@ -90,7 +90,7 @@ public class TraktParser
         }
         catch (Exception ex)
         {
-            Log.e(getClass().getName(), ex.getMessage());
+            Log.e(getClass().getName(), "Error getting detailed movie");
         }
 
         return null;

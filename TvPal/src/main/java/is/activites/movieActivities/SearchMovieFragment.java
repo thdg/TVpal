@@ -1,5 +1,6 @@
 package is.activites.movieActivities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -28,7 +30,7 @@ import is.tvpal.R;
  * @see is.activites.showActivities.MyShowsActivity
  */
 
-public class SearchMovieFragment extends Fragment
+public class SearchMovieFragment extends Fragment implements AdapterView.OnItemClickListener
 {
     private EditText mEditSearch;
     private Context mContext;
@@ -48,6 +50,7 @@ public class SearchMovieFragment extends Fragment
 
         mEditSearch = (EditText) getView().findViewById(R.id.traktSearchMovie);
         mListView = (ListView) getView().findViewById(R.id.traktMovieResults);
+        mListView.setOnItemClickListener(this);
         mProgressBar = (ProgressBar) getView().findViewById(R.id.traktProgressIndicator);
 
         InitializeEditTextSearch();
@@ -92,6 +95,17 @@ public class SearchMovieFragment extends Fragment
         }
 
         new SearchMovieTask().execute(userEntry);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
+    {
+        TraktMovieData movie = mAdapter.getItem(position);
+
+        Intent intent = new Intent(mContext, DetailedMovieActivity.class);
+        intent.putExtra(TrendingMoviesFragment.EXTRA_MOVIEID, movie.getImdbId());
+        intent.putExtra(TrendingMoviesFragment.EXTRA_MOVIEPOSTER, movie.getImage().getPoster());
+        startActivity(intent);
     }
 
     private class SearchMovieTask extends AsyncTask<String, Void, List<TraktMovieData>>

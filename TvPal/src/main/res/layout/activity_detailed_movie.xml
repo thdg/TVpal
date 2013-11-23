@@ -8,16 +8,14 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#222">
+        android:background="#222"
+        android:padding="20sp">
 
         <ImageView
             android:id="@+id/moviePoster"
             android:layout_width="fill_parent"
             android:layout_height="320sp"
-            android:scaleType="centerCrop"
-            android:layout_marginLeft="40sp"
-            android:layout_marginRight="40sp"
-            android:layout_marginTop="20sp"/>
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/movieTitle"
@@ -35,8 +33,6 @@
             android:layout_below="@+id/movieTitle"
             android:textSize="16sp"
             android:textColor="#ddd"
-            android:paddingLeft="15sp"
-            android:paddingRight="15sp"
             android:lineSpacingMultiplier="1.2"/>
 
         <TextView
@@ -45,9 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/movieOverview"
             android:textSize="16sp"
-            android:textColor="#ddd"
-            android:paddingLeft="15sp"
-            android:paddingRight="15sp"/>
+            android:textColor="#ddd"/>
 
         <TextView
             android:id="@+id/movieRuntime"
@@ -55,9 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/movieGenres"
             android:textSize="16sp"
-            android:textColor="#ddd"
-            android:paddingLeft="15sp"
-            android:paddingRight="15sp"/>
+            android:textColor="#ddd"/>
 
         <ProgressBar
             android:id="@+id/progressIndicator"
