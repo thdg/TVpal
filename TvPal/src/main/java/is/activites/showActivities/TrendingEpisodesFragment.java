@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
-import is.contracts.datacontracts.TraktEpisodeData;
+import is.contracts.datacontracts.trakt.TraktEpisodeData;
 import is.handlers.adapters.TraktEpisodeAdapter;
 import is.parsers.trakt.TraktParser;
 import is.tvpal.R;

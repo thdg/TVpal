@@ -1,19 +1,21 @@
 package is.activites.movieActivities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import is.contracts.datacontracts.TraktMovieData;
+import is.contracts.datacontracts.trakt.TraktMovieData;
 import is.handlers.adapters.TraktMoviesAdapter;
 import is.parsers.trakt.TraktParser;
 import is.tvpal.R;
@@ -21,8 +23,11 @@ import is.tvpal.R;
 /**
  * Created by Arnar on 21.11.2013.
  */
-public class TrendingMoviesFragment extends Fragment
+public class TrendingMoviesFragment extends Fragment implements AdapterView.OnItemClickListener
 {
+    public static final String EXTRA_MOVIEID = "is.activites.movieActivities.MOVIEID";
+    public static final String EXTRA_MOVIEPOSTER = "is.activites.movieActivities.MOVIEPOSTER";
+
     private Context mContext;
     private ListView mListView;
     private TraktMoviesAdapter mAdapter;
@@ -41,6 +46,7 @@ public class TrendingMoviesFragment extends Fragment
     {
         super.onActivityCreated(savedInstanceState);
         mListView = (ListView) getView().findViewById(R.id.trendingTrakt);
+        mListView.setOnItemClickListener(this);
         mProgressBar = (ProgressBar) getView().findViewById(R.id.progressIndicator);
         mNoResults = (TextView) getView().findViewById(R.id.traktNoResults);
 
@@ -51,6 +57,16 @@ public class TrendingMoviesFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         return inflater.inflate(R.layout.fragment_trakt_movies, container, false);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
+    {
+        TraktMovieData data = mAdapter.getItem(position);
+        Intent intent = new Intent(mContext, DetailedMovieActivity.class);
+        intent.putExtra(EXTRA_MOVIEID, data.getImdbId());
+        intent.putExtra(EXTRA_MOVIEPOSTER, data.getImage().getPoster());
+        startActivity(intent);
     }
 
     private class GetTrendingMovies extends AsyncTask<String, Void, List<TraktMovieData>>

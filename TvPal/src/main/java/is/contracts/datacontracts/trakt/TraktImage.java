@@ -1,4 +1,4 @@
-package is.contracts.datacontracts;
+package is.contracts.datacontracts.trakt;
 
 import com.google.gson.annotations.SerializedName;
 

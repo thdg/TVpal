@@ -69,5 +69,6 @@
     <string name="trakt_nomovies">Couldn\'t load trending movies</string>
     <string name="trakt_noshows">Couldn\'t load trending shows</string>
     <string name="schedules_empty">Gat ekki hlaðið dagskrá</string>
+    <string name="title_activity_detailed_movie">Detailed Movie</string>
 
 </resources>

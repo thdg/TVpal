@@ -89,6 +89,11 @@
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:label="@string/title_activity_trending_movies" >
         </activity>
+        <activity
+            android:name="is.activites.movieActivities.DetailedMovieActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_detailed_movie" >
+        </activity>
     </application>
 
 </manifest>

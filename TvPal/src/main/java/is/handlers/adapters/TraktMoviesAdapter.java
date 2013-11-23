@@ -9,15 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import java.util.List;
-import is.contracts.datacontracts.TraktEpisodeData;
-import is.contracts.datacontracts.TraktMovieData;
-import is.handlers.database.DbShowHandler;
-import is.thetvdb.TvDbUtil;
+
+import is.contracts.datacontracts.trakt.TraktMovieData;
 import is.tvpal.R;
 import is.utilities.PictureTask;
 import is.utilities.StringUtil;
@@ -127,7 +124,7 @@ public class TraktMoviesAdapter extends BaseAdapter
         {
             try
             {
-                String formattedPosterUrl = StringUtil.formatTrendingPosterUrl(posterUrl);
+                String formattedPosterUrl = StringUtil.formatTrendingPosterUrl(posterUrl, "-138");
                 PictureTask task = new PictureTask();
                 return task.getBitmapFromUrl(formattedPosterUrl);
             }

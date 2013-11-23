@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import java.util.List;
-import is.contracts.datacontracts.TraktMovieData;
+import is.contracts.datacontracts.trakt.TraktMovieData;
 import is.handlers.adapters.TraktMoviesAdapter;
 import is.parsers.trakt.TraktParser;
 import is.tvpal.R;

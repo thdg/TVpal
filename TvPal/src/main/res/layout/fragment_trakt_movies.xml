@@ -10,7 +10,8 @@
         android:id="@+id/trendingTrakt"
         android:layout_width="fill_parent"
         android:dividerHeight="1dp"
-        android:divider="#AAA"
+        android:divider="#33b5e5"
+        android:listSelector="@drawable/custom_list_selector"
         android:choiceMode="singleChoice"
         android:layout_height="fill_parent"/>
 

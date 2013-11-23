@@ -1,5 +1,7 @@
 package is.utilities;
 
+import java.util.List;
+
 /**
  * Created by Arnar on 18.11.2013.
  */
@@ -21,7 +23,7 @@ public class StringUtil
         return actors.substring(0, length);//Remove last comma
     }
 
-    public static String formatTrendingPosterUrl(String poster)
+    public static String formatTrendingPosterUrl(String poster, String imgSize)
     {
         int posterLength = poster.length();
         int index = poster.lastIndexOf(".");
@@ -29,6 +31,16 @@ public class StringUtil
         String firstPart = poster.substring(0, index);
         String secondPart = poster.substring(index, posterLength);
 
-        return String.format("%s-138%s", firstPart, secondPart);
+        return String.format("%s%s%s", firstPart, imgSize, secondPart);
+    }
+
+    public static String JoinArrayToString(List<String> strings)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        for (String s : strings)
+            sb.append(s).append(", ");
+
+        return sb.toString();
     }
 }

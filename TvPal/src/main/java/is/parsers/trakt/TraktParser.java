@@ -6,8 +6,10 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import is.contracts.datacontracts.TraktEpisodeData;
-import is.contracts.datacontracts.TraktMovieData;
+
+import is.contracts.datacontracts.trakt.TraktMovieDetailedData;
+import is.contracts.datacontracts.trakt.TraktEpisodeData;
+import is.contracts.datacontracts.trakt.TraktMovieData;
 import is.webservices.RestClient;
 
 /**
@@ -17,7 +19,8 @@ public class TraktParser
 {
     private static final String TraktEpisodeUrl = "http://api.trakt.tv/shows/trending.json/f0e3af66061e47b3243e25ed7b6443ca";
     private static final String TraktMoviesUrl = "http://api.trakt.tv/movies/trending.json/f0e3af66061e47b3243e25ed7b6443ca";
-    private static final String TraktBaseUrlWithApiKey = "http://api.trakt.tv/search/movies.json/f0e3af66061e47b3243e25ed7b6443ca/";
+    private static final String TraktSearchUrl = "http://api.trakt.tv/search/movies.json/f0e3af66061e47b3243e25ed7b6443ca/";
+    private static final String TraktSummaryUrl = "http://api.trakt.tv/movie/summary.json/f0e3af66061e47b3243e25ed7b6443ca/";
 
     public List<TraktEpisodeData> GetTrendingShows()
     {
@@ -62,11 +65,28 @@ public class TraktParser
         try
         {
             RestClient client = new RestClient();
-            String json = client.downloadJSONString(String.format("%s%s", TraktBaseUrlWithApiKey, movie));
+            String json = client.downloadJSONString(String.format("%s%s", TraktSearchUrl, movie));
 
             Type listType = new TypeToken<ArrayList<TraktMovieData>>() {}.getType();
 
             return new Gson().fromJson(json, listType);
+        }
+        catch (Exception ex)
+        {
+            Log.e(getClass().getName(), ex.getMessage());
+        }
+
+        return null;
+    }
+
+    public TraktMovieDetailedData GetMovieDetailed(String movieId)
+    {
+        try
+        {
+            RestClient client = new RestClient();
+            String json = client.downloadJSONString(String.format("%s%s", TraktSummaryUrl, movieId));
+
+            return new Gson().fromJson(json, TraktMovieDetailedData.class);
         }
         catch (Exception ex)
         {

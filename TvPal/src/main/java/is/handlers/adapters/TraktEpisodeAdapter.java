@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.List;
-import is.contracts.datacontracts.TraktEpisodeData;
+import is.contracts.datacontracts.trakt.TraktEpisodeData;
 import is.handlers.database.DbShowHandler;
 import is.thetvdb.TvDbUtil;
 import is.tvpal.R;
@@ -163,7 +163,7 @@ public class TraktEpisodeAdapter extends BaseAdapter
         {
             try
             {
-                String formattedPosterUrl = StringUtil.formatTrendingPosterUrl(posterUrl);
+                String formattedPosterUrl = StringUtil.formatTrendingPosterUrl(posterUrl, "-138");
                 PictureTask task = new PictureTask();
                 return task.getBitmapFromUrl(formattedPosterUrl);
             }
