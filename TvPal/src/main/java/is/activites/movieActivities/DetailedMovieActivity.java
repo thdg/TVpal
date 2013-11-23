@@ -37,6 +37,7 @@ public class DetailedMovieActivity extends BaseActivity
 
     private void Initialize()
     {
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressIndicator);

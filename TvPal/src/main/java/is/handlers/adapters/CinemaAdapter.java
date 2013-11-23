@@ -12,9 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.List;
-
 import is.contracts.datacontracts.Cinema.CinemaMovie;
 import is.tvpal.R;
 import is.utilities.PictureTask;
@@ -84,14 +82,14 @@ public class CinemaAdapter extends BaseAdapter
         holder.imdb.setText(movie.getImdb());
         holder.restricted.setText(movie.getRestricted());
 
-        if (images.get(position) == null)
+        if (images.indexOfKey(holder.position) < 0)
         {
             holder.image.setVisibility(View.INVISIBLE);
-            new GetMoviePoster(movie.getImageUrl(), position).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, holder);
+            new GetMoviePoster(movie.getImageUrl(), position).execute(holder);
         }
         else
         {
-            holder.image.setImageBitmap(images.get(position));
+            holder.image.setImageBitmap(images.get(holder.position, null));
         }
 
         return row;
@@ -100,7 +98,7 @@ public class CinemaAdapter extends BaseAdapter
     private class GetMoviePoster extends AsyncTask<CinemaHolder, Void, Bitmap>
     {
         private String posterUrl;
-        private CinemaHolder holder;
+        private CinemaHolder viewHolder;
         private int position;
 
         /**
@@ -115,22 +113,20 @@ public class CinemaAdapter extends BaseAdapter
         @Override
         protected Bitmap doInBackground(CinemaHolder... view)
         {
-            holder = view[0];
+            viewHolder = view[0];
             return GetPoster();
         }
 
         @Override
         protected void onPostExecute(Bitmap bitmap)
         {
-            if (bitmap != null)
+            images.put(viewHolder.position, bitmap);
+
+            if (viewHolder.position == position)
             {
-                images.put(position, bitmap);
-                if (holder.position == position)
-                {
-                    holder.image.setImageBitmap(bitmap);
-                }
-                holder.image.setVisibility(View.VISIBLE);
+                viewHolder.image.setImageBitmap(bitmap);
             }
+            viewHolder.image.setVisibility(View.VISIBLE);
         }
 
         private Bitmap GetPoster()
