@@ -29,6 +29,8 @@ public class DetailedCinemaActivity extends BaseActivity
         Intent intent = getIntent();
         CinemaMovie movie = (CinemaMovie) intent.getSerializableExtra(CinemaActivity.EXTRA_MOVIE);
 
+        setTitle(movie.getTitle());
+
         ExpandableListView eListView = (ExpandableListView) findViewById(R.id.expandleMovie);
         eListView.setAdapter(new TheatreExpandableListAdapter(this, movie.getShowtimes()));
     }
