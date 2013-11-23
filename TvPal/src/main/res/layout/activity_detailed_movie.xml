@@ -5,58 +5,188 @@
     android:fillViewport="true">
 
     <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#222">
+
+    <LinearLayout
+        android:id="@+id/layoutShowMore"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#222"
-        android:padding="20sp">
+        android:padding="20sp"
+        android:orientation="vertical"
+        android:visibility="invisible">
 
         <ImageView
             android:id="@+id/moviePoster"
             android:layout_width="fill_parent"
-            android:layout_height="320sp"
-            android:scaleType="centerCrop"/>
+            android:layout_height="360sp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_episode_background"
+            android:contentDescription="movie" />
 
         <TextView
             android:id="@+id/movieTitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/moviePoster"
             android:textSize="22sp"
             android:gravity="center"
-            android:textColor="#ddd"/>
+            android:textColor="#ddd"
+            android:typeface="serif"/>
 
         <TextView
             android:id="@+id/movieOverview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/movieTitle"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textColor="#ddd"
-            android:lineSpacingMultiplier="1.2"/>
+            android:lineSpacingMultiplier="1.2"
+            android:typeface="serif"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Genres"
+            android:textSize="18sp"
+            android:textColor="#ddd"
+            android:textStyle="bold"
+            android:typeface="serif"
+            android:paddingTop="10sp"/>
 
         <TextView
             android:id="@+id/movieGenres"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/movieOverview"
-            android:textSize="16sp"
-            android:textColor="#ddd"/>
+            android:textSize="15sp"
+            android:textColor="#ddd"
+            android:typeface="serif"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Runtime"
+            android:textSize="18sp"
+            android:textColor="#ddd"
+            android:textStyle="bold"
+            android:typeface="serif"
+            android:paddingTop="10sp"/>
 
         <TextView
             android:id="@+id/movieRuntime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/movieGenres"
-            android:textSize="16sp"
-            android:textColor="#ddd"/>
+            android:textSize="15sp"
+            android:textColor="#ddd"
+            android:typeface="serif"/>
 
-        <ProgressBar
-            android:id="@+id/progressIndicator"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="gone"/>
+            android:text="Directors"
+            android:textSize="18sp"
+            android:textColor="#ddd"
+            android:textStyle="bold"
+            android:typeface="serif"
+            android:paddingTop="10sp"/>
+
+        <TextView
+            android:id="@+id/movieDirectors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#ddd"
+            android:typeface="serif"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Actors"
+            android:textSize="18sp"
+            android:textColor="#ddd"
+            android:textStyle="bold"
+            android:typeface="serif"
+            android:paddingTop="10sp"/>
+
+        <TextView
+            android:id="@+id/movieActors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#ddd"
+            android:typeface="serif"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/labelMoreInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="More"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#ddd"
+                android:paddingTop="10sp"
+                android:typeface="serif"/>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="fill_parent"
+                android:background="#34b1ff"/>
+
+            <Button
+                android:id="@+id/startYoutubeIntent"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="Trailer"/>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="fill_parent"
+                android:background="#34b1ff"/>
+
+            <Button
+                android:id="@+id/startImdbIntent"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="Imdb"/>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="fill_parent"
+                android:background="#34b1ff"/>
+
+            <Button
+                android:id="@+id/startTraktIntent"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="Trakt"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 
     </RelativeLayout>
 

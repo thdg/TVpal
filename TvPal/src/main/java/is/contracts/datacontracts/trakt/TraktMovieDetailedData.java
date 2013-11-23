@@ -27,10 +27,18 @@ public class TraktMovieDetailedData
     @SerializedName("genres")
     public List<String> genres;
 
+    @SerializedName("imdb_id")
+    public String imdbId;
+
+    @SerializedName("url")
+    private String traktUrl;
+
     public String getTitle() { return this.title; }
     public String getTrailer() { return this.trailer; }
     public int getRuntime() { return this.runtime; }
     public String getOverview() { return this.overview; }
     public TraktPeople getPeople() { return this.people; }
     public List<String> getGenres() { return this.genres; }
+    public String getImdbId() { return this.imdbId; }
+    public String getTraktUrl() { return this.traktUrl;}
 }

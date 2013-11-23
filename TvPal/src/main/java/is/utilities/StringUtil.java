@@ -2,6 +2,9 @@ package is.utilities;
 
 import java.util.List;
 
+import is.contracts.datacontracts.trakt.TraktPeople;
+import is.contracts.datacontracts.trakt.TraktPerson;
+
 /**
  * Created by Arnar on 18.11.2013.
  */
@@ -40,6 +43,16 @@ public class StringUtil
 
         for (String s : strings)
             sb.append(s).append(", ");
+
+        return sb.toString();
+    }
+
+    public static String GetTraktPeople(List<TraktPerson> persons)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        for (TraktPerson person : persons)
+            sb.append(person.getName()).append(", ");
 
         return sb.toString();
     }

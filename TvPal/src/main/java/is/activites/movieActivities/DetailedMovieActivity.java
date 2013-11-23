@@ -1,14 +1,20 @@
 package is.activites.movieActivities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import is.activites.baseActivities.BaseActivity;
 import is.contracts.datacontracts.trakt.TraktMovieDetailedData;
@@ -25,6 +31,12 @@ public class DetailedMovieActivity extends BaseActivity
     private ImageView mPoster;
     private TextView mRuntime;
     private TextView mGenres;
+    private Button mYoutubeIntent;
+    private Button mImdbIntent;
+    private LinearLayout mLayout;
+    private TextView mActors;
+    private TextView mDirectors;
+    private Button mTraktIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,30 +52,40 @@ public class DetailedMovieActivity extends BaseActivity
         getActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
 
+        mLayout = (LinearLayout) findViewById(R.id.layoutShowMore);
         mProgressBar = (ProgressBar) findViewById(R.id.progressIndicator);
         mOverview = (TextView) findViewById(R.id.movieOverview);
         mTitle = (TextView) findViewById(R.id.movieTitle);
         mPoster = (ImageView) findViewById(R.id.moviePoster);
         mRuntime = (TextView) findViewById(R.id.movieRuntime);
         mGenres = (TextView) findViewById(R.id.movieGenres);
+        mYoutubeIntent = (Button) findViewById(R.id.startYoutubeIntent);
+        mImdbIntent = (Button) findViewById(R.id.startImdbIntent);
+        mActors = (TextView) findViewById(R.id.movieActors);
+        mDirectors = (TextView) findViewById(R.id.movieDirectors);
+        mTraktIntent = (Button) findViewById(R.id.startTraktIntent);
 
         String movieId = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEID);
         String moviePoster = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEPOSTER);
 
-        //TODO: Return some error message
-        if(movieId == null)
-            return;
-
-        new GetMovieDetailed().execute(movieId);
+        new GetMovieDetailed(this).execute(movieId);
         new GetPosterShow().execute(moviePoster);
     }
 
     private class GetMovieDetailed extends AsyncTask<String, Void, TraktMovieDetailedData>
     {
+        private Context mContext;
+        private static final String IMDB_URL = "http://www.imdb.com/title/";
+
+        private GetMovieDetailed(Context mContect)
+        {
+            this.mContext = mContect;
+        }
+
         @Override
         protected TraktMovieDetailedData doInBackground(String... strings)
         {
-            return GetMovieDetailed(strings[0]);
+            return GetMovie(strings[0]);
         }
 
         @Override
@@ -73,19 +95,68 @@ public class DetailedMovieActivity extends BaseActivity
         }
 
         @Override
-        protected void onPostExecute(TraktMovieDetailedData movie)
+        protected void onPostExecute(final TraktMovieDetailedData movie)
         {
+            if (movie != null)
+            {
+                setTitle(movie.getTitle());
+                mLayout.setVisibility(View.VISIBLE);
+
+                mOverview.setText(movie.getOverview());
+                mTitle.setText(movie.getTitle());
+                mRuntime.setText(String.format("%d min", movie.getRuntime()));
+                mGenres.setText(StringUtil.JoinArrayToString(movie.getGenres()));
+                mActors.setText(StringUtil.GetTraktPeople(movie.getPeople().getActors()));
+                mDirectors.setText(StringUtil.GetTraktPeople(movie.getPeople().getDirectors()));
+
+                mYoutubeIntent.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(movie.getTrailer()));
+                            startActivity(intent);
+                        } catch (Exception ex) {
+                            Toast.makeText(mContext, "Couldn't open trailer", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                mImdbIntent.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //First try to open the IMDB app if it is installed, else open with browser
+                        try {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("imdb:///title/" + movie.getImdbId()));
+                            startActivity(intent);
+                        }
+                        catch (Exception ex) {
+                            try{
+                                StartUriIntent(IMDB_URL + movie.getImdbId());
+                            }
+                            catch (Exception e) {
+                                Toast.makeText(mContext, "Couldn't open IMDB", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+
+                mTraktIntent.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            StartUriIntent(movie.getTraktUrl());
+                        }
+                        catch (Exception ex) {
+                            Toast.makeText(mContext, "Couldn't open IMDB", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+
             mProgressBar.setVisibility(View.GONE);
-
-            setTitle(movie.getTitle());
-
-            mOverview.setText(movie.getOverview());
-            mTitle.setText(movie.getTitle());
-            mRuntime.setText(String.format("Runtime: %s min", movie.getRuntime()));
-            mGenres.setText(String.format("Genres: %s", StringUtil.JoinArrayToString(movie.getGenres())));
         }
 
-        public TraktMovieDetailedData GetMovieDetailed(String movieId)
+        public TraktMovieDetailedData GetMovie(String movieId)
         {
             TraktParser parser = new TraktParser();
 
@@ -125,4 +196,10 @@ public class DetailedMovieActivity extends BaseActivity
         }
     }
 
+    private void StartUriIntent(String uri)
+    {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(uri));
+        startActivity(i);
+    }
 }
