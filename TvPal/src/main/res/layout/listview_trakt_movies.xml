@@ -21,7 +21,8 @@
         android:textSize="18sp"
         android:text="Show:"
         android:paddingLeft="10sp"
-        android:textColor="#fff"/>
+        android:textColor="#fff"
+        android:typeface="serif"/>
 
     <TextView
         android:id="@+id/traktMovieOverview"
@@ -34,6 +35,7 @@
         android:textColor="#fff"
         android:maxLines="3"
         android:paddingLeft="10sp"
-        android:lineSpacingMultiplier="1.2"/>
+        android:lineSpacingMultiplier="1.2"
+        android:typeface="serif"/>
 
 </RelativeLayout>

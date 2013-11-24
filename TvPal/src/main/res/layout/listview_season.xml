@@ -11,6 +11,7 @@
         android:textStyle="bold"
         android:textSize="20sp"
         android:text="Seasons"
+        android:typeface="serif"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp" />
 

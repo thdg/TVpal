@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-android:orientation="horizontal"
-android:id="@+id/linearLayout">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:id="@+id/linearLayout">
 
-<ImageView android:id="@+id/imgIcon"
-    android:layout_width="0dp"
-    android:layout_weight="2"
-    android:layout_height="80dp"
-    android:maxHeight="80dp"
-    android:layout_margin="5dp"
-    android:layout_gravity="center_vertical"
-    android:src="@drawable/tvshow"/>
+    <ImageView android:id="@+id/imgIcon"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="80dp"
+        android:maxHeight="80dp"
+        android:layout_margin="5dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/tvshow"/>
 
-<TextView android:id="@+id/title"
-    android:layout_width="0dp"
-    android:layout_weight="6"
-    android:layout_height="80dp"
-    android:layout_margin="5dp"
-    android:textStyle="bold"
-    android:textSize="20sp"
-    android:gravity="center_vertical"
-    android:text="Þáttur"
-    android:textColor="#000000"/>
+    <TextView android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_weight="6"
+        android:layout_height="80dp"
+        android:layout_margin="5dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:gravity="center_vertical"
+        android:text="Þáttur"
+        android:textColor="#000000"
+        android:typeface="serif"/>
 
 </LinearLayout>

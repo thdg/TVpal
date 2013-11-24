@@ -24,7 +24,7 @@
             android:layout_height="360sp"
             android:scaleType="centerCrop"
             android:src="@drawable/default_episode_background"
-            android:contentDescription="movie" />
+            android:contentDescription="Movie" />
 
         <TextView
             android:id="@+id/movieTitle"
@@ -47,12 +47,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Genres"
-            android:textSize="18sp"
-            android:textColor="#ddd"
-            android:textStyle="bold"
-            android:typeface="serif"
-            android:paddingTop="10sp"/>
+            android:text="@string/DetailedMovieGenres"
+            android:paddingTop="10sp"
+            style="@style/DetailedMovieLabel"/>
 
         <TextView
             android:id="@+id/movieGenres"
@@ -65,12 +62,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Runtime"
-            android:textSize="18sp"
-            android:textColor="#ddd"
-            android:textStyle="bold"
-            android:typeface="serif"
-            android:paddingTop="10sp"/>
+            android:text="@string/DetailedMovieRuntime"
+            android:paddingTop="10sp"
+            style="@style/DetailedMovieLabel"/>
 
         <TextView
             android:id="@+id/movieRuntime"
@@ -83,12 +77,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Directors"
-            android:textSize="18sp"
-            android:textColor="#ddd"
-            android:textStyle="bold"
-            android:typeface="serif"
-            android:paddingTop="10sp"/>
+            android:text="@string/DetailedMovieDirectors"
+            android:paddingTop="10sp"
+            style="@style/DetailedMovieLabel"/>
 
         <TextView
             android:id="@+id/movieDirectors"
@@ -101,12 +92,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Actors"
-            android:textSize="18sp"
-            android:textColor="#ddd"
-            android:textStyle="bold"
-            android:typeface="serif"
-            android:paddingTop="10sp"/>
+            android:text="@string/DetailedMovieActors"
+            android:paddingTop="10sp"
+            style="@style/DetailedMovieLabel"/>
 
         <TextView
             android:id="@+id/movieActors"
@@ -125,12 +113,10 @@
                 android:id="@+id/labelMoreInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="More"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#ddd"
+                android:text="@string/DetailedMovieShowmore"
                 android:paddingTop="10sp"
-                android:typeface="serif"/>
+                android:paddingBottom="5sp"
+                style="@style/DetailedMovieLabel"/>
 
             <View
                 android:layout_height="1dp"
@@ -145,7 +131,7 @@
                 android:textSize="16sp"
                 android:textColor="#ddd"
                 android:gravity="center_vertical|left"
-                android:text="Trailer"/>
+                android:text="@string/DetailedMovieTrailer"/>
 
             <View
                 android:layout_height="1dp"
@@ -160,7 +146,7 @@
                 android:textSize="16sp"
                 android:textColor="#ddd"
                 android:gravity="center_vertical|left"
-                android:text="Imdb"/>
+                android:text="@string/DetailedMovieImdb"/>
 
             <View
                 android:layout_height="1dp"
@@ -175,7 +161,7 @@
                 android:textSize="16sp"
                 android:textColor="#ddd"
                 android:gravity="center_vertical|left"
-                android:text="Trakt"/>
+                android:text="@string/DetailedMovieTrakt"/>
 
         </LinearLayout>
 

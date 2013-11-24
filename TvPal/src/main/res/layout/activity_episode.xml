@@ -4,12 +4,11 @@
     android:fadingEdge="vertical"
     android:fillViewport="true">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:background="#222"
-        tools:context=".EpisodeActivity"
         android:orientation="vertical">
 
         <ImageView
@@ -28,7 +27,8 @@
             android:textSize="22sp"
             android:gravity="center"
             android:textStyle="bold"
-            android:textColor="#DDD"/>
+            android:textColor="#ddd"
+            android:typeface="serif"/>
 
         <CheckBox
             android:button="@drawable/eye_checkbox_small"
@@ -52,6 +52,7 @@
             android:textSize="16sp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:typeface="serif"
         />
 
         <TextView
@@ -63,7 +64,8 @@
             android:textSize="16sp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:paddingTop="10sp"/>
+            android:paddingTop="10sp"
+            android:typeface="serif"/>
 
         <TextView
             android:id="@+id/episodeOverview"
@@ -74,7 +76,17 @@
             android:textSize="16sp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:paddingTop="10sp"/>
+            android:paddingTop="10sp"
+            android:typeface="serif"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="GuestStars"
+            android:paddingTop="10sp"
+            style="@style/DetailedMovieLabel"/>
 
         <TextView
             android:id="@+id/episodeGuestStars"
@@ -84,8 +96,16 @@
             android:textSize="16sp"
             android:textColor="#DDD"
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:paddingTop="10sp"/>
+            android:text="Director"
+            android:paddingTop="10sp"
+            style="@style/DetailedMovieLabel"/>
 
         <TextView
             android:id="@+id/episodeDirector"
@@ -95,8 +115,16 @@
             android:textColor="#DDD"
             android:textSize="16sp"
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:paddingTop="10sp"/>
+            android:text="Rating"
+            android:paddingTop="10sp"
+            style="@style/DetailedMovieLabel"/>
 
         <TextView
             android:id="@+id/episodeRating"
@@ -107,8 +135,7 @@
             android:textSize="16sp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            android:paddingTop="10sp"/>
+            android:layout_marginBottom="20dp"/>
 
     </LinearLayout>
 

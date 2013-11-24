@@ -70,5 +70,13 @@
     <string name="trakt_noshows">Couldn\'t load trending shows</string>
     <string name="schedules_empty">Gat ekki hlaðið dagskrá</string>
     <string name="title_activity_detailed_movie">Detailed Movie</string>
+    <string name="DetailedMovieGenres">Genres</string>
+    <string name="DetailedMovieRuntime">Runtime</string>
+    <string name="DetailedMovieDirectors">Directors</string>
+    <string name="DetailedMovieActors">Actors</string>
+    <string name="DetailedMovieShowmore">More</string>
+    <string name="DetailedMovieTrailer">Trailer</string>
+    <string name="DetailedMovieImdb">Imdb</string>
+    <string name="DetailedMovieTrakt">Trakt</string>
 
 </resources>

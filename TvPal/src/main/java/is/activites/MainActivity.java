@@ -29,7 +29,6 @@ import is.contracts.datacontracts.IDrawerItem;
 import is.handlers.adapters.DrawerListAdapter;
 import is.utilities.ConnectionListener;
 import is.tvpal.R;
-import is.utilities.DialogUtil;
 
 /**
  * Created by Þorsteinn

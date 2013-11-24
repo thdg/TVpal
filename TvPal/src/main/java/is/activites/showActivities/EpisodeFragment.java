@@ -75,7 +75,7 @@ public class EpisodeFragment extends Fragment
                 }
             });
 
-            final String guestStars = episode.getGuestStars().equals("") ? "Guest Stars: None" : String.format("Guest Stars: %s", episode.getGuestStars());
+            final String guestStars = episode.getGuestStars().equals("") ? "No Guest Stars" : episode.getGuestStars();
 
             episodeSeenCbx.setChecked(episode.getSeen() == 1);
 
@@ -83,8 +83,8 @@ public class EpisodeFragment extends Fragment
             ((TextView) rootView.findViewById(R.id.episodeAired)).setText(String.format("Aired: %s", episode.getAired()));
             ((TextView) rootView.findViewById(R.id.episodeSeason)).setText(String.format("Season: %s", episode.getSeasonNumber()));
             ((TextView) rootView.findViewById(R.id.episodeOverview)).setText(episode.getOverview());
-            ((TextView) rootView.findViewById(R.id.episodeDirector)).setText(String.format("Director: %s", episode.getDirector()));
-            ((TextView) rootView.findViewById(R.id.episodeRating)).setText(String.format("Rating: %s", episode.getRating()));
+            ((TextView) rootView.findViewById(R.id.episodeDirector)).setText(episode.getDirector());
+            ((TextView) rootView.findViewById(R.id.episodeRating)).setText(episode.getRating());
             ((TextView) rootView.findViewById(R.id.episodeGuestStars)).setText(guestStars);
             poster = (ImageView) rootView.findViewById(R.id.episodePicture);
 
