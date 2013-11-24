@@ -10,10 +10,10 @@ import java.util.List;
 public class TraktPeople
 {
     @SerializedName("directors")
-    public List<TraktPerson> directors;
+    private List<TraktPerson> directors;
 
     @SerializedName("actors")
-    public List<TraktPerson> actors;
+    private List<TraktPerson> actors;
 
     public List<TraktPerson> getDirectors() { return this.directors; };
     public List<TraktPerson> getActors() { return this.actors; }

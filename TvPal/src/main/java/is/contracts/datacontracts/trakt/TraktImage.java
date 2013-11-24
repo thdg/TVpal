@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 public class TraktImage
 {
     @SerializedName("poster")
-    public String poster;
+    private String poster;
 
     public String getPoster() { return this.poster; }
 }

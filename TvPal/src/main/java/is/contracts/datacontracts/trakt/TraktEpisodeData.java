@@ -9,16 +9,16 @@ import com.google.gson.annotations.SerializedName;
 public class TraktEpisodeData
 {
     @SerializedName("title")
-    public String title;
+    private String title;
 
     @SerializedName("overview")
-    public String overview;
+    private String overview;
 
     @SerializedName("tvdb_id")
-    public int seriesId;
+    private int seriesId;
 
     @SerializedName("poster")
-    public String poster;
+    private String poster;
 
     public String getTitle() { return this.title; }
     public void setTitle(String title) { this.title = title; }

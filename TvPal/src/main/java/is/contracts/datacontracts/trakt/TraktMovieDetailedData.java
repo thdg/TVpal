@@ -10,28 +10,31 @@ import java.util.List;
 public class TraktMovieDetailedData
 {
     @SerializedName("title")
-    public String title;
+    private String title;
 
     @SerializedName("trailer")
-    public String trailer;
+    private String trailer;
 
     @SerializedName("runtime")
-    public int runtime;
+    private int runtime;
 
     @SerializedName("overview")
-    public String overview;
+    private String overview;
 
     @SerializedName("people")
-    public TraktPeople people;
+    private TraktPeople people;
 
     @SerializedName("genres")
-    public List<String> genres;
+    private List<String> genres;
 
     @SerializedName("imdb_id")
-    public String imdbId;
+    private String imdbId;
 
     @SerializedName("url")
     private String traktUrl;
+
+    @SerializedName("ratings")
+    private TraktRating rating;
 
     public String getTitle() { return this.title; }
     public String getTrailer() { return this.trailer; }
@@ -41,4 +44,5 @@ public class TraktMovieDetailedData
     public List<String> getGenres() { return this.genres; }
     public String getImdbId() { return this.imdbId; }
     public String getTraktUrl() { return this.traktUrl;}
+    public TraktRating getRating() { return this.rating; }
 }

@@ -8,16 +8,16 @@ import com.google.gson.annotations.SerializedName;
 public class TraktMovieData
 {
     @SerializedName("title")
-    public String title;
+    private String title;
 
     @SerializedName("overview")
-    public String overview;
+    private String overview;
 
     @SerializedName("images")
-    public TraktImage image;
+    private TraktImage image;
 
     @SerializedName("imdb_id")
-    public String imdbId;
+    private String imdbId;
 
     public String getTitle() { return this.title; }
     public String getOverview() { return this.overview; }

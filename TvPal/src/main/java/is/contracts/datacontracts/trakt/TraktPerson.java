@@ -8,10 +8,10 @@ import com.google.gson.annotations.SerializedName;
 public class TraktPerson
 {
     @SerializedName("name")
-    public String name;
+    private String name;
 
     @SerializedName("character")
-    public String character;
+    private String character;
 
     public String getName() { return this.name; }
     public String getCharacter() { return this.character; }

@@ -37,6 +37,7 @@ public class DetailedMovieActivity extends BaseActivity
     private TextView mActors;
     private TextView mDirectors;
     private Button mTraktIntent;
+    private TextView mRating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -64,6 +65,7 @@ public class DetailedMovieActivity extends BaseActivity
         mActors = (TextView) findViewById(R.id.movieActors);
         mDirectors = (TextView) findViewById(R.id.movieDirectors);
         mTraktIntent = (Button) findViewById(R.id.startTraktIntent);
+        mRating = (TextView) findViewById(R.id.movieRating);
 
         String movieId = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEID);
         String moviePoster = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEPOSTER);
@@ -108,6 +110,7 @@ public class DetailedMovieActivity extends BaseActivity
                 mGenres.setText(StringUtil.JoinArrayToString(movie.getGenres()));
                 mActors.setText(StringUtil.GetTraktPeople(movie.getPeople().getActors()));
                 mDirectors.setText(StringUtil.GetTraktPeople(movie.getPeople().getDirectors()));
+                mRating.setText(movie.getRating().getPercentage() + " %");
 
                 mYoutubeIntent.setOnClickListener(new View.OnClickListener() {
                     @Override

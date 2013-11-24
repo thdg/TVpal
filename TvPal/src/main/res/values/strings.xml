@@ -78,5 +78,6 @@
     <string name="DetailedMovieTrailer">Trailer</string>
     <string name="DetailedMovieImdb">Imdb</string>
     <string name="DetailedMovieTrakt">Trakt</string>
+    <string name="DetailedMovieRating">Rating</string>
 
 </resources>
