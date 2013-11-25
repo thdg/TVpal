@@ -38,6 +38,7 @@ public class DetailedMovieActivity extends BaseActivity
     private TextView mDirectors;
     private Button mTraktIntent;
     private TextView mRating;
+    private TextView mReleaseYear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -66,6 +67,7 @@ public class DetailedMovieActivity extends BaseActivity
         mDirectors = (TextView) findViewById(R.id.movieDirectors);
         mTraktIntent = (Button) findViewById(R.id.startTraktIntent);
         mRating = (TextView) findViewById(R.id.movieRating);
+        mReleaseYear = (TextView) findViewById(R.id.movieReleaseYear);
 
         String movieId = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEID);
         String moviePoster = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEPOSTER);
@@ -79,9 +81,9 @@ public class DetailedMovieActivity extends BaseActivity
         private Context mContext;
         private static final String IMDB_URL = "http://www.imdb.com/title/";
 
-        private GetMovieDetailed(Context mContect)
+        private GetMovieDetailed(Context context)
         {
-            this.mContext = mContect;
+            this.mContext = context;
         }
 
         @Override
@@ -111,6 +113,7 @@ public class DetailedMovieActivity extends BaseActivity
                 mActors.setText(StringUtil.GetTraktPeople(movie.getPeople().getActors()));
                 mDirectors.setText(StringUtil.GetTraktPeople(movie.getPeople().getDirectors()));
                 mRating.setText(movie.getRating().getPercentage() + " %");
+                mReleaseYear.setText(String.format("%d", movie.getReleaseYear()));
 
                 mYoutubeIntent.setOnClickListener(new View.OnClickListener() {
                     @Override

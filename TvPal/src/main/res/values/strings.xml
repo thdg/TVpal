@@ -79,5 +79,6 @@
     <string name="DetailedMovieImdb">Imdb</string>
     <string name="DetailedMovieTrakt">Trakt</string>
     <string name="DetailedMovieRating">Rating</string>
+    <string name="DetailedMovieRelease">Release Year</string>
 
 </resources>

@@ -59,6 +59,20 @@
             android:textColor="#ddd"
             android:typeface="serif"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/DetailedMovieRelease"
+            android:paddingTop="10sp"
+            style="@style/DetailedMovieLabel"/>
+
+        <TextView
+            android:id="@+id/movieReleaseYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#ddd"
+            android:typeface="serif"/>
 
         <TextView
             android:layout_width="wrap_content"
