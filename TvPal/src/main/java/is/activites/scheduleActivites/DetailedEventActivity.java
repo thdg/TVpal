@@ -6,7 +6,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+
 import android.widget.Toast;
 import is.activites.reminderActivities.ScheduleClient;
 import is.activites.baseActivities.BaseActivity;
@@ -72,21 +78,29 @@ public class DetailedEventActivity extends BaseActivity {
 
         // Create a new calendar set to the date and time of the show
         if (!event.getStartTime().equals("") && !event.getEventDate().equals("")) {
-            int year = Integer.parseInt(event.getEventDate().substring(0, 4));
-            int month = Integer.parseInt(event.getEventDate().substring(5, 7));
-            int day = Integer.parseInt(event.getEventDate().substring(8));
+            String year = event.getEventDate().substring(2,4);
+            String month = event.getEventDate().substring(5,7);
+            String day = event.getEventDate().substring(8);
             int hour = Integer.parseInt(event.getStartTime().substring(0,2));
             int minute = Integer.parseInt(event.getStartTime().substring(3));
+            Date date = null;
 
-            String[] showInfo = { event.getTitle(), event.getStartTime()};
+            DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
+            String strDate = month + "/" + day + "/" + year;
+            try{
+                date = formatter.parse(strDate);
+            }catch(ParseException e)
+            {
+                Toast.makeText(this, "Ekki gekk að vista áminningu" , Toast.LENGTH_SHORT).show();
+            }
+
+            if (date != null) {
+                String[] showInfo = { event.getTitle(), event.getStartTime()};
 
                 Calendar alarmDate = Calendar.getInstance();
-                alarmDate.set(Calendar.YEAR, year);
-                // first month is zero so do -1
-                alarmDate.set(Calendar.MONTH, month-1);
-                alarmDate.set(Calendar.DATE, day);
-                alarmDate.set(Calendar.HOUR_OF_DAY, 13);
-                alarmDate.set(Calendar.MINUTE, 20);
+                alarmDate.setTime(date);
+                alarmDate.set(Calendar.HOUR_OF_DAY, hour);
+                alarmDate.set(Calendar.MINUTE, minute);
                 alarmDate.add(Calendar.MINUTE, -15);
                 alarmDate.set(Calendar.SECOND, 0);
 
@@ -99,12 +113,15 @@ public class DetailedEventActivity extends BaseActivity {
                 } else if (alarmDate.after(now)) {
                     scheduleClient.setAlarmForNotification(alarmDate, showInfo);
                     // Notify the user what they just did
-                    Toast.makeText(this, "Áminning sett þann: "+ day +"/"+ (month-1) +"/"+ year + " klukkan: " + hour + ":" +
-                            minute , Toast.LENGTH_SHORT).show();
+                    strDate = date.toString().substring(0,10);
+                    Toast.makeText(this, "Áminning sett þann: " + strDate +  " klukkan: " + hour + ":" +
+                            (minute - 15) , Toast.LENGTH_LONG).show();
 
                 } else {
-                    Toast.makeText(this, "Villa kom upp við skráningu" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Villa kom upp við skráningu" , Toast.LENGTH_LONG).show();
                 }
+
+            }
 
         }
 
