@@ -77,34 +77,23 @@ public class DetailedEventActivity extends BaseActivity {
     public void ReminderClick(View view){
 
         // Create a new calendar set to the date and time of the show
-        if (!event.getStartTime().equals("")) {
-            String year = event.getEventDate().substring(2,4);
-            String month = event.getEventDate().substring(5,7);
-            String day = event.getEventDate().substring(8);
+        if (!event.getStartTime().equals("") && !event.getEventDate().equals("")) {
+            int year = Integer.parseInt(event.getEventDate().substring(0, 4));
+            int month = Integer.parseInt(event.getEventDate().substring(5, 7));
+            int day = Integer.parseInt(event.getEventDate().substring(8));
             int hour = Integer.parseInt(event.getStartTime().substring(0,2));
             int minute = Integer.parseInt(event.getStartTime().substring(3));
-            Date date = null;
 
-            DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
-            String strDate = month + "/" + day + "/" + year;
-            try{
-                date = formatter.parse(strDate);
-            }catch(ParseException e)
-            {
-                Toast.makeText(this, "Ekki gekk að vista áminningu" , Toast.LENGTH_SHORT).show();
-            }
-
-            if (date != null) {
-                String[] showInfo = { event.getTitle(), event.getStartTime()};
-                if(minute < 15) {
-                    hour -= 1;
-                    minute = 45 + minute;
-                } else { minute = minute - 15; }
+            String[] showInfo = { event.getTitle(), event.getStartTime()};
 
                 Calendar alarmDate = Calendar.getInstance();
-                alarmDate.setTime(date);
+                alarmDate.set(Calendar.YEAR, year);
+                // first month is zero so do -1
+                alarmDate.set(Calendar.MONTH, month-1);
+                alarmDate.set(Calendar.DATE, day);
                 alarmDate.set(Calendar.HOUR_OF_DAY, hour);
                 alarmDate.set(Calendar.MINUTE, minute);
+                //alarmDate.add(Calendar.MINUTE, -15);
                 alarmDate.set(Calendar.SECOND, 0);
 
 
@@ -120,11 +109,10 @@ public class DetailedEventActivity extends BaseActivity {
                     Toast.makeText(this, "Dagskrárliður hefur nú þegar verið sýndur" , Toast.LENGTH_SHORT).show();
                 }
 
-            }
-
         }
 
     }
+
     @Override
     protected void onStop() {
         // When our activity is stopped ensure we also stop the connection to the service
