@@ -98,7 +98,7 @@ public class DetailedEventActivity extends BaseActivity {
                 String[] showInfo = { event.getTitle(), event.getStartTime()};
                 if(minute < 15) {
                     hour -= 1;
-                    minute = 60 - minute;
+                    minute = 45 + minute;
                 } else { minute = minute - 15; }
 
                 Calendar alarmDate = Calendar.getInstance();
