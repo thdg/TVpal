@@ -115,7 +115,7 @@ public class DetailedEventActivity extends BaseActivity {
                     // Notify the user what they just did
                     strDate = date.toString().substring(0,10);
                     Toast.makeText(this, "Áminning sett þann: " + strDate +  " klukkan: " + hour + ":" +
-                            (minute - 15) , Toast.LENGTH_LONG).show();
+                            minute , Toast.LENGTH_LONG).show();
 
                 } else {
                     Toast.makeText(this, "Villa kom upp við skráningu" , Toast.LENGTH_LONG).show();
