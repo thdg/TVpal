@@ -68,7 +68,6 @@ public class DetailedEventActivity extends BaseActivity {
             TextView eventDuration = (TextView) findViewById(R.id.event_duration);
             eventDuration.setText(String.format("%s: %s", getResources().getString(R.string.duration), event.getDuration()));
         }
-        View view = findViewById(R.id.getReminder);
     }
 
     /**

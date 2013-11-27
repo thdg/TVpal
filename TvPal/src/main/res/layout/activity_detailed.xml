@@ -47,6 +47,7 @@
 
         </LinearLayout>
 
+        <!-- þarf að fara betur í útfærsluna á þessu
         <CheckBox
             android:button="@drawable/eye_checkbox_blue"
             android:id="@+id/getReminder"
@@ -59,7 +60,7 @@
             android:focusable="false"
             android:onClick="ReminderClick"
             android:text="    Fá áminningu."/>
-
+        -->
         <TextView
             android:id="@+id/event_description"
             android:layout_height="wrap_content"
