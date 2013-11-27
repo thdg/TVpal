@@ -44,6 +44,19 @@
 
         </LinearLayout>
 
+        <CheckBox
+            android:button="@drawable/eye_48_green"
+            android:id="@+id/getReminder"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#DDD"
+            android:focusable="false"
+            android:onClick="ReminderClick"
+            android:text="    Fá áminningu."/>
+
         <TextView
             android:id="@+id/event_description"
             android:layout_height="wrap_content"

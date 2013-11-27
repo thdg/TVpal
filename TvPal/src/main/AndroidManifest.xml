@@ -94,6 +94,9 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_detailed_movie" >
         </activity>
+
+        <service android:name="is.activites.reminderActivities.ScheduleService" />
+        <service android:name="is.activites.reminderActivities.NotifyService" />
     </application>
 
 </manifest>
