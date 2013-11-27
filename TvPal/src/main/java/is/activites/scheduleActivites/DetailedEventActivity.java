@@ -6,13 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-
 import android.widget.Toast;
 import is.activites.reminderActivities.ScheduleClient;
 import is.activites.baseActivities.BaseActivity;
@@ -91,22 +85,25 @@ public class DetailedEventActivity extends BaseActivity {
                 // first month is zero so do -1
                 alarmDate.set(Calendar.MONTH, month-1);
                 alarmDate.set(Calendar.DATE, day);
-                alarmDate.set(Calendar.HOUR_OF_DAY, hour);
-                alarmDate.set(Calendar.MINUTE, minute);
-                //alarmDate.add(Calendar.MINUTE, -15);
+                alarmDate.set(Calendar.HOUR_OF_DAY, 13);
+                alarmDate.set(Calendar.MINUTE, 20);
+                alarmDate.add(Calendar.MINUTE, -15);
                 alarmDate.set(Calendar.SECOND, 0);
 
 
                 Calendar now = Calendar.getInstance();
                 // Ask our service to set an alarm for that date, this activity talks to the client that talks to the service
-                if(alarmDate.after(now)) {
+                if(alarmDate.before(now)) {
+                    Toast.makeText(this, "Dagskrárliður hefur nú þegar verið sýndur" , Toast.LENGTH_SHORT).show();
 
+                } else if (alarmDate.after(now)) {
                     scheduleClient.setAlarmForNotification(alarmDate, showInfo);
                     // Notify the user what they just did
-                    Toast.makeText(this, "Áminning sett þann: "+ day +"/"+ (month) +"/"+ year + " klukkan: " + hour + ":" +
+                    Toast.makeText(this, "Áminning sett þann: "+ day +"/"+ (month-1) +"/"+ year + " klukkan: " + hour + ":" +
                             minute , Toast.LENGTH_SHORT).show();
+
                 } else {
-                    Toast.makeText(this, "Dagskrárliður hefur nú þegar verið sýndur" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Villa kom upp við skráningu" , Toast.LENGTH_SHORT).show();
                 }
 
         }

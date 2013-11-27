@@ -43,6 +43,8 @@ public class SearchMovieFragment extends Fragment implements AdapterView.OnItemC
         this.mContext = context;
     }
 
+    public SearchMovieFragment() {}
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
