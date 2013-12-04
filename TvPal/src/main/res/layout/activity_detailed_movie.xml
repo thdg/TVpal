@@ -22,7 +22,7 @@
             android:id="@+id/moviePoster"
             android:layout_width="fill_parent"
             android:layout_height="360sp"
-            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
             android:src="@drawable/default_episode_background"
             android:contentDescription="Movie" />
 
@@ -33,7 +33,8 @@
             android:textSize="22sp"
             android:gravity="center"
             android:textColor="#ddd"
-            android:typeface="serif"/>
+            android:typeface="serif"
+            android:paddingBottom="10sp"/>
 
         <TextView
             android:id="@+id/movieOverview"
