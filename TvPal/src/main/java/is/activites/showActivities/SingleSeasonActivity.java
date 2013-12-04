@@ -8,23 +8,27 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import is.activites.baseActivities.BaseActivity;
 import is.activites.baseActivities.BaseListActivity;
 import is.handlers.adapters.SingleSeasonAdapter;
 import is.handlers.database.DbShowHandler;
+import is.tvpal.R;
 
 /**
  * Displays all episodes of a single season of some series
  * @author Arnar
  */
 
-public class SingleSeasonActivity extends BaseListActivity implements AdapterView.OnItemClickListener
+public class SingleSeasonActivity extends BaseActivity implements AdapterView.OnItemClickListener
 {
     public static final String EXTRA_SERIESID = "is.activites.showActivities.SERIESID";
     public static final String EXTRA_SEASONNR = "is.activites.showActivities.SEASONNR";
     public static final String EXTRA_EPISODENR = "is.activites.showActivities.EPISODENR";
     public static final String EXTRA_SELECTED = "is.activites.showActivities.SELECTED";
 
-    private SingleSeasonAdapter _adapter;
+    private SingleSeasonAdapter mAdapter;
+    private ListView mListView;
     private DbShowHandler _db;
     private int _seriesId;
     private int _season;
@@ -33,6 +37,7 @@ public class SingleSeasonActivity extends BaseListActivity implements AdapterVie
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_single_season);
 
         Initialize();
     }
@@ -42,8 +47,8 @@ public class SingleSeasonActivity extends BaseListActivity implements AdapterVie
     {
         super.onResume();
 
-        _adapter = new SingleSeasonAdapter(this, _db.GetCursorEpisodes(_seriesId, _season), 0, _seriesId, _season);
-        setListAdapter(_adapter);
+        mAdapter = new SingleSeasonAdapter(this, _db.GetCursorEpisodes(_seriesId, _season), 0, _seriesId, _season);
+        mListView.setAdapter(mAdapter);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -57,8 +62,8 @@ public class SingleSeasonActivity extends BaseListActivity implements AdapterVie
 
         setTitle(String.format("Season %s", _season));
 
-        ListView lv = getListView();
-        lv.setOnItemClickListener(this);
+        mListView = (ListView) findViewById(R.id.episode_single_season);
+        mListView.setOnItemClickListener(this);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -66,7 +71,7 @@ public class SingleSeasonActivity extends BaseListActivity implements AdapterVie
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
     {
-        Cursor selectedEpisode = (Cursor) _adapter.getItem(position);
+        Cursor selectedEpisode = (Cursor) mAdapter.getItem(position);
 
         Intent intent = new Intent(this, EpisodeActivity.class);
         intent.putExtra(EXTRA_SERIESID, selectedEpisode.getInt(1));

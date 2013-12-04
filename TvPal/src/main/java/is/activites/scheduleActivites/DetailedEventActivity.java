@@ -36,8 +36,8 @@ public class DetailedEventActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed);
 
-        scheduleClient = new ScheduleClient(this);
-        scheduleClient.doBindService();
+        //scheduleClient = new ScheduleClient(this);
+        //scheduleClient.doBindService();
 
         Initialize();
     }

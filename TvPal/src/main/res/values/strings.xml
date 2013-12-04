@@ -80,5 +80,8 @@
     <string name="DetailedMovieTrakt">Trakt</string>
     <string name="DetailedMovieRating">Rating</string>
     <string name="DetailedMovieRelease">Release Year</string>
+    <string name="episode_guest_stars">Guest Stars</string>
+    <string name="label_episode_director">Director</string>
+    <string name="label_episode_rating">Rating</string>
 
 </resources>

@@ -1,7 +1,6 @@
 package is.activites.showActivities;
 
 import android.annotation.TargetApi;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
@@ -16,6 +15,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import is.activites.baseActivities.BaseActivity;
 import is.handlers.database.DbShowHandler;
 import is.handlers.adapters.MyShowsAdapter;
 import is.thetvdb.TvDbUtil;
@@ -26,19 +27,20 @@ import is.tvpal.R;
  * @author Arnar
  */
 
-public class MyShowsActivity extends ListActivity implements AdapterView.OnItemClickListener
+public class MyShowsActivity extends BaseActivity implements AdapterView.OnItemClickListener
 {
     public static final String EXTRA_SERIESID = "is.activities.showActivities.SERIESID";
     public static final String EXTRA_NAME = "is.actvities.showActivities.SERIESNAME";
 
     private DbShowHandler _db;
-    private ListView _lv;
-    private MyShowsAdapter _adapter;
+    private ListView mListView;
+    private MyShowsAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_myshows);
 
         Initialize();
     }
@@ -48,19 +50,19 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
     {
         _db = new DbShowHandler(this);
 
-        _lv = getListView();
-        _lv.setOnItemClickListener(this);
+        mListView = (ListView) findViewById(R.id.myshows_series);
+        mListView.setOnItemClickListener(this);
 
         SetListAdapterMyShows();
-        registerForContextMenu(getListView());
+        registerForContextMenu(mListView);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void SetListAdapterMyShows()
     {
-        _adapter = new MyShowsAdapter(this, _db.GetCursorMyShows(), 0);
-        setListAdapter(_adapter);
+        mAdapter = new MyShowsAdapter(this, _db.GetCursorMyShows(), 0);
+        mListView.setAdapter(mAdapter);
     }
 
     @Override
@@ -94,7 +96,7 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
 
     private void RemoveShow(int selectedShow)
     {
-        Cursor show = (Cursor) _adapter.getItem(selectedShow);
+        Cursor show = (Cursor) mAdapter.getItem(selectedShow);
 
         try
         {
@@ -110,7 +112,7 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
 
     private void UpdateShow(int position)
     {
-        Cursor show = (Cursor) _adapter.getItem(position);
+        Cursor show = (Cursor) mAdapter.getItem(position);
 
         TvDbUtil update = new TvDbUtil(this);
         update.UpdateSeries(show.getInt(0));
@@ -118,7 +120,7 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
 
     private void SeenAllEpisodes(int position)
     {
-        Cursor cursor = (Cursor) _adapter.getItem(position);
+        Cursor cursor = (Cursor) mAdapter.getItem(position);
 
         TvDbUtil tvdb = new TvDbUtil(this);
         tvdb.SetAllEpisodesOfSeriesSeen(cursor.getInt(0));
@@ -126,7 +128,7 @@ public class MyShowsActivity extends ListActivity implements AdapterView.OnItemC
 
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
     {
-        Cursor show = (Cursor) _adapter.getItem(position);
+        Cursor show = (Cursor) mAdapter.getItem(position);
 
         Intent intent = new Intent(this, SeriesActivity.class);
         intent.putExtra(EXTRA_SERIESID, show.getInt(0));
