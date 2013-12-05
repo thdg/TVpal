@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import is.activites.baseActivities.BaseFragment;
 import is.activites.baseActivities.IContext;
 import is.handlers.adapters.SeasonAdapter;
 import is.handlers.database.DbEpisodes;
@@ -24,7 +25,7 @@ import is.tvpal.R;
  * A fragment that displays all seasons of some series
  * Created by Arnar on 13.11.2013.
  */
-public class SeasonFragment extends Fragment implements AdapterView.OnItemClickListener
+public class SeasonFragment extends BaseFragment implements AdapterView.OnItemClickListener
 {
     public static final String EXTRA_SERIESID = "is.activites.showActivities.SERIESID";
     public static final String EXTRA_SEASON = "is.activites.showActivities.SEASON";
@@ -34,8 +35,6 @@ public class SeasonFragment extends Fragment implements AdapterView.OnItemClickL
     private ListView listView;
     private Context mContext;
     private int mSeriesId;
-
-    private IContext activityCxt;
 
     public static SeasonFragment newInstance(int seriesId)
     {
@@ -129,20 +128,5 @@ public class SeasonFragment extends Fragment implements AdapterView.OnItemClickL
         Cursor selectedSeason = (Cursor) mAdapter.getItem(position);
         db.UpdateSeasonSeenStatus(selectedSeason.getInt(1), selectedSeason.getInt(0), seenStatus);
         SetListAdapter();
-    }
-
-    @Override
-    public void onAttach (Activity activity)
-    {
-        super.onAttach(activity);
-        try
-        {
-            activityCxt = (IContext) activity;
-        }
-        catch (ClassCastException e)
-        {
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
     }
 }

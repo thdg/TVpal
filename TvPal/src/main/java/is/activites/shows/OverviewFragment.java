@@ -1,18 +1,15 @@
 package is.activites.shows;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import is.activites.baseActivities.IContext;
+import is.activites.baseActivities.BaseFragment;
 import is.handlers.database.DbEpisodes;
 import is.tvpal.R;
 
@@ -20,11 +17,9 @@ import is.tvpal.R;
  * A fragment to display basic information about a series
  * @author Arnar
  */
-public class OverviewFragment extends Fragment
+public class OverviewFragment extends BaseFragment
 {
     public static final String ARG_SeriesId = "series_id";
-
-    private IContext activityCxt;
 
     public static OverviewFragment newInstance(int seriesId)
     {
@@ -62,21 +57,6 @@ public class OverviewFragment extends Fragment
         }
 
         return rootView;
-    }
-
-    @Override
-    public void onAttach (Activity activity)
-    {
-        super.onAttach(activity);
-        try
-        {
-            activityCxt = (IContext) activity;
-        }
-        catch (ClassCastException e)
-        {
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
     }
 
     private interface Series
