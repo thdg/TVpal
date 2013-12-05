@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.io.IOException;
+import is.activites.baseActivities.BaseFragment;
 import is.contracts.datacontracts.EpisodeData;
 import is.handlers.database.DbEpisodes;
 import is.parsers.tvdb.TvDbPictureParser;
@@ -24,34 +25,38 @@ import is.utilities.ConnectionListener;
  * @author Arnar
  * @see Fragment
  */
-public class EpisodeFragment extends Fragment
+public class EpisodeFragment extends BaseFragment
 {
     public static final String EPISODE_FRAGMENT = "is.activites.showActivities.episode_fragment";
 
-    private Context cxt;
+    private Context mContext;
     private Bitmap bmp;
     private ImageView poster;
     private ConnectionListener _network;
     private DbEpisodes db;
 
-    public EpisodeFragment(Context cxt)
-    {
-        this.cxt = cxt;
-        this._network = new ConnectionListener(cxt);
-        this.db = new DbEpisodes(cxt);
-    }
-
     public EpisodeFragment() {}
 
-    @Override
-    public void onResume()
+    public static EpisodeFragment newInstance(EpisodeData episode)
     {
-        super.onResume();
+        EpisodeFragment fragment = new EpisodeFragment();
+
+        Bundle args = new Bundle();
+        args.putSerializable(EPISODE_FRAGMENT, episode);
+
+        fragment.setArguments(args);
+        fragment.setRetainInstance(true);
+
+        return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        mContext = activityCxt.getActivityContext();
+        db = new DbEpisodes(mContext);
+        _network = new ConnectionListener(mContext);
+
         View rootView = inflater.inflate(R.layout.activity_episode, container, false);
         Bundle args = getArguments();
         final EpisodeData episode = (EpisodeData) args.getSerializable(EPISODE_FRAGMENT);

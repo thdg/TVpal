@@ -10,12 +10,10 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import is.activites.baseActivities.BaseFragmentActivity;
-import is.activites.baseActivities.IContext;
-import is.handlers.database.DbEpisodes;
 import is.tvpal.R;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class SeriesActivity extends BaseFragmentActivity implements IContext
+public class SeriesActivity extends BaseFragmentActivity
 {
     private ViewPager mViewPager;
     private int seriesId;
@@ -49,12 +47,6 @@ public class SeriesActivity extends BaseFragmentActivity implements IContext
                 mViewPager.setCurrentItem(position);
             }
         });
-    }
-
-    @Override
-    public Context getActivityContext()
-    {
-        return this;
     }
 
     public class SeriesPagerAdapter extends FragmentStatePagerAdapter

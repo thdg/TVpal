@@ -3,7 +3,6 @@ package is.activites.shows;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
@@ -29,7 +28,6 @@ public class EpisodeActivity extends BaseFragmentActivity implements ActionBar.T
     private int _seriesId;
     private int _seasonNr;
     private int _pos;
-    private EpisodePagerAdapter mScheduleAdapter;
     private ViewPager mViewPager;
 
     @Override
@@ -61,7 +59,7 @@ public class EpisodeActivity extends BaseFragmentActivity implements ActionBar.T
     {
         DbEpisodes db = new DbEpisodes(this);
 
-        mScheduleAdapter = new EpisodePagerAdapter(getSupportFragmentManager(), db.GetCursorEpisodesDetailed(_seriesId, _seasonNr) ,this);
+        EpisodePagerAdapter mScheduleAdapter = new EpisodePagerAdapter(getSupportFragmentManager(), db.GetCursorEpisodesDetailed(_seriesId, _seasonNr));
 
         final ActionBar actionBar = getActionBar();
 
@@ -99,15 +97,14 @@ public class EpisodeActivity extends BaseFragmentActivity implements ActionBar.T
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
 
+
     public class EpisodePagerAdapter extends FragmentStatePagerAdapter
     {
-        private Context cxt;
         private Cursor mCursor;
 
-        public EpisodePagerAdapter(FragmentManager fm, Cursor cursor , Context cxt)
+        public EpisodePagerAdapter(FragmentManager fm, Cursor cursor)
         {
             super(fm);
-            this.cxt = cxt;
             mCursor = cursor;
         }
 
@@ -115,9 +112,6 @@ public class EpisodeActivity extends BaseFragmentActivity implements ActionBar.T
         public Fragment getItem(int position)
         {
             mCursor.moveToPosition(position);
-
-            Fragment fragment = new EpisodeFragment(cxt);
-            Bundle args = new Bundle();
 
             EpisodeData episode = new EpisodeData();
             episode.setEpisodeName(mCursor.getString(Episodes.EpisodeName));
@@ -130,9 +124,7 @@ public class EpisodeActivity extends BaseFragmentActivity implements ActionBar.T
             episode.setSeen(mCursor.getInt(Episodes.Seen));
             episode.setGuestStars(mCursor.getString(Episodes.GuestStars));
 
-            args.putSerializable(EpisodeFragment.EPISODE_FRAGMENT, episode);
-            fragment.setArguments(args);
-            return fragment;
+            return EpisodeFragment.newInstance(episode);
         }
 
         @Override
