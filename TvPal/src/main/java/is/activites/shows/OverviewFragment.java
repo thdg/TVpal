@@ -1,5 +1,6 @@
 package is.activites.shows;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import is.activites.baseActivities.IContext;
 import is.handlers.database.DbEpisodes;
 import is.tvpal.R;
 
@@ -20,18 +22,20 @@ import is.tvpal.R;
  */
 public class OverviewFragment extends Fragment
 {
-    private Context context;
-    private Cursor mCursor;
+    public static final String ARG_SeriesId = "series_id";
 
-    public OverviewFragment(Context context, Cursor cursor)
-    {
-        this.context = context;
-        this.mCursor = cursor;
-    }
+    private IContext activityCxt;
 
-    public static OverviewFragment newInstance(Context context, Cursor cursor)
+    public static OverviewFragment newInstance(int seriesId)
     {
-        return new OverviewFragment(context, cursor);
+        OverviewFragment fragment = new OverviewFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARG_SeriesId, seriesId);
+        fragment.setRetainInstance(true);
+        fragment.setArguments(bundle);
+
+        return fragment;
     }
 
     public OverviewFragment() {}
@@ -41,7 +45,11 @@ public class OverviewFragment extends Fragment
     {
         View rootView = inflater.inflate(R.layout.fragment_overview, container, false);
 
-        DbEpisodes db = new DbEpisodes(context);
+        Context mContext = activityCxt.getActivityContext();
+        DbEpisodes db = new DbEpisodes(mContext);
+
+        Bundle args = getArguments();
+        Cursor mCursor = db.GetCursorOverview(args.getInt(ARG_SeriesId));
 
         if (rootView != null)
         {
@@ -54,6 +62,21 @@ public class OverviewFragment extends Fragment
         }
 
         return rootView;
+    }
+
+    @Override
+    public void onAttach (Activity activity)
+    {
+        super.onAttach(activity);
+        try
+        {
+            activityCxt = (IContext) activity;
+        }
+        catch (ClassCastException e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
     }
 
     private interface Series

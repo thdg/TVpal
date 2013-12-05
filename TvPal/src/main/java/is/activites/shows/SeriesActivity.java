@@ -10,11 +10,12 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import is.activites.baseActivities.BaseFragmentActivity;
+import is.activites.baseActivities.IContext;
 import is.handlers.database.DbEpisodes;
 import is.tvpal.R;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class SeriesActivity extends BaseFragmentActivity
+public class SeriesActivity extends BaseFragmentActivity implements IContext
 {
     private ViewPager mViewPager;
     private int seriesId;
@@ -42,14 +43,18 @@ public class SeriesActivity extends BaseFragmentActivity
 
         mViewPager = (ViewPager) findViewById(R.id.pagerView);
         mViewPager.setAdapter(mScheduleAdapter);
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener()
-        {
+        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
-            public void onPageSelected(int position)
-            {
+            public void onPageSelected(int position) {
                 mViewPager.setCurrentItem(position);
             }
         });
+    }
+
+    @Override
+    public Context getActivityContext()
+    {
+        return this;
     }
 
     public class SeriesPagerAdapter extends FragmentStatePagerAdapter
@@ -68,10 +73,9 @@ public class SeriesActivity extends BaseFragmentActivity
             switch (position)
             {
                 case 0:
-                    DbEpisodes db = new DbEpisodes(context);
-                    return OverviewFragment.newInstance(context, db.GetCursorOverview(seriesId));
+                    return OverviewFragment.newInstance(seriesId);
                 case 1:
-                    return SeasonFragment.newInstance(context, seriesId);
+                    return SeasonFragment.newInstance(seriesId);
             }
             return null;
         }

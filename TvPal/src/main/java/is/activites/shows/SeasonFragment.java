@@ -1,5 +1,6 @@
 package is.activites.shows;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import is.activites.baseActivities.IContext;
 import is.handlers.adapters.SeasonAdapter;
 import is.handlers.database.DbEpisodes;
 import is.tvpal.R;
@@ -26,22 +29,24 @@ public class SeasonFragment extends Fragment implements AdapterView.OnItemClickL
     public static final String EXTRA_SERIESID = "is.activites.showActivities.SERIESID";
     public static final String EXTRA_SEASON = "is.activites.showActivities.SEASON";
 
-    private Context mContext;
     private SeasonAdapter mAdapter;
     private DbEpisodes db;
-    private int mSeriesId;
     private ListView listView;
+    private Context mContext;
+    private int mSeriesId;
 
-    public SeasonFragment(Context context, int seriesId)
-    {
-        this.mContext = context;
-        this.mSeriesId = seriesId;
-        db = new DbEpisodes(context);
-    }
+    private IContext activityCxt;
 
-    public static SeasonFragment newInstance(Context context, int seriesId)
+    public static SeasonFragment newInstance(int seriesId)
     {
-        return new SeasonFragment(context, seriesId);
+        SeasonFragment fragment = new SeasonFragment();
+
+        Bundle args = new Bundle();
+        args.putInt("series", seriesId);
+
+        fragment.setRetainInstance(true);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     public SeasonFragment() {}
@@ -62,6 +67,12 @@ public class SeasonFragment extends Fragment implements AdapterView.OnItemClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        mContext = activityCxt.getActivityContext();
+        db = new DbEpisodes(mContext);
+
+        Bundle args = getArguments();
+        mSeriesId = args.getInt("series");
+
         View rootView = inflater.inflate(R.layout.fragment_seasons, container, false);
 
         listView = (ListView) rootView.findViewById(R.id.listviewSeasons);
@@ -118,5 +129,20 @@ public class SeasonFragment extends Fragment implements AdapterView.OnItemClickL
         Cursor selectedSeason = (Cursor) mAdapter.getItem(position);
         db.UpdateSeasonSeenStatus(selectedSeason.getInt(1), selectedSeason.getInt(0), seenStatus);
         SetListAdapter();
+    }
+
+    @Override
+    public void onAttach (Activity activity)
+    {
+        super.onAttach(activity);
+        try
+        {
+            activityCxt = (IContext) activity;
+        }
+        catch (ClassCastException e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
     }
 }
