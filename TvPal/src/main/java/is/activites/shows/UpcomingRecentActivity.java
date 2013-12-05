@@ -56,9 +56,9 @@ public class UpcomingRecentActivity extends BaseFragmentActivity
             switch (position)
             {
                 case 0:
-                    return new UpcomingShowsFragment(context);
+                    return UpcomingShowsFragment.newInstance();
                 case 1:
-                    return new RecentShowsFragment(context);
+                    return RecentShowsFragment.newInstance();
             }
             return null;
         }

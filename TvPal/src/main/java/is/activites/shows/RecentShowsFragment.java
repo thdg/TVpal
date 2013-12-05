@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import is.activites.baseActivities.BaseFragment;
 import is.handlers.adapters.UpcomingRecentAdapter;
 import is.handlers.database.DbEpisodes;
 import is.tvpal.R;
@@ -19,21 +19,26 @@ import is.tvpal.R;
  * @author Arnar
  */
 
-public class RecentShowsFragment extends Fragment implements AdapterView.OnItemClickListener
+public class RecentShowsFragment extends BaseFragment implements AdapterView.OnItemClickListener
 {
     private UpcomingRecentAdapter mAdapter;
     private Context mContext;
 
-    public RecentShowsFragment(Context context)
-    {
-        this.mContext = context;
-    }
-
     public RecentShowsFragment() {}
+
+    public static RecentShowsFragment newInstance()
+    {
+        RecentShowsFragment fragment = new RecentShowsFragment();
+
+        fragment.setRetainInstance(true);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        mContext = activity.getActivityContext();
+
         View rootView = inflater.inflate(R.layout.fragment_upcoming_recent, container, false);
 
         ListView listView = (ListView) rootView.findViewById(R.id.overviewShows);
@@ -49,6 +54,8 @@ public class RecentShowsFragment extends Fragment implements AdapterView.OnItemC
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
     {
+        mContext = activity.getActivityContext();
+
         Cursor episode = (Cursor) mAdapter.getItem(position);
 
         Intent intent = new Intent(mContext, EpisodeActivity.class);

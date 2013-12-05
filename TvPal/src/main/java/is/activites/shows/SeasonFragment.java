@@ -1,11 +1,9 @@
 package is.activites.shows;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -16,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import is.activites.baseActivities.BaseFragment;
-import is.activites.baseActivities.IContext;
 import is.handlers.adapters.SeasonAdapter;
 import is.handlers.database.DbEpisodes;
 import is.tvpal.R;
@@ -66,7 +63,7 @@ public class SeasonFragment extends BaseFragment implements AdapterView.OnItemCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        mContext = activityCxt.getActivityContext();
+        mContext = activity.getActivityContext();
         db = new DbEpisodes(mContext);
 
         Bundle args = getArguments();

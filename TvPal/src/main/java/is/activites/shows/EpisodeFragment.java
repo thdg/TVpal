@@ -53,7 +53,7 @@ public class EpisodeFragment extends BaseFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        mContext = activityCxt.getActivityContext();
+        mContext = activity.getActivityContext();
         db = new DbEpisodes(mContext);
         _network = new ConnectionListener(mContext);
 

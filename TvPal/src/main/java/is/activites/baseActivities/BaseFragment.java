@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
  */
 public class BaseFragment extends Fragment
 {
-    protected IContext activityCxt;
+    protected IContext activity;
 
     @Override
     public void onAttach (Activity activity)
@@ -16,7 +16,7 @@ public class BaseFragment extends Fragment
         super.onAttach(activity);
         try
         {
-            activityCxt = (IContext) activity;
+            this.activity = (IContext) activity;
         }
         catch (ClassCastException e)
         {
