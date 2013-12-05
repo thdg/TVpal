@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,16 +76,16 @@ public class DetailedMovieActivity extends BaseActivity
         String movieId = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEID);
         String moviePoster = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEPOSTER);
 
-        new GetMovieDetailed(this).execute(movieId);
-        new GetPosterShow().execute(moviePoster);
+        new GetMovieDetailedWorker(this).execute(movieId);
+        new PosterTask().execute(moviePoster);
     }
 
-    private class GetMovieDetailed extends AsyncTask<String, Void, TraktMovieDetailedData>
+    private class GetMovieDetailedWorker extends AsyncTask<String, Void, TraktMovieDetailedData>
     {
         private Context mContext;
         private static final String IMDB_URL = "http://www.imdb.com/title/";
 
-        private GetMovieDetailed(Context context)
+        private GetMovieDetailedWorker(Context context)
         {
             this.mContext = context;
         }
@@ -186,7 +185,7 @@ public class DetailedMovieActivity extends BaseActivity
         }
     }
 
-    private class GetPosterShow extends AsyncTask<String, Void, Bitmap>
+    private class PosterTask extends AsyncTask<String, Void, Bitmap>
     {
         @Override
         protected Bitmap doInBackground(String... strings)

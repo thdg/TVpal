@@ -43,7 +43,7 @@ public class CinemaActivity extends BaseActivity implements AdapterView.OnItemCl
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        new GetMovieScedules(this).execute();
+        new MovieScedulesWorker(this).execute();
     }
 
     @Override
@@ -60,11 +60,11 @@ public class CinemaActivity extends BaseActivity implements AdapterView.OnItemCl
      * A class which creates a new thread to Download Cinema Data
      * @author Arnar
      */
-    private class GetMovieScedules extends AsyncTask<String, Void, List<CinemaMovie>>
+    private class MovieScedulesWorker extends AsyncTask<String, Void, List<CinemaMovie>>
     {
         private Context mContext;
 
-        public GetMovieScedules(Context context)
+        public MovieScedulesWorker(Context context)
         {
             this.mContext = context;
         }

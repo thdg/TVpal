@@ -46,15 +46,15 @@ public class MovieCommentsActivity extends BaseActivity
         String movieId = intent.getStringExtra(DetailedMovieActivity.EXTRA_MOVIEID);
         String movieTitle = intent.getStringExtra(DetailedMovieActivity.EXTRA_MOVIE);
 
-        new GetComments(this, movieTitle).execute(movieId);
+        new TraktCommentsWorker(this, movieTitle).execute(movieId);
     }
 
-    private class GetComments extends AsyncTask<String, Void, List<TraktComment>>
+    private class TraktCommentsWorker extends AsyncTask<String, Void, List<TraktComment>>
     {
         private Context mContext;
         private String title;
 
-        public GetComments(Context context, String title)
+        public TraktCommentsWorker(Context context, String title)
         {
             this.mContext = context;
             this.title = title;

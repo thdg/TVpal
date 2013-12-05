@@ -50,7 +50,7 @@ public class TrendingMoviesFragment extends Fragment implements AdapterView.OnIt
         mProgressBar = (ProgressBar) getView().findViewById(R.id.progressIndicator);
         mNoResults = (TextView) getView().findViewById(R.id.traktNoResults);
 
-        new GetTrendingMovies().execute();
+        new TrendingMoviesWorker().execute();
     }
 
     @Override
@@ -69,7 +69,7 @@ public class TrendingMoviesFragment extends Fragment implements AdapterView.OnIt
         startActivity(intent);
     }
 
-    private class GetTrendingMovies extends AsyncTask<String, Void, List<TraktMovieData>>
+    private class TrendingMoviesWorker extends AsyncTask<String, Void, List<TraktMovieData>>
     {
         @Override
         protected List<TraktMovieData> doInBackground(String... strings)

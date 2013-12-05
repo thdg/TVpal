@@ -96,7 +96,7 @@ public class SearchMovieFragment extends Fragment implements AdapterView.OnItemC
             Log.e(getClass().getName(), ex.getMessage());
         }
 
-        new SearchMovieTask().execute(userEntry);
+        new SearchMovieWorker().execute(userEntry);
     }
 
     @Override
@@ -110,7 +110,7 @@ public class SearchMovieFragment extends Fragment implements AdapterView.OnItemC
         startActivity(intent);
     }
 
-    private class SearchMovieTask extends AsyncTask<String, Void, List<TraktMovieData>>
+    private class SearchMovieWorker extends AsyncTask<String, Void, List<TraktMovieData>>
     {
         @Override
         protected List<TraktMovieData> doInBackground(String... strings)
