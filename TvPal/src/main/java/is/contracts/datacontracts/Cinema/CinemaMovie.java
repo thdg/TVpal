@@ -1,4 +1,4 @@
-package is.contracts.datacontracts.Cinema;
+package is.contracts.datacontracts.cinema;
 
 import com.google.gson.annotations.SerializedName;
 

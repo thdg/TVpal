@@ -7,6 +7,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import is.contracts.datacontracts.trakt.TraktComment;
 import is.contracts.datacontracts.trakt.TraktMovieDetailedData;
 import is.contracts.datacontracts.trakt.TraktEpisodeData;
 import is.contracts.datacontracts.trakt.TraktMovieData;
@@ -21,6 +22,7 @@ public class TraktParser
     private static final String TraktMoviesUrl = "http://api.trakt.tv/movies/trending.json/f0e3af66061e47b3243e25ed7b6443ca";
     private static final String TraktSearchUrl = "http://api.trakt.tv/search/movies.json/f0e3af66061e47b3243e25ed7b6443ca/";
     private static final String TraktSummaryUrl = "http://api.trakt.tv/movie/summary.json/f0e3af66061e47b3243e25ed7b6443ca/";
+    private static final String TraktCommentUrl = "http://api.trakt.tv/movie/comments.json/f0e3af66061e47b3243e25ed7b6443ca/";
 
     public List<TraktEpisodeData> GetTrendingShows()
     {
@@ -91,6 +93,25 @@ public class TraktParser
         catch (Exception ex)
         {
             Log.e(getClass().getName(), "Error getting detailed movie");
+        }
+
+        return null;
+    }
+
+    public List<TraktComment> GetCommentsForMovie(String movie)
+    {
+        try
+        {
+            RestClient client = new RestClient();
+            String json = client.downloadJSONString(String.format("%s%s", TraktCommentUrl, movie));
+
+            Type listType = new TypeToken<ArrayList<TraktComment>>() {}.getType();
+
+            return new Gson().fromJson(json, listType);
+        }
+        catch (Exception ex)
+        {
+            Log.e(getClass().getName(), "Error searching for comments");
         }
 
         return null;

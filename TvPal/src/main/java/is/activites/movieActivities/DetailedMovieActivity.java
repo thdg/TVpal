@@ -25,6 +25,9 @@ import is.utilities.StringUtil;
 
 public class DetailedMovieActivity extends BaseActivity
 {
+    public static final String EXTRA_MOVIE = "is.activites.movieActivities.EXTRA_MOVIE";
+    public static final String EXTRA_MOVIEID = "is.activites.movieActivities.EXTRA_MOVIEID";
+
     private ProgressBar mProgressBar;
     private TextView mOverview;
     private TextView mTitle;
@@ -39,6 +42,7 @@ public class DetailedMovieActivity extends BaseActivity
     private Button mTraktIntent;
     private TextView mRating;
     private TextView mReleaseYear;
+    private Button mTraktCommentsActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -68,6 +72,7 @@ public class DetailedMovieActivity extends BaseActivity
         mTraktIntent = (Button) findViewById(R.id.startTraktIntent);
         mRating = (TextView) findViewById(R.id.movieRating);
         mReleaseYear = (TextView) findViewById(R.id.movieReleaseYear);
+        mTraktCommentsActivity = (Button) findViewById(R.id.startTraktComments);
 
         String movieId = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEID);
         String moviePoster = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEPOSTER);
@@ -155,6 +160,17 @@ public class DetailedMovieActivity extends BaseActivity
                         catch (Exception ex) {
                             Toast.makeText(mContext, "Couldn't open IMDB", Toast.LENGTH_SHORT).show();
                         }
+                    }
+                });
+
+                mTraktCommentsActivity.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        Intent intent = new Intent(mContext, MovieCommentsActivity.class);
+                        intent.putExtra(EXTRA_MOVIE, movie.getTitle());
+                        intent.putExtra(EXTRA_MOVIEID, movie.getImdbId());
+                        startActivity(intent);
                     }
                 });
             }

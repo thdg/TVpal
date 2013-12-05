@@ -94,6 +94,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_detailed_movie" >
         </activity>
+        <activity
+            android:name="is.activites.movieActivities.MovieCommentsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/trakt_comments" >
+        </activity>
 
         <service android:name="is.activites.reminderActivities.ScheduleService" />
         <service android:name="is.activites.reminderActivities.NotifyService" />

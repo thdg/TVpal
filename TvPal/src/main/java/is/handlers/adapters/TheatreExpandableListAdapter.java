@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import is.contracts.datacontracts.Cinema.CinemaShowtimes;
+import is.contracts.datacontracts.cinema.CinemaShowtimes;
 import is.tvpal.R;
 
 /**

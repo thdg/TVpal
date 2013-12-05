@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ExpandableListView;
 import is.activites.baseActivities.BaseActivity;
-import is.contracts.datacontracts.Cinema.CinemaMovie;
+import is.contracts.datacontracts.cinema.CinemaMovie;
 import is.handlers.adapters.TheatreExpandableListAdapter;
 import is.tvpal.R;
 

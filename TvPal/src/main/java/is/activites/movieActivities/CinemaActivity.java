@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import java.util.List;
 import is.activites.baseActivities.BaseActivity;
-import is.contracts.datacontracts.Cinema.CinemaMovie;
+import is.contracts.datacontracts.cinema.CinemaMovie;
 import is.handlers.adapters.CinemaAdapter;
 import is.parsers.cinema.CinemaParser;
 import is.tvpal.R;

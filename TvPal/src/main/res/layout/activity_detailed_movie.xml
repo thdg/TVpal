@@ -194,6 +194,21 @@
                 android:gravity="center_vertical|left"
                 android:text="@string/DetailedMovieTrakt"/>
 
+            <View
+                android:layout_height="1dp"
+                android:layout_width="fill_parent"
+                android:background="#34b1ff"/>
+
+            <Button
+                android:id="@+id/startTraktComments"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="@string/trakt_comments"/>
+
         </LinearLayout>
 
     </LinearLayout>

@@ -4,8 +4,8 @@ import android.util.Log;
 import com.google.gson.Gson;
 import java.util.List;
 
-import is.contracts.datacontracts.Cinema.CinemaMovie;
-import is.contracts.datacontracts.Cinema.CinemaResults;
+import is.contracts.datacontracts.cinema.CinemaMovie;
+import is.contracts.datacontracts.cinema.CinemaResults;
 import is.webservices.RestClient;
 
 /**
