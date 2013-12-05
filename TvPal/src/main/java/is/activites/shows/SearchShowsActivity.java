@@ -1,6 +1,5 @@
 package is.activites.shows;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -24,7 +23,7 @@ public class SearchShowsActivity extends BaseFragmentActivity
 
     private void Initialize()
     {
-        SearchPagerAdapter mScheduleAdapter = new SearchPagerAdapter(getSupportFragmentManager(), this);
+        SearchPagerAdapter mScheduleAdapter = new SearchPagerAdapter(getSupportFragmentManager());
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -42,12 +41,9 @@ public class SearchShowsActivity extends BaseFragmentActivity
 
     public class SearchPagerAdapter extends FragmentStatePagerAdapter
     {
-        private Context context;
-
-        public SearchPagerAdapter(FragmentManager fm, Context context)
+        public SearchPagerAdapter(FragmentManager fm)
         {
             super(fm);
-            this.context = context;
         }
 
         @Override
@@ -56,9 +52,9 @@ public class SearchShowsActivity extends BaseFragmentActivity
             switch (position)
             {
                 case 0:
-                    return new SearchShowFragment(context);
+                    return SearchShowFragment.newInstance();
                 case 1:
-                    return new TrendingEpisodesFragment(context);
+                    return TrendingEpisodesFragment.newInstance();
             }
             return null;
         }

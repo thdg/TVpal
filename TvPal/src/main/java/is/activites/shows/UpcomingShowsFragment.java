@@ -37,7 +37,7 @@ public class UpcomingShowsFragment extends BaseFragment implements AdapterView.O
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        mContext = activity.getActivityContext();
+        mContext = activity.getContext();
 
         View rootView = inflater.inflate(R.layout.fragment_upcoming_recent, container, false);
 
@@ -54,7 +54,7 @@ public class UpcomingShowsFragment extends BaseFragment implements AdapterView.O
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
     {
-        mContext = activity.getActivityContext();
+        mContext = activity.getContext();
 
         Cursor episode = (Cursor) mAdapter.getItem(position);
 

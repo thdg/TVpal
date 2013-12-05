@@ -23,7 +23,7 @@ public class BaseFragmentActivity extends FragmentActivity implements IContext
     }
 
     @Override
-    public Context getActivityContext()
+    public Context getContext()
     {
         return this;
     }

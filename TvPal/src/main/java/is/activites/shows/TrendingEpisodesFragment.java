@@ -3,7 +3,6 @@ package is.activites.shows;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
+
+import is.activites.baseActivities.BaseFragment;
 import is.contracts.datacontracts.trakt.TraktEpisodeData;
 import is.handlers.adapters.TraktEpisodeAdapter;
 import is.parsers.trakt.TraktParser;
@@ -24,7 +25,7 @@ import is.tvpal.R;
  * @author Arnar
  * @see android.support.v4.app.Fragment
  */
-public class TrendingEpisodesFragment extends Fragment implements AdapterView.OnItemClickListener
+public class TrendingEpisodesFragment extends BaseFragment implements AdapterView.OnItemClickListener
 {
     private Context mContext;
     private ListView mListView;
@@ -32,17 +33,21 @@ public class TrendingEpisodesFragment extends Fragment implements AdapterView.On
     private ProgressBar mProgessBar;
     private TextView mNoResults;
 
-    public TrendingEpisodesFragment(Context context)
-    {
-        this.mContext = context;
-    }
-
     public TrendingEpisodesFragment() {}
+
+    public static TrendingEpisodesFragment newInstance()
+    {
+        TrendingEpisodesFragment fragment = new TrendingEpisodesFragment();
+
+        fragment.setRetainInstance(true);
+        return fragment;
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
+        mContext = activity.getContext();
         mProgessBar = (ProgressBar) getView().findViewById(R.id.progressIndicator);
         mNoResults = (TextView) getView().findViewById(R.id.traktNoResults);
         mListView = (ListView) getView().findViewById(R.id.trendingTrakt);

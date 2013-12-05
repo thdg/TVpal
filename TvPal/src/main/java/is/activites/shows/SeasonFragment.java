@@ -63,7 +63,7 @@ public class SeasonFragment extends BaseFragment implements AdapterView.OnItemCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        mContext = activity.getActivityContext();
+        mContext = activity.getContext();
         db = new DbEpisodes(mContext);
 
         Bundle args = getArguments();

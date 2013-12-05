@@ -7,5 +7,5 @@ import android.content.Context;
  */
 public interface IContext
 {
-    public Context getActivityContext();
+    public Context getContext();
 }

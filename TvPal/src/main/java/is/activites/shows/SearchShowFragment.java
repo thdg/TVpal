@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -27,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
+import is.activites.baseActivities.BaseFragment;
 import is.contracts.datacontracts.SeriesData;
 import is.handlers.adapters.SearchShowAdapter;
 import is.parsers.tvdb.TvDbShowParser;
@@ -39,7 +39,7 @@ import is.utilities.PictureTask;
  * @see is.activites.shows.MyShowsActivity
  */
 
-public class SearchShowFragment extends Fragment implements AdapterView.OnItemClickListener
+public class SearchShowFragment extends BaseFragment implements AdapterView.OnItemClickListener
 {
     private ListView _lv;
     private EditText _editSearch;
@@ -48,11 +48,16 @@ public class SearchShowFragment extends Fragment implements AdapterView.OnItemCl
     private SearchShowAdapter _adapterView;
     private PopupWindow _popupWindow;
     private ImageView _popupBanner;
-    private Context context;
+    private Context mContext;
 
-    public SearchShowFragment(Context context)
+    public SearchShowFragment() {}
+
+    public static SearchShowFragment newInstance()
     {
-        this.context = context;
+        SearchShowFragment fragment = new SearchShowFragment();
+
+        fragment.setRetainInstance(true);
+        return fragment;
     }
 
     @Override
@@ -60,6 +65,7 @@ public class SearchShowFragment extends Fragment implements AdapterView.OnItemCl
     {
         super.onActivityCreated(savedInstanceState);
 
+        mContext = activity.getContext();
         _editSearch = (EditText) getView().findViewById(R.id.editMeh);
         _popupWindow = new PopupWindow();
 
@@ -86,7 +92,7 @@ public class SearchShowFragment extends Fragment implements AdapterView.OnItemCl
                 {
                     performSearch();
 
-                    InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0); //Close the keyboard
 
                     return true;
@@ -112,7 +118,7 @@ public class SearchShowFragment extends Fragment implements AdapterView.OnItemCl
 
         String searchUrl = String.format("%s%s", getResources().getString(R.string.tvdbBaseUrl), userEntry);
 
-        new DownloadShows(context).execute(searchUrl);
+        new DownloadShows(mContext).execute(searchUrl);
     }
 
     @Override
@@ -125,7 +131,7 @@ public class SearchShowFragment extends Fragment implements AdapterView.OnItemCl
 
     private void CreatePopupWindow(SeriesData show)
     {
-        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View popupView = layoutInflater.inflate(R.layout.popup_show, null);
         _popupWindow.setContentView(popupView);
         _popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);

@@ -40,7 +40,7 @@ public class OverviewFragment extends BaseFragment
     {
         View rootView = inflater.inflate(R.layout.fragment_overview, container, false);
 
-        Context mContext = activity.getActivityContext();
+        Context mContext = activity.getContext();
         DbEpisodes db = new DbEpisodes(mContext);
 
         Bundle args = getArguments();
