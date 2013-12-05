@@ -8,7 +8,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20sp">
+        android:padding="20sp"
+        android:background="#222">
 
         <TextView
             android:id="@+id/overviewTitle"
@@ -17,7 +18,8 @@
             android:textSize="30sp"
             android:text="American Dad"
             android:paddingBottom="10sp"
-            android:typeface="serif"/>
+            android:typeface="serif"
+            android:textColor="#fff"/>
 
         <ImageView
             android:id="@+id/overviewPicture"
@@ -34,7 +36,8 @@
             android:textSize="15sp"
             android:lineSpacingMultiplier="1.2"
             android:paddingTop="10sp"
-            android:typeface="serif"/>
+            android:typeface="serif"
+            android:textColor="#fff"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,8 +45,7 @@
             android:paddingTop="10sp"
             android:text="Genres"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:typeface="serif"/>
+            style="@style/DetailedMovieLabel"/>
 
         <TextView
             android:id="@+id/overviewGenres"
@@ -51,16 +53,15 @@
             android:layout_height="wrap_content"
             android:text="Genres"
             android:textSize="15sp"
-            android:typeface="serif"/>
+            android:typeface="serif"
+            android:textColor="#fff"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="10sp"
             android:text="Network"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:typeface="serif"/>
+            style="@style/DetailedMovieLabel"/>
 
         <TextView
             android:id="@+id/overviewNetwork"
@@ -68,7 +69,8 @@
             android:layout_height="wrap_content"
             android:text="Le networkz"
             android:textSize="15sp"
-            android:typeface="serif"/>
+            android:typeface="serif"
+            android:textColor="#fff"/>
 
     </LinearLayout>
 

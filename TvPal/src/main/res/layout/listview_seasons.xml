@@ -3,14 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@drawable/custom_list_selector">
 
     <TextView android:id="@+id/season"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
         android:textSize="20sp"
         android:text="Seasons"
+        android:textColor="#fff"
         android:typeface="serif"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp" />
@@ -23,7 +24,8 @@
         android:paddingEnd="7sp"
         android:text="10/20"
         android:textSize="16sp"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        android:textColor="#fff"/>
 
     <ProgressBar
         android:id="@+id/seasonProgressBar"

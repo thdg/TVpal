@@ -20,7 +20,7 @@ import is.tvpal.R;
 
 public class SeasonAdapter extends CursorAdapter
 {
-    private static final int LAYOUT = R.layout.listview_season;
+    private static final int LAYOUT = R.layout.listview_seasons;
 
     private LayoutInflater mLayoutInflater;
     private DbShowHandler db;
