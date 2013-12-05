@@ -1,6 +1,5 @@
 package is.activites.movies;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,7 +23,7 @@ public class SearchMoviesActivity extends BaseFragmentActivity
 
     private void Initialize()
     {
-        SearchPagerAdapter mScheduleAdapter = new SearchPagerAdapter(getSupportFragmentManager(), this);
+        SearchPagerAdapter mScheduleAdapter = new SearchPagerAdapter(getSupportFragmentManager());
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -42,12 +41,9 @@ public class SearchMoviesActivity extends BaseFragmentActivity
 
     public class SearchPagerAdapter extends FragmentStatePagerAdapter
     {
-        private Context context;
-
-        public SearchPagerAdapter(FragmentManager fm, Context context)
+        public SearchPagerAdapter(FragmentManager fm)
         {
             super(fm);
-            this.context = context;
         }
 
         @Override
@@ -56,9 +52,9 @@ public class SearchMoviesActivity extends BaseFragmentActivity
             switch (position)
             {
                 case 0:
-                    return new SearchMovieFragment(context);
+                    return SearchMovieFragment.newInstance();
                 case 1:
-                    return new TrendingMoviesFragment(context);
+                    return TrendingMoviesFragment.newInstance();
             }
             return null;
         }

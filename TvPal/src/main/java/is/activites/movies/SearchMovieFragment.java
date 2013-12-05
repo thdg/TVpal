@@ -2,7 +2,6 @@ package is.activites.movies;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Activity;
@@ -19,6 +18,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import java.util.List;
+import is.activites.baseActivities.BaseFragment;
 import is.contracts.datacontracts.trakt.TraktMovieData;
 import is.handlers.adapters.TraktMoviesAdapter;
 import is.parsers.trakt.TraktParser;
@@ -30,7 +30,7 @@ import is.tvpal.R;
  * @see is.activites.shows.MyShowsActivity
  */
 
-public class SearchMovieFragment extends Fragment implements AdapterView.OnItemClickListener
+public class SearchMovieFragment extends BaseFragment implements AdapterView.OnItemClickListener
 {
     private EditText mEditSearch;
     private Context mContext;
@@ -38,18 +38,21 @@ public class SearchMovieFragment extends Fragment implements AdapterView.OnItemC
     private ListView mListView;
     private ProgressBar mProgressBar;
 
-    public SearchMovieFragment(Context context)
-    {
-        this.mContext = context;
-    }
-
     public SearchMovieFragment() {}
+
+    public static SearchMovieFragment newInstance()
+    {
+        SearchMovieFragment fragment = new SearchMovieFragment();
+
+        fragment.setRetainInstance(true);
+        return fragment;
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-
+        mContext = activity.getContext();
         mEditSearch = (EditText) getView().findViewById(R.id.traktSearchMovie);
         mListView = (ListView) getView().findViewById(R.id.traktMovieResults);
         mListView.setOnItemClickListener(this);

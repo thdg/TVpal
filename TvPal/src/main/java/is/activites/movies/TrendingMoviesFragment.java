@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -16,10 +15,9 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
+import is.activites.baseActivities.BaseFragment;
 import is.contracts.datacontracts.trakt.TraktMovieData;
 import is.handlers.adapters.TraktMoviesAdapter;
 import is.handlers.database.DbMovies;
@@ -29,7 +27,7 @@ import is.tvpal.R;
 /**
  * Created by Arnar on 21.11.2013.
  */
-public class TrendingMoviesFragment extends Fragment implements AdapterView.OnItemClickListener
+public class TrendingMoviesFragment extends BaseFragment implements AdapterView.OnItemClickListener
 {
     public static final String EXTRA_MOVIEID = "is.activites.movieActivities.MOVIEID";
     public static final String EXTRA_MOVIEPOSTER = "is.activites.movieActivities.MOVIEPOSTER";
@@ -40,17 +38,21 @@ public class TrendingMoviesFragment extends Fragment implements AdapterView.OnIt
     private ProgressBar mProgressBar;
     private TextView mNoResults;
 
-    public TrendingMoviesFragment(Context context)
-    {
-        this.mContext = context;
-    }
-
     public TrendingMoviesFragment() {}
+
+    public static TrendingMoviesFragment newInstance()
+    {
+        TrendingMoviesFragment fragment = new TrendingMoviesFragment();
+
+        fragment.setRetainInstance(true);
+        return fragment;
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
+        mContext = activity.getContext();
         mListView = (ListView) getView().findViewById(R.id.trendingTrakt);
         mListView.setOnItemClickListener(this);
         mProgressBar = (ProgressBar) getView().findViewById(R.id.progressIndicator);
