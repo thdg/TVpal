@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import is.handlers.database.DbShowHandler;
+import is.handlers.database.DbEpisodes;
 import is.utilities.DateUtil;
 import is.tvpal.R;
 
@@ -27,7 +27,7 @@ public class SingleSeasonAdapter extends CursorAdapter {
     private static final int LAYOUT = R.layout.listview_episodes;
 
     private LayoutInflater mLayoutInflater;
-    private DbShowHandler db;
+    private DbEpisodes db;
     private List<Boolean> mCheckedShows = new ArrayList<Boolean>();
     private int seriesId;
     private int season;
@@ -36,7 +36,7 @@ public class SingleSeasonAdapter extends CursorAdapter {
     {
         super(context, c, flags);
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.db = new DbShowHandler(context);
+        this.db = new DbEpisodes(context);
         this.season = season;
         this.seriesId = seriesId;
 

@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import is.handlers.database.DbShowHandler;
+import is.handlers.database.DatabaseHandler;
+import is.handlers.database.DbEpisodes;
 import is.tvpal.R;
 
 /**
@@ -23,13 +24,13 @@ public class SeasonAdapter extends CursorAdapter
     private static final int LAYOUT = R.layout.listview_seasons;
 
     private LayoutInflater mLayoutInflater;
-    private DbShowHandler db;
+    private DbEpisodes db;
 
     public SeasonAdapter(Context context, Cursor c, int flags)
     {
         super(context, c, flags);
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.db = new DbShowHandler(context);
+        this.db = new DbEpisodes(context);
     }
 
     static class ViewHolder

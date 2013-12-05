@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import is.activites.baseActivities.BaseActivity;
-import is.handlers.database.DbShowHandler;
+import is.handlers.database.DbEpisodes;
 import is.handlers.adapters.MyShowsAdapter;
 import is.thetvdb.TvDbUtil;
 import is.tvpal.R;
@@ -32,7 +32,7 @@ public class MyShowsActivity extends BaseActivity implements AdapterView.OnItemC
     public static final String EXTRA_SERIESID = "is.activities.showActivities.SERIESID";
     public static final String EXTRA_NAME = "is.actvities.showActivities.SERIESNAME";
 
-    private DbShowHandler _db;
+    private DbEpisodes mDB;
     private ListView mListView;
     private MyShowsAdapter mAdapter;
 
@@ -48,7 +48,7 @@ public class MyShowsActivity extends BaseActivity implements AdapterView.OnItemC
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void Initialize()
     {
-        _db = new DbShowHandler(this);
+        mDB = new DbEpisodes(this);
 
         mListView = (ListView) findViewById(R.id.myshows_series);
         mListView.setOnItemClickListener(this);
@@ -61,7 +61,7 @@ public class MyShowsActivity extends BaseActivity implements AdapterView.OnItemC
 
     private void SetListAdapterMyShows()
     {
-        mAdapter = new MyShowsAdapter(this, _db.GetCursorMyShows(), 0);
+        mAdapter = new MyShowsAdapter(this, mDB.GetCursorMyShows(), 0);
         mListView.setAdapter(mAdapter);
     }
 
@@ -100,7 +100,7 @@ public class MyShowsActivity extends BaseActivity implements AdapterView.OnItemC
 
         try
         {
-            _db.RemoveShow(show.getInt(0));
+            mDB.RemoveShow(show.getInt(0));
             SetListAdapterMyShows();
             Toast.makeText(this, String.format("Removed %s from your shows", show.getString(1)), Toast.LENGTH_SHORT).show();
         }

@@ -8,7 +8,8 @@ import java.io.IOException;
 import java.util.List;
 import is.contracts.datacontracts.EpisodeData;
 import is.contracts.datacontracts.SeriesData;
-import is.handlers.database.DbShowHandler;
+import is.handlers.database.DatabaseHandler;
+import is.handlers.database.DbEpisodes;
 import is.parsers.tvdb.TvDbEpisodeParser;
 import is.parsers.tvdb.TvDbUpdateParser;
 import is.utilities.ConnectionListener;
@@ -30,7 +31,7 @@ public class TvDbUtil
 
     public void UpdateSeries(int seriesId)
     {
-        DbShowHandler db = new DbShowHandler(context);
+        DbEpisodes db = new DbEpisodes(context);
         int lastUpdate = Integer.parseInt(db.GetSeriesLastUpdate(seriesId));
         new UpdateSingleSeriesTask(context, lastUpdate, seriesId).execute(String.format("%s%s/all/en.xml", ApiUrl, seriesId));
     }
@@ -42,7 +43,7 @@ public class TvDbUtil
 
     public void SetAllEpisodesOfSeriesSeen(int seriesId)
     {
-        DbShowHandler db = new DbShowHandler(context);
+        DbEpisodes db = new DbEpisodes(context);
         db.SetSeriesSeen(seriesId);
     }
 
@@ -103,7 +104,7 @@ public class TvDbUtil
 
         private Boolean GetEpisodes(String myurl) throws IOException
         {
-            DbShowHandler db = new DbShowHandler(ctx);
+            DbEpisodes db = new DbEpisodes(ctx);
 
             try
             {
@@ -173,7 +174,7 @@ public class TvDbUtil
             try
             {
                 ConnectionListener network = new ConnectionListener(context);
-                DbShowHandler db = new DbShowHandler(context);
+                DbEpisodes db = new DbEpisodes(context);
 
                 if (network.isNetworkAvailable())
                 {
@@ -246,7 +247,7 @@ public class TvDbUtil
         {
             try
             {
-                DbShowHandler db = new DbShowHandler(context);
+                DbEpisodes db = new DbEpisodes(context);
                 ConnectionListener network = new ConnectionListener(context);
                 List<Integer> seriesIds = db.GetAllSeriesIds();
 

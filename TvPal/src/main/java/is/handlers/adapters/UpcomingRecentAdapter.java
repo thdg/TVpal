@@ -10,8 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import java.util.HashMap;
-import is.handlers.database.DbShowHandler;
+
+import is.handlers.database.DatabaseHandler;
+import is.handlers.database.DbEpisodes;
 import is.utilities.DateUtil;
 import is.tvpal.R;
 
@@ -27,7 +28,7 @@ public class UpcomingRecentAdapter extends CursorAdapter
     private static final int LAYOUT = R.layout.listview_activity;
 
     private LayoutInflater mLayoutInflater;
-    private DbShowHandler db;
+    private DbEpisodes db;
     private SparseArray<Bitmap> pictures;
 
     public UpcomingRecentAdapter(Context context, Cursor c, int flags)
@@ -35,7 +36,7 @@ public class UpcomingRecentAdapter extends CursorAdapter
         super(context, c, flags);
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.pictures = new SparseArray<Bitmap>();
-        this.db = new DbShowHandler(context);
+        this.db = new DbEpisodes(context);
     }
 
     static class ViewHolder

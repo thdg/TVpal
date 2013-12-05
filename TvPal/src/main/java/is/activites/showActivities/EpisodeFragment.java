@@ -14,7 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.io.IOException;
 import is.contracts.datacontracts.EpisodeData;
-import is.handlers.database.DbShowHandler;
+import is.handlers.database.DatabaseHandler;
+import is.handlers.database.DbEpisodes;
 import is.parsers.tvdb.TvDbPictureParser;
 import is.tvpal.R;
 import is.utilities.ConnectionListener;
@@ -32,13 +33,13 @@ public class EpisodeFragment extends Fragment
     private Bitmap bmp;
     private ImageView poster;
     private ConnectionListener _network;
-    private DbShowHandler db;
+    private DbEpisodes db;
 
     public EpisodeFragment(Context cxt)
     {
         this.cxt = cxt;
         this._network = new ConnectionListener(cxt);
-        this.db = new DbShowHandler(cxt);
+        this.db = new DbEpisodes(cxt);
     }
 
     public EpisodeFragment() {}

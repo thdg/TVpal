@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import is.handlers.adapters.SeasonAdapter;
-import is.handlers.database.DbShowHandler;
+import is.handlers.database.DbEpisodes;
 import is.tvpal.R;
 
 /**
@@ -28,7 +28,7 @@ public class SeasonFragment extends Fragment implements AdapterView.OnItemClickL
 
     private Context mContext;
     private SeasonAdapter mAdapter;
-    private DbShowHandler db;
+    private DbEpisodes db;
     private int mSeriesId;
     private ListView listView;
 
@@ -36,7 +36,7 @@ public class SeasonFragment extends Fragment implements AdapterView.OnItemClickL
     {
         this.mContext = context;
         this.mSeriesId = seriesId;
-        db = new DbShowHandler(context);
+        db = new DbEpisodes(context);
     }
 
     public static SeasonFragment newInstance(Context context, int seriesId)

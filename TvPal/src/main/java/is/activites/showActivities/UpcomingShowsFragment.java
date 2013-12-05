@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import is.handlers.adapters.UpcomingRecentAdapter;
-import is.handlers.database.DbShowHandler;
+import is.handlers.database.DbEpisodes;
 import is.tvpal.R;
 
 /**
@@ -39,7 +39,7 @@ public class UpcomingShowsFragment extends Fragment implements AdapterView.OnIte
         ListView listView = (ListView) rootView.findViewById(R.id.overviewShows);
         listView.setOnItemClickListener(this);
 
-        DbShowHandler db = new DbShowHandler(mContext);
+        DbEpisodes db = new DbEpisodes(mContext);
         mAdapter = new UpcomingRecentAdapter(mContext, db.GetCursorUpcoming(), 0);
         listView.setAdapter(mAdapter);
 

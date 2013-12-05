@@ -14,7 +14,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import is.activites.baseActivities.BaseFragmentActivity;
 import is.contracts.datacontracts.EpisodeData;
-import is.handlers.database.DbShowHandler;
+import is.handlers.database.DbEpisodes;
 import is.tvpal.R;
 
 /**
@@ -59,7 +59,7 @@ public class EpisodeActivity extends BaseFragmentActivity implements ActionBar.T
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void CreateTabViews()
     {
-        DbShowHandler db = new DbShowHandler(this);
+        DbEpisodes db = new DbEpisodes(this);
 
         mScheduleAdapter = new EpisodePagerAdapter(getSupportFragmentManager(), db.GetCursorEpisodesDetailed(_seriesId, _seasonNr) ,this);
 

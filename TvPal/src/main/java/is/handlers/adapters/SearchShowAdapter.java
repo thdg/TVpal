@@ -2,7 +2,6 @@ package is.handlers.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +9,12 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.io.IOException;
+
 import java.util.List;
-import is.contracts.datacontracts.EpisodeData;
+
 import is.contracts.datacontracts.SeriesData;
-import is.handlers.database.DbShowHandler;
-import is.parsers.tvdb.TvDbEpisodeParser;
+import is.handlers.database.DatabaseHandler;
+import is.handlers.database.DbEpisodes;
 import is.thetvdb.TvDbUtil;
 import is.tvpal.R;
 
@@ -41,7 +40,7 @@ public class SearchShowAdapter extends BaseAdapter
         this.context = context;
         this.layoutResourceId = layoutResourceId;
         this.shows = shows;
-        this.seriesIds = new DbShowHandler(context).GetAllSeriesIds();
+        this.seriesIds = new DbEpisodes(context).GetAllSeriesIds();
     }
 
     static class ShowHolder

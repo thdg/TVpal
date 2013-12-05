@@ -10,9 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import is.activites.baseActivities.BaseActivity;
-import is.activites.baseActivities.BaseListActivity;
 import is.handlers.adapters.SingleSeasonAdapter;
-import is.handlers.database.DbShowHandler;
+import is.handlers.database.DbEpisodes;
 import is.tvpal.R;
 
 /**
@@ -29,7 +28,7 @@ public class SingleSeasonActivity extends BaseActivity implements AdapterView.On
 
     private SingleSeasonAdapter mAdapter;
     private ListView mListView;
-    private DbShowHandler _db;
+    private DbEpisodes mDB;
     private int _seriesId;
     private int _season;
 
@@ -47,14 +46,14 @@ public class SingleSeasonActivity extends BaseActivity implements AdapterView.On
     {
         super.onResume();
 
-        mAdapter = new SingleSeasonAdapter(this, _db.GetCursorEpisodes(_seriesId, _season), 0, _seriesId, _season);
+        mAdapter = new SingleSeasonAdapter(this, mDB.GetCursorEpisodes(_seriesId, _season), 0, _seriesId, _season);
         mListView.setAdapter(mAdapter);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void Initialize()
     {
-        _db = new DbShowHandler(this);
+        mDB = new DbEpisodes(this);
 
         Intent intent = getIntent();
         _seriesId = intent.getIntExtra(SeasonFragment.EXTRA_SERIESID, 0);

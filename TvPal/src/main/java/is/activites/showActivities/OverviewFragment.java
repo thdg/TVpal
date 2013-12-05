@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import is.handlers.database.DbShowHandler;
+
+import is.handlers.database.DatabaseHandler;
+import is.handlers.database.DbEpisodes;
 import is.tvpal.R;
 
 /**
@@ -40,7 +42,7 @@ public class OverviewFragment extends Fragment
     {
         View rootView = inflater.inflate(R.layout.fragment_overview, container, false);
 
-        DbShowHandler db = new DbShowHandler(context);
+        DbEpisodes db = new DbEpisodes(context);
 
         if (rootView != null)
         {

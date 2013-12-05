@@ -10,7 +10,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import is.activites.baseActivities.BaseFragmentActivity;
-import is.handlers.database.DbShowHandler;
+import is.handlers.database.DbEpisodes;
 import is.tvpal.R;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -68,7 +68,7 @@ public class SeriesActivity extends BaseFragmentActivity
             switch (position)
             {
                 case 0:
-                    DbShowHandler db = new DbShowHandler(context);
+                    DbEpisodes db = new DbEpisodes(context);
                     return OverviewFragment.newInstance(context, db.GetCursorOverview(seriesId));
                 case 1:
                     return SeasonFragment.newInstance(context, seriesId);

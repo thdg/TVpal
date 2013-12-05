@@ -15,7 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.List;
 import is.contracts.datacontracts.trakt.TraktEpisodeData;
-import is.handlers.database.DbShowHandler;
+import is.handlers.database.DatabaseHandler;
+import is.handlers.database.DbEpisodes;
 import is.thetvdb.TvDbUtil;
 import is.tvpal.R;
 import is.utilities.PictureTask;
@@ -45,7 +46,7 @@ public class TraktEpisodeAdapter extends BaseAdapter
         this.context = context;
         this.layoutResourceId = layoutResourceId;
         this.shows = shows;
-        this.seriesIds = new DbShowHandler(context).GetAllSeriesIds();
+        this.seriesIds = new DbEpisodes(context).GetAllSeriesIds();
     }
 
     static class TraktHolder
