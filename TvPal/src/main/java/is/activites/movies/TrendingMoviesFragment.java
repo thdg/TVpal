@@ -5,18 +5,24 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import is.contracts.datacontracts.trakt.TraktMovieData;
 import is.handlers.adapters.TraktMoviesAdapter;
+import is.handlers.database.DbMovies;
 import is.parsers.trakt.TraktParser;
 import is.tvpal.R;
 
@@ -50,6 +56,8 @@ public class TrendingMoviesFragment extends Fragment implements AdapterView.OnIt
         mProgressBar = (ProgressBar) getView().findViewById(R.id.progressIndicator);
         mNoResults = (TextView) getView().findViewById(R.id.traktNoResults);
 
+        registerForContextMenu(mListView);
+
         new TrendingMoviesWorker().execute();
     }
 
@@ -67,6 +75,37 @@ public class TrendingMoviesFragment extends Fragment implements AdapterView.OnIt
         intent.putExtra(EXTRA_MOVIEID, data.getImdbId());
         intent.putExtra(EXTRA_MOVIEPOSTER, data.getImage().getPoster());
         startActivity(intent);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.trending_movies, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item)
+    {
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+        int position = info.position;
+
+        switch (item.getItemId())
+        {
+            case R.id.add_to_watchlist:
+                AddMovieToWatchList(position);
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    private void AddMovieToWatchList(int position)
+    {
+        TraktMovieData movie = mAdapter.getItem(position);
+        DbMovies db = new DbMovies(mContext);
+        db.AddMovieToWatchList(movie);
     }
 
     private class TrendingMoviesWorker extends AsyncTask<String, Void, List<TraktMovieData>>

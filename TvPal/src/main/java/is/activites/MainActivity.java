@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 import is.activites.movies.CinemaActivity;
+import is.activites.movies.WatchlistActivity;
 import is.activites.schedules.DisplayRuvActivity;
 import is.activites.schedules.DisplaySkjarinnActivity;
 import is.activites.schedules.DisplayStod2Activity;
@@ -80,6 +81,7 @@ public class MainActivity extends Activity
         items.add(new DrawerListHeader(getString(R.string.cinemaText)));
         items.add(new DrawerListData(getString(R.string.cinemaSchedules), R.drawable.cinema_64));
         items.add(new DrawerListData(getString(R.string.trakt_search_movies), R.drawable.m_glass_64));
+        items.add(new DrawerListData(getString(R.string.watchlist), R.drawable.watchlist_64));
 
         _drawerList.setAdapter(
                 new DrawerListAdapter(this, items)
@@ -185,6 +187,9 @@ public class MainActivity extends Activity
                     break;
                 case 13:
                     intent = new Intent(this, SearchMoviesActivity.class);
+                    break;
+                case 14:
+                    intent = new Intent(this, WatchlistActivity.class);
                     break;
             }
 

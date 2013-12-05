@@ -85,5 +85,7 @@
     <string name="label_episode_rating">Rating</string>
     <string name="trakt_nocomments">No comments available</string>
     <string name="trakt_comments">Comments</string>
+    <string name="watchlist_movie">Add To Watchlist</string>
+    <string name="watchlist">Watchlist</string>
 
 </resources>
