@@ -16,6 +16,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     private static final String DATABASE_NAME = "shows";
     protected static final String TABLE_SERIES = "series";
     protected static final String TABLE_EPISODES = "episodes";
+    protected static final String TABLE_MOVIES = "movies";
 
     // Columns in shows
     protected static final String KEY_S_SERIESID = "seriesId";
@@ -38,6 +39,12 @@ public class DatabaseHandler extends SQLiteOpenHelper
     protected static final String KEY_E_DIRECTOR = "director";
     protected static final String KEY_E_RATING = "rating";
     protected static final String KEY_E_GUESTSTARS = "guestStars";
+
+    //Columns in movies
+    protected static final String KEY_M_TITLE = "title";
+    protected static final String KEY_M_IMDBID = "imdb_id";
+    protected static final String KEY_M_OVERVIEW = "overview";
+    protected static final String KEY_M_IMAGEURL = "image_url";
 
     public DatabaseHandler(Context context)
     {
@@ -73,10 +80,19 @@ public class DatabaseHandler extends SQLiteOpenHelper
                         + KEY_E_GUESTSTARS + " TEXT"
                         + ")";
 
+        String CREATE_MOVIES_TABLE =
+                "CREATE TABLE " + TABLE_MOVIES + "("
+                        + KEY_M_IMDBID + " TEXT PRIMARY KEY,"
+                        + KEY_M_TITLE + " TEXT,"
+                        + KEY_M_OVERVIEW + " TEXT,"
+                        + KEY_M_IMAGEURL + " TEXT"
+                        + ")";
+
         String indexEpisodeId = "CREATE UNIQUE INDEX episodeId ON episodes(episodeId ASC)";
 
         db.execSQL(CREATE_SERIES_TABLE);
         db.execSQL(CREATE_EPISODE_TABLE);
+        db.execSQL(CREATE_MOVIES_TABLE);
         db.execSQL(indexEpisodeId);
     }
 
