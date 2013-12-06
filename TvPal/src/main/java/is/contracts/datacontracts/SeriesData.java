@@ -14,6 +14,8 @@ public class SeriesData
     private byte[] posterStream;
     private String genres;
     private int lastUpdated;
+    private String actors;
+    private String imdbid;
 
     public int getSeriesId() { return this.seriesId; }
     public void setSeriesId(int seriesId) { this.seriesId = seriesId; }
@@ -41,6 +43,12 @@ public class SeriesData
 
     public int getLastUpdated() { return lastUpdated; }
     public void setLastUpdated(int lastUpdated) { this.lastUpdated = lastUpdated; }
+
+    public String getActors() { return actors; }
+    public void setActors(String actors) { this.actors = actors; }
+
+    public String getImdbid() { return imdbid; }
+    public void setImdbid(String imdbid) { this.imdbid = imdbid; }
 
     @Override
     public String toString()

@@ -26,6 +26,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
     protected static final String KEY_S_THUMBNAIL = "thumbnail";
     protected static final String KEY_S_LASTUPDATED = "lastupdated";
     protected static final String KEY_S_GENRES = "genres";
+    protected static final String KEY_S_IMDBID = "imdbid";
+    protected static final String KEY_S_ACTORS = "actors";
 
     //Columns in episodes
     protected static final String KEY_E_EPISODEID = "episodeId";
@@ -62,7 +64,9 @@ public class DatabaseHandler extends SQLiteOpenHelper
                         + KEY_S_NETWORK + " TEXT,"
                         + KEY_S_THUMBNAIL + " BLOB,"
                         + KEY_S_LASTUPDATED + " INTEGER, "
-                        + KEY_S_GENRES + " TEXT"
+                        + KEY_S_GENRES + " TEXT,"
+                        + KEY_S_ACTORS + " TEXT,"
+                        + KEY_S_IMDBID + " TEXT"
                         + ")";
 
         String CREATE_EPISODE_TABLE =

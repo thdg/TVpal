@@ -1,17 +1,23 @@
 package is.activites.shows;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import is.activites.baseActivities.BaseFragment;
 import is.handlers.database.DbEpisodes;
 import is.tvpal.R;
+import is.utilities.ExternalIntents;
 
 /**
  * A fragment to display basic information about a series
@@ -40,11 +46,11 @@ public class OverviewFragment extends BaseFragment
     {
         View rootView = inflater.inflate(R.layout.fragment_overview, container, false);
 
-        Context mContext = activity.getContext();
+        final Context mContext = activity.getContext();
         DbEpisodes db = new DbEpisodes(mContext);
 
         Bundle args = getArguments();
-        Cursor mCursor = db.GetCursorOverview(args.getInt(ARG_SeriesId));
+        final Cursor mCursor = db.GetCursorOverview(args.getInt(ARG_SeriesId));
 
         if (rootView != null)
         {
@@ -54,6 +60,15 @@ public class OverviewFragment extends BaseFragment
             ((TextView) rootView.findViewById(R.id.overviewText)).setText(mCursor.getString(Series.Overview));
             ((TextView) rootView.findViewById(R.id.overviewNetwork)).setText(mCursor.getString(Series.Network));
             ((TextView) rootView.findViewById(R.id.overviewGenres)).setText(mCursor.getString(Series.Genres));
+            ((TextView) rootView.findViewById(R.id.overviewActors)).setText(mCursor.getString(Series.Actors));
+
+            rootView.findViewById(R.id.startImdbIntent).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view)
+                {
+                    ExternalIntents.StartIMDBIntent(mContext, mCursor.getString(Series.ImdbId));
+                }
+            });
         }
 
         return rootView;
@@ -66,5 +81,7 @@ public class OverviewFragment extends BaseFragment
         int Name = 2;
         int Network = 3;
         int Genres = 4;
+        int Actors = 5;
+        int ImdbId = 6;
     }
 }

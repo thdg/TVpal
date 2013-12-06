@@ -19,6 +19,7 @@ import is.activites.baseActivities.BaseActivity;
 import is.contracts.datacontracts.trakt.TraktMovieDetailedData;
 import is.parsers.trakt.TraktParser;
 import is.tvpal.R;
+import is.utilities.ExternalIntents;
 import is.utilities.PictureTask;
 import is.utilities.StringUtil;
 
@@ -134,19 +135,7 @@ public class DetailedMovieActivity extends BaseActivity
                 mImdbIntent.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //First try to open the IMDB app if it is installed, else open with browser
-                        try {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("imdb:///title/" + movie.getImdbId()));
-                            startActivity(intent);
-                        }
-                        catch (Exception ex) {
-                            try{
-                                StartUriIntent(IMDB_URL + movie.getImdbId());
-                            }
-                            catch (Exception e) {
-                                Toast.makeText(mContext, "Couldn't open IMDB", Toast.LENGTH_SHORT).show();
-                            }
-                        }
+                        ExternalIntents.StartIMDBIntent(mContext, movie.getImdbId());
                     }
                 });
 

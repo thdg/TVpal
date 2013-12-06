@@ -60,6 +60,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="10sp"
+            android:text="Actors"
+            style="@style/DetailedMovieLabel"/>
+
+        <TextView
+            android:id="@+id/overviewActors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seh actors"
+            android:textSize="15sp"
+            android:typeface="serif"
+            android:textColor="#fff"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10sp"
             android:text="Network"
             style="@style/DetailedMovieLabel"/>
 
@@ -71,6 +87,52 @@
             android:textSize="15sp"
             android:typeface="serif"
             android:textColor="#fff"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/labelMoreInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/DetailedMovieShowmore"
+                android:paddingTop="15sp"
+                android:paddingBottom="5sp"
+                style="@style/DetailedMovieLabel"/>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="fill_parent"
+                android:background="#34b1ff"/>
+
+            <Button
+                android:id="@+id/startImdbIntent"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="@string/DetailedMovieImdb"/>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="fill_parent"
+                android:background="#34b1ff"/>
+
+            <Button
+                android:id="@+id/startTraktComments"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="@string/trakt_comments"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

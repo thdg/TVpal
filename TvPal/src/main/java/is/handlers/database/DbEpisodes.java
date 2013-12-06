@@ -31,7 +31,7 @@ public class DbEpisodes extends DatabaseHandler
 
     public Cursor GetCursorOverview(int seriesId)
     {
-        String selectQuery = String.format("select seriesId as _id, overview, name, network, genres " +
+        String selectQuery = String.format("select seriesId as _id, overview, name, network, genres, actors, imdbid " +
                 "from series where seriesId = %d", seriesId);
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -166,6 +166,8 @@ public class DbEpisodes extends DatabaseHandler
             values.put(KEY_S_THUMBNAIL, series.getPosterStream());
             values.put(KEY_S_LASTUPDATED, series.getLastUpdated());
             values.put(KEY_S_GENRES, series.getGenres());
+            values.put(KEY_S_ACTORS, series.getActors());
+            values.put(KEY_S_IMDBID, series.getImdbid());
 
             db.insert(TABLE_SERIES, null, values);
         }

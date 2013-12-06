@@ -148,6 +148,12 @@ public class TvDbEpisodeParser extends DefaultHandler {
             {
                 series.setLastUpdated(Integer.parseInt(sb.toString()));
             }
+
+            if (element.equalsIgnoreCase("Actors"))
+                series.setActors(StringUtil.ArrayToString(sb.toString()));
+
+            if(element.equalsIgnoreCase("IMDB_ID"))
+                series.setImdbid(sb.toString());
         }
 
         sb = null;
