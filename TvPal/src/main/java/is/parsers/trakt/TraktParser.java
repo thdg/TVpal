@@ -22,7 +22,7 @@ public class TraktParser
     private static final String TraktMoviesUrl = "http://api.trakt.tv/movies/trending.json/f0e3af66061e47b3243e25ed7b6443ca";
     private static final String TraktSearchUrl = "http://api.trakt.tv/search/movies.json/f0e3af66061e47b3243e25ed7b6443ca/";
     private static final String TraktSummaryUrl = "http://api.trakt.tv/movie/summary.json/f0e3af66061e47b3243e25ed7b6443ca/";
-    private static final String TraktCommentUrl = "http://api.trakt.tv/movie/comments.json/f0e3af66061e47b3243e25ed7b6443ca/";
+
 
     public List<TraktEpisodeData> GetTrendingShows()
     {
@@ -98,12 +98,12 @@ public class TraktParser
         return null;
     }
 
-    public List<TraktComment> GetCommentsForMovie(String movie)
+    public List<TraktComment> GetCommentsForMovie(String commentUrl)
     {
         try
         {
             RestClient client = new RestClient();
-            String json = client.downloadJSONString(String.format("%s%s", TraktCommentUrl, movie));
+            String json = client.downloadJSONString(commentUrl);
 
             Type listType = new TypeToken<ArrayList<TraktComment>>() {}.getType();
 

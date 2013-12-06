@@ -4,17 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import is.activites.baseActivities.BaseFragment;
+import is.activites.movies.DetailedMovieActivity;
+import is.activites.movies.TraktCommentsActivity;
 import is.handlers.database.DbEpisodes;
 import is.tvpal.R;
 import is.utilities.ExternalIntents;
@@ -67,6 +66,18 @@ public class OverviewFragment extends BaseFragment
                 public void onClick(View view)
                 {
                     ExternalIntents.StartIMDBIntent(mContext, mCursor.getString(Series.ImdbId));
+                }
+            });
+
+            rootView.findViewById(R.id.startTraktComments).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view)
+                {
+                    final String TraktCommentUrl = "http://api.trakt.tv/show/comments.json/f0e3af66061e47b3243e25ed7b6443ca/";
+                    Intent intent = new Intent(mContext, TraktCommentsActivity.class);
+                    intent.putExtra(DetailedMovieActivity.EXTRA_MOVIE, mCursor.getString(Series.Name));
+                    intent.putExtra(DetailedMovieActivity.EXTRA_MOVIEID, TraktCommentUrl + mCursor.getString(Series.ImdbId));
+                    startActivity(intent);
                 }
             });
         }

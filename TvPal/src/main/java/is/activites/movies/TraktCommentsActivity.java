@@ -18,8 +18,11 @@ import is.tvpal.R;
 /**
  * Created by Arnar on 5.12.2013.
  */
-public class MovieCommentsActivity extends BaseActivity
+public class TraktCommentsActivity extends BaseActivity
 {
+    public static final String EXTRA_Title = "is.activites.movieActivities.EXTRA_MOVIE";
+    public static final String EXTRA_ImdbId = "is.activites.movieActivities.EXTRA_MOVIEID";
+
     private ListView mListView;
     private ProgressBar mProgressBar;
     private TextView mNoResults;
@@ -43,10 +46,10 @@ public class MovieCommentsActivity extends BaseActivity
 
         Intent intent = getIntent();
 
-        String movieId = intent.getStringExtra(DetailedMovieActivity.EXTRA_MOVIEID);
-        String movieTitle = intent.getStringExtra(DetailedMovieActivity.EXTRA_MOVIE);
+        String imdbId = intent.getStringExtra(DetailedMovieActivity.EXTRA_MOVIEID);
+        String title = intent.getStringExtra(DetailedMovieActivity.EXTRA_MOVIE);
 
-        new TraktCommentsWorker(this, movieTitle).execute(movieId);
+        new TraktCommentsWorker(this, title).execute(imdbId);
     }
 
     private class TraktCommentsWorker extends AsyncTask<String, Void, List<TraktComment>>
@@ -90,11 +93,11 @@ public class MovieCommentsActivity extends BaseActivity
             }
         }
 
-        private List<TraktComment> GetCommentsForMovie(String movieUrl)
+        private List<TraktComment> GetCommentsForMovie(String movie)
         {
             TraktParser parser = new TraktParser();
 
-            return parser.GetCommentsForMovie(movieUrl);
+            return parser.GetCommentsForMovie(movie);
         }
     }
 }
