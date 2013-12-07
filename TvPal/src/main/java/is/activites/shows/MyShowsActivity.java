@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import is.activites.baseActivities.BaseActivity;
@@ -35,6 +36,7 @@ public class MyShowsActivity extends BaseActivity implements AdapterView.OnItemC
     private DbEpisodes mDB;
     private ListView mListView;
     private MyShowsAdapter mAdapter;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,6 +52,7 @@ public class MyShowsActivity extends BaseActivity implements AdapterView.OnItemC
     {
         mDB = new DbEpisodes(this);
 
+        mProgressBar = (ProgressBar) findViewById(R.id.progressUpdateShows);
         mListView = (ListView) findViewById(R.id.myshows_series);
         mListView.setOnItemClickListener(this);
 
@@ -115,7 +118,7 @@ public class MyShowsActivity extends BaseActivity implements AdapterView.OnItemC
         Cursor show = (Cursor) mAdapter.getItem(position);
 
         TvDbUtil update = new TvDbUtil(this);
-        update.UpdateSeries(show.getInt(0));
+        update.UpdateSeries(show.getInt(0), mProgressBar);
     }
 
     private void SeenAllEpisodes(int position)
@@ -155,7 +158,7 @@ public class MyShowsActivity extends BaseActivity implements AdapterView.OnItemC
     private void UpdateAllShows()
     {
         TvDbUtil tv = new TvDbUtil(this);
-        tv.UpdateAllSeries();
+        tv.UpdateAllSeries(mProgressBar);
     }
 
     @Override

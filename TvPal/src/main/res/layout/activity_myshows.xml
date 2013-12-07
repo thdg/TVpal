@@ -6,6 +6,16 @@
     android:background="#222"
     android:padding="10sp">
 
+    <ProgressBar
+        android:id="@+id/progressUpdateShows"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginTop="-7dp"
+        android:indeterminateOnly="true"
+        android:visibility="invisible"/>
+
     <ListView
         android:id="@+id/myshows_series"
         android:layout_width="fill_parent"
