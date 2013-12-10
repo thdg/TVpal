@@ -94,11 +94,15 @@ public class EpisodeFragment extends BaseFragment
             ((TextView) rootView.findViewById(R.id.episodeGuestStars)).setText(guestStars);
             poster = (ImageView) rootView.findViewById(R.id.episodePicture);
 
-            //TODO: Implement better bitmap cache, perhaps save the picture on the sd card
+            //TODO: Implement better bitmap cache, perhaps save the picture on the sd card, also simplify the showing of progressbar
             if (bmp == null && _network.isNetworkAvailable())
             {
                 String apiUrl = String.format("http://thetvdb.com/api/9A96DA217CEB03E7/episodes/%d", episode.getEpisodeId());
                 new DownloadPicture().execute(apiUrl);
+            }
+            else
+            {
+                rootView.findViewById(R.id.progressDownloadingPicture).setVisibility(View.INVISIBLE);
             }
         }
 
@@ -126,9 +130,9 @@ public class EpisodeFragment extends BaseFragment
             if (successful)
             {
                 poster.setImageBitmap(bmp);
+                if (getView() != null)
+                    (getView().findViewById(R.id.progressDownloadingPicture)).setVisibility(View.INVISIBLE);
             }
-
-            (getView().findViewById(R.id.progressDownloadingPicture)).setVisibility(View.INVISIBLE);
         }
 
         private Boolean GetPicture(String myurl) throws IOException
