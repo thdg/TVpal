@@ -125,7 +125,7 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
         @Override
         public Fragment getItem(int position)
         {
-            Fragment fragment = new ScheduleFragment(cxt);
+            Fragment fragment = ScheduleFragment.newInstance();
             Bundle args = new Bundle();
 
             String date;

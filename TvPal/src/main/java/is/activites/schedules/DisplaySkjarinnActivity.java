@@ -120,7 +120,7 @@ public class DisplaySkjarinnActivity extends BaseFragmentActivity implements Act
         @Override
         public Fragment getItem(int position)
         {
-            Fragment fragment = new ScheduleFragment(cxt);
+            Fragment fragment = ScheduleFragment.newInstance();
             Bundle args = new Bundle();
 
             String date;
