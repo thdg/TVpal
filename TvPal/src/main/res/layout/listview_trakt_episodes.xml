@@ -35,7 +35,8 @@
         android:paddingLeft="6sp"
         android:textSize="14sp"
         android:maxLines="3"
-        android:lineSpacingMultiplier="1.2"/>
+        android:lineSpacingMultiplier="1.2"
+        android:ellipsize="end"/>
 
     <CheckBox
         android:button="@drawable/eye_checkbox"

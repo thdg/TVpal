@@ -36,6 +36,7 @@
         android:maxLines="3"
         android:paddingLeft="10sp"
         android:lineSpacingMultiplier="1.2"
-        android:typeface="serif"/>
+        android:typeface="serif"
+        android:ellipsize="end"/>
 
 </RelativeLayout>

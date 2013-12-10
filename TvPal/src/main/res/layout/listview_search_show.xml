@@ -50,6 +50,7 @@
         android:layout_below="@+id/network"
         android:text="Overview:"
         android:textColor="#000000"
-        android:maxLines="2"/>
+        android:maxLines="2"
+        android:ellipsize="end"/>
 
 </RelativeLayout>

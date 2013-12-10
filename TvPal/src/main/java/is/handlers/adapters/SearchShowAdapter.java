@@ -83,9 +83,7 @@ public class SearchShowAdapter extends BaseAdapter
         String network = series.getNetwork() == null ? "" : String.format("Network: %s",series.getNetwork());
         holder.network.setText(network);
 
-        String overview = series.getOverview();
-        overview = overview == null ? "" : String.format("%s...",overview.substring(0, Math.min(overview.length(), 60)));
-        holder.overview.setText(overview);
+        holder.overview.setText(series.getOverview());
 
         holder.checkShow.setChecked(false);
         holder.checkShow.setVisibility(seriesIds.contains(series.getSeriesId()) ? View.INVISIBLE : View.VISIBLE);
