@@ -18,6 +18,12 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <!-- TVPal theme -->
+    <style name="TVPalTheme" parent="AppBaseTheme">
+        <!-- When the app is loading up a activity we want to show the background as #222, not white -->
+        <item name="android:windowBackground">@color/tvpal_theme_color</item>
+    </style>
+
     <style name="DetailedMovieLabel" parent="AppBaseTheme">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
