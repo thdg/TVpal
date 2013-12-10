@@ -49,6 +49,8 @@ public class TraktCommentsActivity extends BaseActivity
         String imdbId = intent.getStringExtra(DetailedMovieActivity.EXTRA_MOVIEID);
         String title = intent.getStringExtra(DetailedMovieActivity.EXTRA_MOVIE);
 
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+
         new TraktCommentsWorker(this, title).execute(imdbId);
     }
 

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import java.io.IOException;
 import is.activites.baseActivities.BaseFragment;
@@ -123,7 +124,11 @@ public class EpisodeFragment extends BaseFragment
         protected void onPostExecute(Boolean successful)
         {
             if (successful)
+            {
                 poster.setImageBitmap(bmp);
+            }
+
+            (getView().findViewById(R.id.progressDownloadingPicture)).setVisibility(View.INVISIBLE);
         }
 
         private Boolean GetPicture(String myurl) throws IOException

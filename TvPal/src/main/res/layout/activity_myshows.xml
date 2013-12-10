@@ -24,6 +24,7 @@
         android:listSelector="@drawable/custom_list_selector"
         android:choiceMode="singleChoice"
         android:dividerHeight="0.7dp"
-        android:divider="#33b5e5"/>
+        android:divider="#33b5e5"
+        android:layout_marginTop="6sp"/>
 
 </RelativeLayout>
