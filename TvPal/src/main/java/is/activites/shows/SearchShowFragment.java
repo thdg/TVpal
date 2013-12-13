@@ -135,7 +135,7 @@ public class SearchShowFragment extends BaseFragment
         @Override
         protected void onPostExecute(List<SeriesData> shows)
         {
-            if (shows.size() == 0)
+            if (shows == null)
             {
                 Toast.makeText(ctx, "No shows found", Toast.LENGTH_SHORT).show();
             }
