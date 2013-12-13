@@ -47,6 +47,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
     protected static final String KEY_M_IMDBID = "imdb_id";
     protected static final String KEY_M_OVERVIEW = "overview";
     protected static final String KEY_M_IMAGEURL = "image_url";
+    protected static final String KEY_M_TIMESTAMP = "timestamp";
 
     public DatabaseHandler(Context context)
     {
@@ -89,7 +90,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
                         + KEY_M_IMDBID + " TEXT PRIMARY KEY,"
                         + KEY_M_TITLE + " TEXT,"
                         + KEY_M_OVERVIEW + " TEXT,"
-                        + KEY_M_IMAGEURL + " TEXT"
+                        + KEY_M_IMAGEURL + " TEXT,"
+                        + KEY_M_TIMESTAMP + " TEXT"
                         + ")";
 
         String indexEpisodeId = "CREATE UNIQUE INDEX episodeId ON episodes(episodeId ASC)";

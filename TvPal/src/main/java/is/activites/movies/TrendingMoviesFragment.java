@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -15,6 +16,8 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 import is.activites.baseActivities.BaseFragment;
@@ -105,9 +108,18 @@ public class TrendingMoviesFragment extends BaseFragment implements AdapterView.
 
     private void AddMovieToWatchList(int position)
     {
-        TraktMovieData movie = mAdapter.getItem(position);
-        DbMovies db = new DbMovies(mContext);
-        db.AddMovieToWatchList(movie);
+        try
+        {
+            TraktMovieData movie = mAdapter.getItem(position);
+            DbMovies db = new DbMovies(mContext);
+            db.AddMovieToWatchList(movie);
+
+            Toast.makeText(mContext, String.format("Added %s to your watchlist", movie.getTitle()), Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception ex)
+        {
+            Log.e(getClass().getName(), ex.getMessage());
+        }
     }
 
     private class TrendingMoviesWorker extends AsyncTask<String, Void, List<TraktMovieData>>

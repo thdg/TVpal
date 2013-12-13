@@ -6,6 +6,10 @@ import android.database.Cursor;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import is.contracts.datacontracts.trakt.TraktMovieData;
 
 /**
@@ -22,7 +26,9 @@ public class DbMovies extends DatabaseHandler
     {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String selectQuery = "select imdb_id as _id, title, overview, image_url from movies";
+        String selectQuery = "select imdb_id as _id, title, overview, image_url " +
+                             "from movies " +
+                             "order by timestamp desc";
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         cursor.moveToFirst();
@@ -44,6 +50,7 @@ public class DbMovies extends DatabaseHandler
                 values.put(KEY_M_TITLE, movie.getTitle());
                 values.put(KEY_M_IMAGEURL, movie.getImage().getPoster());
                 values.put(KEY_M_OVERVIEW, movie.getOverview());
+                values.put(KEY_M_TIMESTAMP, new SimpleDateFormat("yyyy-MM-dd kk:mm").format(new Date()));
 
                 db.insert(TABLE_MOVIES, null, values);
 

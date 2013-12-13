@@ -1,6 +1,5 @@
 package is.activites.movies;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,7 +23,7 @@ public class WatchlistActivity extends BaseFragmentActivity
 
     private void Initialize()
     {
-        WatchlistPagerAdapter mWatchlistAdapter = new WatchlistPagerAdapter(getSupportFragmentManager(), this);
+        WatchlistPagerAdapter mWatchlistAdapter = new WatchlistPagerAdapter(getSupportFragmentManager());
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -42,12 +41,9 @@ public class WatchlistActivity extends BaseFragmentActivity
 
     public class WatchlistPagerAdapter extends FragmentStatePagerAdapter
     {
-        private Context context;
-
-        public WatchlistPagerAdapter(FragmentManager fm, Context context)
+        public WatchlistPagerAdapter(FragmentManager fm)
         {
             super(fm);
-            this.context = context;
         }
 
         @Override
@@ -56,7 +52,7 @@ public class WatchlistActivity extends BaseFragmentActivity
             switch (position)
             {
                 case 0:
-                    return new WatchListFragment(context);
+                    return WatchListFragment.newInstance();
             }
             return null;
         }

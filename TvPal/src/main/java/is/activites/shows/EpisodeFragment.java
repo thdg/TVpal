@@ -98,7 +98,7 @@ public class EpisodeFragment extends BaseFragment
             if (bmp == null && _network.isNetworkAvailable())
             {
                 String apiUrl = String.format("http://thetvdb.com/api/9A96DA217CEB03E7/episodes/%d", episode.getEpisodeId());
-                new DownloadPicture().execute(apiUrl);
+                new DownloadPicture().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, apiUrl);
             }
             else
             {
