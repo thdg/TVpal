@@ -174,9 +174,7 @@ public class TvDbUtil
         @Override
         protected void onPostExecute(String result)
         {
-            if (!result.equalsIgnoreCase("error"))
-                Toast.makeText(context, "Updated show, " + result, Toast.LENGTH_SHORT).show();
-            else
+            if (result.equalsIgnoreCase("error"))
                 Toast.makeText(context, "Whoops, something went wrong...", Toast.LENGTH_SHORT).show();
 
             progressBar.setVisibility(View.INVISIBLE);
@@ -244,8 +242,6 @@ public class TvDbUtil
         @Override
         protected void onPreExecute()
         {
-            Toast.makeText(context, "Updating shows", Toast.LENGTH_SHORT).show();
-
             progressBar.setVisibility(View.VISIBLE);
         }
 
@@ -254,10 +250,6 @@ public class TvDbUtil
         {
             if (result.equalsIgnoreCase("error"))
                 Toast.makeText(context, "Whoops, something went wrong...", Toast.LENGTH_SHORT).show();
-            else if (result.equalsIgnoreCase("noshows"))
-                Toast.makeText(context, "No shows to update", Toast.LENGTH_SHORT).show();
-            else
-                Toast.makeText(context, "Updated all shows, " + result, Toast.LENGTH_SHORT).show();
 
             progressBar.setVisibility(View.INVISIBLE);
         }
@@ -269,9 +261,6 @@ public class TvDbUtil
                 DbEpisodes db = new DbEpisodes(context);
                 ConnectionListener network = new ConnectionListener(context);
                 List<Integer> seriesIds = db.GetAllSeriesIds();
-
-                if (seriesIds.size() == 0)
-                    return "noshows";
 
                 for(Integer seriesId : seriesIds)
                 {

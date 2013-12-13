@@ -84,7 +84,7 @@ public class TraktCommentsActivity extends BaseActivity
             {
                 mMovieTitle.setText(title);
 
-                mListView.setAdapter(new TraktCommentAdapter(mContext, R.layout.listview_trakt_movie_comments, traktComments));
+                mListView.setAdapter(new TraktCommentAdapter(mContext, R.layout.listview_trakt_comments, traktComments));
 
                 mProgressBar.setVisibility(View.INVISIBLE);
             }
