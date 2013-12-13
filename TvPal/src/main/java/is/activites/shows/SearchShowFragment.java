@@ -1,26 +1,18 @@
 package is.activites.shows;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +23,6 @@ import is.contracts.datacontracts.SeriesData;
 import is.handlers.adapters.SearchShowAdapter;
 import is.parsers.tvdb.TvDbShowParser;
 import is.tvpal.R;
-import is.utilities.PictureTask;
 
 /**
  * An activity to search for episodes and add them to "MyShows"
@@ -39,13 +30,10 @@ import is.utilities.PictureTask;
  * @see is.activites.shows.MyShowsActivity
  */
 
-public class SearchShowFragment extends BaseFragment implements AdapterView.OnItemClickListener
+public class SearchShowFragment extends BaseFragment
 {
     private ListView mListView;
-    private EditText _editSearch;
-    private SearchShowAdapter mAdapter;
-    private PopupWindow _popupWindow;
-    private ImageView _popupBanner;
+    private EditText mEditSearch;
     private Context mContext;
     private ProgressBar mProgressBar;
 
@@ -65,12 +53,9 @@ public class SearchShowFragment extends BaseFragment implements AdapterView.OnIt
         super.onActivityCreated(savedInstanceState);
 
         mContext = activity.getContext();
-        _editSearch = (EditText) getView().findViewById(R.id.searchShow);
-        _popupWindow = new PopupWindow();
+        mEditSearch = (EditText) getView().findViewById(R.id.searchShow);
         mProgressBar = (ProgressBar) getView().findViewById(R.id.progressIndicator);
-
         mListView = (ListView) getView().findViewById(R.id.lvId);
-        mListView.setOnItemClickListener(this);
 
         InitializeEditTextSearch();
     }
@@ -83,13 +68,10 @@ public class SearchShowFragment extends BaseFragment implements AdapterView.OnIt
 
     private void InitializeEditTextSearch()
     {
-        _editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener()
-        {
+        mEditSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent)
-            {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH)
-                {
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     performSearch();
 
                     InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -108,7 +90,7 @@ public class SearchShowFragment extends BaseFragment implements AdapterView.OnIt
 
         try
         {
-            userEntry = _editSearch.getText().toString();
+            userEntry = mEditSearch.getText().toString();
             userEntry = userEntry.replace(" ", "%20"); //Delete whitespaces and insert %20 to set correct urlFormat for the API
         }
         catch(Exception ex)
@@ -119,47 +101,6 @@ public class SearchShowFragment extends BaseFragment implements AdapterView.OnIt
         String searchUrl = String.format("%s%s", getResources().getString(R.string.tvdbBaseUrl), userEntry);
 
         new DownloadShows(mContext).execute(searchUrl);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
-    {
-        SeriesData show = mAdapter.getItem(i);
-
-        CreatePopupWindow(show);
-    }
-
-    private void CreatePopupWindow(SeriesData show)
-    {
-        LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View popupView = layoutInflater.inflate(R.layout.popup_show, null);
-        _popupWindow.setContentView(popupView);
-        _popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
-        _popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
-
-        TextView showTitle = (TextView) popupView.findViewById(R.id.popupTitle);
-        TextView showOverview = (TextView) popupView.findViewById(R.id.popupOverview);
-        TextView showNetwork = (TextView) popupView.findViewById(R.id.popupNetwork);
-        TextView showFirstAired = (TextView) popupView.findViewById(R.id.popupFirstAired);
-        Button showClose = (Button) popupView.findViewById(R.id.popUpClose);
-        _popupBanner = (ImageView) popupView.findViewById(R.id.popupBanner);
-        if (show.getBanner() != null)
-            new DownloadBannerBitmap(show.getBanner()).execute();
-
-        showTitle.setText(show.getTitle());
-        String overview = show.getOverview()!=null ? show.getOverview() : "";
-        showOverview.setText(overview);
-        showNetwork.setText(String.format("Network: %s", show.getNetwork()));
-        showFirstAired.setText(String.format("First aired: %s", show.getFirstAired()));
-
-        _popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
-
-        showClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                _popupWindow.dismiss();
-            }
-        });
     }
 
     private class DownloadShows extends AsyncTask<String, Void, List<SeriesData>>
@@ -200,7 +141,7 @@ public class SearchShowFragment extends BaseFragment implements AdapterView.OnIt
             }
             else
             {
-                mAdapter = new SearchShowAdapter(ctx, R.layout.listview_search_show, shows);
+                SearchShowAdapter mAdapter = new SearchShowAdapter(ctx, R.layout.listview_search_show, shows);
                 mListView.setAdapter(mAdapter);
             }
 
@@ -220,55 +161,6 @@ public class SearchShowFragment extends BaseFragment implements AdapterView.OnIt
             }
 
             return null;
-        }
-    }
-
-    private class DownloadBannerBitmap extends AsyncTask<String, Void, String>
-    {
-        private String apiUrl = "http://thetvdb.com/banners/";
-        private String bannerUrl;
-        private Bitmap banner;
-
-        public DownloadBannerBitmap(String bannerUrl)
-        {
-            this.bannerUrl = bannerUrl;
-        }
-
-        @Override
-        protected String doInBackground(String... urls)
-        {
-            try
-            {
-                return GetBanner();
-            }
-            catch (IOException e)
-            {
-                return "Unable to retrieve web page. URL may be invalid";
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result)
-        {
-            if(_popupWindow.isShowing() && result.equalsIgnoreCase("Successful"))
-                _popupBanner.setImageBitmap(banner);
-        }
-
-        private String GetBanner() throws IOException
-        {
-            try
-            {
-                PictureTask bmp = new PictureTask();
-                byte[] bannerByteStream = bmp.getByteStreamFromUrl(String.format("%s%s", apiUrl, bannerUrl));
-                banner = BitmapFactory.decodeByteArray(bannerByteStream, 0, bannerByteStream.length);
-                return "Successful";
-            }
-            catch (Exception ex)
-            {
-                Log.e(getClass().getName(), ex.getMessage());
-            }
-
-            return "Errrrrrrrrrrrrrror";
         }
     }
 }

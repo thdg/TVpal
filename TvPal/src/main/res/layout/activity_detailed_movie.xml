@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:padding="20sp"
         android:orientation="vertical"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/moviePoster"
@@ -149,10 +149,7 @@
                 android:paddingBottom="5sp"
                 style="@style/DetailedMovieLabel"/>
 
-            <View
-                android:layout_height="1dp"
-                android:layout_width="fill_parent"
-                android:background="#34b1ff"/>
+            <include layout="@layout/blue_splitter" />
 
             <Button
                 android:id="@+id/startYoutubeIntent"
@@ -164,10 +161,7 @@
                 android:gravity="center_vertical|left"
                 android:text="@string/DetailedMovieTrailer"/>
 
-            <View
-                android:layout_height="1dp"
-                android:layout_width="fill_parent"
-                android:background="#34b1ff"/>
+            <include layout="@layout/blue_splitter" />
 
             <Button
                 android:id="@+id/startImdbIntent"
@@ -179,10 +173,7 @@
                 android:gravity="center_vertical|left"
                 android:text="@string/DetailedMovieImdb"/>
 
-            <View
-                android:layout_height="1dp"
-                android:layout_width="fill_parent"
-                android:background="#34b1ff"/>
+            <include layout="@layout/blue_splitter" />
 
             <Button
                 android:id="@+id/startTraktIntent"
@@ -194,10 +185,7 @@
                 android:gravity="center_vertical|left"
                 android:text="@string/DetailedMovieTrakt"/>
 
-            <View
-                android:layout_height="1dp"
-                android:layout_width="fill_parent"
-                android:background="#34b1ff"/>
+            <include layout="@layout/blue_splitter" />
 
             <Button
                 android:id="@+id/startTraktComments"
