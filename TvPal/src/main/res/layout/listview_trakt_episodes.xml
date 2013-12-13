@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_margin="10dp"
-    android:background="#FFF"
-    android:padding="5dp">
+    android:paddingTop="10sp"
+    android:paddingBottom="10sp"
+    android:background="@drawable/custom_list_selector">
 
     <ImageView
         android:id="@+id/traktPoster"
@@ -22,7 +22,8 @@
         android:paddingLeft="6sp"
         android:textSize="18sp"
         android:text="Show:"
-        android:textColor="#000000"/>
+        android:textColor="#fff"
+        android:typeface="serif"/>
 
     <TextView
         android:id="@+id/traktOverview"
@@ -36,10 +37,12 @@
         android:textSize="14sp"
         android:maxLines="3"
         android:lineSpacingMultiplier="1.2"
-        android:ellipsize="end"/>
+        android:ellipsize="end"
+        android:textColor="#fff"
+        android:typeface="serif"/>
 
     <CheckBox
-        android:button="@drawable/eye_checkbox"
+        android:button="@drawable/eye_48_white"
         android:id="@+id/traktAddShow"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

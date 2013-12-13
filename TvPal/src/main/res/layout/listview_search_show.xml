@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_margin="10dp"
-    android:background="#FFF"
+    android:background="#2F302E"
     android:padding="10dp">
 
     <LinearLayout
@@ -17,15 +17,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="12"
-            android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:text="Þáttur"
             android:paddingRight="10dp"
-            android:textColor="#000000"
-            android:layout_gravity="center_vertical"/>
+            android:textColor="#fff"
+            android:layout_gravity="center_vertical"
+            android:typeface="serif"/>
 
         <CheckBox
-            android:button="@drawable/eye_checkbox"
+            android:button="@drawable/eye_48_white"
             android:id="@+id/checkShow"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
@@ -34,23 +34,15 @@
 
     </LinearLayout>
 
-    <TextView android:id="@+id/network"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:text="Network:"
-        android:textColor="#000000"
-        android:layout_below="@+id/linearLayout"
-        android:layout_alignParentLeft="true" />
-
     <TextView android:id="@+id/overview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_below="@+id/network"
+        android:textSize="14sp"
+        android:layout_below="@+id/linearLayout"
         android:text="Overview:"
-        android:textColor="#000000"
-        android:maxLines="2"
-        android:ellipsize="end"/>
+        android:textColor="#fff"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:typeface="serif"/>
 
 </RelativeLayout>

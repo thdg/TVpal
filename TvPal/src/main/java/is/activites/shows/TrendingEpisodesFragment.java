@@ -6,11 +6,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +24,10 @@ import is.tvpal.R;
  * @author Arnar
  * @see android.support.v4.app.Fragment
  */
-public class TrendingEpisodesFragment extends BaseFragment implements AdapterView.OnItemClickListener
+public class TrendingEpisodesFragment extends BaseFragment
 {
     private Context mContext;
     private ListView mListView;
-    private TraktEpisodeAdapter mAdapter;
     private ProgressBar mProgessBar;
     private TextView mNoResults;
 
@@ -51,7 +49,6 @@ public class TrendingEpisodesFragment extends BaseFragment implements AdapterVie
         mProgessBar = (ProgressBar) getView().findViewById(R.id.progressIndicator);
         mNoResults = (TextView) getView().findViewById(R.id.traktNoResults);
         mListView = (ListView) getView().findViewById(R.id.trendingTrakt);
-        mListView.setOnItemClickListener(this);
 
         new GetTrendingShows().execute();
     }
@@ -59,14 +56,7 @@ public class TrendingEpisodesFragment extends BaseFragment implements AdapterVie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.fragment_trakt_episodes, container, false);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
-    {
-        TraktEpisodeData show = mAdapter.getItem(position);
-        Toast.makeText(mContext, String.format("%d",show.getSeriesId()), Toast.LENGTH_SHORT).show();
+        return inflater.inflate(R.layout.fragment_trakt_trending, container, false);
     }
 
     private class GetTrendingShows extends AsyncTask<String, Void, List<TraktEpisodeData>>
@@ -99,7 +89,7 @@ public class TrendingEpisodesFragment extends BaseFragment implements AdapterVie
             }
             else
             {
-                mAdapter = new TraktEpisodeAdapter(mContext, R.layout.listview_trakt_episodes, shows);
+                TraktEpisodeAdapter mAdapter = new TraktEpisodeAdapter(mContext, R.layout.listview_trakt_episodes, shows);
                 mListView.setAdapter(mAdapter);
                 mProgessBar.setVisibility(View.GONE);
                 mNoResults.setVisibility(View.GONE);

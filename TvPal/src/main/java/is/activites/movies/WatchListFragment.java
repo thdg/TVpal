@@ -41,6 +41,6 @@ public class WatchListFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.fragment_trakt_movies, container, false);
+        return inflater.inflate(R.layout.fragment_trakt_trending, container, false);
     }
 }

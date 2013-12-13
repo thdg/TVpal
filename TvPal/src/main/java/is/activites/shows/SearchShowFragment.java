@@ -1,6 +1,5 @@
 package is.activites.shows;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
@@ -41,14 +41,13 @@ import is.utilities.PictureTask;
 
 public class SearchShowFragment extends BaseFragment implements AdapterView.OnItemClickListener
 {
-    private ListView _lv;
+    private ListView mListView;
     private EditText _editSearch;
-    private List<SeriesData> _shows;
-    private ProgressDialog _waitingDialog;
-    private SearchShowAdapter _adapterView;
+    private SearchShowAdapter mAdapter;
     private PopupWindow _popupWindow;
     private ImageView _popupBanner;
     private Context mContext;
+    private ProgressBar mProgressBar;
 
     public SearchShowFragment() {}
 
@@ -66,11 +65,12 @@ public class SearchShowFragment extends BaseFragment implements AdapterView.OnIt
         super.onActivityCreated(savedInstanceState);
 
         mContext = activity.getContext();
-        _editSearch = (EditText) getView().findViewById(R.id.editMeh);
+        _editSearch = (EditText) getView().findViewById(R.id.searchShow);
         _popupWindow = new PopupWindow();
+        mProgressBar = (ProgressBar) getView().findViewById(R.id.progressIndicator);
 
-        _lv = (ListView) getView().findViewById(R.id.lvId);
-        _lv.setOnItemClickListener(this);
+        mListView = (ListView) getView().findViewById(R.id.lvId);
+        mListView.setOnItemClickListener(this);
 
         InitializeEditTextSearch();
     }
@@ -124,7 +124,7 @@ public class SearchShowFragment extends BaseFragment implements AdapterView.OnIt
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
     {
-        SeriesData show = _adapterView.getItem(i);
+        SeriesData show = mAdapter.getItem(i);
 
         CreatePopupWindow(show);
     }
@@ -162,7 +162,7 @@ public class SearchShowFragment extends BaseFragment implements AdapterView.OnIt
         });
     }
 
-    private class DownloadShows extends AsyncTask<String, Void, String>
+    private class DownloadShows extends AsyncTask<String, Void, List<SeriesData>>
     {
         private Context ctx;
 
@@ -172,7 +172,7 @@ public class SearchShowFragment extends BaseFragment implements AdapterView.OnIt
         }
 
         @Override
-        protected String doInBackground(String... urls)
+        protected List<SeriesData> doInBackground(String... urls)
         {
             try
             {
@@ -180,48 +180,46 @@ public class SearchShowFragment extends BaseFragment implements AdapterView.OnIt
             }
             catch (IOException e)
             {
-                return "Unable to retrieve web page. URL may be invalid";
+                e.printStackTrace();
             }
+            return null;
         }
 
         @Override
         protected void onPreExecute()
         {
-            _waitingDialog = new ProgressDialog(ctx);
-            _waitingDialog.setMessage(getString(R.string.loadingShows));
-            _waitingDialog.show();
+            mProgressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
-        protected void onPostExecute(String result)
+        protected void onPostExecute(List<SeriesData> shows)
         {
-            if (result.equalsIgnoreCase("empty"))
+            if (shows.size() == 0)
+            {
                 Toast.makeText(ctx, "No shows found", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                mAdapter = new SearchShowAdapter(ctx, R.layout.listview_search_show, shows);
+                mListView.setAdapter(mAdapter);
+            }
 
-            _adapterView = new SearchShowAdapter(ctx, R.layout.listview_search_show, _shows);
-            _lv.setAdapter(_adapterView);
-
-            _waitingDialog.dismiss();
+            mProgressBar.setVisibility(View.INVISIBLE);
         }
 
-        private String GetShows(String myurl) throws IOException
+        private List<SeriesData> GetShows(String myurl) throws IOException
         {
             try
             {
                 TvDbShowParser parser = new TvDbShowParser(myurl);
-                _shows = parser.GetShows();
-
-                if(_shows.size() == 0)
-                {
-                    return "Empty";
-                }
+                return parser.GetShows();
             }
             catch (Exception ex)
             {
                 Log.e(getClass().getName(), ex.getMessage());
             }
 
-            return "Successful";
+            return null;
         }
     }
 

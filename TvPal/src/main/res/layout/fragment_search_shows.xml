@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#EEE"
+    android:background="#222"
     android:padding="10dp">
 
     <EditText
-        android:id="@+id/editMeh"
+        android:id="@+id/searchShow"
         android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:hint="Search"
@@ -19,10 +19,18 @@
     <ListView
         android:id="@+id/lvId"
         android:layout_width="fill_parent"
-        android:background="#EEE"
+        android:layout_below="@+id/searchShow"
+        android:background="#222"
         android:layout_marginTop="10dp"
         android:dividerHeight="10dp"
-        android:divider="#EEE"
+        android:divider="#222"
         android:layout_height="fill_parent"/>
 
-</LinearLayout>
+    <ProgressBar
+        android:id="@+id/progressIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"/>
+
+</RelativeLayout>

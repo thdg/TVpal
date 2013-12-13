@@ -46,7 +46,6 @@ public class SearchShowAdapter extends BaseAdapter
     static class ShowHolder
     {
         TextView title;
-        TextView network;
         TextView overview;
         CheckBox checkShow;
     }
@@ -65,7 +64,6 @@ public class SearchShowAdapter extends BaseAdapter
             holder = new ShowHolder();
 
             holder.title = (TextView) row.findViewById(R.id.title);
-            holder.network = (TextView) row.findViewById(R.id.network);
             holder.overview = (TextView) row.findViewById(R.id.overview);
             holder.checkShow = (CheckBox) row.findViewById(R.id.checkShow);
 
@@ -79,9 +77,6 @@ public class SearchShowAdapter extends BaseAdapter
         final SeriesData series = getItem(position);
 
         holder.title.setText(series.getTitle());
-
-        String network = series.getNetwork() == null ? "" : String.format("Network: %s",series.getNetwork());
-        holder.network.setText(network);
 
         holder.overview.setText(series.getOverview());
 
