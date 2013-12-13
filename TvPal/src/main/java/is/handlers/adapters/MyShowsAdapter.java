@@ -11,9 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.HashMap;
-
 import is.tvpal.R;
 
 /**
@@ -81,8 +78,11 @@ public class MyShowsAdapter extends CursorAdapter
         }
         else
         {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 8;
+
             byte[] thumbnailByteStream = mCursor.getBlob(Series.Thumbnail);
-            Bitmap bmp = BitmapFactory.decodeByteArray(thumbnailByteStream, 0, thumbnailByteStream.length);
+            Bitmap bmp = BitmapFactory.decodeByteArray(thumbnailByteStream, 0, thumbnailByteStream.length, options);
             mPosters.put(seriesId, bmp);
             viewHolder.thumbnail.setImageBitmap(bmp);
         }
@@ -91,9 +91,7 @@ public class MyShowsAdapter extends CursorAdapter
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor)
-    {
-    }
+    public void bindView(View view, Context context, Cursor cursor) {}
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent)
