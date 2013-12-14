@@ -28,7 +28,6 @@ import is.contracts.datacontracts.DrawerListData;
 import is.contracts.datacontracts.DrawerListHeader;
 import is.contracts.datacontracts.IDrawerItem;
 import is.handlers.adapters.DrawerListAdapter;
-import is.utilities.ConnectionListener;
 import is.tvpal.R;
 
 /**
@@ -43,8 +42,6 @@ public class MainActivity extends Activity
 {
     public static final String EXTRA_STOD2 = "is.activites.STOD2";
     public static final String EXTRA_TITLE = "is.activites.TITLE";
-
-    private ConnectionListener _connectivityListener;
 
     private DrawerLayout _drawerLayout;
     private ListView _drawerList;
@@ -61,8 +58,6 @@ public class MainActivity extends Activity
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void Initialize()
     {
-        _connectivityListener = new ConnectionListener(this);
-
         _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         _drawerList = (ListView) findViewById(R.id.left_drawer);
 

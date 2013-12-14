@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.HashMap;
+
+import is.handlers.database.DbEpisodes;
 import is.tvpal.R;
 
 /**
@@ -81,8 +85,7 @@ public class MyShowsAdapter extends CursorAdapter
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inSampleSize = 8;
 
-            byte[] thumbnailByteStream = mCursor.getBlob(Series.Thumbnail);
-            Bitmap bmp = BitmapFactory.decodeByteArray(thumbnailByteStream, 0, thumbnailByteStream.length, options);
+            Bitmap bmp = new DbEpisodes(mContext).GetSeriesThumbnail(mCursor.getInt(Series.SeriesId));
             mPosters.put(seriesId, bmp);
             viewHolder.thumbnail.setImageBitmap(bmp);
         }
@@ -103,6 +106,5 @@ public class MyShowsAdapter extends CursorAdapter
     {
         int SeriesId = 0;
         int Name = 1;
-        int Thumbnail = 2;
     }
 }

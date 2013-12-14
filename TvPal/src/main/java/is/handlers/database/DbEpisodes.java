@@ -98,7 +98,7 @@ public class DbEpisodes extends DatabaseHandler
 
     public Cursor GetCursorMyShows()
     {
-        String selectQuery = String.format("select seriesId as _id, name, thumbnail " +
+        String selectQuery = String.format("select seriesId as _id, name " +
                 "from series order by name");
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -286,10 +286,13 @@ public class DbEpisodes extends DatabaseHandler
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        cursor.moveToFirst();//It should exist
+        cursor.moveToFirst();
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 8;
 
         byte[] thumbnailByteStream = cursor.getBlob(0);
-        Bitmap bmp = BitmapFactory.decodeByteArray(thumbnailByteStream, 0, thumbnailByteStream.length);
+        Bitmap bmp = BitmapFactory.decodeByteArray(thumbnailByteStream, 0, thumbnailByteStream.length, options);
         db.close();
         return bmp;
     }
