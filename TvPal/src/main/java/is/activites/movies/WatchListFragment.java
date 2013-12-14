@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import is.activites.baseActivities.BaseFragment;
-import is.contracts.datacontracts.trakt.TraktMovieData;
 import is.handlers.adapters.WatchListAdapter;
 import is.handlers.database.DbMovies;
 import is.tvpal.R;
@@ -48,7 +47,7 @@ public class WatchListFragment extends BaseFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.fragment_trakt_trending, container, false);
+        return inflater.inflate(R.layout.fragment_watchlist, container, false);
     }
 
     @Override

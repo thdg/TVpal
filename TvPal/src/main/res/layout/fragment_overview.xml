@@ -126,6 +126,30 @@
                 android:gravity="center_vertical|left"
                 android:text="@string/trakt_comments"/>
 
+            <include layout="@layout/blue_splitter" />
+
+            <Button
+                android:id="@+id/startTvdbIntent"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="Tvdb"/>
+
+            <include layout="@layout/blue_splitter" />
+
+            <Button
+                android:id="@+id/startTraktIntent"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="Trakt"/>
+
         </LinearLayout>
 
     </LinearLayout>

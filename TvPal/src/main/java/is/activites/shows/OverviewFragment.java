@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import is.activites.baseActivities.BaseFragment;
 import is.activites.movies.DetailedMovieActivity;
 import is.activites.movies.TraktCommentsActivity;
@@ -78,6 +77,20 @@ public class OverviewFragment extends BaseFragment
                     intent.putExtra(DetailedMovieActivity.EXTRA_MOVIE, mCursor.getString(Series.Name));
                     intent.putExtra(DetailedMovieActivity.EXTRA_MOVIEID, TraktCommentUrl + mCursor.getString(Series.ImdbId));
                     startActivity(intent);
+                }
+            });
+
+            rootView.findViewById(R.id.startTvdbIntent).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ExternalIntents.StartTvdbIntent(mContext, mCursor.getInt(Series.SeriesId));
+                }
+            });
+
+            rootView.findViewById(R.id.startTraktIntent).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ExternalIntents.StartTraktIntent(mContext, mCursor.getString(Series.Name));
                 }
             });
         }

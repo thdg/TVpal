@@ -11,6 +11,8 @@ import android.widget.Toast;
 public class ExternalIntents
 {
     public static final String IMDB_URL = "http://www.imdb.com/title/";
+    public static final String TVDB_URL = "http://thetvdb.com/?tab=series&id=";
+    public static final String TRAKT_URL = "http://trakt.tv/show/";
 
     public static void StartIMDBIntent(Context context, String imdbId)
     {
@@ -27,6 +29,32 @@ public class ExternalIntents
             catch (Exception e) {
                 Toast.makeText(context, "Couldn't open IMDB", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    public static void StartTvdbIntent(Context context, int seriesId)
+    {
+        try
+        {
+            String tvdbUrl = String.format("%s%s", TVDB_URL, seriesId);
+            StartUriIntent(context, tvdbUrl);
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(context, "Couldn't open Tvdb link", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public static void StartTraktIntent(Context context, String show)
+    {
+        try
+        {
+            show = show.replace(" ", "-").toLowerCase();
+            StartUriIntent(context, String.format("%s%s", TRAKT_URL, show));
+        }
+        catch (Exception ex)
+        {
+            Toast.makeText(context, "Couldn't open Trakt link", Toast.LENGTH_SHORT).show();
         }
     }
 
