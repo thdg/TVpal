@@ -280,7 +280,7 @@ public class DbEpisodes extends DatabaseHandler
         Other Episodes related methods
     */
 
-    public Bitmap GetSeriesThumbnail(int seriesId)
+    public Bitmap GetSeriesPoster(int seriesId, boolean lowRes)
     {
         String selectQuery = String.format("SELECT thumbnail from series where seriesId = %d", seriesId);
         SQLiteDatabase db = this.getWritableDatabase();
@@ -288,13 +288,22 @@ public class DbEpisodes extends DatabaseHandler
 
         cursor.moveToFirst();
 
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 8;
+        byte[] posterByteStream = cursor.getBlob(0);
+        Bitmap poster;
 
-        byte[] thumbnailByteStream = cursor.getBlob(0);
-        Bitmap bmp = BitmapFactory.decodeByteArray(thumbnailByteStream, 0, thumbnailByteStream.length, options);
+        if (lowRes)
+        {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 8;
+            poster = BitmapFactory.decodeByteArray(posterByteStream, 0, posterByteStream.length, options);
+        }
+        else
+        {
+            poster = BitmapFactory.decodeByteArray(posterByteStream, 0, posterByteStream.length);
+        }
+
         db.close();
-        return bmp;
+        return poster;
     }
 
     public void UpdateSeasonSeenStatus(int seriesId, int seasonNumber, int seenStatus)

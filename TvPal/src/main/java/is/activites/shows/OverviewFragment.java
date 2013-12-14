@@ -53,7 +53,7 @@ public class OverviewFragment extends BaseFragment
 
         if (rootView != null)
         {
-            Bitmap poster = db.GetSeriesThumbnail(mCursor.getInt(Series.SeriesId));
+            Bitmap poster = db.GetSeriesPoster(mCursor.getInt(Series.SeriesId), false);
             ((ImageView) rootView.findViewById(R.id.overviewPicture)).setImageBitmap(poster);
             ((TextView) rootView.findViewById(R.id.overviewTitle)).setText(mCursor.getString(Series.Name));
             ((TextView) rootView.findViewById(R.id.overviewText)).setText(mCursor.getString(Series.Overview));

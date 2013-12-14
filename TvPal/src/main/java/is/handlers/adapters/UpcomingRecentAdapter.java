@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import is.handlers.database.DatabaseHandler;
 import is.handlers.database.DbEpisodes;
 import is.utilities.DateUtil;
 import is.tvpal.R;
@@ -87,7 +85,7 @@ public class UpcomingRecentAdapter extends CursorAdapter
 
         if (pictures.get(seriesId) == null)
         {
-            Bitmap bmp = db.GetSeriesThumbnail(seriesId);
+            Bitmap bmp = db.GetSeriesPoster(seriesId, true);
             pictures.put(seriesId, bmp);
         }
 

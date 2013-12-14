@@ -20,7 +20,7 @@ public class ScheduleFragment extends BaseFragment implements AdapterView.OnItem
     public static final String EXTRA_EVENT = "is.activites.scheduleActivites.EVENT";
     public static final String EXTRA_SCHEDULE_DAY = "is.activites.scheduleActivites.SCHEDULE_DAY";
 
-    private EventAdapter _adapterView;
+    private EventAdapter mAdapter;
     private Context mContext;
 
     public ScheduleFragment() {}
@@ -34,30 +34,31 @@ public class ScheduleFragment extends BaseFragment implements AdapterView.OnItem
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    public void onActivityCreated(Bundle savedInstanceState)
     {
+        super.onActivityCreated(savedInstanceState);
+
         mContext = activity.getContext();
 
-        View rootView = inflater.inflate(R.layout.fragment_events, container, false);
         Bundle args = getArguments();
-        //Todo: Some type checking
         ArrayList<EventData> _todaySchedule = (ArrayList<EventData>)args.getSerializable(EXTRA_SCHEDULE_DAY);
 
-        _adapterView = new EventAdapter(mContext, R.layout.listview_event, _todaySchedule);
+        mAdapter = new EventAdapter(mContext, R.layout.listview_event, _todaySchedule);
 
-        if (rootView != null)
-        {
-            ((ListView) rootView.findViewById(R.id.schedules)).setAdapter(_adapterView);
-            ((ListView) rootView.findViewById(R.id.schedules)).setOnItemClickListener(this);
-        }
-
-        return rootView;
+        ((ListView) getView().findViewById(R.id.schedules)).setAdapter(mAdapter);
+        ((ListView) getView().findViewById(R.id.schedules)).setOnItemClickListener(this);
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        EventData selectedEvent = _adapterView.getItem(i);
+        return inflater.inflate(R.layout.fragment_events, container, false);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
+    {
+        EventData selectedEvent = mAdapter.getItem(position);
 
         Intent intent = new Intent(mContext, DetailedEventActivity.class);
         intent.putExtra(EXTRA_EVENT, selectedEvent);
