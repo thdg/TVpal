@@ -68,7 +68,7 @@ public class WatchListAdapter extends CursorAdapter
         viewHolder.position = position;
         viewHolder.title.setText(mCursor.getString(Movie.Title));
         viewHolder.overview.setText(mCursor.getString(Movie.Overview));
-
+        viewHolder.poster.setImageBitmap(null);
         new PosterWorker(mCursor.getString(Movie.ImageUrl), position).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, viewHolder);
 
         return convertView;
