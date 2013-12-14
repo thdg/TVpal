@@ -66,4 +66,27 @@ public class DbMovies extends DatabaseHandler
             }
         }
     }
+
+    public void RemoveMovieFromWatchList(String imdbId)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        try
+        {
+            db.beginTransaction();
+
+            db.delete(TABLE_MOVIES, String.format("imdb_id = '%s'", imdbId), null);
+
+            db.setTransactionSuccessful();
+        }
+        catch (Exception ex)
+        {
+            Log.e(getClass().getName(), ex.getMessage());
+            ex.printStackTrace();
+        }
+        finally
+        {
+            db.endTransaction();
+        }
+    }
 }

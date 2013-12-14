@@ -87,5 +87,6 @@
     <string name="trakt_comments">Comments</string>
     <string name="watchlist_movie">Add To Watchlist</string>
     <string name="watchlist">Watchlist</string>
+    <string name="remove_movie">Remove Movie</string>
 
 </resources>
