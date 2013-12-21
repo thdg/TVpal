@@ -17,7 +17,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import is.activites.baseActivities.BaseActivity;
+import is.activites.base.BaseActivity;
 import is.handlers.database.DbEpisodes;
 import is.handlers.adapters.MyShowsAdapter;
 import is.thetvdb.TvDbUtil;

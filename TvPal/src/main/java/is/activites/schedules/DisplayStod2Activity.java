@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import is.activites.baseActivities.BaseFragmentActivity;
+import is.activites.base.BaseFragmentActivity;
 import is.activites.MainActivity;
 import is.contracts.datacontracts.EventData;
 import is.parsers.schedules.Stod2ScheduleParser;

@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import is.activites.baseActivities.BaseFragment;
+import is.activites.base.BaseFragment;
 import is.activites.movies.DetailedMovieActivity;
 import is.activites.movies.TraktCommentsActivity;
 import is.handlers.database.DbEpisodes;

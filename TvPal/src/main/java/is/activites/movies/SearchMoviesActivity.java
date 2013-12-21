@@ -5,11 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.ContextMenu;
-import android.view.MenuInflater;
-import android.view.View;
 
-import is.activites.baseActivities.BaseFragmentActivity;
+import is.activites.base.BaseFragmentActivity;
 import is.tvpal.R;
 
 public class SearchMoviesActivity extends BaseFragmentActivity

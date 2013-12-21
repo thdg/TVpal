@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import is.activites.baseActivities.BaseActivity;
+import is.activites.base.BaseActivity;
 import is.contracts.datacontracts.trakt.TraktMovieDetailedData;
 import is.parsers.trakt.TraktParser;
 import is.tvpal.R;

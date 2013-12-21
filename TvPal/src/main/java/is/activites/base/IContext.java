@@ -1,4 +1,4 @@
-package is.activites.baseActivities;
+package is.activites.base;
 
 import android.content.Context;
 

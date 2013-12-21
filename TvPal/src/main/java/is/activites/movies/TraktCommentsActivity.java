@@ -9,7 +9,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import java.util.List;
-import is.activites.baseActivities.BaseActivity;
+import is.activites.base.BaseActivity;
 import is.contracts.datacontracts.trakt.TraktComment;
 import is.handlers.adapters.TraktCommentAdapter;
 import is.parsers.trakt.TraktParser;

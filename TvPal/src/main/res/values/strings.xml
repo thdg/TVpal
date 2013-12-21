@@ -20,7 +20,7 @@
     <string name="skjarinn">Skjárinn</string>
     <string name="drawer_open">Opna tjald</string>
     <string name="drawer_close">Loka tjaldi</string>
-    <string name="welcome_text">Verið velkomin! \n\nSlide-ið til hægri til að sjá lista yfir sjónvarpsstöðvar</string>
+    <string name="welcome_text">Welcome to TVPal</string>
     <string name="menu_remove_show">Remove Show</string>
     <string name="ruv">Rúv</string>
     <string name="stod_2">Stöð 2</string>
@@ -61,14 +61,13 @@
     <string name="title_activity_trakt">TraktActivity</string>
     <string name="title_activity_search_shows">Search TV Shows</string>
     <string name="title_activity_cinema">Bíó sýningar</string>
-    <string name="cinemaText">Bíó</string>
+    <string name="movieText">Movies</string>
     <string name="cinemaSchedules">Bíó sýningar</string>
     <string name="title_activity_trending_movies">Search Movies</string>
     <string name="trakt_search_movies">Search Movies</string>
-    <string name="cinema_no_results">Fann engar sýningar, eitthvað fór úrskeiðis</string>
-    <string name="trakt_nomovies">Couldn\'t load trending movies</string>
-    <string name="trakt_noshows">Couldn\'t load trending shows</string>
-    <string name="schedules_empty">Gat ekki hlaðið dagskrá</string>
+    <string name="no_results">Couldn\'t find any schedules</string>
+    <string name="trakt_nomovies">Couldn\'t load trending shows/movies</string>
+    <string name="schedules_empty">Couldn\'t load schedules</string>
     <string name="title_activity_detailed_movie">Detailed Movie</string>
     <string name="DetailedMovieGenres">Genres</string>
     <string name="DetailedMovieRuntime">Runtime</string>
@@ -87,6 +86,6 @@
     <string name="trakt_comments">Comments</string>
     <string name="watchlist_movie">Add To Watchlist</string>
     <string name="watchlist">Watchlist</string>
-    <string name="remove_movie">Remove Movie</string>
+    <string name="remove_movie">Remove Movie</string><string name="about_data">TVPal uses data from public websites:\nShows and Movies are powered by thetvdb.com and trakt.tv\nCinema schedules is powered by apis.is\nTV Schedules is powered by public Icelandic XML services</string>
 
 </resources>

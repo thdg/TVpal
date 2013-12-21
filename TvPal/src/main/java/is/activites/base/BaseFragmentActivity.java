@@ -1,12 +1,13 @@
-package is.activites.baseActivities;
+package is.activites.base;
 
-import android.app.Activity;
+import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 
 /**
  * Created by Arnar on 21.11.2013.
  */
-public class BaseActivity extends Activity
+public class BaseFragmentActivity extends FragmentActivity implements IContext
 {
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
@@ -19,5 +20,11 @@ public class BaseActivity extends Activity
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public Context getContext()
+    {
+        return this;
     }
 }

@@ -10,7 +10,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import java.util.List;
-import is.activites.baseActivities.BaseActivity;
+import is.activites.base.BaseActivity;
 import is.contracts.datacontracts.cinema.CinemaMovie;
 import is.handlers.adapters.CinemaAdapter;
 import is.parsers.cinema.CinemaParser;

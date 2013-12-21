@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import java.util.ArrayList;
 
-import is.activites.baseActivities.BaseFragment;
+import is.activites.base.BaseFragment;
 import is.contracts.datacontracts.EventData;
 import is.handlers.adapters.EventAdapter;
 import is.tvpal.R;

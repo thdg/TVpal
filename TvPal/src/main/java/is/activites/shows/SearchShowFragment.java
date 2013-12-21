@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
-import is.activites.baseActivities.BaseFragment;
+import is.activites.base.BaseFragment;
 import is.contracts.datacontracts.SeriesData;
 import is.handlers.adapters.SearchShowAdapter;
 import is.parsers.tvdb.TvDbShowParser;

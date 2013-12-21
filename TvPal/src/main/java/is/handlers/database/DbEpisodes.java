@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import is.contracts.datacontracts.EpisodeData;
 import is.contracts.datacontracts.SeriesData;
+import is.contracts.datacontracts.StatisticData;
 
 /**
  * A class to work with Episode Data
@@ -441,5 +442,37 @@ public class DbEpisodes extends DatabaseHandler
         db.close();
 
         return seriesIds;
+    }
+
+    public StatisticData GetStatisticData()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        StatisticData sData = new StatisticData();
+
+        if (db != null)
+        {
+            String selectQuery = String.format("select count(*) from series " +
+                                 "union all " +
+                                 "select count(*) from episodes where aired = '%s' " +
+                                 "union all " +
+                                 "select count(*) from movies",
+                                 new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            cursor.moveToFirst(); //Number of shows
+            sData.setNumberOfShows(cursor.getInt(0));
+
+            cursor.moveToNext(); //Number of aired shows
+            sData.setNumberOfAiredShows(cursor.getInt(0));
+
+            cursor.moveToNext(); //Number of movies in watchlist
+            sData.setNumberOfMovies(cursor.getInt(0));
+
+            db.close();
+        }
+
+        return sData;
     }
 }

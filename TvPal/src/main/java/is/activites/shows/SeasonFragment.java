@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import is.activites.baseActivities.BaseFragment;
+import is.activites.base.BaseFragment;
 import is.handlers.adapters.SeasonAdapter;
 import is.handlers.database.DbEpisodes;
 import is.tvpal.R;

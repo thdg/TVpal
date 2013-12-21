@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import is.activites.baseActivities.BaseActivity;
+import is.activites.base.BaseActivity;
 import is.handlers.adapters.SingleSeasonAdapter;
 import is.handlers.database.DbEpisodes;
 import is.tvpal.R;

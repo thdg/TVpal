@@ -15,7 +15,7 @@ import java.util.Date;
 
 import android.widget.Toast;
 import is.activites.reminders.ScheduleClient;
-import is.activites.baseActivities.BaseActivity;
+import is.activites.base.BaseActivity;
 import is.contracts.datacontracts.EventData;
 import is.tvpal.R;
 

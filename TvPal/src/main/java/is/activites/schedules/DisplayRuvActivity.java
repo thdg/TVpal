@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import is.activites.baseActivities.BaseFragmentActivity;
+import is.activites.base.BaseFragmentActivity;
 import is.contracts.datacontracts.EventData;
 import is.parsers.schedules.RuvScheduleParser;
 import is.utilities.ConnectionListener;

@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import is.activites.baseActivities.BaseFragment;
+import is.activites.base.BaseFragment;
 import is.handlers.adapters.WatchListAdapter;
 import is.handlers.database.DbMovies;
 import is.tvpal.R;

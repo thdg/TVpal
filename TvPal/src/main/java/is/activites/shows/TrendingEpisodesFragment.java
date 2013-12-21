@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import is.activites.baseActivities.BaseFragment;
+import is.activites.base.BaseFragment;
 import is.contracts.datacontracts.trakt.TraktEpisodeData;
 import is.handlers.adapters.TraktEpisodeAdapter;
 import is.parsers.trakt.TraktParser;
