@@ -2,17 +2,18 @@ package is.activites.movies;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import is.activites.base.BaseActivity;
 import is.contracts.datacontracts.cinema.CinemaMovie;
 import is.handlers.adapters.TheatreExpandableListAdapter;
 import is.tvpal.R;
 
-/**
- * Created by Arnar on 21.11.2013.
- */
 public class DetailedCinemaActivity extends BaseActivity
 {
+    private CinemaMovie _movie;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -26,12 +27,37 @@ public class DetailedCinemaActivity extends BaseActivity
     {
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Intent intent = getIntent();
-        CinemaMovie movie = (CinemaMovie) intent.getSerializableExtra(CinemaActivity.EXTRA_MOVIE);
+        InitializeDetailsButton();
 
-        setTitle(movie.getTitle());
+        Intent intent = getIntent();
+        _movie = (CinemaMovie) intent.getSerializableExtra(CinemaActivity.EXTRA_MOVIE);
+
+        setTitle(_movie.getTitle());
 
         ExpandableListView eListView = (ExpandableListView) findViewById(R.id.expandleMovie);
-        eListView.setAdapter(new TheatreExpandableListAdapter(this, movie.getShowtimes()));
+        eListView.setAdapter(new TheatreExpandableListAdapter(this, _movie.getShowtimes()));
+    }
+
+    private void InitializeDetailsButton()
+    {
+        Button detailsBtn = (Button) findViewById(R.id.movieDetailed);
+
+        detailsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(getApplicationContext(), DetailedMovieActivity.class);
+                intent.putExtra(TrendingMoviesFragment.EXTRA_MOVIEID, TrimImdbLink(_movie.getImdbLink()));
+                intent.putExtra(TrendingMoviesFragment.EXTRA_MOVIEPOSTER, _movie.getImageUrl());
+                startActivity(intent);
+            }
+        });
+    }
+
+    private String TrimImdbLink(String imdbLink)
+    {
+        int index = imdbLink.lastIndexOf("/");
+        imdbLink = imdbLink.substring(index+1);
+        return imdbLink;
     }
 }

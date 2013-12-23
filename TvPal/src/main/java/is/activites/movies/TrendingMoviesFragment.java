@@ -26,6 +26,7 @@ import is.handlers.adapters.TraktMoviesAdapter;
 import is.handlers.database.DbMovies;
 import is.parsers.trakt.TraktParser;
 import is.tvpal.R;
+import is.utilities.StringUtil;
 
 /**
  * Created by Arnar on 21.11.2013.
@@ -76,9 +77,11 @@ public class TrendingMoviesFragment extends BaseFragment implements AdapterView.
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
     {
         TraktMovieData data = mAdapter.getItem(position);
+        String posterUrl =StringUtil.formatTrendingPosterUrl(data.getImage().getPoster(), "-300");
+
         Intent intent = new Intent(mContext, DetailedMovieActivity.class);
         intent.putExtra(EXTRA_MOVIEID, data.getImdbId());
-        intent.putExtra(EXTRA_MOVIEPOSTER, data.getImage().getPoster());
+        intent.putExtra(EXTRA_MOVIEPOSTER, posterUrl);
         startActivity(intent);
     }
 

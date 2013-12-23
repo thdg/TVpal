@@ -87,5 +87,6 @@
     <string name="watchlist_movie">Add To Watchlist</string>
     <string name="watchlist">Watchlist</string>
     <string name="remove_movie">Remove Movie</string><string name="about_data">TVPal uses data from public websites:\nShows and Movies are powered by thetvdb.com and trakt.tv\nCinema schedules is powered by apis.is\nTV Schedules is powered by public Icelandic XML services</string>
+    <string name="cinema_detailed_movie">Nánari upplýsingar</string>
 
 </resources>

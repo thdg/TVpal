@@ -84,7 +84,6 @@ public class DetailedMovieActivity extends BaseActivity
     private class GetMovieDetailedWorker extends AsyncTask<String, Void, TraktMovieDetailedData>
     {
         private Context mContext;
-        private static final String IMDB_URL = "http://www.imdb.com/title/";
 
         private GetMovieDetailedWorker(Context context)
         {
@@ -194,9 +193,8 @@ public class DetailedMovieActivity extends BaseActivity
         {
             try
             {
-                String formattedPosterUrl = StringUtil.formatTrendingPosterUrl(posterUrl, "-300");
                 PictureTask task = new PictureTask();
-                return task.getBitmapFromUrl(formattedPosterUrl);
+                return task.getBitmapFromUrl(posterUrl);
             }
             catch (Exception ex)
             {
