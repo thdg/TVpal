@@ -18,13 +18,26 @@
         android:orientation="vertical"
         android:visibility="invisible">
 
-        <ImageView
-            android:id="@+id/moviePoster"
-            android:layout_width="fill_parent"
-            android:layout_height="360sp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/default_episode_background"
-            android:contentDescription="Movie" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/moviePoster"
+                android:layout_width="fill_parent"
+                android:layout_height="360sp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/default_episode_background"
+                android:contentDescription="Movie" />
+
+            <ProgressBar
+                android:id="@+id/progressBarPoster"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="invisible"/>
+
+            </RelativeLayout>
 
         <TextView
             android:id="@+id/movieTitle"

@@ -43,6 +43,7 @@ public class DetailedMovieActivity extends BaseActivity
     private TextView mRating;
     private TextView mReleaseYear;
     private Button mTraktCommentsActivity;
+    private ProgressBar mProgressBarPoster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -73,6 +74,7 @@ public class DetailedMovieActivity extends BaseActivity
         mRating = (TextView) findViewById(R.id.movieRating);
         mReleaseYear = (TextView) findViewById(R.id.movieReleaseYear);
         mTraktCommentsActivity = (Button) findViewById(R.id.startTraktComments);
+        mProgressBarPoster = (ProgressBar) findViewById(R.id.progressBarPoster);
 
         String movieId = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEID);
         String moviePoster = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEPOSTER);
@@ -183,10 +185,18 @@ public class DetailedMovieActivity extends BaseActivity
         }
 
         @Override
+        protected void onPreExecute()
+        {
+            mProgressBarPoster.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected void onPostExecute(Bitmap bitmap)
         {
             if (bitmap != null)
                 mPoster.setImageBitmap(bitmap);
+
+            mProgressBarPoster.setVisibility(View.INVISIBLE);
         }
 
         private Bitmap GetPoster(String posterUrl)
