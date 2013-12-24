@@ -7,22 +7,22 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
-/**
- * Created by Svavar on 26.11.2013.
- */
 public class ScheduleService extends Service{
 
     /**
      * Class for clients to access
      */
-    public class ServiceBinder extends Binder {
-        ScheduleService getService() {
+    public class ServiceBinder extends Binder
+    {
+        ScheduleService getService()
+        {
             return ScheduleService.this;
         }
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public int onStartCommand(Intent intent, int flags, int startId)
+    {
         Log.i("ScheduleService", "Received start id " + startId + ": " + intent);
 
         // We want this service to continue running until it is explicitly stopped, so return sticky.
@@ -30,7 +30,8 @@ public class ScheduleService extends Service{
     }
 
     @Override
-    public IBinder onBind(Intent intent) {
+    public IBinder onBind(Intent intent)
+    {
         return mBinder;
     }
 
@@ -40,7 +41,8 @@ public class ScheduleService extends Service{
     /**
      * Show an alarm for a certain date when the alarm is called it will pop up a notification
      */
-    public void setAlarm(Calendar c, String[] showInfo) {
+    public void setAlarm(Calendar c, String[] showInfo)
+    {
         // This starts a new thread to set the alarm
         // You want to push off your tasks onto a new thread to free up the UI to carry on responding
         new AlarmTask(this, c, showInfo).run();

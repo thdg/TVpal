@@ -13,16 +13,17 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
-
 import is.activites.MainActivity;
 
-public class NotifyService extends Service {
-
+public class NotifyService extends Service
+{
     /**
      * Class for clients to access
      */
-    public class ServiceBinder extends Binder {
-        NotifyService getService() {
+    public class ServiceBinder extends Binder
+    {
+        NotifyService getService()
+        {
             return NotifyService.this;
         }
     }
@@ -31,19 +32,16 @@ public class NotifyService extends Service {
     private static final int NOTIFICATION = (int) (System.currentTimeMillis() & 0x00000000FFFFFFFFL);
     // Name of an intent extra we can use to identify if this service was started to create a notification
     public static final String INTENT_NOTIFY = "is.activites.scheduleActivites.INTENT_NOTIFY";
-    // The system notification manager
-    private NotificationManager mNM;
 
     @Override
-    public void onCreate() {
-        Log.i("NotifyService", "onCreate()");
-        mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        // Get sms data
-
+    public void onCreate()
+    {
+        NotificationManager mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public int onStartCommand(Intent intent, int flags, int startId)
+    {
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
 
         String[] showInfo = (String[])intent.getExtras().get("REMINDER");
@@ -56,7 +54,8 @@ public class NotifyService extends Service {
     }
 
     @Override
-    public IBinder onBind(Intent intent) {
+    public IBinder onBind(Intent intent)
+    {
         return mBinder;
     }
 
@@ -66,50 +65,46 @@ public class NotifyService extends Service {
     /**
      * Creates a notification and shows it in the OS drag-down status bar
      */
-    private void showNotification(String[] showInfo) {
-        // This is the 'title' of the notification
+    private void showNotification(String[] showInfo)
+    {
         CharSequence title = "Á dagskrá kl: " + showInfo[1];
-        // This is the icon to use on the notification
+
         int icon = R.drawable.main_logo;
-        // This is the scrolling text of the notification
+
         CharSequence text = showInfo[0];
-        // What time to show on the notification
-        long time = System.currentTimeMillis();
 
         //Define sound URI
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(icon)
-                        .setContentTitle(title)
-                        .setContentText(text)
-                        .setSound(soundUri); //This sets the sound to play;
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                                            .setSmallIcon(icon)
+                                            .setContentTitle(title)
+                                            .setContentText(text)
+                                            .setSound(soundUri)
+                                            .setLights(0xFF0000FF,200,3000)
+                                            .setAutoCancel(true);
+
         // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, MainActivity.class);
 
-        // The stack builder object will contain an artificial back stack for the
-        // started Activity.
-        // This ensures that navigating backward from the Activity leads out of
-        // your application to the Home screen.
+        // The stack builder object will contain an artificial back stack for the started Activity.
+        // This ensures that navigating backward from the Activity leads out of your application to the Home screen.
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+
         // Adds the back stack for the Intent (but not the Intent itself)
         stackBuilder.addParentStack(MainActivity.class);
+
         // Adds the Intent that starts the Activity to the top of the stack
         stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(
-                        0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
+
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(resultPendingIntent);
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
         // mId allows you to update the notification later on.
         mNotificationManager.notify(NOTIFICATION, mBuilder.build());
 
         stopSelf();
-
-
     }
 }

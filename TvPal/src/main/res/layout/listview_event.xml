@@ -8,7 +8,7 @@
     <ImageView android:id="@+id/imgIcon"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="128px"
+        android:layout_height="64dp"
         android:layout_margin="10dp"
         android:src="@drawable/tvshow"/>
 
@@ -24,30 +24,30 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_toRightOf="@+id/imgIcon"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:text="Þáttur"
-            android:textColor="#000000"/>
+            android:textColor="#000000"
+            android:typeface="serif"/>
 
         <TextView android:id="@+id/startTime"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_below="@+id/title"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:text="Byrjar:"
-            android:textColor="#000000"/>
+            android:textColor="#000000"
+            android:typeface="serif"/>
 
 
         <TextView android:id="@+id/duration"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="18sp"
-            android:layout_below="@+id/startTime"
+            android:textSize="16sp"
             android:text="Lengd:"
-            android:textColor="#000000"/>
+            android:textColor="#000000"
+            android:typeface="serif"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -1,7 +1,6 @@
 package is.activites.reminders;
 
 import java.util.Calendar;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -21,7 +20,8 @@ public class AlarmTask implements Runnable{
     // Reminder for specific event
     private final String[] showInfo;
 
-    public AlarmTask(Context context, Calendar date, String[] showInfo) {
+    public AlarmTask(Context context, Calendar date, String[] showInfo)
+    {
         this.context = context;
         this.am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         this.date = date;
@@ -29,7 +29,8 @@ public class AlarmTask implements Runnable{
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
         // Request to start are service when the alarm date is upon us
         // We don't start an activity as we just want to pop up a notification into the system bar not a full activity
         Intent intent = new Intent(context, NotifyService.class);

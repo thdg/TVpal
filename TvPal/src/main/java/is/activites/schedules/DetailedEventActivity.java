@@ -6,38 +6,30 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import android.widget.Toast;
 import is.activites.reminders.ScheduleClient;
 import is.activites.base.BaseActivity;
 import is.contracts.datacontracts.EventData;
 import is.tvpal.R;
 
-/**
- * Created by Þorsteinn
- *
- * This class handles the activity to show detailed event information
- * when an event has been selected.
- */
-public class DetailedEventActivity extends BaseActivity {
-
-    private EventData event;
-    private ScheduleClient scheduleClient;
-
+public class DetailedEventActivity extends BaseActivity
+{
+    private EventData mEvent;
+    private ScheduleClient mScheduleClient;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detailed);
+        setContentView(R.layout.activity_detailed_event);
 
-        //scheduleClient = new ScheduleClient(this);
-        //scheduleClient.doBindService();
+        mScheduleClient = new ScheduleClient(this);
+        mScheduleClient.doBindService();
 
         Initialize();
     }
@@ -47,91 +39,104 @@ public class DetailedEventActivity extends BaseActivity {
     {
         Intent intent = getIntent();
 
-        event = (EventData) intent.getSerializableExtra(ScheduleFragment.EXTRA_EVENT);
+        mEvent = (EventData) intent.getSerializableExtra(ScheduleFragment.EXTRA_EVENT);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setTitle(event.getTitle());
+        setTitle(mEvent.getTitle());
 
         TextView eventDescription = (TextView) findViewById(R.id.title);
-        eventDescription.setText(event.getTitle());
+        eventDescription.setText(mEvent.getTitle());
 
         TextView eventCategory = (TextView) findViewById(R.id.event_description);
-        eventCategory.setText(event.getDescription());
+        eventCategory.setText(mEvent.getDescription());
 
-        if (!event.getStartTime().equals("")) {
+        if (!mEvent.getStartTime().equals(""))
+        {
             TextView eventStart = (TextView) findViewById(R.id.event_starting);
-            eventStart.setText(String.format("%s: %s", getResources().getString(R.string.starting_time), event.getStartTime()));
+            eventStart.setText(String.format("%s: %s", getResources().getString(R.string.starting_time), mEvent.getStartTime()));
         }
 
-        if (!event.getDuration().equals("")) {
+        if (!mEvent.getDuration().equals(""))
+        {
             TextView eventDuration = (TextView) findViewById(R.id.event_duration);
-            eventDuration.setText(String.format("%s: %s", getResources().getString(R.string.duration), event.getDuration()));
+            eventDuration.setText(String.format("%s: %s", getResources().getString(R.string.duration), mEvent.getDuration()));
         }
     }
 
-    /**
-     * This is the onClick called from the XML to set a new notification
-     */
-    public void ReminderClick(View view){
+    public void ReminderClick(View view)
+    {
+        if (!mEvent.getStartTime().isEmpty() && !mEvent.getEventDate().isEmpty())
+        {
+            String year = mEvent.getEventDate().substring(2,4);
+            String month = mEvent.getEventDate().substring(5,7);
+            String day = mEvent.getEventDate().substring(8);
+            int hour = Integer.parseInt(mEvent.getStartTime().substring(0,2));
+            int minute = Integer.parseInt(mEvent.getStartTime().substring(3));
 
-        // Create a new calendar set to the date and time of the show
-        if (!event.getStartTime().equals("") && !event.getEventDate().equals("")) {
-            String year = event.getEventDate().substring(2,4);
-            String month = event.getEventDate().substring(5,7);
-            String day = event.getEventDate().substring(8);
-            int hour = Integer.parseInt(event.getStartTime().substring(0,2));
-            int minute = Integer.parseInt(event.getStartTime().substring(3));
-            Date date = null;
+            Date notificationDate = FormatNotificationDate(String.format("%s/%s/%s", month, day, year));
 
-            DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
-            String strDate = month + "/" + day + "/" + year;
-            try{
-                date = formatter.parse(strDate);
-            }catch(ParseException e)
+            if (notificationDate != null)
             {
-                Toast.makeText(this, "Ekki gekk að vista áminningu" , Toast.LENGTH_SHORT).show();
-            }
-
-            if (date != null) {
-                String[] showInfo = { event.getTitle(), event.getStartTime()};
+                String[] showInfo = { mEvent.getTitle(), mEvent.getStartTime()};
 
                 Calendar alarmDate = Calendar.getInstance();
-                alarmDate.setTime(date);
+                alarmDate.setTime(notificationDate);
                 alarmDate.set(Calendar.HOUR_OF_DAY, hour);
-                alarmDate.set(Calendar.MINUTE, minute);
-                alarmDate.add(Calendar.MINUTE, -15);
-                alarmDate.set(Calendar.SECOND, 0);
+                alarmDate.set(Calendar.MINUTE, minute-15);
 
+                Calendar dateNow = Calendar.getInstance();
+                dateNow.setTime(new Date());
 
-                Calendar now = Calendar.getInstance();
+                String huh = formatDate(dateNow.getTime());
+                String kikok = formatDate(alarmDate.getTime());
+
                 // Ask our service to set an alarm for that date, this activity talks to the client that talks to the service
-                if(alarmDate.before(now)) {
-                    Toast.makeText(this, "Dagskrárliður hefur nú þegar verið sýndur" , Toast.LENGTH_SHORT).show();
-
-                } else if (alarmDate.after(now)) {
-                    scheduleClient.setAlarmForNotification(alarmDate, showInfo);
-                    // Notify the user what they just did
-                    strDate = date.toString().substring(0,10);
-                    Toast.makeText(this, "Áminning sett þann: " + strDate +  " klukkan: " + hour + ":" +
-                            minute , Toast.LENGTH_LONG).show();
-
-                } else {
-                    Toast.makeText(this, "Villa kom upp við skráningu" , Toast.LENGTH_LONG).show();
+                if(alarmDate.before(dateNow))
+                {
+                    Toast.makeText(this, "Dagskrárliður hefur nú þegar verið sýndur", Toast.LENGTH_SHORT).show();
                 }
-
+                else if (alarmDate.after(dateNow))
+                {
+                    mScheduleClient.setAlarmForNotification(alarmDate, showInfo);
+                    // Notify the user what they just did
+                    Toast.makeText(this, "Áminning sett: " + formatDate(alarmDate.getTime()), Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(this, "Villa kom upp við skráningu", Toast.LENGTH_LONG).show();
+                }
             }
-
         }
-
     }
 
     @Override
-    protected void onStop() {
+    protected void onStop()
+    {
         // When our activity is stopped ensure we also stop the connection to the service
         // this stops us leaking our activity into the system *bad*
-        if(scheduleClient != null)
-            scheduleClient.doUnbindService();
+        if(mScheduleClient != null)
+            mScheduleClient.doUnbindService();
         super.onStop();
+    }
+
+    private String formatDate(Date date)
+    {
+        return new SimpleDateFormat("yyyy-MM-dd kk:mm").format(date);
+    }
+
+    private Date FormatNotificationDate(String date)
+    {
+        try
+        {
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
+            return dateFormat.parse(date);
+        }
+        catch(ParseException e)
+        {
+            Toast.makeText(this, "Ekki gekk að vista áminningu", Toast.LENGTH_SHORT).show();
+        }
+
+        return null;
     }
 }
