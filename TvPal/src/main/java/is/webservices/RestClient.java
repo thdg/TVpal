@@ -12,7 +12,7 @@ import java.net.URL;
  */
 public class RestClient
 {
-    public String downloadJSONString(String myurl) throws Exception
+    public String Get(String myurl) throws Exception
     {
         InputStream is = null;
 

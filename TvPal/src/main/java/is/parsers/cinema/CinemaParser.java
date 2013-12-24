@@ -20,7 +20,7 @@ public class CinemaParser
         try
         {
             RestClient http = new RestClient();
-            String json = http.downloadJSONString(ApisUrl);
+            String json = http.Get(ApisUrl);
 
             return new Gson().fromJson(json, CinemaResults.class).getMovies();
         }

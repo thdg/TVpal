@@ -29,7 +29,7 @@ public class TraktParser
         try
         {
             RestClient http = new RestClient();
-            String json = http.downloadJSONString(TraktEpisodeUrl);
+            String json = http.Get(TraktEpisodeUrl);
 
             Type listType = new TypeToken<ArrayList<TraktEpisodeData>>() {}.getType();
 
@@ -48,7 +48,7 @@ public class TraktParser
         try
         {
             RestClient http = new RestClient();
-            String json = http.downloadJSONString(TraktMoviesUrl);
+            String json = http.Get(TraktMoviesUrl);
 
             Type listType = new TypeToken<ArrayList<TraktMovieData>>() {}.getType();
 
@@ -67,7 +67,7 @@ public class TraktParser
         try
         {
             RestClient client = new RestClient();
-            String json = client.downloadJSONString(String.format("%s%s", TraktSearchUrl, movie));
+            String json = client.Get(String.format("%s%s", TraktSearchUrl, movie));
 
             Type listType = new TypeToken<ArrayList<TraktMovieData>>() {}.getType();
 
@@ -86,7 +86,7 @@ public class TraktParser
         try
         {
             RestClient client = new RestClient();
-            String json = client.downloadJSONString(String.format("%s%s", TraktSummaryUrl, movieId));
+            String json = client.Get(String.format("%s%s", TraktSummaryUrl, movieId));
 
             return new Gson().fromJson(json, TraktMovieDetailedData.class);
         }
@@ -103,7 +103,7 @@ public class TraktParser
         try
         {
             RestClient client = new RestClient();
-            String json = client.downloadJSONString(commentUrl);
+            String json = client.Get(commentUrl);
 
             Type listType = new TypeToken<ArrayList<TraktComment>>() {}.getType();
 

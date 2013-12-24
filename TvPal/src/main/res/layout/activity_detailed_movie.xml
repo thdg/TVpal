@@ -172,7 +172,8 @@
                 android:textSize="16sp"
                 android:textColor="#ddd"
                 android:gravity="center_vertical|left"
-                android:text="@string/DetailedMovieTrailer"/>
+                android:text="@string/DetailedMovieTrailer"
+                android:background="@drawable/custom_list_selector"/>
 
             <include layout="@layout/blue_splitter" />
 
@@ -184,7 +185,8 @@
                 android:textSize="16sp"
                 android:textColor="#ddd"
                 android:gravity="center_vertical|left"
-                android:text="@string/DetailedMovieImdb"/>
+                android:text="@string/DetailedMovieImdb"
+                android:background="@drawable/custom_list_selector"/>
 
             <include layout="@layout/blue_splitter" />
 
@@ -196,7 +198,8 @@
                 android:textSize="16sp"
                 android:textColor="#ddd"
                 android:gravity="center_vertical|left"
-                android:text="@string/DetailedMovieTrakt"/>
+                android:text="@string/DetailedMovieTrakt"
+                android:background="@drawable/custom_list_selector"/>
 
             <include layout="@layout/blue_splitter" />
 
@@ -208,7 +211,8 @@
                 android:textSize="16sp"
                 android:textColor="#ddd"
                 android:gravity="center_vertical|left"
-                android:text="@string/trakt_comments"/>
+                android:text="@string/trakt_comments"
+                android:background="@drawable/custom_list_selector"/>
 
         </LinearLayout>
 

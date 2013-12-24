@@ -25,6 +25,7 @@ import java.util.List;
 
 import is.activites.base.BaseFragmentActivity;
 import is.contracts.datacontracts.EventData;
+import is.parsers.cache.SchedulesCache;
 import is.parsers.schedules.RuvScheduleParser;
 import is.utilities.ConnectionListener;
 import is.utilities.DateUtil;
@@ -218,7 +219,13 @@ public class DisplayRuvActivity extends BaseFragmentActivity implements ActionBa
         {
             try
             {
-                RuvScheduleParser parser = new RuvScheduleParser(myurl);
+                String ruvSchedules = new SchedulesCache(mContext).GetSchedules(myurl, SchedulesCache.RuvSchedules,
+                                                         SchedulesCache.RuvLatestUpdate);
+                RuvScheduleParser parser = new RuvScheduleParser(ruvSchedules);
+
+                if (ruvSchedules == null)
+                    return false;
+
                 _events = parser.GetSchedules();
 
                 _workingDate = _events.get(0).getEventDate();

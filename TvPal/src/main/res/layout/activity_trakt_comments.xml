@@ -41,6 +41,7 @@
         android:textColor="#fff"
         android:visibility="gone"
         android:paddingLeft="30sp"
-        android:paddingRight="30sp"/>
+        android:paddingRight="30sp"
+        android:typeface="serif"/>
 
 </RelativeLayout>

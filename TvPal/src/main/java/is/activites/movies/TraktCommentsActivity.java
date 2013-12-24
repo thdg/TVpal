@@ -78,20 +78,20 @@ public class TraktCommentsActivity extends BaseActivity
         }
 
         @Override
-        protected void onPostExecute(List<TraktComment> traktComments)
+        protected void onPostExecute(List<TraktComment> comments)
         {
-            if(traktComments != null)
-            {
-                mMovieTitle.setText(title);
-
-                mListView.setAdapter(new TraktCommentAdapter(mContext, R.layout.listview_trakt_comments, traktComments));
-
-                mProgressBar.setVisibility(View.INVISIBLE);
-            }
-            else
+            if(comments == null || comments.size() == 0)
             {
                 mProgressBar.setVisibility(View.INVISIBLE);
                 mNoResults.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                mMovieTitle.setText(title);
+
+                mListView.setAdapter(new TraktCommentAdapter(mContext, R.layout.listview_trakt_comments, comments));
+
+                mProgressBar.setVisibility(View.INVISIBLE);
             }
         }
 

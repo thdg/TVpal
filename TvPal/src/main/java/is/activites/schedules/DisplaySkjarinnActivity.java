@@ -24,6 +24,8 @@ import java.util.Date;
 import java.util.List;
 import is.activites.base.BaseFragmentActivity;
 import is.contracts.datacontracts.EventData;
+import is.parsers.cache.SchedulesCache;
+import is.parsers.schedules.RuvScheduleParser;
 import is.parsers.schedules.SkjarinnScheduleParser;
 import is.utilities.ConnectionListener;
 import is.utilities.DateUtil;
@@ -217,7 +219,13 @@ public class DisplaySkjarinnActivity extends BaseFragmentActivity implements Act
         {
             try
             {
-                SkjarinnScheduleParser parser = new SkjarinnScheduleParser(myurl);
+                String skjarinnSchedules = new SchedulesCache(mContext).GetSchedules(myurl, SchedulesCache.SkjarinnSchedules,
+                                                                                     SchedulesCache.SkjarinnLatestUpdate);
+                SkjarinnScheduleParser parser = new SkjarinnScheduleParser(skjarinnSchedules);
+
+                if (skjarinnSchedules == null)
+                    return false;
+
                 _events = parser.GetSchedules();
 
                 _workingDate = _events.get(0).getEventDate();

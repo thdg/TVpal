@@ -26,6 +26,7 @@ import java.util.List;
 import is.activites.base.BaseFragmentActivity;
 import is.activites.MainActivity;
 import is.contracts.datacontracts.EventData;
+import is.parsers.cache.SchedulesCache;
 import is.parsers.schedules.Stod2ScheduleParser;
 import is.utilities.ConnectionListener;
 import is.utilities.DateUtil;
@@ -42,12 +43,13 @@ import is.tvpal.R;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class DisplayStod2Activity extends BaseFragmentActivity implements ActionBar.TabListener
 {
-    private List<EventData> _events;
-    private String _workingDate;
-    private SchedulePagerAdapter mScheduleAdapter;
+    private List<EventData> mEvents;
+    private String mWorkingDate;
     private ViewPager mViewPager;
     private ProgressBar mProgressBar;
     private TextView mNoResults;
+    private String mScheduleCache;
+    private String mLatestUpdateCache;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -61,12 +63,15 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void Initialize()
     {
-        _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        mWorkingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         mProgressBar = (ProgressBar) findViewById(R.id.progressSchedules);
         mNoResults = (TextView) findViewById(R.id.noSchedules);
 
         Intent intent = getIntent();
         new DownloadStod2Schedules(this).execute(intent.getStringExtra(MainActivity.EXTRA_STOD2));
+
+        mScheduleCache = intent.getStringExtra(MainActivity.EXTRA_SCHEDULESCACHE);
+        mLatestUpdateCache = intent.getStringExtra(MainActivity.EXTRA_LATESTUPDATE);
 
         setTitle(intent.getStringExtra(MainActivity.EXTRA_TITLE));
 
@@ -76,7 +81,7 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void CreateTabViews()
     {
-        mScheduleAdapter = new SchedulePagerAdapter(getSupportFragmentManager(), this);
+        SchedulePagerAdapter mScheduleAdapter = new SchedulePagerAdapter(getSupportFragmentManager(), this);
 
         final ActionBar actionBar = getActionBar();
 
@@ -131,13 +136,13 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
             String date;
 
             if (position == 0)
-                date = _workingDate;
+                date = mWorkingDate;
             else
-                date = DateUtil.AddDaysToDate(_workingDate, position);
+                date = DateUtil.AddDaysToDate(mWorkingDate, position);
 
             ArrayList<EventData> _todaySchedule = new ArrayList<EventData>();
 
-            for (EventData e : _events)
+            for (EventData e : mEvents)
             {
                 if (e.getEventDate().equalsIgnoreCase(date))
                     _todaySchedule.add(e);
@@ -160,10 +165,10 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
         {
             //TODO: Find better way to set tab titles, this is very gay
             if (position == 0)
-                return DateUtil.GetDateFormatForTabs(cxt, _workingDate);
+                return DateUtil.GetDateFormatForTabs(cxt, mWorkingDate);
             else
             {
-                String date = DateUtil.AddDaysToDate(_workingDate, position);
+                String date = DateUtil.AddDaysToDate(mWorkingDate, position);
                 return DateUtil.GetDateFormatForTabs(cxt, date);
             }
         }
@@ -221,10 +226,15 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
         {
             try
             {
-                Stod2ScheduleParser parser = new Stod2ScheduleParser(myurl);
-                _events = parser.GetSchedules();
+                String stod2Schedules = new SchedulesCache(mContext).GetSchedules(myurl, mScheduleCache, mLatestUpdateCache);
+                Stod2ScheduleParser parser = new Stod2ScheduleParser(stod2Schedules);
 
-                _workingDate = _events.get(0).getEventDate();
+                if (stod2Schedules == null)
+                    return false;
+
+                mEvents = parser.GetSchedules();
+
+                mWorkingDate = mEvents.get(0).getEventDate();
 
                 return true;
             }

@@ -1,9 +1,11 @@
 package is.parsers.schedules;
 
 import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
@@ -21,15 +23,15 @@ import is.contracts.servicecontracts.IScheduleService;
  */
 public class SkjarinnScheduleParser extends DefaultHandler implements IScheduleService
 {
-    private String baseURL;
+    private String xmlResponse;
     private List<EventData> events;
     private EventData eventTmp;
     private String serviceName;
     private StringBuilder sb;
 
-    public SkjarinnScheduleParser(String baseUrl)
+    public SkjarinnScheduleParser(String xmlResponse)
     {
-        this.baseURL = baseUrl;
+        this.xmlResponse = xmlResponse;
         this.events = new ArrayList<EventData>();
     }
 
@@ -43,7 +45,7 @@ public class SkjarinnScheduleParser extends DefaultHandler implements IScheduleS
     {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser = factory.newSAXParser();
-        parser.parse(baseURL, this);
+        parser.parse(new InputSource(new StringReader(xmlResponse)), this);
     }
 
     @Override

@@ -13,10 +13,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import is.activites.movies.CinemaActivity;
 import is.activites.movies.SearchMoviesActivity;
 import is.activites.movies.WatchlistActivity;
@@ -30,15 +28,15 @@ import is.contracts.datacontracts.DrawerListData;
 import is.contracts.datacontracts.DrawerListHeader;
 import is.contracts.datacontracts.IDrawerItem;
 import is.handlers.adapters.DrawerListAdapter;
+import is.parsers.cache.SchedulesCache;
 import is.tvpal.R;
 
-/**
- * Created by Arnar on 21.12.2013.
- */
 public class BaseNavDrawer extends Activity
 {
     public static final String EXTRA_STOD2 = "is.activites.STOD2";
     public static final String EXTRA_TITLE = "is.activites.TITLE";
+    public static final String EXTRA_SCHEDULESCACHE = "is.activites.STOD2CACHE";
+    public static final String EXTRA_LATESTUPDATE = "is.activites.STOD2LATESTUPDATE";
 
     private DrawerLayout _drawerLayout;
     private ListView _drawerList;
@@ -138,21 +136,29 @@ public class BaseNavDrawer extends Activity
                     intent = new Intent(this, DisplayStod2Activity.class);
                     intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BaseUrl));
                     intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_2));
+                    intent.putExtra(EXTRA_SCHEDULESCACHE, SchedulesCache.Stod2Schedules);
+                    intent.putExtra(EXTRA_LATESTUPDATE, SchedulesCache.Stod2LatestUpdate);
                     break;
                 case 3:
                     intent = new Intent(this, DisplayStod2Activity.class);
                     intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2SportBaseUrl));
                     intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_2_sport));
+                    intent.putExtra(EXTRA_SCHEDULESCACHE, SchedulesCache.Stod2SportSchedules);
+                    intent.putExtra(EXTRA_LATESTUPDATE, SchedulesCache.Stod2SportLatestUpdate);
                     break;
                 case 4:
                     intent = new Intent(this, DisplayStod2Activity.class);
                     intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BioBaseUrl));
                     intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_2_bio));
+                    intent.putExtra(EXTRA_SCHEDULESCACHE, SchedulesCache.Stod2BioSchedules);
+                    intent.putExtra(EXTRA_LATESTUPDATE, SchedulesCache.Stod2BioLatestUpdate);
                     break;
                 case 5:
                     intent = new Intent(this, DisplayStod2Activity.class);
                     intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod3BaseUrl));
                     intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_3));
+                    intent.putExtra(EXTRA_SCHEDULESCACHE, SchedulesCache.Stod3Schedules);
+                    intent.putExtra(EXTRA_LATESTUPDATE, SchedulesCache.Stod3LatestUpdate);
                     break;
                 case 6:
                     intent = new Intent(this, DisplaySkjarinnActivity.class);
