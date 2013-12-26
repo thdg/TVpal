@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -36,7 +37,7 @@ public class SearchMovieFragment extends BaseFragment implements AdapterView.OnI
     private EditText mEditSearch;
     private Context mContext;
     private TraktMoviesAdapter mAdapter;
-    private ListView mListView;
+    private GridView mGridView;
     private ProgressBar mProgressBar;
 
     public SearchMovieFragment() {}
@@ -55,8 +56,8 @@ public class SearchMovieFragment extends BaseFragment implements AdapterView.OnI
         super.onActivityCreated(savedInstanceState);
         mContext = activity.getContext();
         mEditSearch = (EditText) getView().findViewById(R.id.traktSearchMovie);
-        mListView = (ListView) getView().findViewById(R.id.traktMovieResults);
-        mListView.setOnItemClickListener(this);
+        mGridView = (GridView) getView().findViewById(R.id.traktMovieResults);
+        mGridView.setOnItemClickListener(this);
         mProgressBar = (ProgressBar) getView().findViewById(R.id.traktProgressIndicator);
 
         InitializeEditTextSearch();
@@ -125,7 +126,7 @@ public class SearchMovieFragment extends BaseFragment implements AdapterView.OnI
         @Override
         protected void onPreExecute()
         {
-            mListView.setAdapter(null);
+            mGridView.setAdapter(null);
             mProgressBar.setVisibility(View.VISIBLE);
         }
 
@@ -134,7 +135,7 @@ public class SearchMovieFragment extends BaseFragment implements AdapterView.OnI
         {
             mAdapter = new TraktMoviesAdapter(mContext, R.layout.listview_trakt_movies, movies);
 
-            mListView.setAdapter(mAdapter);
+            mGridView.setAdapter(mAdapter);
             mProgressBar.setVisibility(View.GONE);
         }
 

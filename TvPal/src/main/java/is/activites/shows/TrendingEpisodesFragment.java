@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,7 +28,7 @@ import is.tvpal.R;
 public class TrendingEpisodesFragment extends BaseFragment
 {
     private Context mContext;
-    private ListView mListView;
+    private GridView mGridView;
     private ProgressBar mProgessBar;
     private TextView mNoResults;
 
@@ -48,7 +49,7 @@ public class TrendingEpisodesFragment extends BaseFragment
         mContext = activity.getContext();
         mProgessBar = (ProgressBar) getView().findViewById(R.id.progressIndicator);
         mNoResults = (TextView) getView().findViewById(R.id.traktNoResults);
-        mListView = (ListView) getView().findViewById(R.id.trendingTrakt);
+        mGridView = (GridView) getView().findViewById(R.id.trendingTrakt);
 
         new GetTrendingShows().execute();
     }
@@ -90,7 +91,7 @@ public class TrendingEpisodesFragment extends BaseFragment
             else
             {
                 TraktEpisodeAdapter mAdapter = new TraktEpisodeAdapter(mContext, R.layout.listview_trakt_episodes, shows);
-                mListView.setAdapter(mAdapter);
+                mGridView.setAdapter(mAdapter);
                 mProgessBar.setVisibility(View.GONE);
                 mNoResults.setVisibility(View.GONE);
             }

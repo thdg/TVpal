@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -37,7 +38,7 @@ public class TrendingMoviesFragment extends BaseFragment implements AdapterView.
     public static final String EXTRA_MOVIEPOSTER = "is.activites.movieActivities.MOVIEPOSTER";
 
     private Context mContext;
-    private ListView mListView;
+    private GridView mGridView;
     private TraktMoviesAdapter mAdapter;
     private ProgressBar mProgressBar;
     private TextView mNoResults;
@@ -57,12 +58,12 @@ public class TrendingMoviesFragment extends BaseFragment implements AdapterView.
     {
         super.onActivityCreated(savedInstanceState);
         mContext = activity.getContext();
-        mListView = (ListView) getView().findViewById(R.id.trendingTrakt);
-        mListView.setOnItemClickListener(this);
+        mGridView = (GridView) getView().findViewById(R.id.trendingTrakt);
+        mGridView.setOnItemClickListener(this);
         mProgressBar = (ProgressBar) getView().findViewById(R.id.progressIndicator);
         mNoResults = (TextView) getView().findViewById(R.id.traktNoResults);
 
-        registerForContextMenu(mListView);
+        registerForContextMenu(mGridView);
 
         new TrendingMoviesWorker().execute();
     }
@@ -156,7 +157,7 @@ public class TrendingMoviesFragment extends BaseFragment implements AdapterView.
             else
             {
                 mAdapter = new TraktMoviesAdapter(mContext, R.layout.listview_trakt_movies, movies);
-                mListView.setAdapter(mAdapter);
+                mGridView.setAdapter(mAdapter);
                 mProgressBar.setVisibility(View.INVISIBLE);
                 mNoResults.setVisibility(View.GONE);
             }

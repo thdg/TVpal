@@ -4,15 +4,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/custom_list_selector"
-    android:paddingTop="10sp"
-    android:paddingBottom="10sp">
+    android:paddingTop="5sp"
+    android:paddingBottom="5sp">
 
     <ImageView
         android:id="@+id/traktMoviePoster"
         android:layout_width="64sp"
         android:layout_height="86sp"
-        android:scaleType="centerCrop"
-        />
+        android:scaleType="centerCrop" />
 
     <TextView android:id="@+id/traktMovieTitle"
         android:layout_width="wrap_content"
@@ -22,7 +21,9 @@
         android:text="Show:"
         android:paddingLeft="10sp"
         android:textColor="#fff"
-        android:typeface="serif"/>
+        android:typeface="serif"
+        android:ellipsize="end"
+        android:maxLines="1"/>
 
     <TextView
         android:id="@+id/traktMovieOverview"
@@ -38,5 +39,13 @@
         android:lineSpacingMultiplier="1.2"
         android:typeface="serif"
         android:ellipsize="end"/>
+
+    <View
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="1dp"
+        android:layout_below="@id/traktMoviePoster"
+        android:layout_width="fill_parent"
+        android:background="#34b1ff"
+        android:layout_marginTop="5sp"/>
 
 </RelativeLayout>

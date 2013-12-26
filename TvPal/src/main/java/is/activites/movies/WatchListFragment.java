@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.GridView;
 import is.activites.base.BaseFragment;
 import is.handlers.adapters.WatchListAdapter;
 import is.handlers.database.DbMovies;
@@ -20,7 +20,7 @@ public class WatchListFragment extends BaseFragment
 {
     private Context mContext;
     private WatchListAdapter mAdapter;
-    private ListView mListView;
+    private GridView mGridView;
 
     public WatchListFragment() {}
 
@@ -39,8 +39,8 @@ public class WatchListFragment extends BaseFragment
 
         mContext = activity.getContext();
 
-        mListView = (ListView) getView().findViewById(R.id.trendingTrakt);
-        registerForContextMenu(mListView);
+        mGridView = (GridView) getView().findViewById(R.id.trendingTrakt);
+        registerForContextMenu(mGridView);
         SetAdapter();
     }
 
@@ -85,6 +85,6 @@ public class WatchListFragment extends BaseFragment
     {
         DbMovies db = new DbMovies(mContext);
         mAdapter = new WatchListAdapter(mContext, db.GetWatchlistCursor(), 0);
-        mListView.setAdapter(mAdapter);
+        mGridView.setAdapter(mAdapter);
     }
 }

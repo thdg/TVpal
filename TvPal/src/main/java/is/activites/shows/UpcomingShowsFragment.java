@@ -61,7 +61,7 @@ public class UpcomingShowsFragment extends BaseFragment implements AdapterView.O
         Intent intent = new Intent(mContext, EpisodeActivity.class);
         intent.putExtra(SingleSeasonActivity.EXTRA_SERIESID, episode.getInt(3));
         intent.putExtra(SingleSeasonActivity.EXTRA_SEASONNR, episode.getInt(4));
-        intent.putExtra(SingleSeasonActivity.EXTRA_SELECTED, episode.getInt(5)-1);  //Fuck ugly hack to set correct episode
+        intent.putExtra(SingleSeasonActivity.EXTRA_SELECTED, episode.getInt(5)-1);
 
         startActivity(intent);
     }

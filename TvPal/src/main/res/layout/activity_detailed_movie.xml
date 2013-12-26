@@ -27,7 +27,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="360sp"
                 android:adjustViewBounds="true"
-                android:src="@drawable/default_episode_background"
                 android:contentDescription="Movie" />
 
             <ProgressBar

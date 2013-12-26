@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -34,7 +34,7 @@ public class MyShowsActivity extends BaseActivity implements AdapterView.OnItemC
     public static final String EXTRA_NAME = "is.actvities.showActivities.SERIESNAME";
 
     private DbEpisodes mDB;
-    private ListView mListView;
+    private GridView mGridView;
     private MyShowsAdapter mAdapter;
     private ProgressBar mProgressBar;
 
@@ -53,11 +53,11 @@ public class MyShowsActivity extends BaseActivity implements AdapterView.OnItemC
         mDB = new DbEpisodes(this);
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressUpdateShows);
-        mListView = (ListView) findViewById(R.id.myshows_series);
-        mListView.setOnItemClickListener(this);
+        mGridView = (GridView) findViewById(R.id.myshows_series);
+        mGridView.setOnItemClickListener(this);
 
         SetListAdapterMyShows();
-        registerForContextMenu(mListView);
+        registerForContextMenu(mGridView);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -65,7 +65,7 @@ public class MyShowsActivity extends BaseActivity implements AdapterView.OnItemC
     private void SetListAdapterMyShows()
     {
         mAdapter = new MyShowsAdapter(this, mDB.GetCursorMyShows(), 0);
-        mListView.setAdapter(mAdapter);
+        mGridView.setAdapter(mAdapter);
     }
 
     @Override
