@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import is.tvpal.R;
 
@@ -32,7 +33,7 @@ public class DateUtil
 
     public static String AddDaysToDate(String workingDate, int daysToAdd)
     {
-        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
         Date date = null;
         try
@@ -54,19 +55,19 @@ public class DateUtil
 
     private static String GetCorrectDayFormat(Context cxt, String day)
     {
-        if(day.equalsIgnoreCase("Monday"))
+        if(day.equalsIgnoreCase("Monday") || day.equalsIgnoreCase("mánudagur"))
             return cxt.getResources().getString(R.string.monday);
-        if(day.equalsIgnoreCase("Tuesday"))
+        if(day.equalsIgnoreCase("Tuesday") || day.equalsIgnoreCase("þriðjudagur"))
             return cxt.getResources().getString(R.string.tuesday);
-        if(day.equalsIgnoreCase("Wednesday"))
+        if(day.equalsIgnoreCase("Wednesday") || day.equalsIgnoreCase("miðvikudagur"))
             return cxt.getResources().getString(R.string.wednesday);
-        if(day.equalsIgnoreCase("Thursday"))
+        if(day.equalsIgnoreCase("Thursday") || day.equalsIgnoreCase("fimmtudagur"))
             return cxt.getResources().getString(R.string.thursday);
-        if(day.equalsIgnoreCase("Friday"))
+        if(day.equalsIgnoreCase("Friday") || day.equalsIgnoreCase("föstudagur"))
             return cxt.getResources().getString(R.string.friday);
-        if(day.equalsIgnoreCase("Saturday"))
+        if(day.equalsIgnoreCase("Saturday") || day.equalsIgnoreCase("laugardagur"))
             return cxt.getResources().getString(R.string.saturday);
-        if(day.equalsIgnoreCase("Sunday"))
+        if(day.equalsIgnoreCase("Sunday") || day.equalsIgnoreCase("sunnudagur"))
             return cxt.getResources().getString(R.string.sunday);
 
         return null;
@@ -92,7 +93,7 @@ public class DateUtil
 
     public static String GetDateFormatForTabs(Context cxt, String workingDate)
     {
-        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
         Date date = null;
         try
