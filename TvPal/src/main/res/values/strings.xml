@@ -86,7 +86,7 @@
     <string name="trakt_comments">Comments</string>
     <string name="watchlist_movie">Add To Watchlist</string>
     <string name="watchlist">Watchlist</string>
-    <string name="remove_movie">Remove Movie</string><string name="about_data">TVPal uses data from public websites:\nShows and Movies are powered by thetvdb.com and trakt.tv\nCinema schedules is powered by apis.is\nTV Schedules is powered by public Icelandic XML services</string>
+    <string name="remove_movie">Remove Movie</string><string name="about_data">TVPal uses data from public websites:\nShows and Movies are powered by thetvdb.com and trakt.tv\nCinema schedules are powered by apis.is\nTV Schedules are powered by public Icelandic XML services</string>
     <string name="cinema_detailed_movie">Nánari upplýsingar</string>
     <string name="stod_2_sport2_baseurl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-2-Sport-2-dagskra-vikunnar</string>
     <string name="stod_2_sport2">Stöð 2 Sport 2</string>
