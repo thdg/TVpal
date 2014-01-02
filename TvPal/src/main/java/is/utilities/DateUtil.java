@@ -18,14 +18,14 @@ import is.tvpal.R;
  */
 public class DateUtil
 {
-    public static String GetCorrectRuvUrlFormat()
+    public static String GetCorrectRuvUrlFormat(int daysToAdd)
     {
         String dateToday = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();
         c.setTime(new Date()); // Now use today date.
-        c.add(Calendar.DATE, 4); // Adding 5 days
+        c.add(Calendar.DATE, daysToAdd); // Adding 5 days
 
         String dateAfterWeek = sdf.format(c.getTime());
         return String.format("%s/%s/", dateToday, dateAfterWeek);

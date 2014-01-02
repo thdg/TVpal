@@ -43,10 +43,13 @@ public class ScheduleFragment extends BaseFragment implements AdapterView.OnItem
         Bundle args = getArguments();
         ArrayList<EventData> _todaySchedule = (ArrayList<EventData>)args.getSerializable(EXTRA_SCHEDULE_DAY);
 
-        mAdapter = new EventAdapter(mContext, R.layout.listview_event, _todaySchedule);
+        if (_todaySchedule != null && _todaySchedule.size() > 0)
+        {
+            mAdapter = new EventAdapter(mContext, R.layout.listview_event, _todaySchedule);
 
-        ((ListView) getView().findViewById(R.id.schedules)).setAdapter(mAdapter);
-        ((ListView) getView().findViewById(R.id.schedules)).setOnItemClickListener(this);
+            ((ListView) getView().findViewById(R.id.schedules)).setAdapter(mAdapter);
+            ((ListView) getView().findViewById(R.id.schedules)).setOnItemClickListener(this);
+        }
     }
 
     @Override

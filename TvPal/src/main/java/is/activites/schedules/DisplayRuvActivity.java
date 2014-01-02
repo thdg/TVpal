@@ -66,7 +66,7 @@ public class DisplayRuvActivity extends BaseFragmentActivity implements ActionBa
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         mProgressBar = (ProgressBar) findViewById(R.id.progressSchedules);
         mNoResults = (TextView) findViewById(R.id.noSchedules);
-        String ruvUrl = String.format("%s%s", RuvUrl, DateUtil.GetCorrectRuvUrlFormat());
+        String ruvUrl = String.format("%s%s", RuvUrl, DateUtil.GetCorrectRuvUrlFormat(5));
         new DownloadRuvSchedules(this).execute(ruvUrl);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);

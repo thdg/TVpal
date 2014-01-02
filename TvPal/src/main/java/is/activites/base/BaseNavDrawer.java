@@ -188,7 +188,7 @@ public class BaseNavDrawer extends Activity
                 case 12:
                     intent = new Intent(this, UpcomingRecentActivity.class);
                     break;
-                case 13:
+                case 14:
                     intent = new Intent(this, CinemaActivity.class);
                     break;
                 case 15:
