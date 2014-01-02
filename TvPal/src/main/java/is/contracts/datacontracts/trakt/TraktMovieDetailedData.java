@@ -39,6 +39,9 @@ public class TraktMovieDetailedData
     @SerializedName("year")
     private int releaseYear;
 
+    @SerializedName("images")
+    private TraktImage image;
+
     public String getTitle() { return this.title; }
     public String getTrailer() { return this.trailer; }
     public int getRuntime() { return this.runtime; }
@@ -49,4 +52,5 @@ public class TraktMovieDetailedData
     public String getTraktUrl() { return this.traktUrl;}
     public TraktRating getRating() { return this.rating; }
     public int getReleaseYear() { return this.releaseYear; }
+    public TraktImage getImage() { return this.image;}
 }

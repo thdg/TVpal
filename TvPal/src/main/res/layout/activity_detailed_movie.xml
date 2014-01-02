@@ -213,6 +213,19 @@
                 android:text="@string/trakt_comments"
                 android:background="@drawable/custom_list_selector"/>
 
+            <include layout="@layout/blue_splitter" />
+
+            <Button
+                android:id="@+id/traktWatchlist"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="@string/trakt_watchlist"
+                android:background="@drawable/custom_list_selector"/>
+
         </LinearLayout>
 
     </LinearLayout>

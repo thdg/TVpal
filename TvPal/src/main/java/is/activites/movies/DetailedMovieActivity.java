@@ -16,7 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import is.activites.base.BaseActivity;
+import is.contracts.datacontracts.trakt.TraktImage;
+import is.contracts.datacontracts.trakt.TraktMovieData;
 import is.contracts.datacontracts.trakt.TraktMovieDetailedData;
+import is.handlers.database.DbMovies;
 import is.parsers.trakt.TraktParser;
 import is.tvpal.R;
 import is.utilities.ExternalIntents;
@@ -44,6 +47,8 @@ public class DetailedMovieActivity extends BaseActivity
     private TextView mReleaseYear;
     private Button mTraktCommentsActivity;
     private ProgressBar mProgressBarPoster;
+    private Button mWatchlist;
+    private String moviePoster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -75,9 +80,10 @@ public class DetailedMovieActivity extends BaseActivity
         mReleaseYear = (TextView) findViewById(R.id.movieReleaseYear);
         mTraktCommentsActivity = (Button) findViewById(R.id.startTraktComments);
         mProgressBarPoster = (ProgressBar) findViewById(R.id.progressBarPoster);
+        mWatchlist = (Button) findViewById(R.id.traktWatchlist);
 
         String movieId = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEID);
-        String moviePoster = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEPOSTER);
+        moviePoster = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEPOSTER);
 
         new GetMovieDetailedWorker(this).execute(movieId);
         new PosterTask().execute(moviePoster);
@@ -161,6 +167,30 @@ public class DetailedMovieActivity extends BaseActivity
                         intent.putExtra(TraktCommentsActivity.EXTRA_Title, movie.getTitle());
                         intent.putExtra(TraktCommentsActivity.EXTRA_ImdbId, TraktCommentUrl + movie.getImdbId());
                         startActivity(intent);
+                    }
+                });
+
+                mWatchlist.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        try
+                        {
+                            TraktMovieData movieData = new TraktMovieData();
+                            movieData.setTitle(movie.getTitle());
+                            movieData.setImdbId(movie.getImdbId());
+                            movieData.setImage(movie.getImage());
+                            movieData.setOverview(movie.getOverview());
+
+                            DbMovies db = new DbMovies(mContext);
+                            db.AddMovieToWatchList(movieData);
+
+                            Toast.makeText(mContext, String.format("Added %s to your watchlist", movie.getTitle()), Toast.LENGTH_SHORT).show();
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.e(getClass().getName(), "Error adding movie to watchlist");
+                        }
                     }
                 });
             }
