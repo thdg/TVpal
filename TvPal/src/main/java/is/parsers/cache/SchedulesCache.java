@@ -23,8 +23,14 @@ public class SchedulesCache
     public static String Stod2SportSchedules = "is.parsers.schedules.STOD2SPORTCACHE";
     public static String Stod2SportLatestUpdate = "is.parsers.schedules.STOD2SPORTLATESTUPDATE";
 
+    public static String Stod2Sport2Schedules = "is.parsers.schedules.STOD2SPORT2CACHE";
+    public static String Stod2Sport2LatestUpdate = "is.parsers.schedules.STOD2SPORT2LATESTUPDATE";
+
     public static String Stod2BioSchedules = "is.parsers.schedules.STOD2BIOCACHE";
     public static String Stod2BioLatestUpdate = "is.parsers.schedules.STOD2BIOLATESTUPDATE";
+
+    public static String Stod2GullSchedules = "is.parsers.schedules.STOD2GULLCACHE";
+    public static String Stod2GullLatestUpdate = "is.parsers.schedules.STOD2GULLLATESTUPDATE";
 
     public static String Stod3Schedules = "is.parsers.schedules.STOD3CACHE";
     public static String Stod3LatestUpdate = "is.parsers.schedules.STOD3LATESTUPDATE";

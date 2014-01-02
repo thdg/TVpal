@@ -72,7 +72,7 @@ public class EventAdapter extends BaseAdapter
             holder = (EventHolder)row.getTag();
         }
 
-        EventData schedule = this.schedule.get(position);
+        EventData schedule = getItem(position);
 
         String serviceName = schedule.getServiceName();
 
@@ -93,6 +93,12 @@ public class EventAdapter extends BaseAdapter
         }
         else if(serviceName.equalsIgnoreCase("BIO")) {
             holder.imgIcon.setImageResource(R.drawable.stod2bio_64);
+        }
+        else if(serviceName.equalsIgnoreCase("GULL")){
+            holder.imgIcon.setImageResource(R.drawable.stod2gull_64);
+        }
+        else if(serviceName.equalsIgnoreCase("SPORT2")) {
+            holder.imgIcon.setImageResource(R.drawable.stod2sport2_64);
         }
 
         holder.title.setText(schedule.getTitle());

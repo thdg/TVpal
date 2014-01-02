@@ -38,22 +38,24 @@ public class BaseNavDrawer extends Activity
     public static final String EXTRA_SCHEDULESCACHE = "is.activites.STOD2CACHE";
     public static final String EXTRA_LATESTUPDATE = "is.activites.STOD2LATESTUPDATE";
 
-    private DrawerLayout _drawerLayout;
-    private ListView _drawerList;
-    private ActionBarDrawerToggle _drawerToggle;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     protected void InitializeNavDrawer()
     {
-        _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        _drawerList = (ListView) findViewById(R.id.left_drawer);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         List<IDrawerItem> items = new ArrayList<IDrawerItem>();
         items.add(new DrawerListHeader(getResources().getString(R.string.schedule_header)));
         items.add(new DrawerListData(getResources().getString(R.string.ruv), R.drawable.ruv_svartur_64));
         items.add(new DrawerListData(getResources().getString(R.string.stod_2), R.drawable.stod2_64));
         items.add(new DrawerListData(getResources().getString(R.string.stod_2_sport), R.drawable.stod2sport_64));
+        items.add(new DrawerListData(getResources().getString(R.string.stod_2_sport2), R.drawable.stod2sport2_64));
         items.add(new DrawerListData(getResources().getString(R.string.stod_2_bio), R.drawable.stod2bio_64));
+        items.add(new DrawerListData(getResources().getString(R.string.stod_2_gull), R.drawable.stod2gull_64));
         items.add(new DrawerListData(getResources().getString(R.string.stod_3), R.drawable.stod3_64));
         items.add(new DrawerListData(getResources().getString(R.string.skjar_einn), R.drawable.skjareinn_64));
         items.add(new DrawerListHeader(getResources().getString(R.string.shows_header)));
@@ -65,16 +67,16 @@ public class BaseNavDrawer extends Activity
         items.add(new DrawerListData(getString(R.string.trakt_search_movies), R.drawable.m_glass_64));
         items.add(new DrawerListData(getString(R.string.watchlist), R.drawable.watchlist_64));
 
-        _drawerList.setAdapter(
+        mDrawerList.setAdapter(
                 new DrawerListAdapter(this, items)
         );
-        _drawerList.setOnItemClickListener(new DrawerItemClickListener());
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
-        _drawerToggle = new ActionBarDrawerToggle(
+        mDrawerToggle = new ActionBarDrawerToggle(
                 this,
-                _drawerLayout,
+                mDrawerLayout,
                 R.drawable.ic_drawer,
                 R.string.drawer_open,  /* "open drawer" description for accessibility */
                 R.string.drawer_close  /* "close drawer" description for accessibility */
@@ -87,7 +89,7 @@ public class BaseNavDrawer extends Activity
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
-        _drawerLayout.setDrawerListener(_drawerToggle);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -97,20 +99,20 @@ public class BaseNavDrawer extends Activity
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
-        _drawerToggle.syncState();
+        mDrawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        _drawerToggle.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Pass the event to ActionBarDrawerToggle, if it returns
         // true, then it has handled the app icon touch event
-        return super.onOptionsItemSelected(item) || _drawerToggle.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item) || mDrawerToggle.onOptionsItemSelected(item);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -148,43 +150,57 @@ public class BaseNavDrawer extends Activity
                     break;
                 case 4:
                     intent = new Intent(this, DisplayStod2Activity.class);
+                    intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod_2_sport2_baseurl));
+                    intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_2_sport2));
+                    intent.putExtra(EXTRA_SCHEDULESCACHE, SchedulesCache.Stod2Sport2Schedules);
+                    intent.putExtra(EXTRA_LATESTUPDATE, SchedulesCache.Stod2Sport2LatestUpdate);
+                    break;
+                case 5:
+                    intent = new Intent(this, DisplayStod2Activity.class);
                     intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2BioBaseUrl));
                     intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_2_bio));
                     intent.putExtra(EXTRA_SCHEDULESCACHE, SchedulesCache.Stod2BioSchedules);
                     intent.putExtra(EXTRA_LATESTUPDATE, SchedulesCache.Stod2BioLatestUpdate);
                     break;
-                case 5:
+                case 6:
+                    intent = new Intent(this, DisplayStod2Activity.class);
+                    intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod2gullBaseUrl));
+                    intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_2_gull));
+                    intent.putExtra(EXTRA_SCHEDULESCACHE, SchedulesCache.Stod2GullSchedules);
+                    intent.putExtra(EXTRA_LATESTUPDATE, SchedulesCache.Stod2GullLatestUpdate);
+                    break;
+                case 7:
                     intent = new Intent(this, DisplayStod2Activity.class);
                     intent.putExtra(EXTRA_STOD2, getResources().getString(R.string.stod3BaseUrl));
                     intent.putExtra(EXTRA_TITLE, getResources().getString(R.string.stod_3));
                     intent.putExtra(EXTRA_SCHEDULESCACHE, SchedulesCache.Stod3Schedules);
                     intent.putExtra(EXTRA_LATESTUPDATE, SchedulesCache.Stod3LatestUpdate);
                     break;
-                case 6:
+                case 8:
                     intent = new Intent(this, DisplaySkjarinnActivity.class);
                     break;
-                case 8:
+                case 10:
                     intent = new Intent(this, SearchShowsActivity.class);
                     break;
-                case 9:
+                case 11:
                     intent = new Intent(this, MyShowsActivity.class);
                     break;
-                case 10:
+                case 12:
                     intent = new Intent(this, UpcomingRecentActivity.class);
                     break;
-                case 12:
+                case 13:
                     intent = new Intent(this, CinemaActivity.class);
                     break;
-                case 13:
+                case 15:
                     intent = new Intent(this, SearchMoviesActivity.class);
                     break;
-                case 14:
+                case 16:
                     intent = new Intent(this, WatchlistActivity.class);
                     break;
             }
 
-            _drawerList.setItemChecked(position, true);
-            _drawerLayout.closeDrawer(_drawerList);
+            mDrawerList.setItemChecked(position, true);
+            mDrawerLayout.closeDrawer(mDrawerList);
 
             startActivity(intent);
         }

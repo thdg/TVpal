@@ -5,20 +5,16 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 import is.activites.base.BaseFragment;
@@ -29,9 +25,6 @@ import is.parsers.trakt.TraktParser;
 import is.tvpal.R;
 import is.utilities.StringUtil;
 
-/**
- * Created by Arnar on 21.11.2013.
- */
 public class TrendingMoviesFragment extends BaseFragment implements AdapterView.OnItemClickListener
 {
     public static final String EXTRA_MOVIEID = "is.activites.movieActivities.MOVIEID";
@@ -87,27 +80,24 @@ public class TrendingMoviesFragment extends BaseFragment implements AdapterView.
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
-    {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.trending_movies, menu);
-    }
-
-    @Override
     public boolean onContextItemSelected(MenuItem item)
     {
-        AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-        int position = info.position;
-
-        switch (item.getItemId())
+        if (getUserVisibleHint())
         {
-            case R.id.add_to_watchlist:
-                AddMovieToWatchList(position);
-                return true;
-            default:
-                return super.onContextItemSelected(item);
+            AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+            int position = info.position;
+
+            switch (item.getItemId())
+            {
+                case R.id.add_to_watchlist:
+                    AddMovieToWatchList(position);
+                    return true;
+                default:
+                    return super.onContextItemSelected(item);
+            }
         }
+
+        return false;
     }
 
     private void AddMovieToWatchList(int position)

@@ -5,6 +5,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.View;
 
 import is.activites.base.BaseFragmentActivity;
 import is.tvpal.R;
@@ -38,6 +41,14 @@ public class SearchMoviesActivity extends BaseFragmentActivity
                 mViewPager.setCurrentItem(position);
             }
         });
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.trending_movies, menu);
     }
 
     public class SearchPagerAdapter extends FragmentStatePagerAdapter

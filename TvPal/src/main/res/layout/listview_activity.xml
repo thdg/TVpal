@@ -11,8 +11,7 @@
     <ImageView android:id="@+id/activityImg"
         android:layout_width="0dp"
         android:layout_weight="2"
-        android:layout_height="80dp"
-        android:src="@drawable/movie"/>
+        android:layout_height="80dp"/>
 
 
     <LinearLayout
