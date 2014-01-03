@@ -46,9 +46,7 @@ public class DetailedMovieActivity extends BaseActivity
     private TextView mRating;
     private TextView mReleaseYear;
     private Button mTraktCommentsActivity;
-    private ProgressBar mProgressBarPoster;
     private Button mWatchlist;
-    private String moviePoster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -79,11 +77,10 @@ public class DetailedMovieActivity extends BaseActivity
         mRating = (TextView) findViewById(R.id.movieRating);
         mReleaseYear = (TextView) findViewById(R.id.movieReleaseYear);
         mTraktCommentsActivity = (Button) findViewById(R.id.startTraktComments);
-        mProgressBarPoster = (ProgressBar) findViewById(R.id.progressBarPoster);
         mWatchlist = (Button) findViewById(R.id.traktWatchlist);
 
         String movieId = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEID);
-        moviePoster = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEPOSTER);
+        String moviePoster = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEPOSTER);
 
         new GetMovieDetailedWorker(this).execute(movieId);
         new PosterTask().execute(moviePoster);
@@ -102,12 +99,6 @@ public class DetailedMovieActivity extends BaseActivity
         protected TraktMovieDetailedData doInBackground(String... strings)
         {
             return GetMovie(strings[0]);
-        }
-
-        @Override
-        protected void onPreExecute()
-        {
-            mProgressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -194,8 +185,6 @@ public class DetailedMovieActivity extends BaseActivity
                     }
                 });
             }
-
-            mProgressBar.setVisibility(View.GONE);
         }
 
         public TraktMovieDetailedData GetMovie(String movieId)
@@ -217,7 +206,7 @@ public class DetailedMovieActivity extends BaseActivity
         @Override
         protected void onPreExecute()
         {
-            mProgressBarPoster.setVisibility(View.VISIBLE);
+            mProgressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -226,7 +215,7 @@ public class DetailedMovieActivity extends BaseActivity
             if (bitmap != null)
                 mPoster.setImageBitmap(bitmap);
 
-            mProgressBarPoster.setVisibility(View.INVISIBLE);
+            mProgressBar.setVisibility(View.GONE);
         }
 
         private Bitmap GetPoster(String posterUrl)

@@ -9,16 +9,8 @@
         android:layout_height="wrap_content"
         android:background="#222">
 
-    <LinearLayout
-        android:id="@+id/layoutShowMore"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="20sp"
-        android:orientation="vertical"
-        android:visibility="invisible">
-
         <RelativeLayout
+            android:id="@+id/layoutPoster"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -30,13 +22,23 @@
                 android:contentDescription="Movie" />
 
             <ProgressBar
-                android:id="@+id/progressBarPoster"
+                android:id="@+id/progressIndicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:visibility="invisible"/>
 
-            </RelativeLayout>
+        </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutShowMore"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutPoster"
+        android:padding="20sp"
+        android:orientation="vertical"
+        android:visibility="invisible">
 
         <TextView
             android:id="@+id/movieTitle"
@@ -229,13 +231,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progressIndicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
 
     </RelativeLayout>
 
