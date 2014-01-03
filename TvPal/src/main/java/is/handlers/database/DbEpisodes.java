@@ -14,6 +14,7 @@ import java.util.List;
 import is.contracts.datacontracts.EpisodeData;
 import is.contracts.datacontracts.SeriesData;
 import is.contracts.datacontracts.StatisticData;
+import is.utilities.DateUtil;
 
 /**
  * A class to work with Episode Data
@@ -457,7 +458,7 @@ public class DbEpisodes extends DatabaseHandler
                                  "select count(*) from episodes where aired = '%s' " +
                                  "union all " +
                                  "select count(*) from movies",
-                                 new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+                                 DateUtil.AddDaysToDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()), -1));
 
             Cursor cursor = db.rawQuery(selectQuery, null);
 
