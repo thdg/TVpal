@@ -13,6 +13,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
+import java.util.concurrent.ThreadPoolExecutor;
+
 import is.contracts.datacontracts.cinema.CinemaMovie;
 import is.tvpal.R;
 import is.utilities.PictureTask;
@@ -120,11 +122,10 @@ public class CinemaAdapter extends BaseAdapter
         @Override
         protected void onPostExecute(Bitmap bitmap)
         {
-            images.put(viewHolder.position, bitmap);
-
             if (viewHolder.position == position)
             {
                 viewHolder.image.setImageBitmap(bitmap);
+                images.put(viewHolder.position, bitmap);
             }
             viewHolder.image.setVisibility(View.VISIBLE);
         }

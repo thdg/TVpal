@@ -27,6 +27,7 @@ import is.handlers.adapters.TraktMoviesAdapter;
 import is.handlers.database.DbMovies;
 import is.parsers.trakt.TraktParser;
 import is.tvpal.R;
+import is.utilities.StringUtil;
 
 /**
  * An fragment to search for movies
@@ -150,9 +151,11 @@ public class SearchMovieFragment extends BaseFragment implements AdapterView.OnI
     {
         TraktMovieData movie = mAdapter.getItem(position);
 
+        String posterUrl = StringUtil.formatTrendingPosterUrl(movie.getImage().getPoster(), "-300");
+
         Intent intent = new Intent(mContext, DetailedMovieActivity.class);
         intent.putExtra(TrendingMoviesFragment.EXTRA_MOVIEID, movie.getImdbId());
-        intent.putExtra(TrendingMoviesFragment.EXTRA_MOVIEPOSTER, movie.getImage().getPoster());
+        intent.putExtra(TrendingMoviesFragment.EXTRA_MOVIEPOSTER, posterUrl);
         startActivity(intent);
     }
 
