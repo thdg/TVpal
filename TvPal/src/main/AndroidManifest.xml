@@ -16,7 +16,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/TVPalTheme"
-        android:debuggable="false">
+        android:debuggable="true">
         <activity
             android:name="is.activites.MainActivity"
             android:label="@string/app_name" >
@@ -104,6 +104,11 @@
             android:name="is.activites.movies.WatchlistActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/watchlist" >
+        </activity>
+        <activity
+            android:name="is.activites.movies.RelatedMovieActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/related_movies" >
         </activity>
 
         <service android:name="is.activites.reminders.ScheduleService" />

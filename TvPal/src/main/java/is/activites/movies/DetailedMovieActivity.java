@@ -47,6 +47,7 @@ public class DetailedMovieActivity extends BaseActivity
     private TextView mReleaseYear;
     private Button mTraktCommentsActivity;
     private Button mWatchlist;
+    private Button mRelatedMovies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -78,6 +79,7 @@ public class DetailedMovieActivity extends BaseActivity
         mReleaseYear = (TextView) findViewById(R.id.movieReleaseYear);
         mTraktCommentsActivity = (Button) findViewById(R.id.startTraktComments);
         mWatchlist = (Button) findViewById(R.id.traktWatchlist);
+        mRelatedMovies = (Button) findViewById(R.id.startTraktRelatedMovies);
 
         String movieId = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEID);
         String moviePoster = intent.getStringExtra(TrendingMoviesFragment.EXTRA_MOVIEPOSTER);
@@ -182,6 +184,15 @@ public class DetailedMovieActivity extends BaseActivity
                         {
                             Log.e(getClass().getName(), "Error adding movie to watchlist");
                         }
+                    }
+                });
+
+                mRelatedMovies.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(mContext, RelatedMovieActivity.class);
+                        intent.putExtra(EXTRA_MOVIEID, movie.getImdbId());
+                        startActivity(intent);
                     }
                 });
             }

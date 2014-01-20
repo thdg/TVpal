@@ -93,5 +93,6 @@
     <string name="stod_2_gull">Stöð 2 Gull</string>
     <string name="stod2gullBaseUrl">http://www.stod2.is/XML--dagskrar-feed/XML-Stod-2-Extra-dagskra-vikunnar</string>
     <string name="trakt_watchlist">Add To Watchlist</string>
+    <string name="related_movies">Related Movies</string>
 
 </resources>

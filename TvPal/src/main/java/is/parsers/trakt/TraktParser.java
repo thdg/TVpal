@@ -22,6 +22,8 @@ public class TraktParser
     private static final String TraktMoviesUrl = "http://api.trakt.tv/movies/trending.json/f0e3af66061e47b3243e25ed7b6443ca";
     private static final String TraktSearchUrl = "http://api.trakt.tv/search/movies.json/f0e3af66061e47b3243e25ed7b6443ca/";
     private static final String TraktSummaryUrl = "http://api.trakt.tv/movie/summary.json/f0e3af66061e47b3243e25ed7b6443ca/";
+    private static final String TraktRelatedUrl = "http://api.trakt.tv/movie/related.json/f0e3af66061e47b3243e25ed7b6443ca/";
+
 
 
     public List<TraktEpisodeData> GetTrendingShows()
@@ -112,6 +114,25 @@ public class TraktParser
         catch (Exception ex)
         {
             Log.e(getClass().getName(), "Error searching for comments");
+        }
+
+        return null;
+    }
+
+    public List<TraktMovieDetailedData> GetReleatedMovies(String imdbId)
+    {
+        try
+        {
+            RestClient client = new RestClient();
+            String json = client.Get(TraktRelatedUrl + imdbId);
+
+            Type listType = new TypeToken<ArrayList<TraktMovieDetailedData>>() {}.getType();
+
+            return new Gson().fromJson(json, listType);
+        }
+        catch (Exception ex)
+        {
+            Log.e(getClass().getName(), "Error searching related movies");
         }
 
         return null;
