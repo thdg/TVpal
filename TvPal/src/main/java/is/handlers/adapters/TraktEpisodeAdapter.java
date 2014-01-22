@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -36,14 +38,14 @@ public class TraktEpisodeAdapter extends BaseAdapter
 {
     public static final String ApiKey = "9A96DA217CEB03E7";
 
-    private Context context;
+    private Context mContext;
     private int layoutResourceId;
     private List<TraktEpisodeData> shows;
     private List<Integer> seriesIds;
 
     public TraktEpisodeAdapter(Context context, int layoutResourceId, List<TraktEpisodeData> shows)
     {
-        this.context = context;
+        this.mContext = context;
         this.layoutResourceId = layoutResourceId;
         this.shows = shows;
         this.seriesIds = new DbEpisodes(context).GetAllSeriesIds();
@@ -66,7 +68,7 @@ public class TraktEpisodeAdapter extends BaseAdapter
 
         if(row == null)
         {
-            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+            LayoutInflater inflater = ((Activity)mContext).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new TraktHolder();
@@ -101,13 +103,13 @@ public class TraktEpisodeAdapter extends BaseAdapter
                     if (!seriesIds.contains(show.getSeriesId()))
                     {
                         String tvDbUrl = String.format("http://thetvdb.com/api/%s/series/%d/all/en.xml", ApiKey, show.getSeriesId());
-                        TvDbUtil tvdb = new TvDbUtil(context);
+                        TvDbUtil tvdb = new TvDbUtil(mContext);
                         tvdb.GetEpisodesBySeason(tvDbUrl, show.getTitle());
 
                         seriesIds.add(show.getSeriesId());
                     }
                     else //This should never happen
-                        Toast.makeText(context, String.format("Series %s exists in your shows", show.getTitle()), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, String.format("Series %s exists in your shows", show.getTitle()), Toast.LENGTH_SHORT).show();
                 }
                 holder.addShow.setVisibility(View.INVISIBLE);
             }
@@ -157,6 +159,9 @@ public class TraktEpisodeAdapter extends BaseAdapter
             if (holder.position == position)
             {
                 holder.poster.setImageBitmap(bitmap);
+
+                Animation mFadeInAnimation = AnimationUtils.loadAnimation(mContext, R.anim.abc_fade_in);
+                holder.poster.startAnimation(mFadeInAnimation);
             }
         }
 

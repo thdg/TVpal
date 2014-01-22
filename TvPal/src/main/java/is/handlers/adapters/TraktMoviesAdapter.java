@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,13 +33,13 @@ import is.utilities.StringUtil;
  */
 public class TraktMoviesAdapter extends BaseAdapter
 {
-    private Context context;
+    private Context mContext;
     private int layoutResourceId;
     private List<TraktMovieData> movies;
 
     public TraktMoviesAdapter(Context context, int layoutResourceId, List<TraktMovieData> movies)
     {
-        this.context = context;
+        this.mContext = context;
         this.layoutResourceId = layoutResourceId;
         this.movies = movies;
     }
@@ -58,7 +60,7 @@ public class TraktMoviesAdapter extends BaseAdapter
 
         if(row == null)
         {
-            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+            LayoutInflater inflater = ((Activity)mContext).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new TraktHolder();
@@ -117,6 +119,9 @@ public class TraktMoviesAdapter extends BaseAdapter
             if (holder.position == position)
             {
                 holder.poster.setImageBitmap(bitmap);
+
+                Animation mFadeInAnimation = AnimationUtils.loadAnimation(mContext, R.anim.abc_fade_in);
+                holder.poster.startAnimation(mFadeInAnimation);
             }
         }
 

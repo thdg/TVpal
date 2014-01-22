@@ -9,6 +9,8 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,6 +42,7 @@ public class TraktRelatedMoviesAdapter extends BaseAdapter
         ImageView poster;
         TextView runtime;
         TextView rating;
+        int position;
     }
 
     @Override
@@ -70,6 +73,8 @@ public class TraktRelatedMoviesAdapter extends BaseAdapter
 
         final TraktMovieDetailedData movie = getItem(position);
 
+        holder.position = position;
+
         holder.overview.setText(String.format("%s (%s)", movie.getOverview(), movie.getReleaseYear()));
         holder.title.setText(movie.getTitle());
 
@@ -79,7 +84,7 @@ public class TraktRelatedMoviesAdapter extends BaseAdapter
         if (mPosters.indexOfKey(position) < 0)
         {
             holder.poster.setVisibility(View.INVISIBLE);
-            new GetPosterWorker(movie.getImage().getPoster(), position).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, holder.poster);
+            new GetPosterWorker(movie.getImage().getPoster(), position).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, holder);
         }
         else
         {
@@ -89,10 +94,10 @@ public class TraktRelatedMoviesAdapter extends BaseAdapter
         return row;
     }
 
-    private class GetPosterWorker extends AsyncTask<ImageView, Void, Bitmap>
+    private class GetPosterWorker extends AsyncTask<RelatedMovieHolder, Void, Bitmap>
     {
         private String posterUrl;
-        private ImageView imageView;
+        private RelatedMovieHolder viewHolder;
         private int position;
 
         public GetPosterWorker(String posterUrl, int position)
@@ -102,11 +107,11 @@ public class TraktRelatedMoviesAdapter extends BaseAdapter
         }
 
         @Override
-        protected Bitmap doInBackground(ImageView... imageViews)
+        protected Bitmap doInBackground(RelatedMovieHolder... viewHolders)
         {
             try
             {
-                this.imageView = imageViews[0];
+                this.viewHolder = viewHolders[0];
                 return GetPoster();
             }
             catch (Exception ex)
@@ -119,9 +124,16 @@ public class TraktRelatedMoviesAdapter extends BaseAdapter
         @Override
         protected void onPostExecute(Bitmap bitmap)
         {
-            imageView.setImageBitmap(bitmap);
-            mPosters.put(position, bitmap);
-            imageView.setVisibility(View.VISIBLE);
+            if(viewHolder.position == position)
+            {
+                viewHolder.poster.setImageBitmap(bitmap);
+
+                Animation fadeInAnimation = AnimationUtils.loadAnimation(mContext, R.anim.abc_fade_in);
+                viewHolder.poster.startAnimation(fadeInAnimation);
+
+                mPosters.put(position, bitmap);
+                viewHolder.poster.setVisibility(View.VISIBLE);
+            }
         }
 
         private Bitmap GetPoster()
