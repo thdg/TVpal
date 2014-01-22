@@ -50,22 +50,22 @@ public class BaseNavDrawer extends Activity
 
         List<IDrawerItem> items = new ArrayList<IDrawerItem>();
         items.add(new DrawerListHeader(getResources().getString(R.string.schedule_header)));
-        items.add(new DrawerListData(getResources().getString(R.string.ruv), R.drawable.ruv_svartur_64));
-        items.add(new DrawerListData(getResources().getString(R.string.stod_2), R.drawable.stod2_64));
-        items.add(new DrawerListData(getResources().getString(R.string.stod_2_sport), R.drawable.stod2sport_64));
-        items.add(new DrawerListData(getResources().getString(R.string.stod_2_sport2), R.drawable.stod2sport2_64));
-        items.add(new DrawerListData(getResources().getString(R.string.stod_2_bio), R.drawable.stod2bio_64));
-        items.add(new DrawerListData(getResources().getString(R.string.stod_2_gull), R.drawable.stod2gull_64));
-        items.add(new DrawerListData(getResources().getString(R.string.stod_3), R.drawable.stod3_64));
-        items.add(new DrawerListData(getResources().getString(R.string.skjar_einn), R.drawable.skjareinn_64));
+        items.add(new DrawerListData(getResources().getString(R.string.ruv), R.drawable.ruv_svartur_64, false));
+        items.add(new DrawerListData(getResources().getString(R.string.stod_2), R.drawable.stod2_64, false));
+        items.add(new DrawerListData(getResources().getString(R.string.stod_2_sport), R.drawable.stod2sport_64, false));
+        items.add(new DrawerListData(getResources().getString(R.string.stod_2_sport2), R.drawable.stod2sport2_64, false));
+        items.add(new DrawerListData(getResources().getString(R.string.stod_2_bio), R.drawable.stod2bio_64, false));
+        items.add(new DrawerListData(getResources().getString(R.string.stod_2_gull), R.drawable.stod2gull_64, false));
+        items.add(new DrawerListData(getResources().getString(R.string.stod_3), R.drawable.stod3_64, false));
+        items.add(new DrawerListData(getResources().getString(R.string.skjar_einn), R.drawable.skjareinn_64, true));
         items.add(new DrawerListHeader(getResources().getString(R.string.shows_header)));
-        items.add(new DrawerListData(getResources().getString(R.string.search_show), R.drawable.m_glass_64));
-        items.add(new DrawerListData(getResources().getString(R.string.my_shows), R.drawable.eye_64));
-        items.add(new DrawerListData(getString(R.string.upcoming_shows), R.drawable.calendar_64));
+        items.add(new DrawerListData(getResources().getString(R.string.search_show), R.drawable.m_glass_64, false));
+        items.add(new DrawerListData(getResources().getString(R.string.my_shows), R.drawable.eye_64, false));
+        items.add(new DrawerListData(getString(R.string.upcoming_shows), R.drawable.calendar_64, true));
         items.add(new DrawerListHeader(getString(R.string.movieText)));
-        items.add(new DrawerListData(getString(R.string.cinemaSchedules), R.drawable.cinema_64));
-        items.add(new DrawerListData(getString(R.string.trakt_search_movies), R.drawable.m_glass_64));
-        items.add(new DrawerListData(getString(R.string.watchlist), R.drawable.watchlist_64));
+        items.add(new DrawerListData(getString(R.string.cinemaSchedules), R.drawable.cinema_64, false));
+        items.add(new DrawerListData(getString(R.string.trakt_search_movies), R.drawable.m_glass_64, false));
+        items.add(new DrawerListData(getString(R.string.watchlist), R.drawable.watchlist_64, true));
 
         mDrawerList.setAdapter(
                 new DrawerListAdapter(this, items)

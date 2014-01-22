@@ -32,11 +32,13 @@
         android:textColor="#444"
         android:textSize="20sp"
         android:minHeight="48dp"
+        android:typeface="serif"
         />
 
     </LinearLayout>
 
     <View
+        android:id="@+id/lineSeperator"
         android:layout_height="1dip"
         android:layout_width="fill_parent"
         android:background="#bababa"

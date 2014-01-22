@@ -18,6 +18,7 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:minHeight="32dp"
+        android:typeface="serif"
     />
 
     <View
