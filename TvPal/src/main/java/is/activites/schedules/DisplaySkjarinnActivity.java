@@ -1,8 +1,6 @@
 package is.activites.schedules;
 
 import android.annotation.TargetApi;
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -17,6 +15,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.astuetz.PagerSlidingTabStrip;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,7 +25,6 @@ import java.util.List;
 import is.activites.base.BaseFragmentActivity;
 import is.contracts.datacontracts.EventData;
 import is.parsers.cache.SchedulesCache;
-import is.parsers.schedules.RuvScheduleParser;
 import is.parsers.schedules.SkjarinnScheduleParser;
 import is.utilities.ConnectionListener;
 import is.utilities.DateUtil;
@@ -41,7 +40,7 @@ import is.tvpal.R;
  * @see import android.support.v4.app.FragmentActivity;
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class DisplaySkjarinnActivity extends BaseFragmentActivity implements ActionBar.TabListener
+public class DisplaySkjarinnActivity extends BaseFragmentActivity
 {
     public static final String skjarinnUrl = "http://www.skjarinn.is/einn/dagskrarupplysingar/?channel_id=7&weeks=1&output_format=xml";
 
@@ -51,12 +50,13 @@ public class DisplaySkjarinnActivity extends BaseFragmentActivity implements Act
     private ViewPager mViewPager;
     private ProgressBar mProgressBar;
     private TextView mNoResults;
+    private PagerSlidingTabStrip mTabStrip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.swipe_events);
+        setContentView(R.layout.tab_strip_schedules);
 
         Initialize();
     }
@@ -66,6 +66,8 @@ public class DisplaySkjarinnActivity extends BaseFragmentActivity implements Act
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         mProgressBar = (ProgressBar) findViewById(R.id.progressSchedules);
         mNoResults = (TextView) findViewById(R.id.noSchedules);
+        mTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+
         new DownloadSkjarinnSchedules(this).execute(skjarinnUrl);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -75,39 +77,11 @@ public class DisplaySkjarinnActivity extends BaseFragmentActivity implements Act
     {
         mScheduleAdapter = new SchedulePagerAdapter(getSupportFragmentManager(), this);
 
-        final ActionBar actionBar = getActionBar();
-
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
         mViewPager = (ViewPager) findViewById(R.id.pagerSchedules);
         mViewPager.setAdapter(mScheduleAdapter);
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position)
-            {
-                actionBar.setSelectedNavigationItem(position);
-            }
-        });
-
-        for (int i = 0; i < mScheduleAdapter.getCount(); i++)
-        {
-            actionBar.addTab(actionBar.newTab()
-                            .setText(mScheduleAdapter.getPageTitle(i))
-                            .setTabListener(this));
-        }
+        mTabStrip.setViewPager(mViewPager);
     }
 
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction)
-    {
-        mViewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction)
-    {}
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
 
     public class SchedulePagerAdapter extends FragmentStatePagerAdapter
     {

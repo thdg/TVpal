@@ -1,8 +1,6 @@
 package is.activites.shows;
 
 import android.annotation.TargetApi;
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
@@ -11,6 +9,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+
+import com.astuetz.PagerSlidingTabStrip;
+
 import is.activites.base.BaseFragmentActivity;
 import is.contracts.datacontracts.EpisodeData;
 import is.handlers.database.DbEpisodes;
@@ -23,18 +24,19 @@ import is.tvpal.R;
  * @see android.app.ActionBar.TabListener
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class EpisodeActivity extends BaseFragmentActivity implements ActionBar.TabListener
+public class EpisodeActivity extends BaseFragmentActivity
 {
     private int _seriesId;
     private int _seasonNr;
     private int _pos;
     private ViewPager mViewPager;
+    private PagerSlidingTabStrip mTabStrip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.swipe_tabs);
+        setContentView(R.layout.tab_strip_episodes);
 
         Initialize();
     }
@@ -50,6 +52,7 @@ public class EpisodeActivity extends BaseFragmentActivity implements ActionBar.T
         _seriesId = intent.getIntExtra(SingleSeasonActivity.EXTRA_SERIESID, 0);
         _seasonNr = intent.getIntExtra(SingleSeasonActivity.EXTRA_SEASONNR, 0);
         _pos = intent.getIntExtra(SingleSeasonActivity.EXTRA_SELECTED, 0);
+        mTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 
         CreateTabViews();
     }
@@ -61,42 +64,13 @@ public class EpisodeActivity extends BaseFragmentActivity implements ActionBar.T
 
         EpisodePagerAdapter mScheduleAdapter = new EpisodePagerAdapter(getSupportFragmentManager(), db.GetCursorEpisodesDetailed(_seriesId, _seasonNr));
 
-        final ActionBar actionBar = getActionBar();
-
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         mViewPager = (ViewPager) findViewById(R.id.pagerTabs);
         mViewPager.setAdapter(mScheduleAdapter);
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position)
-            {
-                actionBar.setSelectedNavigationItem(position);
-            }
-        });
-
-        for (int i = 0; i < mScheduleAdapter.getCount(); i++)
-        {
-            actionBar.addTab(actionBar.newTab()
-                    .setText(mScheduleAdapter.getPageTitle(i))
-                    .setTabListener(this));
-        }
-
-        actionBar.setSelectedNavigationItem(_pos);
+        mTabStrip.setViewPager(mViewPager);
+        mViewPager.setCurrentItem(_pos, false);
     }
-
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction)
-    {
-        mViewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
-
 
     public class EpisodePagerAdapter extends FragmentStatePagerAdapter
     {

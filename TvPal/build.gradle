@@ -13,8 +13,8 @@ repositories {
 }
 
 android {
-    compileSdkVersion 18
-    buildToolsVersion "18.0.1"
+    compileSdkVersion 19
+    buildToolsVersion '19.0.0'
 
     defaultConfig {
         minSdkVersion 11
@@ -23,6 +23,7 @@ android {
 }
 
 dependencies {
-	compile 'com.android.support:appcompat-v7:+'
+    compile 'com.android.support:appcompat-v7:+'
     compile files('libs/gson-2.2.4.jar')
+    compile project(':libraries:pagerslidingtabstrip')
 }

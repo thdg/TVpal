@@ -15,7 +15,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import is.contracts.datacontracts.cinema.CinemaMovie;
 import is.tvpal.R;

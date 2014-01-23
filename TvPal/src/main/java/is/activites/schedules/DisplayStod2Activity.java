@@ -1,8 +1,6 @@
 package is.activites.schedules;
 
 import android.annotation.TargetApi;
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -17,6 +15,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.astuetz.PagerSlidingTabStrip;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -41,7 +41,7 @@ import is.tvpal.R;
  * @see android.app.ListActivity
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class DisplayStod2Activity extends BaseFragmentActivity implements ActionBar.TabListener
+public class DisplayStod2Activity extends BaseFragmentActivity
 {
     private List<EventData> mEvents;
     private String mWorkingDate;
@@ -50,12 +50,13 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
     private TextView mNoResults;
     private String mScheduleCache;
     private String mLatestUpdateCache;
+    private PagerSlidingTabStrip mTabStrip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.swipe_events);
+        setContentView(R.layout.tab_strip_schedules);
 
         Initialize();
     }
@@ -66,6 +67,7 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
         mWorkingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         mProgressBar = (ProgressBar) findViewById(R.id.progressSchedules);
         mNoResults = (TextView) findViewById(R.id.noSchedules);
+        mTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 
         Intent intent = getIntent();
         new DownloadStod2Schedules(this).execute(intent.getStringExtra(MainActivity.EXTRA_STOD2));
@@ -83,39 +85,10 @@ public class DisplayStod2Activity extends BaseFragmentActivity implements Action
     {
         SchedulePagerAdapter mScheduleAdapter = new SchedulePagerAdapter(getSupportFragmentManager(), this);
 
-        final ActionBar actionBar = getActionBar();
-
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
         mViewPager = (ViewPager) findViewById(R.id.pagerSchedules);
         mViewPager.setAdapter(mScheduleAdapter);
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position)
-            {
-                actionBar.setSelectedNavigationItem(position);
-            }
-        });
-
-        for (int i = 0; i < mScheduleAdapter.getCount(); i++)
-        {
-            actionBar.addTab(actionBar.newTab()
-                    .setText(mScheduleAdapter.getPageTitle(i))
-                    .setTabListener(this));
-        }
+        mTabStrip.setViewPager(mViewPager);
     }
-
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction)
-    {
-        mViewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
 
     public class SchedulePagerAdapter extends FragmentStatePagerAdapter
     {

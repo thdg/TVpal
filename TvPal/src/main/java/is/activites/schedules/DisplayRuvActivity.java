@@ -1,8 +1,6 @@
 package is.activites.schedules;
 
 import android.annotation.TargetApi;
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -16,6 +14,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.astuetz.PagerSlidingTabStrip;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -42,7 +42,7 @@ import is.tvpal.R;
  */
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class DisplayRuvActivity extends BaseFragmentActivity implements ActionBar.TabListener
+public class DisplayRuvActivity extends BaseFragmentActivity
 {
     public static final String RuvUrl = "http://muninn.ruv.is/files/xml/ruv/";
 
@@ -51,12 +51,13 @@ public class DisplayRuvActivity extends BaseFragmentActivity implements ActionBa
     private ViewPager mViewPager;
     private ProgressBar mProgressBar;
     private TextView mNoResults;
+    private PagerSlidingTabStrip mTabStrip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.swipe_events);
+        setContentView(R.layout.tab_strip_schedules);
 
         Initialize();
     }
@@ -66,6 +67,7 @@ public class DisplayRuvActivity extends BaseFragmentActivity implements ActionBa
         _workingDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         mProgressBar = (ProgressBar) findViewById(R.id.progressSchedules);
         mNoResults = (TextView) findViewById(R.id.noSchedules);
+        mTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         String ruvUrl = String.format("%s%s", RuvUrl, DateUtil.GetCorrectRuvUrlFormat(5));
         new DownloadRuvSchedules(this).execute(ruvUrl);
 
@@ -77,38 +79,10 @@ public class DisplayRuvActivity extends BaseFragmentActivity implements ActionBa
     {
         SchedulePagerAdapter mScheduleAdapter = new SchedulePagerAdapter(getSupportFragmentManager(), this);
 
-        final ActionBar actionBar = getActionBar();
-
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
         mViewPager = (ViewPager) findViewById(R.id.pagerSchedules);
         mViewPager.setAdapter(mScheduleAdapter);
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position)
-            {
-                actionBar.setSelectedNavigationItem(position);
-            }
-        });
-
-        for (int i = 0; i < mScheduleAdapter.getCount(); i++)
-        {
-            actionBar.addTab(actionBar.newTab()
-                    .setText(mScheduleAdapter.getPageTitle(i))
-                    .setTabListener(this));
-        }
+        mTabStrip.setViewPager(mViewPager);
     }
-
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction)
-    {
-        mViewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {}
 
     public class SchedulePagerAdapter extends FragmentStatePagerAdapter
     {

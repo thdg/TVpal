@@ -1,1 +1,2 @@
 include ':TvPal'
+include ':libraries:pagerslidingtabstrip'
