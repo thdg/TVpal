@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/custom_list_selector">
+
+    <ImageView
+        android:id="@+id/traktPoster"
+        android:layout_width="64sp"
+        android:layout_height="86sp"
+        android:scaleType="centerCrop"/>
+
+    <TextView android:id="@+id/traktTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/traktPoster"
+        android:layout_toLeftOf="@+id/traktAddShow"
+        android:paddingLeft="6sp"
+        android:textSize="18sp"
+        android:text="Show:"
+        android:textColor="#fff"
+        android:typeface="serif"
+        android:ellipsize="end"
+        android:maxLines="1"/>
+
+    <TextView
+        android:id="@+id/traktOverview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="overviewtexti bwasdfasdsdfasdfsioh"
+        android:layout_below="@+id/traktTitle"
+        android:layout_toRightOf="@+id/traktPoster"
+        android:layout_toLeftOf="@+id/traktAddShow"
+        android:paddingLeft="6sp"
+        android:textSize="14sp"
+        android:maxLines="3"
+        android:lineSpacingMultiplier="1.2"
+        android:ellipsize="end"
+        android:textColor="#fff"
+        android:typeface="serif"/>
+
+    <CheckBox
+        android:button="@drawable/eye_48_white"
+        android:id="@+id/traktAddShow"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:focusable="false"
+        android:paddingRight="12sp"/>
+
+    <View
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="1dp"
+        android:layout_below="@id/traktPoster"
+        android:layout_width="fill_parent"
+        android:background="#34b1ff"
+        android:layout_marginTop="5sp"/>
+
+</RelativeLayout>

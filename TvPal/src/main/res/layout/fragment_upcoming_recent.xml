@@ -1,0 +1,18 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#222"
+    android:padding="10sp">
+
+    <ListView
+        android:id="@+id/overviewShows"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:dividerHeight="1dp"
+        android:divider="#33b5e5"
+        android:listSelector="@drawable/custom_list_selector"
+        android:choiceMode="singleChoice"/>
+
+</LinearLayout>

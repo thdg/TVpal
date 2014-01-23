@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/removeShow"
+        android:title="@string/menu_remove_show"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    <item android:id="@+id/updateShow"
+        android:title="@string/update_show"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    <item android:id="@+id/seenAllEpisodes"
+        android:title="@string/seen_all_episodes"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+</menu>

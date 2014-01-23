@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/setSeasonSeen"
+        android:title="@string/seen_all"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+    <item android:id="@+id/setSeasonNotSeen"
+        android:title="@string/seen_none"
+        android:orderInCategory="100"
+        android:showAsAction="never" />
+</menu>

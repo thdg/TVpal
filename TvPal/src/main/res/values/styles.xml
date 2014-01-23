@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <!-- TVPal theme -->
+    <style name="TVPalTheme" parent="AppBaseTheme">
+        <!-- When the app is loading up a activity we want to show the background as #222, not white -->
+        <item name="android:windowBackground">@color/tvpal_theme_color</item>
+    </style>
+
+    <style name="DetailedMovieLabel" parent="AppBaseTheme">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textColor">#ddd</item>
+    </style>
+
+    <!-- PagerSlidingTabStrip Theme -->
+    <style name="TabStripSchedules">
+        <item name="android:textColor">#222</item>
+        <item name="pstsDividerColor">#33b5e5</item>
+        <item name="pstsIndicatorColor">#33b5e5</item>
+        <item name="pstsUnderlineColor">#33b5e5</item>
+        <item name="android:background">#E3E3E3</item>
+    </style>
+
+    <!-- PagerSlidingTabStrip Theme -->
+    <style name="TabStripEpisodes">
+        <item name="android:textColor">#fff</item>
+        <item name="pstsDividerColor">#808080</item>
+        <item name="pstsIndicatorColor">#33b5e5</item>
+        <item name="pstsUnderlineColor">#33b5e5</item>
+        <item name="android:background">#222</item>
+    </style>
+
+</resources>

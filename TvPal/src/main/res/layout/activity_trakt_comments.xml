@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#222"
+    android:padding="15sp">
+
+    <TextView
+        android:id="@+id/comment_movieid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10sp"
+        android:paddingBottom="10sp"
+        style="@style/DetailedMovieLabel"/>
+
+    <ListView
+        android:id="@+id/trakt_comments"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/comment_movieid"
+        android:textSize="16sp"
+        android:listSelector="@drawable/custom_list_selector"
+        android:choiceMode="singleChoice"
+        android:dividerHeight="0.7dp"
+        android:divider="#33b5e5"/>
+
+    <ProgressBar
+        android:id="@+id/progressIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/noResults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/trakt_nocomments"
+        android:layout_centerInParent="true"
+        android:textSize="20sp"
+        android:textColor="#fff"
+        android:visibility="gone"
+        android:paddingLeft="30sp"
+        android:paddingRight="30sp"
+        android:typeface="serif"/>
+
+</RelativeLayout>

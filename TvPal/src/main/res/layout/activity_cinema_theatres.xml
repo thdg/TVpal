@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#222"
+    android:padding="10sp">
+
+    <Button
+        android:id="@+id/movieDetailed"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textColor="#fff"
+        android:text="@string/cinema_detailed_movie"
+        android:textAlignment="center"
+        android:typeface="serif"
+        android:background="@drawable/custom_list_selector"/>
+
+    <include layout="@layout/blue_splitter" />
+
+    <ExpandableListView
+        android:id="@+id/expandleMovie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#333"
+        android:dividerHeight="1dp"
+        android:childDivider="#666"
+        android:background="@drawable/logo_background">
+    </ExpandableListView>
+
+</LinearLayout>

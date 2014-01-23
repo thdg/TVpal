@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#2F302E">
+
+    <ImageView
+        android:id="@+id/relatedMoviePoster"
+        android:layout_width="100sp"
+        android:layout_height="160sp"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/relatedMovieTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fff"
+        android:typeface="serif"
+        android:layout_toRightOf="@id/relatedMoviePoster"
+        android:textSize="18sp"
+        android:text="Inglorious Bastards"
+        android:paddingLeft="5sp"/>
+
+    <TextView
+        android:id="@+id/relatedMovieOverview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/relatedMoviePoster"
+        android:layout_below="@id/relatedMovieTitle"
+        android:textColor="#fff"
+        android:typeface="serif"
+        android:ellipsize="end"
+        android:maxLines="5"
+        android:textSize="14sp"
+        android:text="this shit cray"
+        android:paddingLeft="5sp"
+        android:paddingBottom="10sp"/>
+
+    <TextView
+        android:id="@+id/relatedMovieRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/relatedMoviePoster"
+        android:layout_below="@+id/relatedMovieOverview"
+        android:paddingLeft="5sp"
+        android:textColor="#fff"
+        android:typeface="serif"
+        android:textSize="16sp"
+        android:text="85%"/>
+
+    <TextView
+        android:id="@+id/relatedMovieRuntime"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/relatedMoviePoster"
+        android:layout_below="@id/relatedMovieOverview"
+        android:gravity="right"
+        android:text="sick"
+        android:paddingRight="5sp"
+        android:textColor="#fff"
+        android:textSize="16sp"/>
+
+</RelativeLayout>

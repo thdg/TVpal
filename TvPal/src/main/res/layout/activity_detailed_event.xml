@@ -1,0 +1,73 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fadingEdge="vertical"
+    android:fillViewport="true">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:background="@drawable/logo_background"
+        android:padding="17dp" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="#EEE"
+            android:textSize="30sp"
+            android:inputType="none"/>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="17dp"
+            android:paddingBottom="17dp" >
+
+            <TextView
+                android:id="@+id/event_starting"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textColor="#DDD"
+                android:textSize="18sp"
+                android:inputType="none"/>
+
+            <TextView
+                android:id="@+id/event_duration"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textColor="#DDD"
+                android:textSize="18sp"
+                android:inputType="none"/>
+
+        </LinearLayout>
+
+        <CheckBox
+            android:button="@drawable/eye_checkbox_blue"
+            android:id="@+id/getReminder"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#DDD"
+            android:onClick="ReminderClick"
+            android:text="    Fá áminningu."/>
+
+        <TextView
+            android:id="@+id/event_description"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="#DDD"
+            android:textSize="15sp"
+            android:lineSpacingExtra="3dp"
+            android:inputType="none"/>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#222"
+    android:padding="10sp">
+
+    <ProgressBar
+        android:id="@+id/progressUpdateShows"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginTop="-7dp"
+        android:indeterminateOnly="true"
+        android:visibility="invisible"/>
+
+    <GridView
+        android:id="@+id/myshows_series"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:listSelector="@drawable/custom_list_selector"
+        android:layout_marginTop="6sp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        android:columnWidth="300sp"
+        android:verticalSpacing="10dip"
+        android:horizontalSpacing="10dip"/>
+
+</RelativeLayout>

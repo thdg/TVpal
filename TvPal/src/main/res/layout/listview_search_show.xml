@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="10dp"
+    android:background="#2F302E"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout">
+
+        <TextView android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="12"
+            android:textSize="18sp"
+            android:text="Þáttur"
+            android:paddingRight="10dp"
+            android:textColor="#fff"
+            android:layout_gravity="center_vertical"
+            android:typeface="serif"/>
+
+        <CheckBox
+            android:button="@drawable/eye_48_white"
+            android:id="@+id/checkShow"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:focusable="false" />
+
+    </LinearLayout>
+
+    <TextView android:id="@+id/overview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_below="@+id/linearLayout"
+        android:text="Overview:"
+        android:textColor="#fff"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:typeface="serif"/>
+
+</RelativeLayout>

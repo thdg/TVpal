@@ -1,0 +1,161 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fadingEdge="vertical"
+    android:fillViewport="true">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20sp"
+        android:background="#222">
+
+        <TextView
+            android:id="@+id/overviewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="American Dad"
+            android:paddingBottom="10sp"
+            android:typeface="serif"
+            android:textColor="#fff"/>
+
+        <ImageView
+            android:id="@+id/overviewPicture"
+            android:layout_width="200sp"
+            android:layout_height="300sp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_episode_background"/>
+
+        <TextView
+            android:id="@+id/overviewText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Overview like a baus"
+            android:textSize="15sp"
+            android:lineSpacingMultiplier="1.2"
+            android:paddingTop="10sp"
+            android:typeface="serif"
+            android:textColor="#fff"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10sp"
+            android:text="Genres"
+            android:textSize="18sp"
+            style="@style/DetailedMovieLabel"/>
+
+        <TextView
+            android:id="@+id/overviewGenres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Genres"
+            android:textSize="15sp"
+            android:typeface="serif"
+            android:textColor="#fff"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10sp"
+            android:text="Actors"
+            style="@style/DetailedMovieLabel"/>
+
+        <TextView
+            android:id="@+id/overviewActors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seh actors"
+            android:textSize="15sp"
+            android:typeface="serif"
+            android:textColor="#fff"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10sp"
+            android:text="Network"
+            style="@style/DetailedMovieLabel"/>
+
+        <TextView
+            android:id="@+id/overviewNetwork"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Le networkz"
+            android:textSize="15sp"
+            android:typeface="serif"
+            android:textColor="#fff"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/labelMoreInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/DetailedMovieShowmore"
+                android:paddingTop="15sp"
+                android:paddingBottom="5sp"
+                style="@style/DetailedMovieLabel"/>
+
+            <include layout="@layout/blue_splitter" />
+
+            <Button
+                android:id="@+id/startImdbIntent"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="@string/DetailedMovieImdb"
+                android:background="@drawable/custom_list_selector"/>
+
+            <include layout="@layout/blue_splitter" />
+
+            <Button
+                android:id="@+id/startTraktComments"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="@string/trakt_comments"
+                android:background="@drawable/custom_list_selector"/>
+
+            <include layout="@layout/blue_splitter" />
+
+            <Button
+                android:id="@+id/startTvdbIntent"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="Tvdb"
+                android:background="@drawable/custom_list_selector"/>
+
+            <include layout="@layout/blue_splitter" />
+
+            <Button
+                android:id="@+id/startTraktIntent"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="Trakt"
+                android:background="@drawable/custom_list_selector"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

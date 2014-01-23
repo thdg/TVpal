@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fadingEdge="vertical"
+    android:fillViewport="true">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#222">
+
+        <ImageView
+            android:id="@+id/popupBanner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/default_episode_background"
+            android:adjustViewBounds="true"/>
+
+        <TextView
+            android:id="@+id/popupTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:padding="15dp"
+            android:layout_gravity="center"
+            android:text="Title"
+            android:textColor="#eee"
+            android:typeface="serif"/>
+
+        <TextView
+            android:id="@+id/popupOverview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:textSize="15sp"
+            android:text="Overview"
+            android:textColor="#eee"
+            android:lineSpacingMultiplier="1.2"
+            android:typeface="serif"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Network"
+            style="@style/DetailedMovieLabel"/>
+
+        <TextView
+            android:id="@+id/popupNetwork"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:textSize="15sp"
+            android:text="Network"
+            android:textColor="#eee"
+            android:lineSpacingMultiplier="1.2"
+            android:typeface="serif"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="First Aired"
+            style="@style/DetailedMovieLabel"/>
+
+        <TextView
+            android:id="@+id/popupFirstAired"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:textSize="15sp"
+            android:text="2010-10-10"
+            android:textColor="#eee"
+            android:lineSpacingMultiplier="1.2"
+            android:typeface="serif"/>
+
+        <include layout="@layout/blue_splitter" />
+
+        <Button
+            android:id="@+id/popUpClose"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_gravity="center"
+            android:text="Close"
+            android:textColor="#eee"
+            android:lineSpacingMultiplier="1.3"
+            style="?android:attr/borderlessButtonStyle"/>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal">
+
+    <ImageView android:id="@+id/imgIcon"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="64dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/tvshow"/>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_margin="12dp"
+        android:layout_width="0dp"
+        android:layout_weight="3">
+
+        <TextView android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="Þáttur"
+            android:textColor="#000000"
+            android:typeface="serif"/>
+
+        <TextView android:id="@+id/startTime"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:text="Byrjar:"
+            android:textColor="#000000"
+            android:typeface="serif"/>
+
+
+        <TextView android:id="@+id/duration"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:text="Lengd:"
+            android:textColor="#000000"
+            android:typeface="serif"/>
+    </LinearLayout>
+
+</LinearLayout>

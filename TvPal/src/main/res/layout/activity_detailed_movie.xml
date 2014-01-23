@@ -1,0 +1,250 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fadingEdge="vertical"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#222">
+
+        <RelativeLayout
+            android:id="@+id/layoutPoster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/moviePoster"
+                android:layout_width="fill_parent"
+                android:layout_height="360sp"
+                android:adjustViewBounds="true"
+                android:contentDescription="Movie" />
+
+            <ProgressBar
+                android:id="@+id/progressIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="invisible"/>
+
+        </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutShowMore"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutPoster"
+        android:padding="20sp"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <TextView
+            android:id="@+id/movieTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:gravity="center"
+            android:textColor="#ddd"
+            android:typeface="serif"
+            android:paddingBottom="10sp"/>
+
+        <TextView
+            android:id="@+id/movieOverview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#ddd"
+            android:lineSpacingMultiplier="1.2"
+            android:typeface="serif"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/DetailedMovieRating"
+            android:paddingTop="10sp"
+            style="@style/DetailedMovieLabel"/>
+
+        <TextView
+            android:id="@+id/movieRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#ddd"
+            android:typeface="serif"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/DetailedMovieRelease"
+            android:paddingTop="10sp"
+            style="@style/DetailedMovieLabel"/>
+
+        <TextView
+            android:id="@+id/movieReleaseYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#ddd"
+            android:typeface="serif"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/DetailedMovieGenres"
+            android:paddingTop="10sp"
+            style="@style/DetailedMovieLabel"/>
+
+        <TextView
+            android:id="@+id/movieGenres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#ddd"
+            android:typeface="serif"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/DetailedMovieRuntime"
+            android:paddingTop="10sp"
+            style="@style/DetailedMovieLabel"/>
+
+        <TextView
+            android:id="@+id/movieRuntime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#ddd"
+            android:typeface="serif"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/DetailedMovieDirectors"
+            android:paddingTop="10sp"
+            style="@style/DetailedMovieLabel"/>
+
+        <TextView
+            android:id="@+id/movieDirectors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#ddd"
+            android:typeface="serif"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/DetailedMovieActors"
+            android:paddingTop="10sp"
+            style="@style/DetailedMovieLabel"/>
+
+        <TextView
+            android:id="@+id/movieActors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#ddd"
+            android:typeface="serif"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/labelMoreInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/DetailedMovieShowmore"
+                android:paddingTop="10sp"
+                android:paddingBottom="5sp"
+                style="@style/DetailedMovieLabel"/>
+
+            <include layout="@layout/blue_splitter" />
+
+            <Button
+                android:id="@+id/startYoutubeIntent"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="@string/DetailedMovieTrailer"
+                android:background="@drawable/custom_list_selector"/>
+
+            <include layout="@layout/blue_splitter" />
+
+            <Button
+                android:id="@+id/startImdbIntent"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="@string/DetailedMovieImdb"
+                android:background="@drawable/custom_list_selector"/>
+
+            <include layout="@layout/blue_splitter" />
+
+            <Button
+                android:id="@+id/startTraktIntent"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="@string/DetailedMovieTrakt"
+                android:background="@drawable/custom_list_selector"/>
+
+            <include layout="@layout/blue_splitter" />
+
+            <Button
+                android:id="@+id/startTraktRelatedMovies"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="@string/related_movies"
+                android:background="@drawable/custom_list_selector"/>
+
+            <include layout="@layout/blue_splitter" />
+
+            <Button
+                android:id="@+id/startTraktComments"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="@string/trakt_comments"
+                android:background="@drawable/custom_list_selector"/>
+
+            <include layout="@layout/blue_splitter" />
+
+            <Button
+                android:id="@+id/traktWatchlist"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#ddd"
+                android:gravity="center_vertical|left"
+                android:text="@string/trakt_watchlist"
+                android:background="@drawable/custom_list_selector"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

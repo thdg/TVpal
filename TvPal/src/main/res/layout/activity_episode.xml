@@ -1,0 +1,156 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fadingEdge="vertical"
+    android:fillViewport="true">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#222"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/episodePicture"
+            android:layout_width="match_parent"
+            android:layout_height="200sp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_episode_background"/>
+
+        <ProgressBar
+            android:id="@+id/progressDownloadingPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/episodeTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Episode"
+            android:textSize="22sp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="#ddd"
+            android:typeface="serif"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"/>
+
+        <CheckBox
+            android:button="@drawable/eye_checkbox_blue_small"
+            android:id="@+id/episodeSeen"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#DDD"
+            android:focusable="false"
+            android:text="  Seen it"/>
+
+        <TextView
+            android:id="@+id/episodeAired"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aired:"
+            android:textColor="#DDD"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:typeface="serif"
+        />
+
+        <TextView
+            android:id="@+id/episodeSeason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Season:"
+            android:textColor="#DDD"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:paddingTop="10sp"
+            android:typeface="serif"/>
+
+        <TextView
+            android:id="@+id/episodeOverview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Overview:"
+            android:textColor="#DDD"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:paddingTop="10sp"
+            android:typeface="serif"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/episode_guest_stars"
+            android:paddingTop="10sp"
+            style="@style/DetailedMovieLabel"/>
+
+        <TextView
+            android:id="@+id/episodeGuestStars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GuestStars:"
+            android:textSize="16sp"
+            android:textColor="#DDD"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/label_episode_director"
+            android:paddingTop="10sp"
+            style="@style/DetailedMovieLabel"/>
+
+        <TextView
+            android:id="@+id/episodeDirector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Director:"
+            android:textColor="#DDD"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="@string/label_episode_rating"
+            android:paddingTop="10sp"
+            style="@style/DetailedMovieLabel"/>
+
+        <TextView
+            android:id="@+id/episodeRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rating:"
+            android:textColor="#DDD"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

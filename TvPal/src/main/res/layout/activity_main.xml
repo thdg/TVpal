@@ -1,0 +1,91 @@
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#222">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/logo_background"
+        android:padding="20sp"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:baselineAligned="false">
+
+        <TextView
+            android:id="@+id/WelcomeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_text"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:typeface="serif"
+            android:paddingBottom="20sp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/mainNumberOfShows"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:typeface="serif"
+            android:text="You have 0 shows in Myshows"
+            android:textColor="#fff"
+            android:paddingBottom="10sp"/>
+
+        <TextView
+            android:id="@+id/mainShowsAiredYesterday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:typeface="serif"
+            android:text="Yesterday 0 of your shows were aired"
+            android:textColor="#fff"
+            android:paddingBottom="10sp"/>
+
+        <TextView
+            android:id="@+id/mainNumberOfMoviesInWatchList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:typeface="serif"
+            android:text="You have 0 movies in your Watchlist"
+            android:textColor="#fff"
+            android:paddingBottom="10sp"
+            />
+
+        <include layout="@layout/blue_splitter"/>
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:typeface="serif"
+                android:text="@string/about_data"
+                android:textColor="#fff"
+                android:paddingTop="30sp"
+                android:layout_gravity="bottom"
+                />
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/left_drawer"
+        android:layout_width="260dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:divider="#AAA"
+        android:dividerHeight="0dp"
+        android:background="#eee"/>
+
+</android.support.v4.widget.DrawerLayout>

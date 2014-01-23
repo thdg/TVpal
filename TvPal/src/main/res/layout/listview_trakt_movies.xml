@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/custom_list_selector">
+
+    <ImageView
+        android:id="@+id/traktMoviePoster"
+        android:layout_width="64sp"
+        android:layout_height="86sp"
+        android:scaleType="centerCrop" />
+
+    <TextView android:id="@+id/traktMovieTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/traktMoviePoster"
+        android:textSize="18sp"
+        android:text="Show:"
+        android:paddingLeft="10sp"
+        android:textColor="#fff"
+        android:typeface="serif"
+        android:ellipsize="end"
+        android:maxLines="1"/>
+
+    <TextView
+        android:id="@+id/traktMovieOverview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="overviewtexti bwasdfasdsdfasdfsioh"
+        android:layout_below="@+id/traktMovieTitle"
+        android:layout_toRightOf="@+id/traktMoviePoster"
+        android:textSize="14sp"
+        android:textColor="#fff"
+        android:maxLines="3"
+        android:paddingLeft="10sp"
+        android:lineSpacingMultiplier="1.2"
+        android:typeface="serif"
+        android:ellipsize="end"/>
+
+    <View
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="1dp"
+        android:layout_below="@id/traktMoviePoster"
+        android:layout_width="fill_parent"
+        android:background="#34b1ff"
+        android:layout_marginTop="5sp"/>
+
+</RelativeLayout>

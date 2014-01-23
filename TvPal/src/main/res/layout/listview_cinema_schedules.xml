@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_list_selector"
+    android:paddingTop="10sp"
+    android:paddingBottom="10sp">
+
+    <ImageView android:id="@+id/cinemaPicture"
+        android:layout_width="64sp"
+        android:layout_height="86sp"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/cinemaTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/cinemaPicture"
+        android:textSize="20sp"
+        android:text="Movie"
+        android:textColor="#fff"
+        android:typeface="serif"
+        android:paddingLeft="5sp"/>
+
+    <TextView
+        android:id="@+id/cinemaImdbScore"
+        android:layout_below="@+id/cinemaTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/cinemaPicture"
+        android:textSize="14sp"
+        android:text="IMDB"
+        android:textColor="#fff"
+        android:typeface="serif"
+        android:paddingLeft="5sp"/>
+
+    <TextView
+        android:id="@+id/cinemaRestricted"
+        android:layout_below="@+id/cinemaImdbScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/cinemaPicture"
+        android:textSize="14sp"
+        android:text="Bönnuð innan"
+        android:textColor="#fff"
+        android:typeface="serif"
+        android:paddingLeft="5sp"/>
+
+</RelativeLayout>

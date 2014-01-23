@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="10dp"
+    android:background="@drawable/custom_list_selector">
+
+    <TextView
+        android:id="@+id/trakt_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textColor="#808080"
+        android:typeface="serif"
+        android:text="arnar shouted"/>
+
+    <TextView
+        android:id="@+id/trakt_commentbyuser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/trakt_user"
+        android:textSize="13sp"
+        android:textColor="#ddd"
+        android:typeface="serif"
+        android:text="les comment"
+        android:lineSpacingMultiplier="1.2"/>
+
+</RelativeLayout>
