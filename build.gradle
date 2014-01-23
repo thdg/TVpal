@@ -1,20 +1,42 @@
-buildscript {
 
+buildscript {
     repositories {
         mavenCentral()
     }
-
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.6.+'
+        classpath 'com.android.tools.build:gradle:0.7.+'
     }
-
 }
 
-allprojects {
-    version = VERSION_NAME
-    group = GROUP
 
-    repositories {
-        mavenCentral()
+apply plugin: 'android-library'
+
+repositories {
+    mavenCentral()
+}
+
+android {
+    compileSdkVersion 18
+    buildToolsVersion "18.1.0"
+
+    defaultConfig {
+        minSdkVersion 10
+        targetSdkVersion 18
     }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:19.0.0'
 }
