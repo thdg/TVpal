@@ -1,6 +1,2 @@
 include ':TvPal'
-<<<<<<< HEAD
 include ':libraries:pagerslidingtabstrip'
-=======
-include ':libraries:pagerslidingtabstrip'
->>>>>>> 31eb472dd9fa5e309c8f17a5044da25b5c55d310
