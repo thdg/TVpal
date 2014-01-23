@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -109,6 +111,8 @@ public class DetailedMovieActivity extends BaseActivity
             if (movie != null)
             {
                 setTitle(movie.getTitle());
+                Animation fadeInAnimation = AnimationUtils.loadAnimation(mContext, R.anim.fade_in_layout);
+                mLayout.startAnimation(fadeInAnimation);
                 mLayout.setVisibility(View.VISIBLE);
 
                 mOverview.setText(movie.getOverview());
@@ -182,7 +186,7 @@ public class DetailedMovieActivity extends BaseActivity
                         }
                         catch (Exception ex)
                         {
-                            Log.e(getClass().getName(), "Error adding movie to watchlist");
+                            Log.e(mContext.getClass().getName(), "Error adding movie to watchlist");
                         }
                     }
                 });
