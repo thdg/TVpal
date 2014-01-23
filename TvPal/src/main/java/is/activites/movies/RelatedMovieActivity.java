@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.ProgressBar;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import is.tvpal.R;
 
 public class RelatedMovieActivity extends BaseActivity
 {
-    private ListView mListView;
+    private GridView mGridView;
     private ProgressBar mProgressBar;
 
     @Override
@@ -37,7 +37,7 @@ public class RelatedMovieActivity extends BaseActivity
         Intent intent = getIntent();
         String imdbId = intent.getStringExtra(DetailedMovieActivity.EXTRA_MOVIEID);
 
-        mListView = (ListView) findViewById(R.id.relatedMovies);
+        mGridView = (GridView) findViewById(R.id.relatedMovies);
         mProgressBar = (ProgressBar) findViewById(R.id.progressIndicator);
 
         new GetRelatedMoviesWorker(this, imdbId).execute();
@@ -79,7 +79,7 @@ public class RelatedMovieActivity extends BaseActivity
         protected void onPostExecute(List<TraktMovieDetailedData> movies)
         {
             if (movies == null || movies.size() != 0)
-                mListView.setAdapter(new TraktRelatedMoviesAdapter(mContext, R.layout.listview_related_movie, movies));
+                mGridView.setAdapter(new TraktRelatedMoviesAdapter(mContext, R.layout.listview_related_movie, movies));
 
             mProgressBar.setVisibility(View.GONE);
         }

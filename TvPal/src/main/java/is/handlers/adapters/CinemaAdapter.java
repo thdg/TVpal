@@ -126,13 +126,14 @@ public class CinemaAdapter extends BaseAdapter
             if (viewHolder.position == position)
             {
                 viewHolder.image.setImageBitmap(bitmap);
+                viewHolder.image.setVisibility(View.VISIBLE);
 
                 Animation fadeInAnimation = AnimationUtils.loadAnimation(context, R.anim.abc_fade_in);
                 viewHolder.image.startAnimation(fadeInAnimation);
 
+                viewHolder.image.setVisibility(View.VISIBLE);
                 images.put(viewHolder.position, bitmap);
             }
-            viewHolder.image.setVisibility(View.VISIBLE);
         }
 
         private Bitmap GetPoster()

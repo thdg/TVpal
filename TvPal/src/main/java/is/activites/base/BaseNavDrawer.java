@@ -2,6 +2,7 @@ package is.activites.base;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -119,11 +120,11 @@ public class BaseNavDrawer extends Activity
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id)
         {
-            selectItem(position);
+            StartActivity(position, view);
         }
     }
 
-    private void selectItem(int position)
+    private void StartActivity(int position, View view)
     {
         try
         {
@@ -202,7 +203,15 @@ public class BaseNavDrawer extends Activity
             mDrawerList.setItemChecked(position, true);
             mDrawerLayout.closeDrawer(mDrawerList);
 
-            startActivity(intent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+            {
+                ActivityOptions activityTransition = ActivityOptions.makeScaleUpAnimation(view, 0, 0, view.getWidth(), view.getHeight());
+                startActivity(intent, activityTransition.toBundle());
+            }
+            else
+            {
+                startActivity(intent);
+            }
         }
         catch (Exception ex)
         {

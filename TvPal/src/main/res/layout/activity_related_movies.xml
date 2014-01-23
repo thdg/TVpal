@@ -7,15 +7,17 @@
     android:background="#222"
     android:padding="5sp">
 
-    <ListView
+    <GridView
         android:id="@+id/relatedMovies"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="#222"
-        android:layout_marginTop="10dp"
-        android:dividerHeight="10dp"
-        android:divider="#222"/>
-
+        android:layout_marginTop="6sp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        android:columnWidth="400sp"
+        android:verticalSpacing="15dip"
+        android:horizontalSpacing="15dip"/>
 
     <ProgressBar
         android:id="@+id/progressIndicator"
