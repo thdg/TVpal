@@ -219,12 +219,6 @@ public class DetailedMovieActivity extends BaseActivity
         }
 
         @Override
-        protected void onPreExecute()
-        {
-            mProgressBar.setVisibility(View.VISIBLE);
-        }
-
-        @Override
         protected void onPostExecute(Bitmap bitmap)
         {
             if (bitmap != null)

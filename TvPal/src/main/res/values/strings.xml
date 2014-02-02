@@ -5,7 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_display_stod2">Stöð 2</string>
     <string name="title_activity_display_ruv">Rúv</string>
-    <string name="title_activity_display_skjarinn">Skjárinn</string>
+    <string name="title_activity_display_skjarinn">Skjár Einn</string>
     <string name="title_activity_detailed_event">Event</string>
     <string name="loadingSchedule">Hleð dagskrá...</string>
     <string name="scheduleNotAvailable">Dagskrá ekki til...</string>
