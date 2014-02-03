@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import com.haarman.listviewanimations.swinginadapters.prepared.ScaleInAnimationAdapter;
 import java.util.List;
 import is.activites.base.BaseActivity;
 import is.contracts.datacontracts.cinema.CinemaMovie;
@@ -92,7 +93,12 @@ public class CinemaActivity extends BaseActivity implements AdapterView.OnItemCl
             else
             {
                 mAdapter = new CinemaAdapter(mContext, R.layout.listview_cinema_schedules, movies);
-                mListView.setAdapter(mAdapter);
+
+                //Animations boy
+                ScaleInAnimationAdapter swingRightInAnimationAdapter = new ScaleInAnimationAdapter(mAdapter);
+                swingRightInAnimationAdapter.setAbsListView(mListView);
+                mListView.setAdapter(swingRightInAnimationAdapter);
+
                 mProgressBar.setVisibility(View.GONE);
                 mNoResults.setVisibility(View.GONE);
             }
