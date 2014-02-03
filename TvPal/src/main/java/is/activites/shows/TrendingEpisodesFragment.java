@@ -11,6 +11,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.haarman.listviewanimations.swinginadapters.prepared.AlphaInAnimationAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +93,12 @@ public class TrendingEpisodesFragment extends BaseFragment
             else
             {
                 TraktEpisodeAdapter mAdapter = new TraktEpisodeAdapter(mContext, R.layout.listview_trakt_episodes, shows);
-                mGridView.setAdapter(mAdapter);
+
+                //Animations boy
+                AlphaInAnimationAdapter fadeInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
+                fadeInAnimationAdapter.setAbsListView(mGridView);
+                mGridView.setAdapter(fadeInAnimationAdapter);
+
                 mProgessBar.setVisibility(View.GONE);
                 mNoResults.setVisibility(View.GONE);
             }

@@ -95,9 +95,9 @@ public class CinemaActivity extends BaseActivity implements AdapterView.OnItemCl
                 mAdapter = new CinemaAdapter(mContext, R.layout.listview_cinema_schedules, movies);
 
                 //Animations boy
-                ScaleInAnimationAdapter swingRightInAnimationAdapter = new ScaleInAnimationAdapter(mAdapter);
-                swingRightInAnimationAdapter.setAbsListView(mListView);
-                mListView.setAdapter(swingRightInAnimationAdapter);
+                ScaleInAnimationAdapter scaleInAnimationAdapter = new ScaleInAnimationAdapter(mAdapter);
+                scaleInAnimationAdapter.setAbsListView(mListView);
+                mListView.setAdapter(scaleInAnimationAdapter);
 
                 mProgressBar.setVisibility(View.GONE);
                 mNoResults.setVisibility(View.GONE);

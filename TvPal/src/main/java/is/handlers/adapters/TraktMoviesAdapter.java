@@ -119,9 +119,6 @@ public class TraktMoviesAdapter extends BaseAdapter
             if (holder.position == position)
             {
                 holder.poster.setImageBitmap(bitmap);
-
-                Animation mFadeInAnimation = AnimationUtils.loadAnimation(mContext, R.anim.abc_fade_in);
-                holder.poster.startAnimation(mFadeInAnimation);
             }
         }
 
