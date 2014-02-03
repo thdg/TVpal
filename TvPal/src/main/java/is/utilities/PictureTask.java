@@ -35,7 +35,7 @@ public class PictureTask
         return out.toByteArray();
     }
 
-    public Bitmap getBitmapFromUrl(String src)
+    public static Bitmap getBitmapFromUrl(String src)
     {
         try
         {
@@ -49,7 +49,6 @@ public class PictureTask
         }
         catch (IOException e)
         {
-            Log.e(getClass().getName(), e.getMessage());
             return null;
         }
     }

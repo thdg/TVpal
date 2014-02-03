@@ -90,8 +90,7 @@ public class PopupDialog
             {
                 String url = String.format("%s%s", apiUrl, bannerUrl);
 
-                PictureTask task = new PictureTask();
-                Bitmap banner = task.getBitmapFromUrl(url);
+                Bitmap banner = PictureTask.getBitmapFromUrl(url);
 
                 imageView.setImageBitmap(banner);
             }

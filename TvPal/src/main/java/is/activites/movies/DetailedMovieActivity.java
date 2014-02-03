@@ -3,6 +3,7 @@ package is.activites.movies;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Picture;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -231,8 +232,7 @@ public class DetailedMovieActivity extends BaseActivity
         {
             try
             {
-                PictureTask task = new PictureTask();
-                return task.getBitmapFromUrl(posterUrl);
+                return PictureTask.getBitmapFromUrl(posterUrl);
             }
             catch (Exception ex)
             {

@@ -127,11 +127,6 @@ public class CinemaAdapter extends BaseAdapter
             {
                 viewHolder.image.setImageBitmap(bitmap);
                 viewHolder.image.setVisibility(View.VISIBLE);
-
-                Animation fadeInAnimation = AnimationUtils.loadAnimation(context, R.anim.abc_fade_in);
-                viewHolder.image.startAnimation(fadeInAnimation);
-
-                viewHolder.image.setVisibility(View.VISIBLE);
                 images.put(viewHolder.position, bitmap);
             }
         }
@@ -140,8 +135,7 @@ public class CinemaAdapter extends BaseAdapter
         {
             try
             {
-                PictureTask task = new PictureTask();
-                return task.getBitmapFromUrl(posterUrl);
+                return PictureTask.getBitmapFromUrl(posterUrl);
             }
             catch (Exception ex)
             {

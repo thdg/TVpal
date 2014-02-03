@@ -139,8 +139,7 @@ public class TraktRelatedMoviesAdapter extends BaseAdapter
         private Bitmap GetPoster()
         {
             String formattedPosterUrl = StringUtil.formatTrendingPosterUrl(posterUrl, "-138");
-            PictureTask task = new PictureTask();
-            return task.getBitmapFromUrl(formattedPosterUrl);
+            return PictureTask.getBitmapFromUrl(formattedPosterUrl);
         }
     }
 

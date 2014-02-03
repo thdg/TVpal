@@ -56,8 +56,7 @@ public class TvDbPictureParser extends DefaultHandler {
             try
             {
                 String pictureUrl = String.format("http://thetvdb.com/banners/%s", sb.toString());
-                PictureTask task = new PictureTask();
-                episodePicture = task.getBitmapFromUrl(pictureUrl);
+                episodePicture = PictureTask.getBitmapFromUrl(pictureUrl);
             }
             catch (Exception ex)
             {
