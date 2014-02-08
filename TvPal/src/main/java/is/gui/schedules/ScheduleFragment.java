@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.astuetz.PagerSlidingTabStrip;
+
 import java.util.ArrayList;
 
 import is.gui.base.BaseFragment;
