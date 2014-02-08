@@ -16,9 +16,9 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/TVPalTheme"
-        android:debuggable="false">
+        android:debuggable="true">
         <activity
-            android:name="is.activites.MainActivity"
+            android:name="is.gui.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,92 +27,92 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="is.activites.schedules.DisplayStod2Activity"
+            android:name="is.gui.schedules.DisplayStod2Activity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_display_stod2" >
         </activity>
         <activity
-            android:name="is.activites.schedules.DisplayRuvActivity"
+            android:name="is.gui.schedules.DisplayRuvActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_display_ruv" >
         </activity>
         <activity
-            android:name="is.activites.schedules.DisplaySkjarinnActivity"
+            android:name="is.gui.schedules.DisplaySkjarinnActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_display_skjarinn" >
         </activity>
         <activity
-            android:name="is.activites.schedules.DetailedEventActivity"
+            android:name="is.gui.schedules.DetailedEventActivity"
             android:label="@string/title_activity_detailed_event" >
         </activity>
         <activity
-            android:name="is.activites.shows.MyShowsActivity"
+            android:name="is.gui.shows.MyShowsActivity"
             android:label="@string/title_activity_my_shows" >
         </activity>
         <activity
-            android:name="is.activites.shows.SingleSeasonActivity"
+            android:name="is.gui.shows.SingleSeasonActivity"
             android:label="@string/title_activity_single_season" >
         </activity>
         <activity
-            android:name="is.activites.shows.EpisodeActivity"
+            android:name="is.gui.shows.EpisodeActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_episode" >
         </activity>
         <activity
-            android:name="is.activites.shows.UpcomingRecentActivity"
+            android:name="is.gui.shows.UpcomingRecentActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_upcoming_shows" >
         </activity>
         <activity
-            android:name="is.activites.shows.SeriesActivity"
+            android:name="is.gui.shows.SeriesActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_show" >
         </activity>
         <activity
-            android:name="is.activites.shows.SearchShowsActivity"
+            android:name="is.gui.shows.SearchShowsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_search_shows"
             android:windowSoftInputMode="stateHidden|adjustResize" >
         </activity>
         <activity
-            android:name="is.activites.movies.CinemaActivity"
+            android:name="is.gui.movies.CinemaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_cinema" >
         </activity>
         <activity
-            android:name="is.activites.movies.DetailedCinemaActivity"
+            android:name="is.gui.movies.DetailedCinemaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_cinema" >
         </activity>
         <activity
-            android:name="is.activites.movies.SearchMoviesActivity"
+            android:name="is.gui.movies.SearchMoviesActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:label="@string/title_activity_trending_movies" >
         </activity>
         <activity
-            android:name="is.activites.movies.DetailedMovieActivity"
+            android:name="is.gui.movies.DetailedMovieActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/title_activity_detailed_movie" >
         </activity>
         <activity
-            android:name="is.activites.movies.TraktCommentsActivity"
+            android:name="is.gui.movies.TraktCommentsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/trakt_comments" >
         </activity>
         <activity
-            android:name="is.activites.movies.WatchlistActivity"
+            android:name="is.gui.movies.WatchlistActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/watchlist" >
         </activity>
         <activity
-            android:name="is.activites.movies.RelatedMovieActivity"
+            android:name="is.gui.movies.RelatedMovieActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/related_movies" >
         </activity>
 
-        <service android:name="is.activites.reminders.ScheduleService" />
-        <service android:name="is.activites.reminders.NotifyService" />
+        <service android:name="is.gui.reminders.ScheduleService" />
+        <service android:name="is.gui.reminders.NotifyService" />
     </application>
 
 </manifest>
