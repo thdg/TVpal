@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
 import is.tvpal.R;
 import is.utilities.PictureTask;
 import is.utilities.StringUtil;
@@ -68,60 +71,15 @@ public class WatchListAdapter extends CursorAdapter
         viewHolder.position = position;
         viewHolder.title.setText(mCursor.getString(Movie.Title));
         viewHolder.overview.setText(mCursor.getString(Movie.Overview));
-        viewHolder.poster.setImageBitmap(null);
-        new PosterWorker(mCursor.getString(Movie.ImageUrl), position).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, viewHolder);
+
+        final String posterUrl = StringUtil.formatTrendingPosterUrl(mCursor.getString(Movie.ImageUrl), "-138");
+
+        Picasso
+                .with(mContext)
+                .load(posterUrl)
+                .into(viewHolder.poster);
 
         return convertView;
-    }
-
-    //Todo: extract worker to a class so we can use this worker both here and for trending movies
-    private class PosterWorker extends AsyncTask<ViewHolder, Void, Bitmap>
-    {
-        private String posterUrl;
-        private ViewHolder holder;
-        private int position;
-
-        /**
-         * @param posterUrl The url of a picture to download
-         * @param position The position of the ViewHolder
-         */
-        public PosterWorker(String posterUrl, int position)
-        {
-            this.posterUrl = posterUrl;
-            this.position = position;
-        }
-
-        @Override
-
-        protected Bitmap doInBackground(ViewHolder... view)
-        {
-            holder = view[0];
-            return GetPoster();
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap)
-        {
-            if (holder.position == position)
-            {
-                holder.poster.setImageBitmap(bitmap);
-            }
-        }
-
-        private Bitmap GetPoster()
-        {
-            try
-            {
-                String formattedPosterUrl = StringUtil.formatTrendingPosterUrl(posterUrl, "-138");
-                return PictureTask.getBitmapFromUrl(formattedPosterUrl);
-            }
-            catch (Exception ex)
-            {
-                Log.e(getClass().getName(), ex.getMessage());
-            }
-
-            return null;
-        }
     }
 
     @Override

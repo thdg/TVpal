@@ -93,10 +93,7 @@ public class TrendingEpisodesFragment extends BaseFragment
             {
                 TraktEpisodeAdapter mAdapter = new TraktEpisodeAdapter(mContext, R.layout.listview_trakt_episodes, shows);
 
-                //Animations boy
-                AlphaInAnimationAdapter fadeInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
-                fadeInAnimationAdapter.setAbsListView(mGridView);
-                mGridView.setAdapter(fadeInAnimationAdapter);
+                mGridView.setAdapter(mAdapter);
 
                 mProgessBar.setVisibility(View.GONE);
                 mNoResults.setVisibility(View.GONE);

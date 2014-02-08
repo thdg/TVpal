@@ -15,6 +15,9 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 import is.contracts.datacontracts.trakt.TraktEpisodeData;
 import is.handlers.database.DatabaseHandler;
@@ -115,70 +118,14 @@ public class TraktEpisodeAdapter extends BaseAdapter
             }
         });
 
-        holder.poster.setImageBitmap(null);
-        final String posterUrl = show.getPoster();
+        final String posterUrl = StringUtil.formatTrendingPosterUrl(show.getPoster(), "-138");
 
-        //Execute Async Tasks parallely to improve bitmap download.
-        new GetPosterShow(posterUrl, position).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, holder);
+        Picasso
+                .with(mContext)
+                .load(posterUrl)
+                .into(holder.poster);
 
         return row;
-    }
-
-    /**
-     * A class to download bitmaps and load them in ViewHolders
-     * @author Arnar
-     * @see android.os.AsyncTask
-     */
-    private class GetPosterShow extends AsyncTask<TraktHolder, Void, Bitmap>
-    {
-        private String posterUrl;
-        private TraktHolder holder;
-        private int position;
-
-        /**
-         * @param posterUrl The url of a picture to download
-         * @param position The position of the ViewHolder
-         */
-        public GetPosterShow(String posterUrl, int position)
-        {
-            this.posterUrl = posterUrl;
-            this.position = position;
-        }
-
-        @Override
-
-        protected Bitmap doInBackground(TraktHolder... view)
-        {
-            holder = view[0];
-            return GetPoster();
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap)
-        {
-            if (holder.position == position)
-            {
-                holder.poster.setImageBitmap(bitmap);
-
-                Animation mFadeInAnimation = AnimationUtils.loadAnimation(mContext, R.anim.abc_fade_in);
-                holder.poster.startAnimation(mFadeInAnimation);
-            }
-        }
-
-        private Bitmap GetPoster()
-        {
-            try
-            {
-                String formattedPosterUrl = StringUtil.formatTrendingPosterUrl(posterUrl, "-138");
-                return PictureTask.getBitmapFromUrl(formattedPosterUrl);
-            }
-            catch (Exception ex)
-            {
-                Log.e(getClass().getName(), ex.getMessage());
-            }
-
-            return null;
-        }
     }
 
     @Override

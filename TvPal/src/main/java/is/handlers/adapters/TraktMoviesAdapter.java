@@ -3,6 +3,7 @@ package is.handlers.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.nfc.NfcAdapter;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.LruCache;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -80,62 +84,14 @@ public class TraktMoviesAdapter extends BaseAdapter
         holder.title.setText(movie.getTitle());
         holder.overview.setText(movie.getOverview());
 
-        holder.poster.setImageBitmap(null);
-        final String posterUrl = movie.getImage().getPoster();
+        final String posterUrl = StringUtil.formatTrendingPosterUrl(movie.getImage().getPoster(), "-138");
 
-        //Execute Async Tasks parallely to improve bitmap download.
-        new GetPosterShow(posterUrl, position).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, holder);
+        Picasso
+                .with(mContext)
+                .load(posterUrl)
+                .into(holder.poster);
 
         return row;
-    }
-
-    private class GetPosterShow extends AsyncTask<TraktHolder, Void, Bitmap>
-    {
-        private String posterUrl;
-        private TraktHolder holder;
-        private int position;
-
-        /**
-         * @param posterUrl The url of a picture to download
-         * @param position The position of the ViewHolder
-         */
-        public GetPosterShow(String posterUrl, int position)
-        {
-            this.posterUrl = posterUrl;
-            this.position = position;
-        }
-
-        @Override
-
-        protected Bitmap doInBackground(TraktHolder... view)
-        {
-            holder = view[0];
-            return GetPoster();
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap)
-        {
-            if (holder.position == position)
-            {
-                holder.poster.setImageBitmap(bitmap);
-            }
-        }
-
-        private Bitmap GetPoster()
-        {
-            try
-            {
-                String formattedPosterUrl = StringUtil.formatTrendingPosterUrl(posterUrl, "-138");
-                return PictureTask.getBitmapFromUrl(formattedPosterUrl);
-            }
-            catch (Exception ex)
-            {
-                Log.e(getClass().getName(), ex.getMessage());
-            }
-
-            return null;
-        }
     }
 
     @Override

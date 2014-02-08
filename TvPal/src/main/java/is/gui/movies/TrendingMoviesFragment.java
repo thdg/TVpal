@@ -16,8 +16,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.haarman.listviewanimations.swinginadapters.prepared.AlphaInAnimationAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
 import is.gui.base.BaseFragment;
@@ -150,11 +148,7 @@ public class TrendingMoviesFragment extends BaseFragment implements AdapterView.
             else
             {
                 mAdapter = new TraktMoviesAdapter(mContext, R.layout.listview_trakt_movies, movies);
-
-                //Animations boy
-                AlphaInAnimationAdapter fadeInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
-                fadeInAnimationAdapter.setAbsListView(mGridView);
-                mGridView.setAdapter(fadeInAnimationAdapter);
+                mGridView.setAdapter(mAdapter);
 
                 mProgressBar.setVisibility(View.INVISIBLE);
                 mNoResults.setVisibility(View.GONE);
