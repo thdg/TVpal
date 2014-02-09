@@ -1,15 +1,16 @@
 package is.gui.schedules;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
-import com.astuetz.PagerSlidingTabStrip;
+import com.slidinglayer.SlidingLayer;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,12 @@ public class ScheduleFragment extends BaseFragment implements AdapterView.OnItem
 
     private EventAdapter mAdapter;
     private Context mContext;
+    private SlidingLayer mSlidingLayer;
+    private ScrollView mDetailedScrollView;
+    private TextView mTitle;
+    private TextView mEventStartTime;
+    private TextView mEventDuration;
+    private TextView mEventDescription;
 
     public ScheduleFragment() {}
 
@@ -48,6 +55,8 @@ public class ScheduleFragment extends BaseFragment implements AdapterView.OnItem
 
         if (_todaySchedule != null && _todaySchedule.size() > 0)
         {
+            AttachViews();
+
             mAdapter = new EventAdapter(mContext, R.layout.listview_event, _todaySchedule);
 
             ((ListView) getView().findViewById(R.id.schedules)).setAdapter(mAdapter);
@@ -64,11 +73,43 @@ public class ScheduleFragment extends BaseFragment implements AdapterView.OnItem
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l)
     {
-        EventData selectedEvent = mAdapter.getItem(position);
+        EventData event = mAdapter.getItem(position);
 
-        Intent intent = new Intent(mContext, DetailedEventActivity.class);
-        intent.putExtra(EXTRA_EVENT, selectedEvent);
+        if (!mSlidingLayer.isOpened())
+        {
+            mSlidingLayer.openLayer(true);
 
-        startActivity(intent);
+            mTitle.setText(event.getTitle());
+            mEventDescription.setText(event.getDescription());
+
+            if (!event.getStartTime().isEmpty())
+            {
+                mEventStartTime.setText(String.format("%s: %s"
+                        , getResources().getString(R.string.starting_time)
+                        , event.getStartTime()));
+            }
+
+            if (!event.getDuration().isEmpty())
+            {
+                mEventDuration.setText(String.format("%s: %s"
+                        , getResources().getString(R.string.duration)
+                        , event.getDuration()));
+            }
+
+        }
+    }
+
+    private void AttachViews()
+    {
+        mSlidingLayer = (SlidingLayer) getActivity().findViewById(R.id.sliderDetailedInfo);
+        mDetailedScrollView = (ScrollView) getActivity().findViewById(R.id.detailedLayout);
+
+        if (mDetailedScrollView != null)
+        {
+            mTitle = (TextView) mDetailedScrollView.findViewById(R.id.title);
+            mEventStartTime = (TextView) mDetailedScrollView.findViewById(R.id.event_starting);
+            mEventDuration = (TextView) mDetailedScrollView.findViewById(R.id.event_duration);
+            mEventDescription = (TextView) mDetailedScrollView.findViewById(R.id.event_description);
+        }
     }
 }

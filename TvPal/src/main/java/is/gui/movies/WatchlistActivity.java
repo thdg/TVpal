@@ -1,72 +1,118 @@
 package is.gui.movies;
 
+import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.view.ContextMenu;
+import android.view.KeyEvent;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.TextView;
+import com.slidinglayer.SlidingLayer;
 import is.gui.base.BaseFragmentActivity;
+import is.handlers.adapters.WatchListAdapter;
+import is.handlers.database.DbMovies;
 import is.tvpal.R;
 
-public class WatchlistActivity extends BaseFragmentActivity
+public class WatchlistActivity extends BaseFragmentActivity implements AdapterView.OnItemClickListener
 {
-    private ViewPager mViewPager;
+    private WatchListAdapter mAdapter;
+    private GridView mGridView;
+    private SlidingLayer mSlidingLayer;
+    private TextView mWatchListTitle;
+    private TextView mWatchlistDesc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.swipe_pager_view);
+        setContentView(R.layout.activity_watchlist);
 
         Initialize();
     }
 
     private void Initialize()
     {
-        WatchlistPagerAdapter mWatchlistAdapter = new WatchlistPagerAdapter(getSupportFragmentManager());
-
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mViewPager = (ViewPager) findViewById(R.id.pagerView);
-        mViewPager.setAdapter(mWatchlistAdapter);
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener()
-        {
-            @Override
-            public void onPageSelected(int position)
-            {
-                mViewPager.setCurrentItem(position);
-            }
-        });
+        mGridView = (GridView) findViewById(R.id.trendingTrakt);
+        mSlidingLayer = (SlidingLayer) findViewById(R.id.slidingLayer1);
+        mWatchListTitle = (TextView) findViewById(R.id.watchlistTitle);
+        mWatchlistDesc = (TextView) findViewById(R.id.watchListDesc);
+
+        mGridView.setOnItemClickListener(this);
+
+        registerForContextMenu(mGridView);
+        SetAdapter();
     }
 
-    public class WatchlistPagerAdapter extends FragmentStatePagerAdapter
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
     {
-        public WatchlistPagerAdapter(FragmentManager fm)
-        {
-            super(fm);
-        }
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.watchlist, menu);
+    }
 
-        @Override
-        public Fragment getItem(int position)
-        {
-            switch (position)
-            {
-                case 0:
-                    return WatchListFragment.newInstance();
-            }
-            return null;
-        }
+    @Override
+    public boolean onContextItemSelected(MenuItem item)
+    {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int position = info.position;
 
-        @Override
-        public int getCount()
+        switch (item.getItemId())
         {
-            return 1;
+            case R.id.remove_from_watchlist:
+                RemoveMovieFromWatchlist(position);
+                return true;
+            default:
+                return super.onContextItemSelected(item);
         }
+    }
 
-        @Override
-        public CharSequence getPageTitle(int position)
+    private void RemoveMovieFromWatchlist(int position)
+    {
+        Cursor movie = (Cursor) mAdapter.getItem(position);
+        new DbMovies(this).RemoveMovieFromWatchList(movie.getString(0));
+        SetAdapter();
+    }
+
+    private void SetAdapter()
+    {
+        DbMovies db = new DbMovies(this);
+        mAdapter = new WatchListAdapter(this, db.GetWatchlistCursor(), 0);
+        mGridView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    {
+        Cursor movie = (Cursor) mAdapter.getItem(position);
+
+        if (!mSlidingLayer.isOpened())
         {
-            return "Watchlist";
+            mSlidingLayer.openLayer(true);
+
+            mWatchListTitle.setText(movie.getString(1));
+            mWatchlistDesc.setText(movie.getString(2));
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        switch (keyCode)
+        {
+            case KeyEvent.KEYCODE_BACK:
+                if (mSlidingLayer.isOpened())
+                {
+                    mSlidingLayer.closeLayer(true);
+                    return true;
+                }
+            default:
+                return super.onKeyDown(keyCode, event);
         }
     }
 }

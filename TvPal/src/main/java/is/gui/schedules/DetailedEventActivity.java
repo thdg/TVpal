@@ -88,9 +88,6 @@ public class DetailedEventActivity extends BaseActivity
                 Calendar dateNow = Calendar.getInstance();
                 dateNow.setTime(new Date());
 
-                String huh = formatDate(dateNow.getTime());
-                String kikok = formatDate(alarmDate.getTime());
-
                 // Ask our service to set an alarm for that date, this activity talks to the client that talks to the service
                 if(alarmDate.before(dateNow))
                 {

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="tvpal_theme_color">#222</color>
+    <color name="action_bar_color">#1C4154</color>
+    <color name="action_bar_text_color">#fff</color>
+    <color name="base_color">#14ad8f</color>
 </resources>
